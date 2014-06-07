@@ -1,0 +1,18 @@
+name: Prison
+version: 2.0
+description: Prison offers a powerful group of features essential in creating Prison servers.
+author: SirFaizdat
+website: http://dev.bukkit.org/bukkit-plugins/mcprison/
+main: me.sirfaizdat.prison.core.Core
+commands:
+  mines:
+    description: Ability to control mines.
+    usage: There was an error in starting the plugin. Please report this on the plugin page.
+    permission: prison.mines.*
+permissions:
+   prison.mines.*: 
+     description: Permission for all /mines commands.
+     default: op
+   prison.mines.create:
+     description: Permission to create a mine.
+     default: op
