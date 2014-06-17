@@ -81,6 +81,7 @@ public class Mine {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public void reset() {
 		List<CompositionEntry> probabilityMap = mapComposition(blocks);
 		if (probabilityMap.size() == 0) {

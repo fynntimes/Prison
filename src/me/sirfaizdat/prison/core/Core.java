@@ -1,3 +1,6 @@
+/**
+ * (C) 2014 SirFaizdat
+ */
 package me.sirfaizdat.prison.core;
 
 import java.util.Arrays;
@@ -14,6 +17,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+/**
+ * @author SirFaizdat
+ */
+// Considered a component, but not implementing due to class hierarchy.
 public class Core extends JavaPlugin {
 
 	// Instance of Core
@@ -32,10 +39,12 @@ public class Core extends JavaPlugin {
 	Permission permissions;
 
 	public void onEnable() {
+		long startTime = System.currentTimeMillis();
 		i = this;
 		this.saveDefaultConfig();
 		new Config();
 		new MessageUtil();
+		getServer().getPluginManager().registerEvents(new PlayerList(), this);
 		mines = new Mines();
 		ranks = new Ranks();
 		initEconomy();
@@ -44,6 +53,8 @@ public class Core extends JavaPlugin {
 		enableMines();
 		enableRanks();
 		l.info("&2Enabled Prison &6v" + getDescription().getVersion() + "&2. Made by &6SirFaizdat&2." );
+		long endTime = System.currentTimeMillis();
+		l.info("&6Enabled in " + (endTime - startTime) + "ms.");
 	}
 
 	// Initialization
@@ -98,6 +109,14 @@ public class Core extends JavaPlugin {
 		}
 	}
 
+	public Permission getPermissions() {
+		return permissions;
+	}
+	
+	public Economy getEconomy() {
+		return economy;
+	}
+	
 	// Utility Methods
 	public static String colorize(String text) {
 		return text.replaceAll("&", "¤");
@@ -107,6 +126,7 @@ public class Core extends JavaPlugin {
 		return Bukkit.getServer().getPluginManager().getPlugin(name) != null;
 	}
 
+	@Deprecated
 	public static Player getPlayer(String name) {
 		UUIDFetcher fetcher = new UUIDFetcher(Arrays.asList(name));
 		Map<String, UUID> response = null;

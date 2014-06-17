@@ -41,6 +41,19 @@ public class MessageUtil {
 		MessageUtil
 				.add("mines.addSuccess",
 						"&2Mine &6%0&2 is now &6%1&2 of block &6%2&2.");
+		
+		//Ranks
+		MessageUtil.add("ranks.noRanksLoaded", "&6No ranks are loaded.");
+		MessageUtil.add("ranks.highestRank", "&cYou have already reached the highest rank!");
+		MessageUtil.add("ranks.highestRank.other", "&cThat player has already reached the highest rank!");
+		MessageUtil.add("ranks.notEnoughMoney", "&cYou still need &d%0&c to rank up to %1&r&c.");
+		MessageUtil.add("ranks.rankedUp", "&2You have ranked up to %0!");
+		MessageUtil.add("ranks.rankedUpBroadcast", "&d%0 &2ranked up to %1&r&2!");
+		MessageUtil.add("ranks.notARank", "&cThat rank does not exist!");
+		MessageUtil.add("ranks.alreadyLoaded", "&cThat rank is already loaded!");
+		MessageUtil.add("ranks.invalidPrice", "&cThat price is invalid!");
+		MessageUtil.add("ranks.addSuccess", "&2Successfully added rank &r%1&r&2!");
+		MessageUtil.add("ranks.addFail", "&cFailed to add rank &r%1&r&c.");
 	}
 	
 	public static void add(String key, String value){

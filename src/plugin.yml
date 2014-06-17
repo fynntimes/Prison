@@ -7,12 +7,28 @@ main: me.sirfaizdat.prison.core.Core
 commands:
   mines:
     description: Ability to control mines.
-    usage: There was an error in starting the plugin. Please report this on the plugin page.
+    usage: There was an error in starting mines. Your save files may be corrupted.
     permission: prison.mines.*
+  ranksconfig:
+    description: Ability to control ranks.
+    usage: There was an error in starting ranks. Your save files may be corrupted.
+    permission: prison.ranks.*
+  rankup:
+    description: Purchase the next rank.
+    permission: prison.ranks.purchase
+  ranks:
+    description: See a list of all ranks.
+    permission: prison.ranks.list
 permissions:
    prison.mines.*: 
      description: Permission for all /mines commands.
      default: op
-   prison.mines.create:
-     description: Permission to create a mine.
-     default: op
+   prison.ranks.*:
+    description: Permission for all /ranks commands.
+    default: op
+   prison.ranks.purchase:
+    description: Permission to rankup.
+    default: true
+   prison.ranks.list:
+    description: Permission for /ranks.
+    default: true

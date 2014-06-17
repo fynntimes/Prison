@@ -15,7 +15,7 @@ import org.bukkit.command.CommandSender;
 public abstract class AbstractCommandManager implements CommandExecutor {
 
 	public LinkedHashMap<String, Command> commands = new LinkedHashMap<String, Command>();
-	Component c;
+	protected Component c;
 	String baseCommand;
 	String helpMessage;
 
@@ -52,10 +52,11 @@ public abstract class AbstractCommandManager implements CommandExecutor {
 
 	public abstract void registerCommands();
 
-	private String generateHelpMessage() {
+	public String generateHelpMessage() {
 		StringBuilder b = new StringBuilder();
 		b.append("&6==============&c[&2" + c.getName()
 				+ "&c]&6==============\n");
+		b.append("&7<> = Required argument    [] = Optional argument\n");
 		for (Map.Entry<String, Command> cmd : commands.entrySet()) {
 			String cmdString = cmd.getValue().usage() + " &2-&c "
 					+ cmd.getValue().description();
@@ -63,7 +64,7 @@ public abstract class AbstractCommandManager implements CommandExecutor {
 		}
 		return Core.colorize(b.toString());
 	}
-
+	
 	private void componentize() {
 		for (Map.Entry<String, Command> c : commands.entrySet()) {
 			c.getValue().setComponent(this.c);

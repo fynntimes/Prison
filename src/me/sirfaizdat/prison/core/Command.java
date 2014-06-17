@@ -19,6 +19,8 @@ public abstract class Command {
 	ArrayList<String> requiredArgs, optionalArgs;
 	String permission;
 	boolean mustBePlayer = false;
+	
+	Component c;
 
 	public Command(String name) {
 		this.name = name;
@@ -39,6 +41,7 @@ public abstract class Command {
 	public void setComponent(Component c) {
 		if (c == null)
 			return;
+		this.c = c;
 		permission = "prison." + c.getName().toLowerCase() + "." + name;
 	}
 
@@ -76,7 +79,7 @@ public abstract class Command {
 
 	public String usage() {
 		StringBuilder usage = new StringBuilder();
-		usage.append("&c/mines " + name + " &6");
+		usage.append("&6/" + c.getName().toLowerCase() + " " + name + " &6");
 		for (String s : requiredArgs) {
 			usage.append("<" + s + "> ");
 		}
