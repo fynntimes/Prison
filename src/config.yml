@@ -3,8 +3,9 @@
 #== == == == === == == == == ==#
 
 server-prefix: "&4Prison &7>"
+check-updates: true
 
-# ==  MINES == #
+# == MINES == #
 
 reset-time: 10
 reset-warnings: [10,5,1]
@@ -12,3 +13,8 @@ fill-mode: true
 
 reset-warning-message: "&6Mines will reset in &c<mins> &6minutes!"
 reset-broadcast-message: "&2Mines have been reset!"
+
+# == SCOREBOARDS == #
+
+enable-scoreboards: true
+update-interval: 1

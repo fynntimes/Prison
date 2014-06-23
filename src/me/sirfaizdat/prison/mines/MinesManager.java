@@ -26,7 +26,7 @@ public class MinesManager {
 
 	HashMap<String, Mine> mines = new HashMap<String, Mine>();
 
-	int resetTimeCounter;
+	public int resetTimeCounter;
 	int resetTime;
 	int autoResetID = -1;
 	
@@ -73,6 +73,7 @@ public class MinesManager {
 		ArrayList<String> files = getAllMineFiles();
 		if (files.size() == 0 || files == null) {
 			Core.l.info("&2Loaded 0 mines! (no mines found)");
+			return;
 		}
 		for (String name : files) {
 			SerializableMine sm = null;
@@ -111,7 +112,12 @@ public class MinesManager {
 	}
 
 	public Mine getMine(String name) {
-		return mines.get(name);
+		for(String s : mines.keySet()) {
+			if(name.equalsIgnoreCase(s)) {
+				return mines.get(s);
+			}
+		}
+		return null;
 	}
 
 	public HashMap<String, Mine> getMines() {

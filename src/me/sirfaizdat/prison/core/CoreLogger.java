@@ -3,9 +3,6 @@
  */
 package me.sirfaizdat.prison.core;
 
-import me.sirfaizdat.prison.mines.Mines;
-import me.sirfaizdat.prison.ranks.Ranks;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;

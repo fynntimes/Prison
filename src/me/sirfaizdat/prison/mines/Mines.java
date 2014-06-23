@@ -48,5 +48,10 @@ public class Mines implements Component {
 	public WorldEditPlugin getWE() {
 		return worldEdit;
 	}
+
+	@Override
+	public String getBaseCommand() {
+		return "mines";
+	}
 	
 }

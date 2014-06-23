@@ -16,6 +16,12 @@ public interface Component {
 	public String getName();
 	
 	/**
+	 * Get the base command for this component.
+	 * @return The base command.
+	 */
+	public String getBaseCommand();
+	
+	/**
 	 * Check if the component is enabled.
 	 * @return true if the component is enabled, false otherwise.
 	 */

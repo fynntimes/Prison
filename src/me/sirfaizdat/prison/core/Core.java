@@ -7,13 +7,19 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.UUID;
 
+import me.sirfaizdat.prison.core.Updater.UpdateResult;
+import me.sirfaizdat.prison.core.Updater.UpdateType;
 import me.sirfaizdat.prison.mines.Mines;
 import me.sirfaizdat.prison.ranks.Ranks;
+import me.sirfaizdat.prison.scoreboard.Scoreboards;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -21,7 +27,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @author SirFaizdat
  */
 // Considered a component, but not implementing due to class hierarchy.
-public class Core extends JavaPlugin {
+public class Core extends JavaPlugin implements Listener {
 
 	// Instance of Core
 	private static Core i = null;
@@ -34,9 +40,14 @@ public class Core extends JavaPlugin {
 
 	Mines mines;
 	Ranks ranks;
+	Scoreboards scoreboards;
 
 	Economy economy;
 	Permission permissions;
+
+	public PlayerList playerList;
+	boolean updateAvailable = false;
+	String updateLatestName;
 
 	public void onEnable() {
 		long startTime = System.currentTimeMillis();
@@ -44,17 +55,38 @@ public class Core extends JavaPlugin {
 		this.saveDefaultConfig();
 		new Config();
 		new MessageUtil();
-		getServer().getPluginManager().registerEvents(new PlayerList(), this);
+		playerList = new PlayerList();
+		getServer().getPluginManager().registerEvents(playerList, this);
 		mines = new Mines();
 		ranks = new Ranks();
+		scoreboards = new Scoreboards();
 		initEconomy();
 		initPermissions();
 		checkCompatibility();
 		enableMines();
 		enableRanks();
-		l.info("&2Enabled Prison &6v" + getDescription().getVersion() + "&2. Made by &6SirFaizdat&2." );
+		enableScoreboards();
+		l.info("&2Enabled Prison &6v" + getDescription().getVersion()
+				+ "&2. Made by &6SirFaizdat&2.");
 		long endTime = System.currentTimeMillis();
 		l.info("&6Enabled in " + (endTime - startTime) + "ms.");
+		if (Config.checkUpdates
+				&& !getDescription().getVersion().contains("dev")) {
+			Updater updater = new Updater(this, 76155, this.getFile(),
+					UpdateType.NO_DOWNLOAD, true);
+			if (updater.getResult() == UpdateResult.UPDATE_AVAILABLE) {
+				updateLatestName = updater.getLatestName();
+				l.info(MessageUtil.get("general.updateAvailable",
+						updateLatestName));
+				this.updateAvailable = true;
+				for (Player p : getServer().getOnlinePlayers()) {
+					if (p.isOp() || p.hasPermission("prison.manage")) {
+						p.sendMessage(MessageUtil.get(
+								"general.updateAvailable", updateLatestName));
+					}
+				}
+			}
+		}
 	}
 
 	// Initialization
@@ -77,6 +109,27 @@ public class Core extends JavaPlugin {
 				l.severe("Could not start ranks.");
 			}
 			l.info("&2Ranks enabled.");
+		}
+	}
+
+	public void enableScoreboards() {
+		if (!ranks.isEnabled()) {
+			l.warning("Did not enable scoreboards because Ranks is not enabled.");
+			scoreboards.setEnabled(false);
+		}
+		if (!mines.isEnabled()) {
+			l.warning("Did not enable scoreboards because Mines is not enabled.");
+			scoreboards.setEnabled(false);
+		}
+		if (!Config.scoreboardsEnabled)
+			scoreboards.setEnabled(false);
+		if (scoreboards.isEnabled()) {
+			try {
+				scoreboards.enable();
+			} catch (FailedToStartException e) {
+				l.severe("Could not start scoreboards.");
+			}
+			l.info("&2Scoreboards enabled.");
 		}
 	}
 
@@ -112,11 +165,11 @@ public class Core extends JavaPlugin {
 	public Permission getPermissions() {
 		return permissions;
 	}
-	
+
 	public Economy getEconomy() {
 		return economy;
 	}
-	
+
 	// Utility Methods
 	public static String colorize(String text) {
 		return text.replaceAll("&", "¤");
@@ -139,4 +192,13 @@ public class Core extends JavaPlugin {
 		return Bukkit.getPlayer(response.get(name));
 	}
 
+	// Listeners
+	@EventHandler
+	public void onPlayerJoin(PlayerJoinEvent e) {
+		Player p = e.getPlayer();
+		if (p.isOp() || p.hasPermission("prison.manage")) {
+			p.sendMessage(MessageUtil.get("general.updateAvailable",
+					updateLatestName));
+		}
+	}
 }

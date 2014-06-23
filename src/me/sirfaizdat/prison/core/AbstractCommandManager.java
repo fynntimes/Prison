@@ -30,7 +30,7 @@ public abstract class AbstractCommandManager implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender,
 			org.bukkit.command.Command command, String label, String[] args) {
-		if (label.equalsIgnoreCase(baseCommand)) {
+		if (command.getName().equalsIgnoreCase(baseCommand)) {
 			if (args.length < 1) {
 				sender.sendMessage(MessageUtil.get("general.noCmdPassed"));
 				sender.sendMessage(helpMessage);

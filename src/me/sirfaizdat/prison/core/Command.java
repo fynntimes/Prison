@@ -1,5 +1,5 @@
 /**
- * (C) 2014 SirFaizdat
+³¤¶ft * (C) 2014 SirFaizdat
  */
 package me.sirfaizdat.prison.core;
 
@@ -49,7 +49,7 @@ public abstract class Command {
 		this.mustBePlayer = mustBePlayer;
 	}
 
-	protected Player sender;
+	protected CommandSender sender;
 	protected String[] args;
 	protected int amountOfOptionalArgs;
 
@@ -69,7 +69,7 @@ public abstract class Command {
 			return;
 		}
 		amountOfOptionalArgs = length - requiredArgs.size();
-		this.sender = (Player) sender;
+		this.sender = sender;
 		this.args = args;
 
 		execute();
@@ -79,7 +79,7 @@ public abstract class Command {
 
 	public String usage() {
 		StringBuilder usage = new StringBuilder();
-		usage.append("&6/" + c.getName().toLowerCase() + " " + name + " &6");
+		usage.append("&6/" + c.getBaseCommand() + " " + name + " &6");
 		for (String s : requiredArgs) {
 			usage.append("<" + s + "> ");
 		}

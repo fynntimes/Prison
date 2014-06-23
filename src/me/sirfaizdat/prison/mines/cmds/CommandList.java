@@ -7,6 +7,7 @@ import java.util.Map;
 
 import me.sirfaizdat.prison.core.Command;
 import me.sirfaizdat.prison.core.Core;
+import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.mines.Mine;
 import me.sirfaizdat.prison.mines.Mines;
 
@@ -20,6 +21,10 @@ public class CommandList extends Command {
 	}
 
 	public void execute() {
+		if(Mines.i.mm.getMines().size() < 1) {
+			sender.sendMessage(MessageUtil.get("mines.noMinesLoaded"));
+			return;
+		}
 		sender.sendMessage(Core.colorize("&6===========&c[&2Mines&c]&6==========="));
 		StringBuilder sb = new StringBuilder();
 		for(Map.Entry<String, Mine> mine : Mines.i.mm.getMines().entrySet()) {

@@ -1,5 +1,5 @@
 name: Prison
-version: 2.0
+version: 2.0.1dev
 description: Prison offers a powerful group of features essential in creating Prison servers.
 author: SirFaizdat
 website: http://dev.bukkit.org/bukkit-plugins/mcprison/
@@ -9,10 +9,11 @@ commands:
     description: Ability to control mines.
     usage: There was an error in starting mines. Your save files may be corrupted.
     permission: prison.mines.*
-  ranksconfig:
+  prisonranks:
     description: Ability to control ranks.
     usage: There was an error in starting ranks. Your save files may be corrupted.
     permission: prison.ranks.*
+    aliases: [pranks, rsetup]
   rankup:
     description: Purchase the next rank.
     permission: prison.ranks.purchase
@@ -20,11 +21,44 @@ commands:
     description: See a list of all ranks.
     permission: prison.ranks.list
 permissions:
-   prison.mines.*: 
-     description: Permission for all /mines commands.
-     default: op
+   prison.mines.*:
+    default: op
+    children:
+      prison.mines.addblock: true
+      prison.mines.create: true
+      prison.mines.delete: true
+      prison.mines.info: true
+      prison.mines.list: true
+      prison.mines.removeblock: true
+      prison.mines.reset: true
+   prison.mines.addblock:
+    default: op
+   prison.mines.create:
+    default: op
+   prison.mines.delete:
+    default: op
+   prison.mines.info:
+    default: op
+   prison.mines.list:
+    default: op
+   prison.mines.removeblock:
+    default: op
+   prison.mines.reset:
+    default: op
    prison.ranks.*:
-    description: Permission for all /ranks commands.
+    default: op
+    children:
+      prison.ranks.add: true
+      prison.ranks.demote: true
+      prison.ranks.promote: true
+      prison.ranks.remove: true
+   prison.ranks.add:
+    default: op
+   prison.ranks.demote:
+    default: op
+   prison.ranks.promote:
+    default: op
+   prison.ranks.remove:
     default: op
    prison.ranks.purchase:
     description: Permission to rankup.

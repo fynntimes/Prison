@@ -13,13 +13,16 @@ public class MessageUtil {
 	private static HashMap<String, String> messages = new HashMap<String, String>();
 	
 	public MessageUtil() {
+		// Core
 		add("general.cmdNotFound", "&cThat command could not be found. Type &6%0 &cfor help.");
 		add("general.noPermission", "&cYou don't have permission to run this command.");
 		add("general.mustBePlayer", "&cYou must be in game to use this command.");
 		add("general.notEnoughArgs", "&cNot enough arguments. &6Proper usage: %0");
 		add("general.noCmdPassed", "&cPlease specify a command.");
+		add("general.updateAvailable", "&2There is a new version of Prison available (%0)! Go download it from the Bukkit page.");
 
 		// Mines
+		MessageUtil.add("mines.noMinesLoaded", "&cThere are no mines loaded.");
 		MessageUtil.add("mines.resetSuccess", "&2Successfully reset mine &6%0&2.");
 		MessageUtil.add("mines.created", "&2Successfully created a new mine called &6%0.");
 		MessageUtil.add("mines.makeWESel", "&cPlease make a WorldEdit selection first.");
@@ -46,14 +49,18 @@ public class MessageUtil {
 		MessageUtil.add("ranks.noRanksLoaded", "&6No ranks are loaded.");
 		MessageUtil.add("ranks.highestRank", "&cYou have already reached the highest rank!");
 		MessageUtil.add("ranks.highestRank.other", "&cThat player has already reached the highest rank!");
-		MessageUtil.add("ranks.notEnoughMoney", "&cYou still need &d%0&c to rank up to %1&r&c.");
+		MessageUtil.add("ranks.notEnoughMoney", "&cYou still need &d$%0&c to rank up to &r%1&r&c.");
 		MessageUtil.add("ranks.rankedUp", "&2You have ranked up to %0!");
 		MessageUtil.add("ranks.rankedUpBroadcast", "&d%0 &2ranked up to %1&r&2!");
 		MessageUtil.add("ranks.notARank", "&cThat rank does not exist!");
 		MessageUtil.add("ranks.alreadyLoaded", "&cThat rank is already loaded!");
 		MessageUtil.add("ranks.invalidPrice", "&cThat price is invalid!");
-		MessageUtil.add("ranks.addSuccess", "&2Successfully added rank &r%1&r&2!");
-		MessageUtil.add("ranks.addFail", "&cFailed to add rank &r%1&r&c.");
+		MessageUtil.add("ranks.addSuccess", "&2Successfully added rank %0&2!");
+		MessageUtil.add("ranks.addFail", "&cFailed to add rank %0&c.");
+		MessageUtil.add("ranks.removeSuccess", "&2Successfully removed rank %0&2!");
+		MessageUtil.add("ranks.removeFail", "&cFailed to remove rank %0&c.");
+		MessageUtil.add("ranks.lowestRank", "&cAlready at the lowest rank!");
+		MessageUtil.add("ranks.demoteSuccess", "&2Successfully demoted &6%0&2 to rank %1&2!");
 	}
 	
 	public static void add(String key, String value){

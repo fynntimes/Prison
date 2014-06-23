@@ -5,6 +5,7 @@ package me.sirfaizdat.prison.core;
 
 import java.util.HashMap;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,6 +19,12 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class PlayerList implements Listener {
 
 	private static HashMap<String, Player> players = new HashMap<String, Player>();
+	
+	public PlayerList() {
+		for(Player p : Bukkit.getOnlinePlayers()) {
+			players.put(p.getName(), p);
+		}
+	}
 	
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
@@ -38,7 +45,7 @@ public class PlayerList implements Listener {
 		}
 	}
 	
-	public static Player getPlayer(String name) {
+	public Player getPlayer(String name) {
 		return players.get(name);
 	}
 	
