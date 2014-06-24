@@ -17,4 +17,5 @@ reset-broadcast-message: "&2Mines have been reset!"
 # == SCOREBOARDS == #
 
 enable-scoreboards: true
+scoreboard-name: "&6&lPrison"
 update-interval: 1

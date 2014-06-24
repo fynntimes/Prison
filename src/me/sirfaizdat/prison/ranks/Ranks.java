@@ -13,6 +13,9 @@ import me.sirfaizdat.prison.core.Core;
 import me.sirfaizdat.prison.core.FailedToStartException;
 import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.ranks.cmds.RanksCommandManager;
+import me.sirfaizdat.prison.ranks.events.BalanceChangeListener;
+import me.sirfaizdat.prison.ranks.events.DemoteEvent;
+import me.sirfaizdat.prison.ranks.events.RankupEvent;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
@@ -61,6 +64,13 @@ public class Ranks implements Component {
 		Core.i().getCommand("prisonranks").setExecutor(rcm);
 		Core.i().getCommand("ranks").setExecutor(rcm);
 		Core.i().getCommand("rankup").setExecutor(rcm);
+		
+		Bukkit.getScheduler().runTaskLater(Core.i(), new Runnable() {
+			@Override
+			public void run() {
+				new BalanceChangeListener();
+			}
+		}, 0);
 	}
 
 	private void load() {
@@ -80,7 +90,7 @@ public class Ranks implements Component {
 				count++;
 			}
 		}
-		Core.l.info("&2Loaded " + (count + 1) + " ranks.");
+		Core.l.info("&2Loaded " + count + " ranks.");
 	}
 
 	public UserInfo getUserInfo(String name) {
@@ -145,7 +155,6 @@ public class Ranks implements Component {
 								: MessageUtil.get("ranks.highestRank.other"));
 				return;
 			}
-			Core.l.info("Next rank: " + nextRank.getName());
 			if (nextRank != null) {
 				boolean paid = true;
 				if (buy) {
@@ -178,6 +187,7 @@ public class Ranks implements Component {
 					Bukkit.broadcastMessage(MessageUtil.get(
 							"ranks.rankedUpBroadcast", info.getPlayer()
 									.getName(), nextRank.getPrefix()));
+					Bukkit.getServer().getPluginManager().callEvent(new RankupEvent(info.getPlayer(), buy));
 				}
 			}
 		}
@@ -206,6 +216,7 @@ public class Ranks implements Component {
 			info.getPlayer().sendMessage(
 					MessageUtil.get("ranks.demoteSuccess", info.getPlayer()
 							.getName(), previousRank.getPrefix()));
+			Bukkit.getServer().getPluginManager().callEvent(new DemoteEvent(info.getPlayer()));
 		}
 	}
 

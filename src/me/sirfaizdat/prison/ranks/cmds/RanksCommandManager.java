@@ -30,7 +30,7 @@ public class RanksCommandManager extends AbstractCommandManager {
 	public boolean onCommand(CommandSender sender, Command command,
 			String label, String[] args) {
 		if (label.equalsIgnoreCase("ranks")) {
-			if(!sender.hasPermission("prison.ranks.list")) {
+			if (!sender.hasPermission("prison.ranks.list")) {
 				sender.sendMessage(MessageUtil.get("general.noPermission"));
 				return true;
 			}
@@ -38,20 +38,25 @@ public class RanksCommandManager extends AbstractCommandManager {
 					.colorize("&6===========&c{&2Ranks&c}&6==========="));
 			for (Rank rank : Ranks.i.ranks) {
 				double amountNeededD = rank.getPrice();
-				String amountNeeded = new DecimalFormat("#,###.00")
-						.format(new BigDecimal(amountNeededD));
-				sender.sendMessage(Core.colorize(rank.getPrefix() + " &f- &6$"
+				String amountNeeded;
+				if (amountNeededD < 1) {
+					amountNeeded = "&6$0.00";
+				} else {
+					amountNeeded = "&6$"
+							+ new DecimalFormat("#,###.00")
+									.format(new BigDecimal(amountNeededD));
+				}
+				sender.sendMessage(Core.colorize(rank.getPrefix() + " &f- "
 						+ amountNeeded));
 			}
-			sender.sendMessage(Core
-					.colorize("&6============================"));
+			sender.sendMessage(Core.colorize("&6============================"));
 			return true;
 		} else if (label.equalsIgnoreCase("rankup")) {
-			if(!sender.hasPermission("prison.ranks.purchase")) {
+			if (!sender.hasPermission("prison.ranks.purchase")) {
 				sender.sendMessage(MessageUtil.get("general.noPermission"));
 				return true;
 			}
-			if(!(sender instanceof Player)) {
+			if (!(sender instanceof Player)) {
 				sender.sendMessage(MessageUtil.get("general.mustBePlayer"));
 				return true;
 			}

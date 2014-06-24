@@ -66,6 +66,8 @@ public class Core extends JavaPlugin implements Listener {
 		enableMines();
 		enableRanks();
 		enableScoreboards();
+		
+		getServer().getPluginManager().registerEvents(this, this);
 		l.info("&2Enabled Prison &6v" + getDescription().getVersion()
 				+ "&2. Made by &6SirFaizdat&2.");
 		long endTime = System.currentTimeMillis();

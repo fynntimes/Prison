@@ -4,10 +4,11 @@
 package me.sirfaizdat.prison.scoreboard;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import me.sirfaizdat.prison.core.Core;
+import me.sirfaizdat.prison.core.Config;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -25,19 +26,21 @@ public class PScoreboard {
 	Objective obj;
 	Player player;
 	Map<String, ScoreboardEntry> scores;
+	
+	int offset = 3;
 
 	public PScoreboard(Scoreboard sb, Player player) {
 		this.sb = sb;
 		this.obj = sb.registerNewObjective("prison", "dummy");
 		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
-		obj.setDisplayName(Core.colorize("&6&lPrison"));
+		obj.setDisplayName(Config.scoreboardName);
 		this.player = player;
 		scores = new HashMap<String, ScoreboardEntry>();
 	}
 
-	public void generateScoreboard(HashMap<String, ScoreboardEntry> newScores) {
+	public void generateScoreboard(LinkedHashMap<String, ScoreboardEntry> newScores) {
 		player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
-		int id = scores.size() + 2;
+		int id = scores.size() + offset;
 		for (Entry<String, ScoreboardEntry> oldSet : scores.entrySet()) {
 			sb.resetScores(oldSet.getValue().getDisplay());
 			sb.resetScores(oldSet.getValue().getValue());
@@ -57,9 +60,9 @@ public class PScoreboard {
 		this.scores = newScores;
 	}
 
-	public void updateScoreboard(HashMap<String, ScoreboardEntry> newScores) {
+	public void updateScoreboard(LinkedHashMap<String, ScoreboardEntry> newScores) {
 		player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
-		int id = scores.size() + 2;
+		int id = scores.size() + offset;
 		for (Entry<String, ScoreboardEntry> oldSet : scores.entrySet()) {
 			sb.resetScores(oldSet.getValue().getDisplay());
 			sb.resetScores(oldSet.getValue().getValue());

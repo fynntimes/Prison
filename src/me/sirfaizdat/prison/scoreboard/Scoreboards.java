@@ -4,7 +4,10 @@
 package me.sirfaizdat.prison.scoreboard;
 
 import me.sirfaizdat.prison.core.Component;
+import me.sirfaizdat.prison.core.Core;
 import me.sirfaizdat.prison.core.FailedToStartException;
+
+import org.bukkit.Bukkit;
 
 /**
  * @author SirFaizdat
@@ -37,7 +40,13 @@ public class Scoreboards implements Component{
 	
 	@Override
 	public void enable() throws FailedToStartException {
-		sb = new SbManager();
+		// Run it after the server finishes loading (Economy should be loaded by then)
+		Bukkit.getScheduler().runTaskLater(Core.i(), new Runnable() {
+			@Override
+			public void run() {
+				sb = new SbManager();
+			}
+		}, 0);
 	}
 
 	
