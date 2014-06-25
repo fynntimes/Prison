@@ -32,7 +32,12 @@ public interface Component {
 	 * @param enabled true or false
 	 */
 	public void setEnabled(boolean enabled);
-
+	
+	/**
+	 * Called on a reload.
+	 */
+	public void reload();
+	
 	/**
 	 * Called after the component is deemed compatible and enabled.
 	 */

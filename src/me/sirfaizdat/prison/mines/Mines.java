@@ -44,6 +44,13 @@ public class Mines implements Component {
 		mcm = new MinesCommandManager(this);
 		core.getCommand("mines").setExecutor(mcm);
 	}
+	
+	public void reload() {
+		mm.mines.clear();
+		mm.load();
+		Bukkit.getScheduler().cancelTask(mm.autoResetID);
+		mm.timer();
+	}
 
 	public WorldEditPlugin getWE() {
 		return worldEdit;

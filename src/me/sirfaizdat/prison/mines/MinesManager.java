@@ -24,7 +24,7 @@ import org.bukkit.scheduler.BukkitScheduler;
  */
 public class MinesManager {
 
-	HashMap<String, Mine> mines = new HashMap<String, Mine>();
+	protected HashMap<String, Mine> mines = new HashMap<String, Mine>();
 
 	public int resetTimeCounter;
 	int resetTime;
@@ -40,7 +40,7 @@ public class MinesManager {
 	}
 	
 	public void timer() {
-		resetTime = Config.resetTime;
+		resetTime = Core.i().config.resetTime;
 		resetTimeCounter = resetTime;
 		BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
 		ResetClock rs = new ResetClock();
@@ -52,9 +52,9 @@ public class MinesManager {
 			if(mines.size() == 0) return;
 			if(resetTime == 0) return;
 			if(resetTimeCounter > 0) resetTimeCounter--;
-			for(int warning: Config.resetWarnings) {
+			for(int warning: Core.i().config.resetWarnings) {
 				if(warning == resetTimeCounter) {
-					String warnMsg = Config.resetWarningMessage;
+					String warnMsg = Core.i().config.resetWarningMessage;
 					warnMsg = warnMsg.replaceAll("<mins>", warning + "");
 					Bukkit.broadcastMessage(warnMsg);
 				}
@@ -63,7 +63,7 @@ public class MinesManager {
 				for(Map.Entry<String, Mine> entry : mines.entrySet()) {
 					entry.getValue().reset();
 				}
-				Bukkit.broadcastMessage(Config.resetBroadcastMessage);
+				Bukkit.broadcastMessage(Core.i().config.resetBroadcastMessage);
 				resetTimeCounter = resetTime;
 			}
 		}

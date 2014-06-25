@@ -38,12 +38,16 @@ public class PrisonCommandManager extends AbstractCommandManager {
 			@Override
 			public void enable() throws FailedToStartException {
 			}
+
+			@Override
+			public void reload() {
+			}
 		}, "prison");
 	}
 
 	@Override
 	public void registerCommands() {
-
+		commands.put("version", new CmdVersion());
 	}
 
 }

@@ -7,6 +7,9 @@ import me.sirfaizdat.prison.core.Command;
 import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.ranks.Rank;
 import me.sirfaizdat.prison.ranks.Ranks;
+import me.sirfaizdat.prison.ranks.events.RankAddedEvent;
+
+import org.bukkit.Bukkit;
 
 /**
  * @author SirFaizdat
@@ -50,6 +53,7 @@ public class CmdAddRank extends Command {
 		boolean success = Ranks.i.addRank(rank);
 		if(success) {
 			sender.sendMessage(MessageUtil.get("ranks.addSuccess", rank.getPrefix()));
+			Bukkit.getServer().getPluginManager().callEvent(new RankAddedEvent(rank));
 		} else {
 			sender.sendMessage(MessageUtil.get("ranks.addFail", rankName));
 		}

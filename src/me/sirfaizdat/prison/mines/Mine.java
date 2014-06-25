@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import me.sirfaizdat.prison.core.Config;
 import me.sirfaizdat.prison.core.Core;
 
 import org.bukkit.Bukkit;
@@ -104,9 +103,24 @@ public class Mine {
 		for (int x = minX; x <= maxX; x++) {
 			for (int y = minY; y <= maxY; y++) {
 				for (int z = minZ; z <= maxZ; z++) {
-					if (Config.fillMode) {
+					if (Core.i().config.fillMode) {
 						// Only fill in air blocks.
-						if (world.getBlockAt(x, y, z).getType() == Material.AIR) {
+						if (world.getBlockAt(x, y, z).getType() == Material.AIR
+								|| world.getBlockAt(x, y, z).getType() == Material.TORCH
+								|| world.getBlockAt(x, y, z).getType() == Material.REDSTONE_TORCH_ON
+								|| world.getBlockAt(x, y, z).getType() == Material.REDSTONE_TORCH_OFF) {
+							double c = r.nextDouble();
+							for (CompositionEntry ce : probabilityMap) {
+								if (c <= ce.getChance()) {
+									world.getBlockAt(x, y, z).setTypeIdAndData(
+											ce.getBlock().getId(),
+											ce.getBlock().getData(), false);
+									break;
+								}
+							}
+
+						} else {
+							// Just reset the entire thing
 							double c = r.nextDouble();
 							for (CompositionEntry ce : probabilityMap) {
 								if (c <= ce.getChance()) {
@@ -117,17 +131,6 @@ public class Mine {
 								}
 							}
 						}
-					} else {
-						// Just reset the entire thing
-						double c = r.nextDouble();
-						for (CompositionEntry ce : probabilityMap) {
-							if (c <= ce.getChance()) {
-								world.getBlockAt(x, y, z).setTypeIdAndData(
-										ce.getBlock().getId(),
-										ce.getBlock().getData(), false);
-								break;
-							}
-						}
 					}
 				}
 			}
@@ -136,9 +139,9 @@ public class Mine {
 
 	private boolean withinMine(Location l) {
 		return l.getWorld().equals(world)
-				&& (l.getX() >= minX && l.getX() <= maxX)
-				&& (l.getY() >= minY && l.getY() <= maxY)
-				&& (l.getZ() >= minZ && l.getZ() <= maxZ);
+				&& (l.getX() + 1 >= minX && l.getX() + 1 <= maxX)
+				&& (l.getY() + 1 >= minY && l.getY() + 1 <= maxY)
+				&& (l.getZ() + 1 >= minZ && l.getZ() + 1 <= maxZ);
 	}
 
 	// Composition Utilities

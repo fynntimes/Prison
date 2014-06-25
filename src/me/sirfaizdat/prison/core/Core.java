@@ -9,9 +9,9 @@ import java.util.UUID;
 
 import me.sirfaizdat.prison.core.Updater.UpdateResult;
 import me.sirfaizdat.prison.core.Updater.UpdateType;
+import me.sirfaizdat.prison.core.cmds.PrisonCommandManager;
 import me.sirfaizdat.prison.mines.Mines;
 import me.sirfaizdat.prison.ranks.Ranks;
-import me.sirfaizdat.prison.scoreboard.Scoreboards;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
@@ -40,12 +40,13 @@ public class Core extends JavaPlugin implements Listener {
 
 	Mines mines;
 	Ranks ranks;
-	Scoreboards scoreboards;
 
 	Economy economy;
 	Permission permissions;
 
 	public PlayerList playerList;
+	public Config config;
+	public ItemManager im;
 	boolean updateAvailable = false;
 	String updateLatestName;
 
@@ -53,26 +54,25 @@ public class Core extends JavaPlugin implements Listener {
 		long startTime = System.currentTimeMillis();
 		i = this;
 		this.saveDefaultConfig();
-		new Config();
+		config = new Config();
+		im = new ItemManager();
 		new MessageUtil();
 		playerList = new PlayerList();
 		getServer().getPluginManager().registerEvents(playerList, this);
 		mines = new Mines();
 		ranks = new Ranks();
-		scoreboards = new Scoreboards();
 		initEconomy();
 		initPermissions();
 		checkCompatibility();
 		enableMines();
 		enableRanks();
-		enableScoreboards();
-		
+		getCommand("prison").setExecutor(new PrisonCommandManager());
 		getServer().getPluginManager().registerEvents(this, this);
 		l.info("&2Enabled Prison &6v" + getDescription().getVersion()
 				+ "&2. Made by &6SirFaizdat&2.");
 		long endTime = System.currentTimeMillis();
 		l.info("&6Enabled in " + (endTime - startTime) + "ms.");
-		if (Config.checkUpdates
+		if (config.checkUpdates
 				&& !getDescription().getVersion().contains("dev")) {
 			Updater updater = new Updater(this, 76155, this.getFile(),
 					UpdateType.NO_DOWNLOAD, true);
@@ -89,6 +89,24 @@ public class Core extends JavaPlugin implements Listener {
 				}
 			}
 		}
+		Bukkit.getScheduler().runTaskLater(Core.i(), new Runnable() {
+			
+			@Override
+			public void run() {
+				im.populateLists();
+			}
+		}, 10L);
+	}
+	
+	public void reload() {
+		config.reload();
+		playerList = new PlayerList();
+		mines = new Mines();
+		enableMines();
+		mines.reload();
+		ranks = new Ranks();
+		enableRanks();
+		ranks.reload();
 	}
 
 	// Initialization
@@ -98,6 +116,7 @@ public class Core extends JavaPlugin implements Listener {
 				mines.enable();
 			} catch (FailedToStartException e) {
 				l.severe("Could not start mines.");
+				return;
 			}
 			l.info("&2Mines enabled.");
 		}
@@ -109,29 +128,9 @@ public class Core extends JavaPlugin implements Listener {
 				ranks.enable();
 			} catch (FailedToStartException e) {
 				l.severe("Could not start ranks.");
+				return;
 			}
 			l.info("&2Ranks enabled.");
-		}
-	}
-
-	public void enableScoreboards() {
-		if (!ranks.isEnabled()) {
-			l.warning("Did not enable scoreboards because Ranks is not enabled.");
-			scoreboards.setEnabled(false);
-		}
-		if (!mines.isEnabled()) {
-			l.warning("Did not enable scoreboards because Mines is not enabled.");
-			scoreboards.setEnabled(false);
-		}
-		if (!Config.scoreboardsEnabled)
-			scoreboards.setEnabled(false);
-		if (scoreboards.isEnabled()) {
-			try {
-				scoreboards.enable();
-			} catch (FailedToStartException e) {
-				l.severe("Could not start scoreboards.");
-			}
-			l.info("&2Scoreboards enabled.");
 		}
 	}
 
@@ -197,10 +196,12 @@ public class Core extends JavaPlugin implements Listener {
 	// Listeners
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
-		Player p = e.getPlayer();
-		if (p.isOp() || p.hasPermission("prison.manage")) {
-			p.sendMessage(MessageUtil.get("general.updateAvailable",
-					updateLatestName));
+		if (updateAvailable) {
+			Player p = e.getPlayer();
+			if (p.isOp() || p.hasPermission("prison.manage")) {
+				p.sendMessage(MessageUtil.get("general.updateAvailable",
+						updateLatestName));
+			}
 		}
 	}
 }

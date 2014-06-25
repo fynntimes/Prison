@@ -72,6 +72,11 @@ public class Ranks implements Component {
 			}
 		}, 0);
 	}
+	
+	public void reload() {
+		ranks.clear();
+		load();
+	}
 
 	private void load() {
 		List<String> rankList = conf.getConfig().getStringList("ranklist");
