@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 public class Block implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private byte data;
 	private double chance;

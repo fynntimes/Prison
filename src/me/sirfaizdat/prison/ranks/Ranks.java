@@ -184,8 +184,7 @@ public class Ranks implements Component {
 					}
 				}
 				if (paid) {
-					changeRank(info.getPlayer(), currentRank, nextRank, info
-							.getPlayer().getWorld().getName());
+					changeRank(info.getPlayer(), currentRank, nextRank, null);
 					info.getPlayer().sendMessage(
 							MessageUtil.get("ranks.rankedUp",
 									nextRank.getPrefix()));
@@ -216,8 +215,7 @@ public class Ranks implements Component {
 						MessageUtil.get("ranks.lowestRank"));
 				return;
 			}
-			changeRank(info.getPlayer(), currentRank, previousRank, info
-					.getPlayer().getWorld().getName());
+			changeRank(info.getPlayer(), currentRank, previousRank, null);
 			info.getPlayer().sendMessage(
 					MessageUtil.get("ranks.demoteSuccess", info.getPlayer()
 							.getName(), previousRank.getPrefix()));

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import me.sirfaizdat.prison.core.Config;
 import me.sirfaizdat.prison.core.Core;
 
 import org.bukkit.Bukkit;

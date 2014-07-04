@@ -12,6 +12,7 @@ import me.sirfaizdat.prison.core.Updater.UpdateType;
 import me.sirfaizdat.prison.core.cmds.PrisonCommandManager;
 import me.sirfaizdat.prison.mines.Mines;
 import me.sirfaizdat.prison.ranks.Ranks;
+import me.sirfaizdat.prison.scoreboards.Scoreboards;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
@@ -40,6 +41,7 @@ public class Core extends JavaPlugin implements Listener {
 
 	Mines mines;
 	Ranks ranks;
+	Scoreboards sbs;
 
 	Economy economy;
 	Permission permissions;
@@ -61,11 +63,13 @@ public class Core extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(playerList, this);
 		mines = new Mines();
 		ranks = new Ranks();
+		sbs = new Scoreboards();
 		initEconomy();
 		initPermissions();
 		checkCompatibility();
 		enableMines();
 		enableRanks();
+		enableScoreboards();
 		getCommand("prison").setExecutor(new PrisonCommandManager());
 		getServer().getPluginManager().registerEvents(this, this);
 		l.info("&2Enabled Prison &6v" + getDescription().getVersion()
@@ -90,14 +94,14 @@ public class Core extends JavaPlugin implements Listener {
 			}
 		}
 		Bukkit.getScheduler().runTaskLater(Core.i(), new Runnable() {
-			
+
 			@Override
 			public void run() {
 				im.populateLists();
 			}
 		}, 10L);
 	}
-	
+
 	public void reload() {
 		config.reload();
 		playerList = new PlayerList();
@@ -134,6 +138,22 @@ public class Core extends JavaPlugin implements Listener {
 		}
 	}
 
+	public void enableScoreboards() {
+		if (!ranks.isEnabled()) {
+			sbs.setEnabled(false);
+			l.warning("Could not enable scoreboards because Ranks is not enabled.");
+		}
+		if (sbs.isEnabled()) {
+			try {
+				sbs.enable();
+			} catch (FailedToStartException e) {
+				l.severe("Could not start scoreboards");
+				return;
+			}
+		}
+		l.info("&2Scoreboards enabled.");
+	}
+
 	public void initEconomy() {
 		RegisteredServiceProvider<Economy> economyProvider = getServer()
 				.getServicesManager().getRegistration(
@@ -157,6 +177,10 @@ public class Core extends JavaPlugin implements Listener {
 	}
 
 	public void checkCompatibility() {
+		if(!hasPlugin("Vault")) {
+			ranks.setEnabled(false);
+			l.warning("Could not enable Ranks because Vault is not loaded.");
+		}
 		if (!hasPlugin("WorldEdit")) {
 			mines.setEnabled(false);
 			l.warning("Could not enable Mines because WorldEdit is not loaded.");
