@@ -51,6 +51,11 @@ public class Mines implements Component {
 		Bukkit.getScheduler().cancelTask(mm.autoResetID);
 		mm.timer();
 	}
+	
+	public void disable() {
+		mm.mines.clear();
+		Bukkit.getScheduler().cancelTask(mm.autoResetID);
+	}
 
 	public WorldEditPlugin getWE() {
 		return worldEdit;

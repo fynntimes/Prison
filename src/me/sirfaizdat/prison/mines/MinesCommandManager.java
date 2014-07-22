@@ -10,6 +10,7 @@ import me.sirfaizdat.prison.mines.cmds.CommandCreate;
 import me.sirfaizdat.prison.mines.cmds.CommandDelete;
 import me.sirfaizdat.prison.mines.cmds.CommandInfo;
 import me.sirfaizdat.prison.mines.cmds.CommandList;
+import me.sirfaizdat.prison.mines.cmds.CommandRedefine;
 import me.sirfaizdat.prison.mines.cmds.CommandRemoveBlock;
 import me.sirfaizdat.prison.mines.cmds.CommandReset;
 
@@ -31,6 +32,7 @@ public class MinesCommandManager extends AbstractCommandManager {
 		commands.put("list", new CommandList());
 		commands.put("removeblock", new CommandRemoveBlock());
 		commands.put("delete", new CommandDelete());
+		commands.put("redefine", new CommandRedefine());
 	}
 
 }

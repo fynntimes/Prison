@@ -36,13 +36,14 @@ public abstract class AbstractCommandManager implements CommandExecutor {
 				sender.sendMessage(helpMessage);
 				return true;
 			}
-			if(args[0].equalsIgnoreCase("help")) {
+			if (args[0].equalsIgnoreCase("help")) {
 				sender.sendMessage(helpMessage);
 				return true;
 			}
 			Command c = commands.get(args[0].toLowerCase());
 			if (c == null) {
-				sender.sendMessage(MessageUtil.get("general.cmdNotFound", "/" + baseCommand + " help"));
+				sender.sendMessage(MessageUtil.get("general.cmdNotFound", "/"
+						+ baseCommand + " help"));
 				return true;
 			}
 			c.run(sender, args);
@@ -64,7 +65,7 @@ public abstract class AbstractCommandManager implements CommandExecutor {
 		}
 		return Core.colorize(b.toString());
 	}
-	
+
 	private void componentize() {
 		for (Map.Entry<String, Command> c : commands.entrySet()) {
 			c.getValue().setComponent(this.c);

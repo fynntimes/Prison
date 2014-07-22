@@ -64,7 +64,7 @@ public class Ranks implements Component {
 		Core.i().getCommand("prisonranks").setExecutor(rcm);
 		Core.i().getCommand("ranks").setExecutor(rcm);
 		Core.i().getCommand("rankup").setExecutor(rcm);
-		
+
 		Bukkit.getScheduler().runTaskLater(Core.i(), new Runnable() {
 			@Override
 			public void run() {
@@ -72,10 +72,14 @@ public class Ranks implements Component {
 			}
 		}, 0);
 	}
-	
+
 	public void reload() {
 		ranks.clear();
 		load();
+	}
+
+	public void disable() {
+		ranks.clear();
 	}
 
 	private void load() {
@@ -184,20 +188,21 @@ public class Ranks implements Component {
 					}
 				}
 				if (paid) {
-					changeRank(info.getPlayer(), currentRank, nextRank, null);
+					changeRank(info.getPlayer(), currentRank, nextRank);
 					info.getPlayer().sendMessage(
 							MessageUtil.get("ranks.rankedUp",
 									nextRank.getPrefix()));
 					Bukkit.broadcastMessage(MessageUtil.get(
 							"ranks.rankedUpBroadcast", info.getPlayer()
 									.getName(), nextRank.getPrefix()));
-					Bukkit.getServer().getPluginManager().callEvent(new RankupEvent(info.getPlayer(), buy));
+					Bukkit.getServer().getPluginManager()
+							.callEvent(new RankupEvent(info.getPlayer(), buy));
 				}
 			}
 		}
 	}
 
-	public void demote(String name) {
+	public void demote(Player sender, String name) {
 		if (ranks.size() == 0) {
 			Core.i().playerList.getPlayer(name).sendMessage(
 					MessageUtil.get("ranks.noRanksLoaded"));
@@ -211,15 +216,19 @@ public class Ranks implements Component {
 			currentRank = info.getCurrentRank();
 			previousRank = info.getPreviousRank();
 			if (previousRank == null) {
-				Core.i().playerList.getPlayer(name).sendMessage(
-						MessageUtil.get("ranks.lowestRank"));
+				sender.sendMessage(MessageUtil.get("ranks.lowestRank"));
 				return;
 			}
-			changeRank(info.getPlayer(), currentRank, previousRank, null);
+			changeRank(info.getPlayer(), currentRank, previousRank);
 			info.getPlayer().sendMessage(
 					MessageUtil.get("ranks.demoteSuccess", info.getPlayer()
 							.getName(), previousRank.getPrefix()));
-			Bukkit.getServer().getPluginManager().callEvent(new DemoteEvent(info.getPlayer()));
+			sender.sendMessage(MessageUtil.get("ranks.demoteSuccess", info
+					.getPlayer().getName(), previousRank.getPrefix()));
+			Bukkit.getServer().getPluginManager()
+					.callEvent(new DemoteEvent(info.getPlayer()));
+		} else {
+			sender.sendMessage(MessageUtil.get("ranks.notAPlayer"));
 		}
 	}
 
@@ -258,11 +267,26 @@ public class Ranks implements Component {
 		return success ? true : false;
 	}
 
-	public void changeRank(Player player, Rank currentRank, Rank newRank,
-			String world) {
-		permission.playerAddGroup(world, player, newRank.getName());
-		if (currentRank != null) {
-			permission.playerRemoveGroup(world, player, currentRank.getName());
+	public void changeRank(Player player, Rank currentRank, Rank newRank) {
+		if (Core.i().config.rankWorlds.size() == 0
+				|| !Core.i().config.enableMultiworld) {
+			permission.playerAddGroup(null, player, newRank.getName());
+			if (currentRank != null) {
+				permission.playerRemoveGroup(null, player,
+						currentRank.getName());
+			}
+			return;
+		}
+		for (String world : Core.i().config.rankWorlds) {
+			if (Bukkit.getWorld(world) != null) {
+				permission.playerAddGroup(world, player, newRank.getName());
+				if (currentRank != null) {
+					permission.playerRemoveGroup(world, player,
+							currentRank.getName());
+				}
+			} else {
+				Core.l.warning("One of the worlds specified in the ranks multiworld configuration does not exist. It has been ignored.");
+			}
 		}
 	}
 

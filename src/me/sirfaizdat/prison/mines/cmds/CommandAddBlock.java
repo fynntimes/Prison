@@ -7,7 +7,7 @@ import java.util.Map;
 
 import me.sirfaizdat.prison.core.Command;
 import me.sirfaizdat.prison.core.Core;
-import me.sirfaizdat.prison.core.ItemSet;
+import me.sirfaizdat.prison.core.ItemManager;
 import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.mines.Block;
 import me.sirfaizdat.prison.mines.Mine;
@@ -27,6 +27,7 @@ public class CommandAddBlock extends Command {
 		addRequiredArg("percentage");
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void execute() {
 		if(!Core.i().im.isLoaded()) {
@@ -40,8 +41,8 @@ public class CommandAddBlock extends Command {
 		}
 		// Begin block recognition
 		Block block;
-		ItemSet set;
-		if (isAnInt(args[2].replaceAll(":", ""))) {
+		ItemManager.ItemSet set;
+		if (Core.i().im.isAnInt(args[2].replaceAll(":", ""))) {
 			// Begin "if it is an ID"
 			String[] blocky = args[2].split(":");
 			String data;
@@ -84,7 +85,7 @@ public class CommandAddBlock extends Command {
 				}
 			} catch (NullPointerException e) {
 			}
-			set = new ItemSet(mat.getId(), b);
+			set = new ItemManager.ItemSet(mat.getId(), b);
 			// End "IF IT IS AN ID"
 		} else {
 			// Begin "IF IT IS A WORD"
@@ -116,11 +117,7 @@ public class CommandAddBlock extends Command {
 
 		// End block recognition
 		String percent = args[3];
-		if (!percent.endsWith("%")) {
-			sender.sendMessage(MessageUtil.get("mines.invalidPercent"));
-			return;
-		}
-		percent = percent.replaceAll("%", "");
+		percent = percent.replaceAll("%", "").replaceAll("percent", "");
 		double percentage = 0;
 		try {
 			percentage = Double.valueOf(percent);
@@ -148,17 +145,13 @@ public class CommandAddBlock extends Command {
 
 		m.addBlock(block, percentage);
 		m.save();
-		sender.sendMessage(MessageUtil.get("mines.addSuccess", m.name,
-				(percentage * 100) + "%", Core.i().im.getName(set)));
-	}
-
-	public boolean isAnInt(String s) {
-		try {
-			Integer.parseInt(s);
-		} catch (NumberFormatException e) {
-			return false;
+		if(Core.i().im.isLoaded()) {
+			sender.sendMessage(MessageUtil.get("mines.addSuccess", m.name,
+					(percentage * 100) + "%", Core.i().im.getName(set)));
+		} else {
+			sender.sendMessage(MessageUtil.get("mines.addSuccess", m.name,
+					(percentage * 100) + "%", set.id + ":" + set.data));
 		}
-		return true;
 	}
 
 	@Override

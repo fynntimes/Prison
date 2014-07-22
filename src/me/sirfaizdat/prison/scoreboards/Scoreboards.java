@@ -36,6 +36,8 @@ public class Scoreboards implements Component {
 		
 	}
 
+	public void disable() {
+	}
 	
 	
 }

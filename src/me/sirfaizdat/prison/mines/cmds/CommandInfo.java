@@ -7,7 +7,7 @@ import java.util.Map;
 
 import me.sirfaizdat.prison.core.Command;
 import me.sirfaizdat.prison.core.Core;
-import me.sirfaizdat.prison.core.ItemSet;
+import me.sirfaizdat.prison.core.ItemManager.ItemSet;
 import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.mines.Block;
 import me.sirfaizdat.prison.mines.Mine;
@@ -39,8 +39,14 @@ public class CommandInfo extends Command {
 				+ "y," + m.maxZ + "z."));
 		sender.sendMessage(Core.colorize("&6Composition:"));
 		for (Map.Entry<String, Block> entry : m.blocks.entrySet()) {
+			if (Core.i().im.isLoaded()) {
 				sender.sendMessage(Core.colorize("  &6"
-						+ Core.i().im.getName(new ItemSet(entry.getValue().getId(), entry.getValue().getData()))));
+						+ Core.i().im.getName(new ItemSet(entry.getValue()
+								.getId(), entry.getValue().getData()))));
+			} else {
+				sender.sendMessage(Core.colorize("  &6"
+						+ entry.getValue().getId() + ":" + entry.getValue().getData()));
+			}
 		}
 		sender.sendMessage(Core.colorize("&6================================"));
 	}

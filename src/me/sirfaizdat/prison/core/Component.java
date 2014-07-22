@@ -43,4 +43,9 @@ public interface Component {
 	 */
 	public void enable() throws FailedToStartException;
 	
+	/**
+	 * Called when the plugin disables.
+	 */
+	public void disable();
+	
 }

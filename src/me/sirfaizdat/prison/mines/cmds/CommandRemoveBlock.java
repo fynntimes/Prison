@@ -5,7 +5,7 @@ package me.sirfaizdat.prison.mines.cmds;
 
 import me.sirfaizdat.prison.core.Command;
 import me.sirfaizdat.prison.core.Core;
-import me.sirfaizdat.prison.core.ItemSet;
+import me.sirfaizdat.prison.core.ItemManager.ItemSet;
 import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.mines.Block;
 import me.sirfaizdat.prison.mines.Mine;
@@ -139,8 +139,13 @@ public class CommandRemoveBlock extends Command {
 
 		m.blocks.remove(block.toString());
 		m.save();
-		sender.sendMessage(MessageUtil.get("mines.removedBlock",
-				Core.i().im.getName(set), m.name));
+		if (Core.i().im.isLoaded()) {
+			sender.sendMessage(MessageUtil.get("mines.removedBlock",
+					Core.i().im.getName(set), m.name));
+		} else {
+			sender.sendMessage(MessageUtil.get("mines.removedBlock", set.id
+					+ ":" + set.data, m.name));
+		}
 	}
 
 	public boolean isAnInt(String s) {

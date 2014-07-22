@@ -23,7 +23,7 @@ import org.bukkit.scheduler.BukkitScheduler;
  */
 public class MinesManager {
 
-	protected HashMap<String, Mine> mines = new HashMap<String, Mine>();
+	public HashMap<String, Mine> mines = new HashMap<String, Mine>();
 
 	public int resetTimeCounter;
 	int resetTime;
@@ -36,6 +36,7 @@ public class MinesManager {
 		}
 		load();
 		timer();
+		
 	}
 	
 	public void timer() {
@@ -85,7 +86,6 @@ public class MinesManager {
 				fileIn.close();
 			} catch (ClassNotFoundException e) {
 				Core.l.severe("An unexpected error occured. Check to make sure your copy of the plugin is not corrupted.");
-				return;
 			} catch (IOException e) {
 				Core.l.warning("There was an error in loading file " + name
 						+ ".");

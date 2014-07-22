@@ -20,6 +20,9 @@ public class Config {
 	public boolean fillMode;
 	public String resetWarningMessage;
 	public String resetBroadcastMessage;
+	
+	public List<String> rankWorlds;
+	public boolean enableMultiworld;
 
 	public Config() {
 		FileConfiguration c = Core.i().getConfig();
@@ -33,7 +36,8 @@ public class Config {
 				.getString("reset-warning-message"));
 		resetBroadcastMessage = Core.colorize(c
 				.getString("reset-broadcast-message"));
-
+		rankWorlds = c.getStringList("world-list");
+		enableMultiworld = c.getBoolean("multiworld");
 	}
 
 	public void reload() {
@@ -49,6 +53,7 @@ public class Config {
 				.getString("reset-warning-message"));
 		resetBroadcastMessage = Core.colorize(c
 				.getString("reset-broadcast-message"));
+		enableMultiworld = c.getBoolean("multiworld");
 	}
 
 }

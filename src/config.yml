@@ -13,3 +13,13 @@ fill-mode: true
 
 reset-warning-message: "&6Mines will reset in &c<mins> &6minutes!"
 reset-broadcast-message: "&2Mines have been reset!"
+
+# == RANKS == #
+
+# Ranks now supports multi-world support.
+# For example, if you want players to be ranked up in both
+# the worlds "plots" and "mines", specify them in the list below. If you
+# want to enable this, change multiworld to true.
+
+multiworld: false
+world-list: [plots, mines]

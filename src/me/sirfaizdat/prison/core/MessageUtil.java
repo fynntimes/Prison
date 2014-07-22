@@ -12,30 +12,43 @@ public class MessageUtil {
 
 	private static HashMap<String, String> messages = new HashMap<String, String>();
 
+	// &c - Errors
+	// &4 - Fatal errors
+	// &a - Success messages
+	// &6 - Extra tips or normal; uncategorized.
+	
 	public MessageUtil() {
 		// Core
 		add("general.cmdNotFound",
 				"&cThat command could not be found. Type &6%0 &cfor help.");
 		add("general.noPermission",
-				"&cYou don't have permission to run this command.");
+				"&cYou don't have permission to use this command.");
 		add("general.mustBePlayer",
 				"&cYou must be in game to use this command.");
 		add("general.notEnoughArgs",
 				"&cNot enough arguments. &6Proper usage: %0");
 		add("general.noCmdPassed", "&cPlease specify a command.");
 		add("general.updateAvailable",
-				"&2There is a new version of Prison available (%0)! Go download it from the Bukkit page.");
+				"&aThere is a new version of Prison available &7(%0)&a! &6Type &c/prison update &6to update.");
 		add("general.versionString",
 				"&6Prison v"
 						+ Core.i().getDescription().getVersion()
-						+ "\n&cAuthor: SirFaizdat\n&bWebsite: http://mcprison.netne.net/\n&7(C) 2014 SirFaizdat All Rights Reserved.");
-		add("general.reloaded", "&2Reloaded.");
+						+ "\n&cAuthor: SirFaizdat\n&bWebsite: "
+						+ Core.i().getDescription().getWebsite()
+						+ "\n&7(C) 2014 SirFaizdat All Rights Reserved.");
+		add("general.reloaded", "&aReloaded.");
 		add("general.itemManagerNotLoaded", "&6Please wait for the item manager to load.");
-		
+		add("general.noUpdate", "&aYou are running the latest version!");
+		add("general.updated", "&aDownloaded latest version &7(%0)&a! Please reload/restart your server.");
+		add("general.updateFailed", "&cFailed to check for update.");
+		add("general.devBuild", "&6You are running a development build.");
+		add("general.notAllowedToCheck", "&cCould not check for update because update checking is disabled in your config.");
+		add("general.autoSmeltToggled", "&6Autosmelt has been %0&6.");
+		add("general.blocksCompacted", "&d%0 &aitems compacted into &d%1&a blocks!");
 		// Mines
 		add("mines.noMinesLoaded", "&cThere are no mines loaded.");
-		add("mines.resetSuccess", "&2Successfully reset mine &6%0&2.");
-		add("mines.created", "&2Successfully created a new mine called &6%0.");
+		add("mines.resetSuccess", "&aSuccessfully reset mine &6%0&a.");
+		add("mines.created", "&aSuccessfully created a new mine called &6%0.");
 		add("mines.makeWESel", "&cPlease make a WorldEdit selection first.");
 		add("mines.alreadyExists", "&cA mine with that name already exists.");
 		add("mines.failedToCreate",
@@ -48,14 +61,14 @@ public class MessageUtil {
 		add("mines.mineDoesntHaveThisBlock",
 				"&cThe mine doesn't contain that block.");
 		add("mines.removedBlock",
-				"&2Successfully removed block &6%0&2 from mine &6%1&2.");
+				"&aSuccessfully removed block &6%0&a from mine &6%1&a.");
 		add("mines.mineFull",
 				"&cThat percentage might be too high, or the mine may be already full.");
-		add("mines.deletedMine", "&2Mine successfully deleted.");
+		add("mines.deletedMine", "&aMine successfully deleted.");
 		add("mines.mustSpecifyID",
 				"&cYou must use the block's item ID. (For example, Stone is 1 and Birch wood is 5:2)");
-		add("mines.invalidPercent", "&cThat percentage does not exist.");
-		add("mines.addSuccess", "&2Mine &6%0&2 is now &6%1&2 of block &6%2&2.");
+		add("mines.invalidPercent", "&cInvalid percentage.");
+		add("mines.addSuccess", "&aMine &6%0&a is now &6%1&a of block &6%2&a.");
 
 		// Ranks
 		add("ranks.noRanksLoaded", "&6No ranks are loaded.");
@@ -64,19 +77,20 @@ public class MessageUtil {
 				"&cThat player has already reached the highest rank!");
 		add("ranks.notEnoughMoney",
 				"&cYou still need &d$%0&c to rank up to &r%1&r&c.");
-		add("ranks.rankedUp", "&2You have ranked up to %0!");
-		add("ranks.rankedUpBroadcast", "&d%0 &2ranked up to %1&r&2!");
+		add("ranks.rankedUp", "&aYou have ranked up to %0!");
+		add("ranks.rankedUpBroadcast", "&d%0 &aranked up to %1&r&a!");
 		add("ranks.notARank", "&cThat rank does not exist!");
 		add("ranks.alreadyLoaded", "&cThat rank is already loaded!");
 		add("ranks.invalidPrice", "&cThat price is invalid!");
-		add("ranks.addSuccess", "&2Successfully added rank %0&2!");
+		add("ranks.addSuccess", "&aSuccessfully added rank %0&a!");
 		add("ranks.addFail", "&cFailed to add rank %0&c.");
-		add("ranks.removeSuccess", "&2Successfully removed rank %0&2!");
+		add("ranks.removeSuccess", "&aSuccessfully removed rank %0&a!");
 		add("ranks.removeFail", "&cFailed to remove rank %0&c.");
 		add("ranks.lowestRank", "&cAlready at the lowest rank!");
 		add("ranks.demoteSuccess",
-				"&2Successfully demoted &6%0&2 to rank %1&2!");
-		add("ranks.priceTooHigh", "&cPrices cannot exceed &6$999,999,999.99&c."); // Unused
+				"&aSuccessfully demoted &6%0&a to rank %1&a!");
+		add("ranks.notAPlayer",
+				"&cThat player does not exist or is offline.");
 
 		// Shops
 		add("shops.noPermission",
@@ -91,7 +105,7 @@ public class MessageUtil {
 		add("shops.invalidQuantity", "&cThe quantity is invalid.");
 		add("shops.invalidItem", "&cThe item is invalid.");
 		add("shops.invalidPrice", "&cThat price is invalid.");
-		add("shops.createSuccess", "&2Successfully created shop!");
+		add("shops.createSuccess", "&aSuccessfully created shop!");
 	}
 
 	public static void add(String key, String value) {

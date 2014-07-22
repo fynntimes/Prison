@@ -3,9 +3,7 @@
  */
 package me.sirfaizdat.prison.core;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.UUID;
+import java.io.File;
 
 import me.sirfaizdat.prison.core.Updater.UpdateResult;
 import me.sirfaizdat.prison.core.Updater.UpdateType;
@@ -51,6 +49,8 @@ public class Core extends JavaPlugin implements Listener {
 	public ItemManager im;
 	boolean updateAvailable = false;
 	String updateLatestName;
+	
+	public File file;
 
 	public void onEnable() {
 		long startTime = System.currentTimeMillis();
@@ -70,7 +70,10 @@ public class Core extends JavaPlugin implements Listener {
 		enableMines();
 		enableRanks();
 		enableScoreboards();
+		file = getFile();
 		getCommand("prison").setExecutor(new PrisonCommandManager());
+		new AutoSmelt();
+		new BlockCommand();
 		getServer().getPluginManager().registerEvents(this, this);
 		l.info("&2Enabled Prison &6v" + getDescription().getVersion()
 				+ "&2. Made by &6SirFaizdat&2.");
@@ -197,24 +200,11 @@ public class Core extends JavaPlugin implements Listener {
 
 	// Utility Methods
 	public static String colorize(String text) {
-		return text.replaceAll("&", "ค");
+		return text.replaceAll("&", "ยง");
 	}
 
 	public static boolean hasPlugin(String name) {
 		return Bukkit.getServer().getPluginManager().getPlugin(name) != null;
-	}
-
-	@Deprecated
-	public static Player getPlayer(String name) {
-		UUIDFetcher fetcher = new UUIDFetcher(Arrays.asList(name));
-		Map<String, UUID> response = null;
-		try {
-			response = fetcher.call();
-		} catch (Exception e) {
-			Core.l.warning("Could not find UUID for player " + name + ".");
-			return null;
-		}
-		return Bukkit.getPlayer(response.get(name));
 	}
 
 	// Listeners
