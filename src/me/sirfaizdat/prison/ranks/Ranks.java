@@ -13,7 +13,6 @@ import me.sirfaizdat.prison.core.Core;
 import me.sirfaizdat.prison.core.FailedToStartException;
 import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.ranks.cmds.RanksCommandManager;
-import me.sirfaizdat.prison.ranks.events.BalanceChangeListener;
 import me.sirfaizdat.prison.ranks.events.DemoteEvent;
 import me.sirfaizdat.prison.ranks.events.RankupEvent;
 import net.milkbowl.vault.economy.Economy;
@@ -71,6 +70,7 @@ public class Ranks implements Component {
 				new BalanceChangeListener();
 			}
 		}, 0);
+		
 	}
 
 	public void reload() {

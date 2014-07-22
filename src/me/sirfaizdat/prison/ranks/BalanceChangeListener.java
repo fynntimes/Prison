@@ -1,12 +1,12 @@
 /**
  * (C) 2014 SirFaizdat
  */
-package me.sirfaizdat.prison.ranks.events;
+package me.sirfaizdat.prison.ranks;
 
 import java.util.HashMap;
 
 import me.sirfaizdat.prison.core.Core;
-import me.sirfaizdat.prison.ranks.Ranks;
+import me.sirfaizdat.prison.ranks.events.BalanceChangeEvent;
 import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.Bukkit;
@@ -19,7 +19,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 /**
  * @author SirFaizdat
  */
-public class BalanceChangeListener implements Listener {
+class BalanceChangeListener implements Listener {
 
 	private static Economy eco = Ranks.i.eco;
 	HashMap<String, Double> balance = new HashMap<String, Double>();
