@@ -10,7 +10,6 @@ import me.sirfaizdat.prison.core.Updater.UpdateType;
 import me.sirfaizdat.prison.core.cmds.PrisonCommandManager;
 import me.sirfaizdat.prison.mines.Mines;
 import me.sirfaizdat.prison.ranks.Ranks;
-import me.sirfaizdat.prison.scoreboards.Scoreboards;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
@@ -39,7 +38,6 @@ public class Core extends JavaPlugin implements Listener {
 
 	Mines mines;
 	Ranks ranks;
-	Scoreboards sbs;
 
 	Economy economy;
 	Permission permissions;
@@ -63,13 +61,12 @@ public class Core extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(playerList, this);
 		mines = new Mines();
 		ranks = new Ranks();
-		sbs = new Scoreboards();
 		initEconomy();
 		initPermissions();
 		checkCompatibility();
 		enableMines();
 		enableRanks();
-		enableScoreboards();
+//		enableScoreboards();
 		file = getFile();
 		getCommand("prison").setExecutor(new PrisonCommandManager());
 		new AutoSmelt();
@@ -141,21 +138,21 @@ public class Core extends JavaPlugin implements Listener {
 		}
 	}
 
-	public void enableScoreboards() {
-		if (!ranks.isEnabled()) {
-			sbs.setEnabled(false);
-			l.warning("Could not enable scoreboards because Ranks is not enabled.");
-		}
-		if (sbs.isEnabled()) {
-			try {
-				sbs.enable();
-			} catch (FailedToStartException e) {
-				l.severe("Could not start scoreboards");
-				return;
-			}
-		}
-		l.info("&2Scoreboards enabled.");
-	}
+//	public void enableScoreboards() {
+//		if (!ranks.isEnabled()) {
+//			sbs.setEnabled(false);
+//			l.warning("Could not enable scoreboards because Ranks is not enabled.");
+//		}
+//		if (sbs.isEnabled()) {
+//			try {
+//				sbs.enable();
+//			} catch (FailedToStartException e) {
+//				l.severe("Could not start scoreboards");
+//				return;
+//			}
+//		}
+//		l.info("&2Scoreboards enabled.");
+//	}
 
 	public void initEconomy() {
 		RegisteredServiceProvider<Economy> economyProvider = getServer()
