@@ -17,7 +17,6 @@ import me.sirfaizdat.prison.core.Core;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
@@ -31,6 +30,7 @@ public class Mine {
 	Mines m;
 
 	public String name;
+	public String worldName;
 	public World world;
 	public int minX, minY, minZ, maxX, maxY, maxZ;
 
@@ -38,11 +38,17 @@ public class Mine {
 
 	File mineFile;
 
-	public Mine(String name, World world, int minX, int minY, int minZ,
+	public boolean worldMissing = false;
+
+	public Mine(String name, String worldName, int minX, int minY, int minZ,
 			int maxX, int maxY, int maxZ) {
 		m = Mines.i;
 		this.name = name;
-		this.world = world;
+		this.worldName = worldName;
+		this.world = Bukkit.getWorld(worldName);
+		if (world == null) {
+			worldMissing = true;
+		}
 		this.minX = minX;
 		this.minY = minY;
 		this.minZ = minZ;
@@ -56,7 +62,7 @@ public class Mine {
 	public void save() {
 		SerializableMine sm = new SerializableMine();
 		sm.name = name;
-		sm.world = world.getName();
+		sm.world = worldName;
 		sm.minX = minX;
 		sm.minY = minY;
 		sm.minZ = minZ;
@@ -81,12 +87,12 @@ public class Mine {
 	}
 
 	@SuppressWarnings("deprecation")
-	public void reset() {
+	public boolean reset() {
 		List<CompositionEntry> probabilityMap = mapComposition(blocks);
 		if (probabilityMap.size() == 0) {
 			Core.l.warning("Mine " + name
 					+ " could not regenerate because it has no composition.");
-			return;
+			return false;
 		}
 		for (Player p : Bukkit.getServer().getOnlinePlayers()) {
 			Location l = p.getLocation();
@@ -99,31 +105,26 @@ public class Mine {
 
 			}
 		}
+
 		Random r = new Random();
-		for (int x = minX; x <= maxX; x++) {
-			for (int y = minY; y <= maxY; y++) {
+		for (int y = minY; y <= maxY; y++) {
+			for (int x = minX; x <= maxX; x++) {
 				for (int z = minZ; z <= maxZ; z++) {
 					if (Core.i().config.fillMode) {
-						// Only fill in air blocks.
-						if (world.getBlockAt(x, y, z).getType() == Material.AIR
-								|| world.getBlockAt(x, y, z).getType() == Material.TORCH
-								|| world.getBlockAt(x, y, z).getType() == Material.REDSTONE_TORCH_ON
-								|| world.getBlockAt(x, y, z).getType() == Material.REDSTONE_TORCH_OFF) {
-							double c = r.nextDouble();
+						// Only reset if it is an air block
+						boolean empty = true;
+						try {
+							empty = world.getBlockAt(x, y, z).isEmpty();
+						} catch (NullPointerException e) {
+							Core.l.severe("The world " + worldName
+									+ " could not be found! Mine " + name
+									+ " was not reset.");
+							return false;
+						}
+						if (empty) {
+							double chance = r.nextDouble();
 							for (CompositionEntry ce : probabilityMap) {
-								if (c <= ce.getChance()) {
-									world.getBlockAt(x, y, z).setTypeIdAndData(
-											ce.getBlock().getId(),
-											ce.getBlock().getData(), false);
-									break;
-								}
-							}
-
-						} else {
-							// Just reset the entire thing
-							double c = r.nextDouble();
-							for (CompositionEntry ce : probabilityMap) {
-								if (c <= ce.getChance()) {
+								if (chance <= ce.getChance()) {
 									world.getBlockAt(x, y, z).setTypeIdAndData(
 											ce.getBlock().getId(),
 											ce.getBlock().getData(), false);
@@ -131,10 +132,29 @@ public class Mine {
 								}
 							}
 						}
+					} else {
+						// Reset all blocks
+						double chance = r.nextDouble();
+						for (CompositionEntry ce : probabilityMap) {
+							if (chance <= ce.getChance()) {
+								try {
+									world.getBlockAt(x, y, z).setTypeIdAndData(
+											ce.getBlock().getId(),
+											ce.getBlock().getData(), false);
+								} catch (NullPointerException e) {
+									Core.l.severe("The world " + worldName
+											+ " could not be found! Mine "
+											+ name + " was not reset.");
+									return false;
+								}
+								break;
+							}
+						}
 					}
 				}
 			}
 		}
+		return true;
 	}
 
 	private boolean withinMine(Location l) {
@@ -186,6 +206,11 @@ public class Mine {
 			probabilityMap.add(new CompositionEntry(entry.getValue(), i));
 		}
 		return probabilityMap;
+	}
+
+	// FIXES BUG
+	void setWorld(World world) {
+		this.world = world;
 	}
 
 	public void addBlock(Block block, double chance) {

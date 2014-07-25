@@ -33,19 +33,29 @@ public class CommandInfo extends Command {
 
 		sender.sendMessage(Core.colorize("&6===========&c[&2" + m.name
 				+ "&c]&6==========="));
-		sender.sendMessage(Core.colorize("&6World: &c" + m.world.getName()));
-		sender.sendMessage(Core.colorize("&6Size: &cFrom " + m.minX + "x,"
-				+ m.minY + "y," + m.minZ + "z to " + m.maxX + "x," + m.maxY
-				+ "y," + m.maxZ + "z."));
+		String worldName = null;
+		if(m.worldMissing) {
+			worldName = "&4ERROR: &cWorld is missing!";
+		} else {
+			worldName = "&c" + m.world.getName();
+		}
+		sender.sendMessage(Core.colorize("&6World: " + worldName));
+		sender.sendMessage(Core.colorize("&6Size: &c" + ((m.maxX - m.minX) + 1)
+				+ "&6x&c" + ((m.maxZ - m.minZ) + 1) + "   &6Height: &c"
+				+ ((m.maxY - m.minY) + 1)));
+		sender.sendMessage(Core.colorize("&6Coordinates: &cFrom " + m.minX
+				+ "x," + m.minY + "y," + m.minZ + "z to " + m.maxX + "x,"
+				+ m.maxY + "y," + m.maxZ + "z."));
 		sender.sendMessage(Core.colorize("&6Composition:"));
 		for (Map.Entry<String, Block> entry : m.blocks.entrySet()) {
 			if (Core.i().im.isLoaded()) {
-				sender.sendMessage(Core.colorize("  &6"
+				sender.sendMessage(Core.colorize("  &c" + (entry.getValue().getChance() * 100) + "% &6of &c"
 						+ Core.i().im.getName(new ItemSet(entry.getValue()
 								.getId(), entry.getValue().getData()))));
 			} else {
-				sender.sendMessage(Core.colorize("  &6"
-						+ entry.getValue().getId() + ":" + entry.getValue().getData()));
+				sender.sendMessage(Core.colorize("&6block  &c"
+						+ entry.getValue().getId() + ":"
+						+ entry.getValue().getData()));
 			}
 		}
 		sender.sendMessage(Core.colorize("&6================================"));

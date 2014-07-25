@@ -1,5 +1,5 @@
 name: Prison
-version: 2.0.4
+version: 2.0.5dev
 description: Prison offers a powerful group of features essential in creating Prison servers.
 author: SirFaizdat
 website: http://dev.bukkit.org/bukkit-plugins/mcprison/
@@ -35,6 +35,8 @@ permissions:
       default: op
    prison.autosmelt:
       default: true
+   prison.autosmelt.auto:
+      default: false
    prison.block:
       default: true
    prison.mines.*:

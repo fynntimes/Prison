@@ -48,6 +48,7 @@ public class MessageUtil {
 		// Mines
 		add("mines.noMinesLoaded", "&cThere are no mines loaded.");
 		add("mines.resetSuccess", "&aSuccessfully reset mine &6%0&a.");
+		add("mines.resetFailed", "&cFailed to reset mine &6%0&c. Check console for details.");
 		add("mines.created", "&aSuccessfully created a new mine called &6%0.");
 		add("mines.makeWESel", "&cPlease make a WorldEdit selection first.");
 		add("mines.alreadyExists", "&cA mine with that name already exists.");
@@ -118,6 +119,9 @@ public class MessageUtil {
 
 	public static String get(String key, String... replace) {
 		String returnVal = messages.get(key);
+		if(returnVal == null) {
+			return Core.colorize("&cInvalid message key - &6" + key + "&c.");
+		}
 		for (int i = 0; i < replace.length; i++) {
 			returnVal = returnVal
 					.replaceAll("%" + i, Core.colorize(replace[i]));

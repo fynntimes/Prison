@@ -58,7 +58,7 @@ public class AutoSmelt implements CommandExecutor, Listener {
 	@EventHandler
 	public void onBreak(BlockBreakEvent e) {
 		Material m = e.getBlock().getType();
-		if (isEnabled(e.getPlayer().getName())) {
+		if (isEnabled(e.getPlayer().getName()) || e.getPlayer().hasPermission("prison.autosmelt.auto")) {
 			if (m == Material.IRON_ORE) {
 				Block smelted = e.getBlock();
 				Location loc = smelted.getLocation();

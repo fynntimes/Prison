@@ -12,22 +12,25 @@ import me.sirfaizdat.prison.mines.Mines;
  * @author SirFaizdat
  */
 public class CommandReset extends Command {
-	
+
 	public CommandReset() {
 		super("reset");
 		addRequiredArg("mine");
-	
+
 	}
 
 	@Override
 	protected void execute() {
 		Mine m = Mines.i.mm.getMine(args[1]);
-		if(m == null) {
+		if (m == null) {
 			sender.sendMessage(MessageUtil.get("mines.notFound"));
 			return;
 		}
-		m.reset();
-		sender.sendMessage(MessageUtil.get("mines.resetSuccess", m.name));
+		if (m.reset()) {
+			sender.sendMessage(MessageUtil.get("mines.resetSuccess", m.name));
+		} else {
+			sender.sendMessage(MessageUtil.get("mines.resetFailed", m.name));
+		}
 	}
 
 	@Override
@@ -35,5 +38,4 @@ public class CommandReset extends Command {
 		return "Reset a mine";
 	}
 
-	
 }

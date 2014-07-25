@@ -9,8 +9,6 @@ import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.mines.Mine;
 import me.sirfaizdat.prison.mines.Mines;
 
-import org.bukkit.World;
-
 import com.sk89q.worldedit.bukkit.selections.Selection;
 
 /**
@@ -36,7 +34,7 @@ public class CommandCreate extends Command {
 			sender.sendMessage(MessageUtil.get("mines.alreadyExists"));
 			return;
 		}
-		World world = s.getWorld();
+		String world = s.getWorld().getName();
 		int minX = s.getMinimumPoint().getBlockX();
 		int minY = s.getMinimumPoint().getBlockY();
 		int minZ = s.getMinimumPoint().getBlockZ();

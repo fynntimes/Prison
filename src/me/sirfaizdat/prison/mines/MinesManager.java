@@ -60,8 +60,15 @@ public class MinesManager {
 				}
 			}
 			if(resetTimeCounter == 0) {
-				for(Map.Entry<String, Mine> entry : mines.entrySet()) {
-					entry.getValue().reset();
+//				for(Map.Entry<String, Mine> entry : mines.entrySet()) {
+//					entry.getValue().reset();
+//				}
+				for(Mine mine : mines.values()) {
+					if(mine.world == null) {
+						mine.setWorld(Bukkit.getWorld(mine.world.getName()));
+						mine.save();
+					}
+					mine.reset();
 				}
 				Bukkit.broadcastMessage(Core.i().config.resetBroadcastMessage);
 				resetTimeCounter = resetTime;
@@ -90,7 +97,7 @@ public class MinesManager {
 				Core.l.warning("There was an error in loading file " + name
 						+ ".");
 			}
-			Mine m = new Mine(sm.name, Bukkit.getWorld(sm.world), sm.minX,
+			Mine m = new Mine(sm.name, sm.world, sm.minX,
 					sm.minY, sm.minZ, sm.maxX, sm.maxY, sm.maxZ);
 			if(sm.blocks != null && sm.blocks.size() != 0) {
 				transferComposition(m, sm.blocks);
