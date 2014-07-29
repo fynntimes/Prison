@@ -25,8 +25,8 @@ public class AutoSmelt implements CommandExecutor, Listener {
 	ArrayList<String> enabledPlayers = new ArrayList<String>();
 
 	public AutoSmelt() {
-		Core.i().getCommand("autosmelt").setExecutor(this);
-		Core.i().getServer().getPluginManager().registerEvents(this, Core.i());
+		Prison.i().getCommand("autosmelt").setExecutor(this);
+		Prison.i().getServer().getPluginManager().registerEvents(this, Prison.i());
 	}
 
 	public boolean onCommand(CommandSender sender, Command command,

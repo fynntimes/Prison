@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.sirfaizdat.prison.core.Component;
-import me.sirfaizdat.prison.core.Core;
+import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.core.FailedToStartException;
 import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.ranks.cmds.RanksCommandManager;
@@ -32,7 +32,7 @@ public class Ranks implements Component {
 
 	public static Ranks i;
 
-	RanksConfig conf;
+	public RanksConfig conf;
 	Permission permission;
 	public Economy eco;
 
@@ -55,16 +55,16 @@ public class Ranks implements Component {
 		conf = new RanksConfig();
 		conf.saveDefaultConfig();
 
-		permission = Core.i().getPermissions();
-		eco = Core.i().getEconomy();
+		permission = Prison.i().getPermissions();
+		eco = Prison.i().getEconomy();
 
 		load();
 		RanksCommandManager rcm = new RanksCommandManager();
-		Core.i().getCommand("prisonranks").setExecutor(rcm);
-		Core.i().getCommand("ranks").setExecutor(rcm);
-		Core.i().getCommand("rankup").setExecutor(rcm);
+		Prison.i().getCommand("prisonranks").setExecutor(rcm);
+		Prison.i().getCommand("ranks").setExecutor(rcm);
+		Prison.i().getCommand("rankup").setExecutor(rcm);
 
-		Bukkit.getScheduler().runTaskLater(Core.i(), new Runnable() {
+		Bukkit.getScheduler().runTaskLater(Prison.i(), new Runnable() {
 			@Override
 			public void run() {
 				new BalanceChangeListener();
@@ -99,12 +99,12 @@ public class Ranks implements Component {
 				count++;
 			}
 		}
-		Core.l.info("&2Loaded " + count + " ranks.");
+		Prison.l.info("&2Loaded " + count + " ranks.");
 	}
 
 	public UserInfo getUserInfo(String name) {
 		UserInfo info = null;
-		Player player = Core.i().playerList.getPlayer(name);
+		Player player = Prison.i().playerList.getPlayer(name);
 		if (player != null) {
 			info = new UserInfo();
 			info.setPlayer(player);
@@ -143,7 +143,7 @@ public class Ranks implements Component {
 
 	public void promote(String name, boolean buy) {
 		if (ranks.size() == 0) {
-			Core.i().playerList.getPlayer(name).sendMessage(
+			Prison.i().playerList.getPlayer(name).sendMessage(
 					MessageUtil.get("ranks.noRanksLoaded"));
 			return;
 		}
@@ -204,7 +204,7 @@ public class Ranks implements Component {
 
 	public void demote(Player sender, String name) {
 		if (ranks.size() == 0) {
-			Core.i().playerList.getPlayer(name).sendMessage(
+			Prison.i().playerList.getPlayer(name).sendMessage(
 					MessageUtil.get("ranks.noRanksLoaded"));
 			return;
 		}
@@ -268,8 +268,8 @@ public class Ranks implements Component {
 	}
 
 	public void changeRank(Player player, Rank currentRank, Rank newRank) {
-		if (Core.i().config.rankWorlds.size() == 0
-				|| !Core.i().config.enableMultiworld) {
+		if (Prison.i().config.rankWorlds.size() == 0
+				|| !Prison.i().config.enableMultiworld) {
 			permission.playerAddGroup(null, player, newRank.getName());
 			if (currentRank != null) {
 				permission.playerRemoveGroup(null, player,
@@ -277,7 +277,7 @@ public class Ranks implements Component {
 			}
 			return;
 		}
-		for (String world : Core.i().config.rankWorlds) {
+		for (String world : Prison.i().config.rankWorlds) {
 			if (Bukkit.getWorld(world) != null) {
 				permission.playerAddGroup(world, player, newRank.getName());
 				if (currentRank != null) {
@@ -285,7 +285,7 @@ public class Ranks implements Component {
 							currentRank.getName());
 				}
 			} else {
-				Core.l.warning("One of the worlds specified in the ranks multiworld configuration does not exist. It has been ignored.");
+				Prison.l.warning("One of the worlds specified in the ranks multiworld configuration does not exist. It has been ignored.");
 			}
 		}
 	}

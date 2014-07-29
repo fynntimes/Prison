@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import me.sirfaizdat.prison.core.Core;
+import me.sirfaizdat.prison.core.Prison;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -55,7 +55,7 @@ public class Mine {
 		this.maxX = maxX;
 		this.maxY = maxY;
 		this.maxZ = maxZ;
-		mineFile = new File(Core.i().getDataFolder(), "/mines/" + name
+		mineFile = new File(Prison.i().getDataFolder(), "/mines/" + name
 				+ ".mine");
 	}
 
@@ -74,14 +74,14 @@ public class Mine {
 			mineFile.delete();
 		}
 		try {
-			FileOutputStream out = new FileOutputStream(new File(Core.i()
+			FileOutputStream out = new FileOutputStream(new File(Prison.i()
 					.getDataFolder(), "/mines/" + name + ".mine"));
 			ObjectOutputStream oOut = new ObjectOutputStream(out);
 			oOut.writeObject(sm);
 			oOut.close();
 			out.close();
 		} catch (IOException e) {
-			Core.l.warning("Failed to save mine " + name + ".");
+			Prison.l.warning("Failed to save mine " + name + ".");
 			e.printStackTrace();
 		}
 	}
@@ -90,7 +90,7 @@ public class Mine {
 	public boolean reset() {
 		List<CompositionEntry> probabilityMap = mapComposition(blocks);
 		if (probabilityMap.size() == 0) {
-			Core.l.warning("Mine " + name
+			Prison.l.warning("Mine " + name
 					+ " could not regenerate because it has no composition.");
 			return false;
 		}
@@ -110,13 +110,13 @@ public class Mine {
 		for (int y = minY; y <= maxY; y++) {
 			for (int x = minX; x <= maxX; x++) {
 				for (int z = minZ; z <= maxZ; z++) {
-					if (Core.i().config.fillMode) {
+					if (Prison.i().config.fillMode) {
 						// Only reset if it is an air block
 						boolean empty = true;
 						try {
 							empty = world.getBlockAt(x, y, z).isEmpty();
 						} catch (NullPointerException e) {
-							Core.l.severe("The world " + worldName
+							Prison.l.severe("The world " + worldName
 									+ " could not be found! Mine " + name
 									+ " was not reset.");
 							return false;
@@ -142,7 +142,7 @@ public class Mine {
 											ce.getBlock().getId(),
 											ce.getBlock().getData(), false);
 								} catch (NullPointerException e) {
-									Core.l.severe("The world " + worldName
+									Prison.l.severe("The world " + worldName
 											+ " could not be found! Mine "
 											+ name + " was not reset.");
 									return false;

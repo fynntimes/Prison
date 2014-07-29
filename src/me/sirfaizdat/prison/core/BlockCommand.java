@@ -17,7 +17,7 @@ import org.bukkit.material.Dye;
 public class BlockCommand implements CommandExecutor {
 
 	public BlockCommand() {
-		Core.i().getCommand("block").setExecutor(this);
+		Prison.i().getCommand("block").setExecutor(this);
 	}
 	
 	@SuppressWarnings("deprecation")

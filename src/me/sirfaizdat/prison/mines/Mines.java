@@ -4,7 +4,7 @@
 package me.sirfaizdat.prison.mines;
 
 import me.sirfaizdat.prison.core.Component;
-import me.sirfaizdat.prison.core.Core;
+import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.core.FailedToStartException;
 
 import org.bukkit.Bukkit;
@@ -20,7 +20,7 @@ public class Mines implements Component {
 
 	public static Mines i;
 	private boolean enabled = true;
-	Core core = Core.i();
+	Prison core = Prison.i();
 
 	MinesCommandManager mcm;
 	public MinesManager mm;

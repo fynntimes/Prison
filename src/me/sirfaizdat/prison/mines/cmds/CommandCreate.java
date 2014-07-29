@@ -4,7 +4,7 @@
 package me.sirfaizdat.prison.mines.cmds;
 
 import me.sirfaizdat.prison.core.Command;
-import me.sirfaizdat.prison.core.Core;
+import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.mines.Mine;
 import me.sirfaizdat.prison.mines.Mines;
@@ -24,7 +24,7 @@ public class CommandCreate extends Command {
 
 	@Override
 	protected void execute() {
-		Selection s = Mines.i.getWE().getSelection(Core.i().playerList.getPlayer(sender.getName()));
+		Selection s = Mines.i.getWE().getSelection(Prison.i().playerList.getPlayer(sender.getName()));
 		if(s == null) {
 			sender.sendMessage(MessageUtil.get("mines.makeWESel"));
 			return;

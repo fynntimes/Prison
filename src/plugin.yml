@@ -1,9 +1,9 @@
-name: Prison
+name: Prison 2
 version: 2.0.5dev
 description: Prison offers a powerful group of features essential in creating Prison servers.
 author: SirFaizdat
 website: http://dev.bukkit.org/bukkit-plugins/mcprison/
-main: me.sirfaizdat.prison.core.Core
+main: me.sirfaizdat.prison.core.Prison
 commands:
   prison:
     description: Basic commands for Prison.

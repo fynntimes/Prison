@@ -63,7 +63,7 @@ public abstract class AbstractCommandManager implements CommandExecutor {
 					+ cmd.getValue().description();
 			b.append(cmdString + "\n");
 		}
-		return Core.colorize(b.toString());
+		return Prison.colorize(b.toString());
 	}
 
 	private void componentize() {

@@ -25,16 +25,16 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @author SirFaizdat
  */
 // Considered a component, but not implementing due to class hierarchy.
-public class Core extends JavaPlugin implements Listener {
+public class Prison extends JavaPlugin implements Listener {
 
 	// Instance of Core
-	private static Core i = null;
+	private static Prison i = null;
 
-	public static Core i() {
+	public static Prison i() {
 		return i;
 	}
 
-	public static CoreLogger l = new CoreLogger();
+	public static PrisonLogger l = new PrisonLogger();
 
 	Mines mines;
 	Ranks ranks;
@@ -93,7 +93,7 @@ public class Core extends JavaPlugin implements Listener {
 				}
 			}
 		}
-		Bukkit.getScheduler().runTaskLater(Core.i(), new Runnable() {
+		Bukkit.getScheduler().runTaskLater(Prison.i(), new Runnable() {
 
 			@Override
 			public void run() {

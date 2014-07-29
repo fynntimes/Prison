@@ -6,7 +6,7 @@ package me.sirfaizdat.prison.mines.cmds;
 import java.util.Map;
 
 import me.sirfaizdat.prison.core.Command;
-import me.sirfaizdat.prison.core.Core;
+import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.core.ItemManager;
 import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.mines.Block;
@@ -30,7 +30,7 @@ public class CommandAddBlock extends Command {
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void execute() {
-		if(!Core.i().im.isLoaded()) {
+		if(!Prison.i().im.isLoaded()) {
 			sender.sendMessage(MessageUtil.get("general.itemManagerNotLoaded"));
 			return;
 		}
@@ -42,7 +42,7 @@ public class CommandAddBlock extends Command {
 		// Begin block recognition
 		Block block;
 		ItemManager.ItemSet set;
-		if (Core.i().im.isAnInt(args[2].replaceAll(":", ""))) {
+		if (Prison.i().im.isAnInt(args[2].replaceAll(":", ""))) {
 			// Begin "if it is an ID"
 			String[] blocky = args[2].split(":");
 			String data;
@@ -89,7 +89,7 @@ public class CommandAddBlock extends Command {
 			// End "IF IT IS AN ID"
 		} else {
 			// Begin "IF IT IS A WORD"
-			set = Core.i().im.getItem(args[2].toLowerCase());
+			set = Prison.i().im.getItem(args[2].toLowerCase());
 			if (set == null) {
 				sender.sendMessage(MessageUtil.get("mines.blockNotExist"));
 				return;
@@ -145,9 +145,9 @@ public class CommandAddBlock extends Command {
 
 		m.addBlock(block, percentage);
 		m.save();
-		if(Core.i().im.isLoaded()) {
+		if(Prison.i().im.isLoaded()) {
 			sender.sendMessage(MessageUtil.get("mines.addSuccess", m.name,
-					(percentage * 100) + "%", Core.i().im.getName(set)));
+					(percentage * 100) + "%", Prison.i().im.getName(set)));
 		} else {
 			sender.sendMessage(MessageUtil.get("mines.addSuccess", m.name,
 					(percentage * 100) + "%", set.id + ":" + set.data));

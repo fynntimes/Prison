@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import me.sirfaizdat.prison.core.Core;
+import me.sirfaizdat.prison.core.Prison;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -19,11 +19,11 @@ public class RanksConfig {
 
 	public void reload() {
 		if (configFile == null) {
-			configFile = new File(Core.i().getDataFolder(), "ranks.yml");
+			configFile = new File(Prison.i().getDataFolder(), "ranks.yml");
 		}
 		config = YamlConfiguration.loadConfiguration(configFile);
 
-		InputStream defConfigStream = Core.i().getResource("ranks.yml");
+		InputStream defConfigStream = Prison.i().getResource("ranks.yml");
 		if (defConfigStream != null) {
 			YamlConfiguration defConfig = YamlConfiguration
 					.loadConfiguration(defConfigStream);
@@ -45,7 +45,7 @@ public class RanksConfig {
 		try {
 			getConfig().save(configFile);
 		} catch (IOException e) {
-			Core.l.severe("Could not save ranks.yml to " + configFile + ".");
+			Prison.l.severe("Could not save ranks.yml to " + configFile + ".");
 			return false;
 		}
 		return true;
@@ -53,10 +53,10 @@ public class RanksConfig {
 	
 	public void saveDefaultConfig() {
 	    if (configFile == null) {
-	    	configFile = new File(Core.i().getDataFolder(), "ranks.yml");
+	    	configFile = new File(Prison.i().getDataFolder(), "ranks.yml");
 	    }
 	    if (!configFile.exists()) {            
-	         Core.i().saveResource("ranks.yml", false);
+	         Prison.i().saveResource("ranks.yml", false);
 	     }
 	}
 

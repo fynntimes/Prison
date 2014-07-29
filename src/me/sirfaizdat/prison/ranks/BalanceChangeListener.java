@@ -5,7 +5,7 @@ package me.sirfaizdat.prison.ranks;
 
 import java.util.HashMap;
 
-import me.sirfaizdat.prison.core.Core;
+import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.ranks.events.BalanceChangeEvent;
 import net.milkbowl.vault.economy.Economy;
 
@@ -28,8 +28,8 @@ class BalanceChangeListener implements Listener {
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			balance.put(p.getName(), eco.getBalance(p));
 		}
-		Bukkit.getServer().getPluginManager().registerEvents(this, Core.i());
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(Core.i(),
+		Bukkit.getServer().getPluginManager().registerEvents(this, Prison.i());
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(Prison.i(),
 				new Runnable() {
 					@Override
 					public void run() {

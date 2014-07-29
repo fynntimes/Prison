@@ -25,33 +25,33 @@ public class Config {
 	public boolean enableMultiworld;
 
 	public Config() {
-		FileConfiguration c = Core.i().getConfig();
+		FileConfiguration c = Prison.i().getConfig();
 
-		serverPrefix = Core.colorize(c.getString("server-prefix") + " &r");
+		serverPrefix = Prison.colorize(c.getString("server-prefix") + " &r");
 		checkUpdates = c.getBoolean("check-updates");
 		resetTime = c.getInt("reset-time");
 		resetWarnings = c.getIntegerList("reset-warnings");
 		fillMode = c.getBoolean("fill-mode");
-		resetWarningMessage = Core.colorize(c
+		resetWarningMessage = Prison.colorize(c
 				.getString("reset-warning-message"));
-		resetBroadcastMessage = Core.colorize(c
+		resetBroadcastMessage = Prison.colorize(c
 				.getString("reset-broadcast-message"));
 		rankWorlds = c.getStringList("world-list");
 		enableMultiworld = c.getBoolean("multiworld");
 	}
 
 	public void reload() {
-		Core.i().reloadConfig();
-		FileConfiguration c = Core.i().getConfig();
+		Prison.i().reloadConfig();
+		FileConfiguration c = Prison.i().getConfig();
 
-		serverPrefix = Core.colorize(c.getString("server-prefix") + " &r");
+		serverPrefix = Prison.colorize(c.getString("server-prefix") + " &r");
 		checkUpdates = c.getBoolean("check-updates");
 		resetTime = c.getInt("reset-time");
 		resetWarnings = c.getIntegerList("reset-warnings");
 		fillMode = c.getBoolean("fill-mode");
-		resetWarningMessage = Core.colorize(c
+		resetWarningMessage = Prison.colorize(c
 				.getString("reset-warning-message"));
-		resetBroadcastMessage = Core.colorize(c
+		resetBroadcastMessage = Prison.colorize(c
 				.getString("reset-broadcast-message"));
 		enableMultiworld = c.getBoolean("multiworld");
 	}

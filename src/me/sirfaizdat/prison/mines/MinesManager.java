@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import me.sirfaizdat.prison.core.Core;
+import me.sirfaizdat.prison.core.Prison;
 
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -30,7 +30,7 @@ public class MinesManager {
 	int autoResetID = -1;
 	
 	public MinesManager() {
-		File mineRoot = new File(Core.i().getDataFolder(), "/mines/");
+		File mineRoot = new File(Prison.i().getDataFolder(), "/mines/");
 		if (!mineRoot.exists()) {
 			mineRoot.mkdir();
 		}
@@ -40,11 +40,11 @@ public class MinesManager {
 	}
 	
 	public void timer() {
-		resetTime = Core.i().config.resetTime;
+		resetTime = Prison.i().config.resetTime;
 		resetTimeCounter = resetTime;
 		BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
 		ResetClock rs = new ResetClock();
-		autoResetID = scheduler.scheduleSyncRepeatingTask(Core.i(), rs, 1200L, 1200L);
+		autoResetID = scheduler.scheduleSyncRepeatingTask(Prison.i(), rs, 1200L, 1200L);
 	}
 	
 	private class ResetClock implements Runnable {
@@ -52,9 +52,9 @@ public class MinesManager {
 			if(mines.size() == 0) return;
 			if(resetTime == 0) return;
 			if(resetTimeCounter > 0) resetTimeCounter--;
-			for(int warning: Core.i().config.resetWarnings) {
+			for(int warning: Prison.i().config.resetWarnings) {
 				if(warning == resetTimeCounter) {
-					String warnMsg = Core.i().config.resetWarningMessage;
+					String warnMsg = Prison.i().config.resetWarningMessage;
 					warnMsg = warnMsg.replaceAll("<mins>", warning + "");
 					Bukkit.broadcastMessage(warnMsg);
 				}
@@ -70,7 +70,7 @@ public class MinesManager {
 					}
 					mine.reset();
 				}
-				Bukkit.broadcastMessage(Core.i().config.resetBroadcastMessage);
+				Bukkit.broadcastMessage(Prison.i().config.resetBroadcastMessage);
 				resetTimeCounter = resetTime;
 			}
 		}
@@ -79,22 +79,22 @@ public class MinesManager {
 	public void load() {
 		ArrayList<String> files = getAllMineFiles();
 		if (files.size() == 0 || files == null) {
-			Core.l.info("&2Loaded 0 mines! (no mines found)");
+			Prison.l.info("&2Loaded 0 mines! (no mines found)");
 			return;
 		}
 		for (String name : files) {
 			SerializableMine sm = null;
 			try {
-				FileInputStream fileIn = new FileInputStream(new File(Core.i()
+				FileInputStream fileIn = new FileInputStream(new File(Prison.i()
 						.getDataFolder(), "/mines/" + name));
 				ObjectInputStream in = new ObjectInputStream(fileIn);
 				sm = (SerializableMine) in.readObject();
 				in.close();
 				fileIn.close();
 			} catch (ClassNotFoundException e) {
-				Core.l.severe("An unexpected error occured. Check to make sure your copy of the plugin is not corrupted.");
+				Prison.l.severe("An unexpected error occured. Check to make sure your copy of the plugin is not corrupted.");
 			} catch (IOException e) {
-				Core.l.warning("There was an error in loading file " + name
+				Prison.l.warning("There was an error in loading file " + name
 						+ ".");
 			}
 			Mine m = new Mine(sm.name, sm.world, sm.minX,
@@ -104,7 +104,7 @@ public class MinesManager {
 			}
 			mines.put(sm.name, m);
 		}
-		Core.l.info("&2Loaded " + mines.size() + " mines.");
+		Prison.l.info("&2Loaded " + mines.size() + " mines.");
 	}
 
 	private void transferComposition(Mine m, HashMap<String, Block> compo) {
@@ -138,7 +138,7 @@ public class MinesManager {
 	
 	public ArrayList<String> getAllMineFiles() {
 		ArrayList<String> returnVal = new ArrayList<String>();
-		File folder = new File(Core.i().getDataFolder(), "/mines/");
+		File folder = new File(Prison.i().getDataFolder(), "/mines/");
 		File[] files = folder.listFiles();
 		if (files == null || files.length == 0) {
 			return new ArrayList<String>();

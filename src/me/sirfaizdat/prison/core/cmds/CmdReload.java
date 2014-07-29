@@ -4,7 +4,7 @@
 package me.sirfaizdat.prison.core.cmds;
 
 import me.sirfaizdat.prison.core.Command;
-import me.sirfaizdat.prison.core.Core;
+import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.core.MessageUtil;
 
 /**
@@ -18,7 +18,7 @@ public class CmdReload extends Command {
 
 	@Override
 	protected void execute() {
-		Core.i().reload();
+		Prison.i().reload();
 		sender.sendMessage(MessageUtil.get("general.reloaded"));
 	}
 

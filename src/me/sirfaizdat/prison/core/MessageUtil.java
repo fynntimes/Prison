@@ -32,9 +32,9 @@ public class MessageUtil {
 				"&aThere is a new version of Prison available &7(%0)&a! &6Type &c/prison update &6to update.");
 		add("general.versionString",
 				"&6Prison v"
-						+ Core.i().getDescription().getVersion()
+						+ Prison.i().getDescription().getVersion()
 						+ "\n&cAuthor: SirFaizdat\n&bWebsite: "
-						+ Core.i().getDescription().getWebsite()
+						+ Prison.i().getDescription().getWebsite()
 						+ "\n&7(C) 2014 SirFaizdat All Rights Reserved.");
 		add("general.reloaded", "&aReloaded.");
 		add("general.itemManagerNotLoaded", "&6Please wait for the item manager to load.");
@@ -92,6 +92,8 @@ public class MessageUtil {
 				"&aSuccessfully demoted &6%0&a to rank %1&a!");
 		add("ranks.notAPlayer",
 				"&cThat player does not exist or is offline.");
+		add("ranks.editSuccess", "&aSuccessfully edited rank!");
+		add("ranks.editFail", "&cFailed to edit rank.");
 
 		// Shops
 		add("shops.noPermission",
@@ -110,7 +112,7 @@ public class MessageUtil {
 	}
 
 	public static void add(String key, String value) {
-		messages.put(key, Core.i().config.serverPrefix + Core.colorize(value));
+		messages.put(key, Prison.i().config.serverPrefix + Prison.colorize(value));
 	}
 
 	public static String get(String key) {
@@ -120,11 +122,11 @@ public class MessageUtil {
 	public static String get(String key, String... replace) {
 		String returnVal = messages.get(key);
 		if(returnVal == null) {
-			return Core.colorize("&cInvalid message key - &6" + key + "&c.");
+			return Prison.colorize("&cInvalid message key - &6" + key + "&c.");
 		}
 		for (int i = 0; i < replace.length; i++) {
 			returnVal = returnVal
-					.replaceAll("%" + i, Core.colorize(replace[i]));
+					.replaceAll("%" + i, Prison.colorize(replace[i]));
 		}
 		return returnVal;
 	}

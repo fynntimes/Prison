@@ -42,9 +42,9 @@ public class ItemManager {
 		names = new ArrayList<ItemManager.Bundle>();
 
 		// Create backup
-		backup = new File(Core.i().getDataFolder(), "localitems.csv");
+		backup = new File(Prison.i().getDataFolder(), "localitems.csv");
 		if (!backup.exists()) {
-			Core.i().saveResource("localitems.csv", false);
+			Prison.i().saveResource("localitems.csv", false);
 		}
 	}
 
@@ -69,8 +69,8 @@ public class ItemManager {
 
 			in.close();
 		} catch (Exception e) {
-			Core.l.warning("Could not read item list from internet! Attempting to use local items.csv...");
-			Core.l.info("While this lets you use item names, the local list is not as up-to-date with the latest Minecraft blocks as the online version is.");
+			Prison.l.warning("Could not read item list from internet! Attempting to use local items.csv...");
+			Prison.l.info("While this lets you use item names, the local list is not as up-to-date with the latest Minecraft blocks as the online version is.");
 
 			try {
 				BufferedReader in = new BufferedReader(new FileReader(backup));
@@ -88,7 +88,7 @@ public class ItemManager {
 				}
 				in.close();
 			} catch (Exception e1) {
-				Core.l.severe("Could not read local item list! This may cause errors.");
+				Prison.l.severe("Could not read local item list! This may cause errors.");
 				setLoaded(false);
 				return;
 			}

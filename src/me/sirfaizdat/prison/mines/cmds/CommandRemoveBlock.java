@@ -4,7 +4,7 @@
 package me.sirfaizdat.prison.mines.cmds;
 
 import me.sirfaizdat.prison.core.Command;
-import me.sirfaizdat.prison.core.Core;
+import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.core.ItemManager.ItemSet;
 import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.mines.Block;
@@ -48,7 +48,7 @@ public class CommandRemoveBlock extends Command {
 	// }
 
 	public void execute() {
-		if (!Core.i().im.isLoaded()) {
+		if (!Prison.i().im.isLoaded()) {
 			sender.sendMessage(MessageUtil.get("general.itemManagerNotLoaded"));
 			return;
 		}
@@ -108,7 +108,7 @@ public class CommandRemoveBlock extends Command {
 			// End "IF IT IS AN ID"
 		} else {
 			// Begin "IF IT IS A WORD"
-			set = Core.i().im.getItem(args[2].toLowerCase());
+			set = Prison.i().im.getItem(args[2].toLowerCase());
 			if (set == null) {
 				sender.sendMessage(MessageUtil.get("mines.blockNotExist"));
 				return;
@@ -139,9 +139,9 @@ public class CommandRemoveBlock extends Command {
 
 		m.blocks.remove(block.toString());
 		m.save();
-		if (Core.i().im.isLoaded()) {
+		if (Prison.i().im.isLoaded()) {
 			sender.sendMessage(MessageUtil.get("mines.removedBlock",
-					Core.i().im.getName(set), m.name));
+					Prison.i().im.getName(set), m.name));
 		} else {
 			sender.sendMessage(MessageUtil.get("mines.removedBlock", set.id
 					+ ":" + set.data, m.name));

@@ -36,12 +36,12 @@ public abstract class Configuration {
 	public void reload() {
 		// If the config does not yet exist
 		if (configFile == null) {
-			configFile = new File(Core.i().getDataFolder(), name);
+			configFile = new File(Prison.i().getDataFolder(), name);
 		}
 		config = YamlConfiguration.loadConfiguration(configFile);
 
 		// Copy defaults
-		InputStream defConfigStream = Core.i().getResource(name);
+		InputStream defConfigStream = Prison.i().getResource(name);
 		if (defConfigStream != null) {
 			@SuppressWarnings("deprecation")
 			YamlConfiguration defConfig = YamlConfiguration
@@ -70,7 +70,7 @@ public abstract class Configuration {
 		try {
 			getConfig().save(configFile);
 		} catch (IOException e) {
-			Core.l.severe("Could not save file " + name + " to disk.");
+			Prison.l.severe("Could not save file " + name + " to disk.");
 		}
 	}
 
@@ -79,10 +79,10 @@ public abstract class Configuration {
 	 */
 	public void saveDefaultConfig() {
 		if (configFile == null) {
-			configFile = new File(Core.i().getDataFolder(), name);
+			configFile = new File(Prison.i().getDataFolder(), name);
 		}
 		if (!configFile.exists()) {
-			Core.i().saveResource(name, false);
+			Prison.i().saveResource(name, false);
 		}
 	}
 

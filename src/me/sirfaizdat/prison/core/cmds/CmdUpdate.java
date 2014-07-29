@@ -4,7 +4,7 @@
 package me.sirfaizdat.prison.core.cmds;
 
 import me.sirfaizdat.prison.core.Command;
-import me.sirfaizdat.prison.core.Core;
+import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.core.Updater;
 import me.sirfaizdat.prison.core.Updater.UpdateResult;
@@ -21,12 +21,12 @@ public class CmdUpdate extends Command {
 
 	@Override
 	protected void execute() {
-		if (Core.i().config.checkUpdates) {
-			if(Core.i().getDescription().getVersion().contains("dev")) {
+		if (Prison.i().config.checkUpdates) {
+			if(Prison.i().getDescription().getVersion().contains("dev")) {
 				sender.sendMessage(MessageUtil.get("general.devBuild"));
 				return;
 			}
-			Updater updater = new Updater(Core.i(), 76155, Core.i().file,
+			Updater updater = new Updater(Prison.i(), 76155, Prison.i().file,
 					UpdateType.DEFAULT, true);
 			if (updater.getResult() == UpdateResult.NO_UPDATE) {
 				sender.sendMessage(MessageUtil.get("general.noUpdate"));
