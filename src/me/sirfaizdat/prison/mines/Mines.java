@@ -4,8 +4,8 @@
 package me.sirfaizdat.prison.mines;
 
 import me.sirfaizdat.prison.core.Component;
-import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.core.FailedToStartException;
+import me.sirfaizdat.prison.core.Prison;
 
 import org.bukkit.Bukkit;
 

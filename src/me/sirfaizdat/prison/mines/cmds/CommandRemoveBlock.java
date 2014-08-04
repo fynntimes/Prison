@@ -4,9 +4,9 @@
 package me.sirfaizdat.prison.mines.cmds;
 
 import me.sirfaizdat.prison.core.Command;
-import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.core.ItemManager.ItemSet;
 import me.sirfaizdat.prison.core.MessageUtil;
+import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.mines.Block;
 import me.sirfaizdat.prison.mines.Mine;
 import me.sirfaizdat.prison.mines.Mines;
@@ -24,29 +24,7 @@ public class CommandRemoveBlock extends Command {
 		addRequiredArg("block");
 	}
 
-	//
-	// public void execute() {
-	// Mine m = Mines.i.mm.getMine(args[1]);
-	// if (m == null) {
-	// sender.sendMessage(MessageUtil.get("mines.notFound"));
-	// return;
-	// }
-	// String passedBlockID = args[2];
-	// if (!passedBlockID.contains(":")) {
-	// passedBlockID = passedBlockID + ":0";
-	// }
-	// Block b = m.blocks.get(passedBlockID);
-	// if (b == null) {
-	// sender.sendMessage(MessageUtil.get("mines.mineDoesntHaveThisBlock"));
-	// return;
-	// }
-	// m.blocks.remove(b);
-	// m.blocks.remove(passedBlockID);
-	// m.save();
-	// sender.sendMessage(MessageUtil.get("mines.removedBlock", passedBlockID,
-	// m.name));
-	// }
-
+	@SuppressWarnings("deprecation")
 	public void execute() {
 		if (!Prison.i().im.isLoaded()) {
 			sender.sendMessage(MessageUtil.get("general.itemManagerNotLoaded"));

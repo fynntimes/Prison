@@ -4,8 +4,8 @@
 package me.sirfaizdat.prison.core.cmds;
 
 import me.sirfaizdat.prison.core.Command;
-import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.core.MessageUtil;
+import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.core.Updater;
 import me.sirfaizdat.prison.core.Updater.UpdateResult;
 import me.sirfaizdat.prison.core.Updater.UpdateType;

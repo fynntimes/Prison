@@ -7,8 +7,8 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 import me.sirfaizdat.prison.core.AbstractCommandManager;
-import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.core.MessageUtil;
+import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.ranks.Rank;
 import me.sirfaizdat.prison.ranks.Ranks;
 

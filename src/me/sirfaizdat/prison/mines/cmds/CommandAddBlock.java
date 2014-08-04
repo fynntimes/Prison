@@ -6,9 +6,9 @@ package me.sirfaizdat.prison.mines.cmds;
 import java.util.Map;
 
 import me.sirfaizdat.prison.core.Command;
-import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.core.ItemManager;
 import me.sirfaizdat.prison.core.MessageUtil;
+import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.mines.Block;
 import me.sirfaizdat.prison.mines.Mine;
 import me.sirfaizdat.prison.mines.Mines;
