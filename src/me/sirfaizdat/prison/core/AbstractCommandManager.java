@@ -28,25 +28,31 @@ public abstract class AbstractCommandManager implements CommandExecutor {
 	}
 
 	@Override
-	public boolean onCommand(CommandSender sender,
-			org.bukkit.command.Command command, String label, String[] args) {
-		if (command.getName().equalsIgnoreCase(baseCommand)) {
-			if (args.length < 1) {
-				sender.sendMessage(MessageUtil.get("general.noCmdPassed"));
-				sender.sendMessage(helpMessage);
-				return true;
+	public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
+		try {
+			if (command.getName().equalsIgnoreCase(baseCommand)) {
+				if (args.length < 1) {
+					sender.sendMessage(MessageUtil.get("general.noCmdPassed"));
+					sender.sendMessage(helpMessage);
+					return true;
+				}
+				if (args[0].equalsIgnoreCase("help")) {
+					sender.sendMessage(helpMessage);
+					return true;
+				}
+				Command c = commands.get(args[0].toLowerCase());
+				if (c == null) {
+					sender.sendMessage(MessageUtil.get("general.cmdNotFound", "/" + baseCommand + " help"));
+					return true;
+				}
+				c.run(sender, args);
 			}
-			if (args[0].equalsIgnoreCase("help")) {
-				sender.sendMessage(helpMessage);
-				return true;
-			}
-			Command c = commands.get(args[0].toLowerCase());
-			if (c == null) {
-				sender.sendMessage(MessageUtil.get("general.cmdNotFound", "/"
-						+ baseCommand + " help"));
-				return true;
-			}
-			c.run(sender, args);
+		} catch (Exception e) {
+			// Only place where a command returns false - might help discover the error.
+			Prison.l.severe("There was an error handling command " + baseCommand + ". Reason: " + e.getMessage());
+			Prison.l.warning("More info: ");
+			e.printStackTrace();
+			return false;
 		}
 		return true;
 	}
@@ -55,12 +61,10 @@ public abstract class AbstractCommandManager implements CommandExecutor {
 
 	public String generateHelpMessage() {
 		StringBuilder b = new StringBuilder();
-		b.append("&6==============&c[&2" + c.getName()
-				+ "&c]&6==============\n");
+		b.append("&6==============&c[&2" + c.getName() + "&c]&6==============\n");
 		b.append("&7<> = Required argument    [] = Optional argument\n");
 		for (Map.Entry<String, Command> cmd : commands.entrySet()) {
-			String cmdString = cmd.getValue().usage() + " &2-&c "
-					+ cmd.getValue().description();
+			String cmdString = cmd.getValue().usage() + " &2-&c " + cmd.getValue().description();
 			b.append(cmdString + "\n");
 		}
 		return Prison.colorize(b.toString());

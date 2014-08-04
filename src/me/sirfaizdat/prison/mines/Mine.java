@@ -111,7 +111,6 @@ public class Mine {
 			for (int x = minX; x <= maxX; x++) {
 				for (int z = minZ; z <= maxZ; z++) {
 					if (Prison.i().config.fillMode) {
-						// Only reset if it is an air block
 						boolean empty = true;
 						try {
 							empty = world.getBlockAt(x, y, z).isEmpty();

@@ -1,4 +1,4 @@
-name: Prison 2
+name: Prison
 version: 2.0.5dev
 description: Prison offers a powerful group of features essential in creating Prison servers.
 author: SirFaizdat
@@ -14,10 +14,10 @@ commands:
     description: Compacts items into blocks.
   mines:
     description: Ability to control mines.
-    usage: There was an error in starting mines. Your save files may be corrupted.
+    usage: There was an error in starting mines. Check the console for details.
   prisonranks:
     description: Ability to control ranks.
-    usage: There was an error in starting ranks. Your save files may be corrupted.
+    usage: There was an error in starting ranks. Check the console for details.
     aliases: [pranks, rsetup]
   rankup:
     description: Purchase the next rank.
