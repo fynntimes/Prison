@@ -42,9 +42,12 @@
          <resource>
              <targetPath>.</targetPath>
              <filtering>true</filtering>
-             <directory>.</directory>
+             <directory>src</directory>
              <includes>
                  <include>plugin.yml</include>
+                 <include>config.yml</include>
+                 <include>ranks.yml</include>
+                 <include>localitems.csv</include>
              </includes>
          </resource>
      </resources>
