@@ -65,10 +65,8 @@ public class MinesManager {
 //				}
 				for(Mine mine : mines.values()) {
 					if(mine.world == null) {
-						mine.setWorld(Bukkit.getWorld(mine.world.getName()));
-						mine.save();
+						mine.reset();
 					}
-					mine.reset();
 				}
 				Bukkit.broadcastMessage(Prison.i().config.resetBroadcastMessage);
 				resetTimeCounter = resetTime;
