@@ -60,15 +60,12 @@ public class MinesManager {
 				}
 			}
 			if(resetTimeCounter == 0) {
-//				for(Map.Entry<String, Mine> entry : mines.entrySet()) {
-//					entry.getValue().reset();
-//				}
 				for(Mine mine : mines.values()) {
-					if(mine.world == null) {
-						mine.setWorld(Bukkit.getWorld(mine.world.getName()));
-						mine.save();
+					if(!mine.worldMissing) {
+						mine.reset();
+					} else {
+						Prison.l.warning("Did not reset mine " + mine.name + " because the world it is in could not be found.");
 					}
-					mine.reset();
 				}
 				Bukkit.broadcastMessage(Prison.i().config.resetBroadcastMessage);
 				resetTimeCounter = resetTime;

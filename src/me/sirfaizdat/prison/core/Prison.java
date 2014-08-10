@@ -45,6 +45,7 @@ public class Prison extends JavaPlugin implements Listener {
 	public PlayerList playerList;
 	public Config config;
 	public ItemManager im;
+	public PWorldManager wm;
 	boolean updateAvailable = false;
 	String updateLatestName;
 	
@@ -56,6 +57,7 @@ public class Prison extends JavaPlugin implements Listener {
 		this.saveDefaultConfig();
 		config = new Config();
 		im = new ItemManager();
+		wm = new PWorldManager();
 		new MessageUtil();
 		playerList = new PlayerList();
 		getServer().getPluginManager().registerEvents(playerList, this);

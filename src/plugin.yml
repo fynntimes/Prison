@@ -1,9 +1,10 @@
 name: Prison
-version: 2.0.5dev
+version: 2.0.5
 description: Prison offers a powerful group of features essential in creating Prison servers.
 author: SirFaizdat
 website: http://dev.bukkit.org/bukkit-plugins/mcprison/
 main: me.sirfaizdat.prison.core.Prison
+softdepend: [Vault, WorldEdit, Multiverse-Core]
 commands:
   prison:
     description: Basic commands for Prison.

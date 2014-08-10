@@ -1,17 +1,13 @@
-
-# Do not edit this line.
-version: 2.0.4
-
 #== Prison 2.0 Configuration ==#
 #     (C) 2014 SirFaizdat      #
 #== == == == === == == == == ==#
 
 server-prefix: "&4Prison &7>"
 check-updates: true
-debug: false
 
 # == MINES == #
 
+fetch-online-item-list: true
 reset-time: 10
 reset-warnings: [10,5,1]
 fill-mode: true
@@ -27,7 +23,6 @@ reset-broadcast-message: "&2Mines have been reset!"
 # want to enable this, change multiworld to true. If you want them to 
 # rank up in all worlds, just leave it at false.
 # It is highly recommended that you read the guide on the Bukkit page.
-
 # ===== THIS FEATURE IS FOR ADVANCED USERS ONLY! ===== #
 
 multiworld: false

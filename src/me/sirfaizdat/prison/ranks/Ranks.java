@@ -70,7 +70,7 @@ public class Ranks implements Component {
 
 		rankFolder = new File(Prison.i().getDataFolder(), "/ranks");
 		if (!rankFolder.exists()) {
-			if (!rankFolder.mkdir()) {
+			if (!rankFolder.mkdirs()) {
 				Prison.l.severe("Failed to generate ranks folder. Will not load ranks.");
 				throw new FailedToStartException("Failed to generate ranks folder.");
 			}
@@ -150,18 +150,19 @@ public class Ranks implements Component {
 			}
 			if (successful) {
 				successful = configFile.delete();
-				if(!successful) {
+				if (!successful) {
 					// Warn but still allow ranks to load.
 					Prison.l.warning("Failed to delete old ranks save file (ranks.yml). You must do it manually.");
 					successful = true;
 				}
 			} else {
 				Prison.l.severe("Failed to convert rank(s).");
+				successful = false;
 			}
 			return successful;
 		}
-		
-		//<-- END CONVERTER CODE -->
+
+		// <-- END CONVERTER CODE -->
 
 		File rankListFile = new File(rankFolder, "ranksList.txt");
 		if (!rankListFile.exists()) {
@@ -195,6 +196,7 @@ public class Ranks implements Component {
 
 		int count = 0;
 		for (String s : ranksList) {
+			boolean good = true;
 			String fileName = s + ".rank";
 			SerializableRank sr = null;
 			try {
@@ -205,20 +207,67 @@ public class Ranks implements Component {
 				fileIn.close();
 			} catch (ClassNotFoundException e) {
 				Prison.l.severe("An unexpected error occured. Check to make sure your copy of the plugin is not corrupted.");
+				return false;
 			} catch (IOException e) {
-				Prison.l.warning("There was an error in loading file " + fileName + ".");
+				try {
+
+					File inputFile = new File(rankFolder, "ranksList.txt");
+					File tempFile = new File(rankFolder, "ranksTemp.txt");
+
+					BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+					BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+					String lineToRemove = s;
+					String currentLine;
+
+					while ((currentLine = reader.readLine()) != null) {
+						String trimmedLine = currentLine.trim();
+						if (trimmedLine.equals(lineToRemove)) continue;
+						writer.write(currentLine);
+						writer.newLine();
+					}
+					reader.close();
+					writer.close();
+					boolean successful = tempFile.renameTo(inputFile);
+					if (!successful) {
+						return false;
+					}
+				} catch (IOException ex) {
+					Prison.l.severe("Failed to remove rank " + s + " from rank list.");
+					ex.printStackTrace();
+					return false;
+				}
+				Prison.l.warning("There was an error in loading file " + fileName + ". It has been removed from the rank list.");
+				good = false;
 			}
 
-			Rank rank = new Rank();
-			rank.setId(count);
-			rank.setName(sr.name);
-			rank.setPrefix(sr.prefix);
-			rank.setPrice(sr.price);
-			ranks.add(rank);
+			if (good) {
+				Rank rank = new Rank();
+				rank.setId(count);
+				rank.setName(sr.name);
+				rank.setPrefix(sr.prefix);
+				rank.setPrice(sr.price);
+				ranks.add(rank);
+			}
 			count++;
 		}
 
 		return true;
+	}
+
+	private String getGroup(String world, Player player) {
+
+		String[] groups = permission.getPlayerGroups(world, player);
+
+		for (String group : groups) {
+			for (Rank rank : ranks) {
+				if (group.equals(rank.getName())) {
+					return group;
+				}
+			}
+		}
+
+		return null;
 	}
 
 	public UserInfo getUserInfo(String name) {
@@ -233,18 +282,22 @@ public class Ranks implements Component {
 			Rank nextRank = null;
 
 			for (Rank rank : ranks) {
-				String primaryGroup = permission.getPrimaryGroup(player.getWorld().getName(), player);
-				if (currentRank != null) {
-					nextRank = rank;
-					break;
-				}
+				String primaryGroup = getGroup(player.getWorld().getName(), player);
+				if (primaryGroup != null) {
+					if (currentRank != null) {
+						nextRank = rank;
+						break;
+					}
 
-				if (primaryGroup.equalsIgnoreCase(rank.getName())) {
-					currentRank = rank;
-				}
+					if (primaryGroup.equalsIgnoreCase(rank.getName())) {
+						currentRank = rank;
+					}
 
-				if (currentRank == null) {
-					previousRank = rank;
+					if (currentRank == null) {
+						previousRank = rank;
+					}
+				} else {
+					nextRank = ranks.get(0);
 				}
 			}
 
@@ -277,6 +330,10 @@ public class Ranks implements Component {
 			}
 			if (nextRank == null) {
 				info.getPlayer().sendMessage(buy ? MessageUtil.get("ranks.highestRank") : MessageUtil.get("ranks.highestRank.other"));
+				return;
+			}
+			if (!isRank(nextRank.getName())) {
+				info.getPlayer().sendMessage(MessageUtil.get("ranks.notAGroup"));
 				return;
 			}
 			if (nextRank != null) {
@@ -385,7 +442,7 @@ public class Ranks implements Component {
 		}
 		try {
 
-			File inputFile = new File(rankFolder, "ranks.txt");
+			File inputFile = new File(rankFolder, "ranksList.txt");
 			File tempFile = new File(rankFolder, "ranksTemp.txt");
 
 			BufferedReader reader = new BufferedReader(new FileReader(inputFile));
@@ -398,6 +455,7 @@ public class Ranks implements Component {
 				String trimmedLine = currentLine.trim();
 				if (trimmedLine.equals(lineToRemove)) continue;
 				writer.write(currentLine);
+				writer.newLine();
 			}
 			reader.close();
 			writer.close();
@@ -433,7 +491,7 @@ public class Ranks implements Component {
 			return;
 		}
 		for (String world : Prison.i().config.rankWorlds) {
-			if (Bukkit.getWorld(world) != null) {
+			if (Prison.i().wm.getWorld(world) != null) {
 				permission.playerAddGroup(world, player, newRank.getName());
 				if (currentRank != null) {
 					permission.playerRemoveGroup(world, player, currentRank.getName());

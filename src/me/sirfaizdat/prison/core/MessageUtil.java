@@ -94,7 +94,8 @@ public class MessageUtil {
 				"&cThat player does not exist or is offline.");
 		add("ranks.editSuccess", "&aSuccessfully edited rank!");
 		add("ranks.editFail", "&cFailed to edit rank.");
-
+		add("ranks.notAGroup", "&cThat rank is not loaded into your permissions plugin.");
+		
 		// Shops
 		add("shops.noPermission",
 				"&cYou don't have permission to create a shop.");

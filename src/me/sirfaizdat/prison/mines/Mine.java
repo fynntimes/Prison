@@ -40,12 +40,11 @@ public class Mine {
 
 	public boolean worldMissing = false;
 
-	public Mine(String name, String worldName, int minX, int minY, int minZ,
-			int maxX, int maxY, int maxZ) {
+	public Mine(String name, String worldName, int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
 		m = Mines.i;
 		this.name = name;
 		this.worldName = worldName;
-		this.world = Bukkit.getWorld(worldName);
+		this.world = Prison.i().wm.getWorld(worldName);
 		if (world == null) {
 			worldMissing = true;
 		}
@@ -55,8 +54,7 @@ public class Mine {
 		this.maxX = maxX;
 		this.maxY = maxY;
 		this.maxZ = maxZ;
-		mineFile = new File(Prison.i().getDataFolder(), "/mines/" + name
-				+ ".mine");
+		mineFile = new File(Prison.i().getDataFolder(), "/mines/" + name + ".mine");
 	}
 
 	public void save() {
@@ -74,8 +72,7 @@ public class Mine {
 			mineFile.delete();
 		}
 		try {
-			FileOutputStream out = new FileOutputStream(new File(Prison.i()
-					.getDataFolder(), "/mines/" + name + ".mine"));
+			FileOutputStream out = new FileOutputStream(new File(Prison.i().getDataFolder(), "/mines/" + name + ".mine"));
 			ObjectOutputStream oOut = new ObjectOutputStream(out);
 			oOut.writeObject(sm);
 			oOut.close();
@@ -88,10 +85,13 @@ public class Mine {
 
 	@SuppressWarnings("deprecation")
 	public boolean reset() {
+		if (worldMissing) {
+			Prison.l.warning("Mine " + name + " was not reset because the world it was created in (" + worldName + ") can not be found.");
+			return false;
+		}
 		List<CompositionEntry> probabilityMap = mapComposition(blocks);
 		if (probabilityMap.size() == 0) {
-			Prison.l.warning("Mine " + name
-					+ " could not regenerate because it has no composition.");
+			Prison.l.warning("Mine " + name + " could not regenerate because it has no composition.");
 			return false;
 		}
 		for (Player p : Bukkit.getServer().getOnlinePlayers()) {
@@ -115,18 +115,14 @@ public class Mine {
 						try {
 							empty = world.getBlockAt(x, y, z).isEmpty();
 						} catch (NullPointerException e) {
-							Prison.l.severe("The world " + worldName
-									+ " could not be found! Mine " + name
-									+ " was not reset.");
+							Prison.l.severe("The world " + worldName + " could not be found! Mine " + name + " was not reset.");
 							return false;
 						}
 						if (empty) {
 							double chance = r.nextDouble();
 							for (CompositionEntry ce : probabilityMap) {
 								if (chance <= ce.getChance()) {
-									world.getBlockAt(x, y, z).setTypeIdAndData(
-											ce.getBlock().getId(),
-											ce.getBlock().getData(), false);
+									world.getBlockAt(x, y, z).setTypeIdAndData(ce.getBlock().getId(), ce.getBlock().getData(), false);
 									break;
 								}
 							}
@@ -137,13 +133,9 @@ public class Mine {
 						for (CompositionEntry ce : probabilityMap) {
 							if (chance <= ce.getChance()) {
 								try {
-									world.getBlockAt(x, y, z).setTypeIdAndData(
-											ce.getBlock().getId(),
-											ce.getBlock().getData(), false);
+									world.getBlockAt(x, y, z).setTypeIdAndData(ce.getBlock().getId(), ce.getBlock().getData(), false);
 								} catch (NullPointerException e) {
-									Prison.l.severe("The world " + worldName
-											+ " could not be found! Mine "
-											+ name + " was not reset.");
+									Prison.l.severe("The world " + worldName + " could not be found! Mine " + name + " was not reset.");
 									return false;
 								}
 								break;
@@ -157,10 +149,7 @@ public class Mine {
 	}
 
 	private boolean withinMine(Location l) {
-		return l.getWorld().equals(world)
-				&& (l.getX() + 1 >= minX && l.getX() + 1 <= maxX)
-				&& (l.getY() + 1 >= minY && l.getY() + 1 <= maxY)
-				&& (l.getZ() + 1 >= minZ && l.getZ() + 1 <= maxZ);
+		return l.getWorld().equals(world) && (l.getX() + 1 >= minX && l.getX() + 1 <= maxX) && (l.getY() + 1 >= minY && l.getY() + 1 <= maxY) && (l.getZ() + 1 >= minZ && l.getZ() + 1 <= maxZ);
 	}
 
 	// Composition Utilities
@@ -183,11 +172,9 @@ public class Mine {
 		}
 	}
 
-	public static ArrayList<CompositionEntry> mapComposition(
-			Map<String, Block> compositionIn) {
+	public static ArrayList<CompositionEntry> mapComposition(Map<String, Block> compositionIn) {
 		ArrayList<CompositionEntry> probabilityMap = new ArrayList<CompositionEntry>();
-		Map<String, Block> composition = new HashMap<String, Block>(
-				compositionIn);
+		Map<String, Block> composition = new HashMap<String, Block>(compositionIn);
 		double max = 0;
 		for (Map.Entry<String, Block> entry : composition.entrySet()) {
 			max += entry.getValue().getChance();

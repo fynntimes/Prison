@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.worldcretornica</groupId>
+  <groupId>me.sirfaizdat.prison</groupId>
   <artifactId>Prison</artifactId>
   <version>2.0.5</version>
   <name>Prison</name>
-  <url>http://dev.bukkit.org/bukkit-mods/Prisonmc/</url>
+  <url>http://dev.bukkit.org/bukkit-plugins/mcprison/</url>
   <build>
   	<defaultGoal>clean package install</defaultGoal>
     <finalName>Prison</finalName>
@@ -91,4 +91,8 @@
             <version>1.4.1</version>
         </dependency>
     </dependencies>
+    <issueManagement>
+    	<system>GitHub</system>
+    	<url>https://github.com/SirFaizdat/Prison/issues</url>
+    </issueManagement>
 </project>
