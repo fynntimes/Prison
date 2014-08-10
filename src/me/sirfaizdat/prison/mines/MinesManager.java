@@ -64,7 +64,7 @@ public class MinesManager {
 //					entry.getValue().reset();
 //				}
 				for(Mine mine : mines.values()) {
-					if(mine.world == null) {
+					if(mine.world != null) {
 						mine.reset();
 					}
 				}
