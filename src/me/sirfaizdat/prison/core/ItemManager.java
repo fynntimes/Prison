@@ -6,8 +6,7 @@ package me.sirfaizdat.prison.core;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.InputStreamReader;
-import java.net.URL;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -41,64 +40,30 @@ public class ItemManager {
 		items = new HashMap<String, ItemSet>();
 		names = new ArrayList<ItemManager.Bundle>();
 
-		// Create backup
-		backup = new File(Prison.i().getDataFolder(), "localitems.csv");
-		if (!backup.exists()) {
-			Prison.i().saveResource("localitems.csv", false);
-		}
+		Prison.i().saveResource("localitems.csv", true);
 	}
 
-	public void populateLists() {
-		try {
+	public void populateLists() throws IOException {
+		BufferedReader in = new BufferedReader(new FileReader(backup));
+		String inputLine;
 
-			URL news = new URL("http://mcprison.netne.net/res/items.csv");
-			BufferedReader in = new BufferedReader(new InputStreamReader(
-					news.openStream()));
-			String inputLine;
-
-			while ((inputLine = in.readLine()) != null) {
-				if (!inputLine.startsWith("#")) {
-					String[] array = inputLine.split(",");
-					String itemName = array[0];
-					int id = Integer.parseInt(array[1]);
-					byte data = Byte.parseByte(array[2]);
-					items.put(itemName, new ItemSet(id, data));
-					names.add(new Bundle(new ItemSet(id, data), itemName));
-				}
+		while ((inputLine = in.readLine()) != null) {
+			if (!inputLine.startsWith("#")) {
+				String[] array = inputLine.split(",");
+				String itemName = array[0];
+				int id = Integer.parseInt(array[1]);
+				byte data = Byte.parseByte(array[2]);
+				items.put(itemName, new ItemSet(id, data));
+				names.add(new Bundle(new ItemSet(id, data), itemName));
 			}
-
-			in.close();
-		} catch (Exception e) {
-			Prison.l.warning("Could not read item list from internet! Attempting to use local items.csv...");
-			Prison.l.info("While this lets you use item names, the local list is not as up-to-date with the latest Minecraft blocks as the online version is.");
-
-			try {
-				BufferedReader in = new BufferedReader(new FileReader(backup));
-				String inputLine;
-
-				while ((inputLine = in.readLine()) != null) {
-					if (!inputLine.startsWith("#")) {
-						String[] array = inputLine.split(",");
-						String itemName = array[0];
-						int id = Integer.parseInt(array[1]);
-						byte data = Byte.parseByte(array[2]);
-						items.put(itemName, new ItemSet(id, data));
-						names.add(new Bundle(new ItemSet(id, data), itemName));
-					}
-				}
-				in.close();
-			} catch (Exception e1) {
-				Prison.l.severe("Could not read local item list! This may cause errors.");
-				setLoaded(false);
-				return;
-			}
-
 		}
+		in.close();
+
 		setLoaded(true);
 	}
 
 	public ItemSet getItem(String name) {
-		if(isAnInt(name.replaceAll(":", ""))) {
+		if (isAnInt(name.replaceAll(":", ""))) {
 			return items.get(Material.matchMaterial(name.toLowerCase()).toString().toLowerCase().replaceAll("_", ""));
 		}
 		return items.get(name);
@@ -133,7 +98,7 @@ public class ItemManager {
 	public void setLoaded(boolean loaded) {
 		this.loaded = loaded;
 	}
-	
+
 	public boolean isAnInt(String s) {
 		try {
 			Integer.parseInt(s);

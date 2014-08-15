@@ -4,6 +4,7 @@
 package me.sirfaizdat.prison.core;
 
 import java.io.File;
+import java.io.IOException;
 
 import me.sirfaizdat.prison.core.Updater.UpdateResult;
 import me.sirfaizdat.prison.core.Updater.UpdateType;
@@ -99,7 +100,12 @@ public class Prison extends JavaPlugin implements Listener {
 
 			@Override
 			public void run() {
-				im.populateLists();
+				try {
+					im.populateLists();
+				} catch (IOException e) {
+					l.severe("Could not load item list. Will now only support Item IDs.");
+					e.printStackTrace();
+				}
 			}
 		}, 10L);
 	}
