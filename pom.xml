@@ -1,3 +1,4 @@
+<!-- Special thanks to Yive for making this pom.xml file -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>me.sirfaizdat.prison</groupId>
@@ -6,7 +7,7 @@
   <name>Prison</name>
   <url>http://dev.bukkit.org/bukkit-plugins/mcprison/</url>
   <build>
-  	<defaultGoal>clean package install</defaultGoal>
+  	<defaultGoal>clean install</defaultGoal>
     <finalName>Prison</finalName>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -72,6 +73,10 @@
             <url>http://maven.sk89q.com/repo/</url>
         </repository>
         <repository>
+            <id>nixium-repo</id>
+            <url>http://repo.nixium.com/</url>
+        </repository>
+        <repository>
             <id>vault-repo</id>
             <url>http://nexus.theyeticave.net/content/repositories/pub_releases</url>
         </repository>
@@ -82,6 +87,11 @@
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
             <version>1.7.9-R0.3-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.onarandombox.multiversecore</groupId>
+            <artifactId>Multiverse-Core</artifactId>
+            <version>2.5</version>
         </dependency>
         <dependency>
             <groupId>com.sk89q</groupId>
