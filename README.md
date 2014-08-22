@@ -9,6 +9,7 @@ API
 ========
 Currently the API is not very extensive, it only adds some support for detailed Rankup and Balance Changed events. However, in the future I will be giving Prison it's own economy system, and a huge API will be implemented for that. For now, if you want to do stuff with Prison in your own plugins, here's the maven stuffs:
 
+```xml
 <repositories>
 		<repository>
 			<id>prison-snapshots</id>
@@ -23,3 +24,4 @@ Currently the API is not very extensive, it only adds some support for detailed 
 			<version>2.0.6-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
+```xml
