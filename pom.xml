@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>me.sirfaizdat.prison</groupId>
 	<artifactId>Prison</artifactId>
-	<version>2.0.5.1</version>
+	<version>2.0.6-SNAPSHOT</version>
 	<name>Prison</name>
 	<url>http://dev.bukkit.org/bukkit-plugins/mcprison/</url>
 	<build>
