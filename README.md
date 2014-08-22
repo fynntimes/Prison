@@ -24,4 +24,3 @@ Currently the API is not very extensive, it only adds some support for detailed 
 			<version>2.0.6-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
-```xml
