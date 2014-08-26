@@ -74,6 +74,7 @@ public class MessageUtil {
 		add("mines.removedRank", "&aSuccessfully removed rank &6%0&a from mine &6%1&a!");
 		add("mines.removeFailure", "&cThat rank is not associated with this mine.");
 		add("mines.rankAlreadyAdded", "&6That rank is already associated with this mine.");
+		add("mines.redefineSuccess", "&aSuccessfully redefined mine &6%0&a.");
 		// Ranks
 		add("ranks.noRanksLoaded", "&6No ranks are loaded.");
 		add("ranks.highestRank", "&cYou have already reached the highest rank!");

@@ -49,9 +49,10 @@ public class CommandInfo extends Command {
 				sender.sendMessage(Prison.colorize("&6block  &c" + entry.getValue().getId() + ":" + entry.getValue().getData()));
 			}
 		}
+		sender.sendMessage(Prison.colorize("&6Associated Ranks:"));
 		StringBuilder sb = new StringBuilder();
 		for (String rank : m.ranks) {
-			sb.append("&6" + rank + "\n");
+			sb.append("   &c" + rank + "\n");
 		}
 		String returnVal = sb.toString();
 		sender.sendMessage(Prison.colorize(returnVal));

@@ -42,6 +42,7 @@ public class CommandRedefine extends Command {
 		m.save();
 		Mines.i.mm.mines.remove(args[1]);
 		Mines.i.mm.addMine(m);
+		sender.sendMessage(MessageUtil.get("mines.redefineSuccess", m.name));
 	}
 
 	@Override
