@@ -9,6 +9,7 @@ import java.io.IOException;
 import me.sirfaizdat.prison.core.Updater.UpdateResult;
 import me.sirfaizdat.prison.core.Updater.UpdateType;
 import me.sirfaizdat.prison.core.cmds.PrisonCommandManager;
+import me.sirfaizdat.prison.mines.Mine;
 import me.sirfaizdat.prison.mines.Mines;
 import me.sirfaizdat.prison.ranks.Ranks;
 import net.milkbowl.vault.economy.Economy;
@@ -37,8 +38,8 @@ public class Prison extends JavaPlugin implements Listener {
 
 	public static PrisonLogger l = new PrisonLogger();
 
-	Mines mines;
-	Ranks ranks;
+	public Mines mines;
+	public Ranks ranks;
 
 	Economy economy;
 	Permission permissions;
@@ -49,7 +50,7 @@ public class Prison extends JavaPlugin implements Listener {
 	public PWorldManager wm;
 	boolean updateAvailable = false;
 	String updateLatestName;
-	
+
 	public File file;
 
 	public void onEnable() {
@@ -69,29 +70,24 @@ public class Prison extends JavaPlugin implements Listener {
 		checkCompatibility();
 		enableMines();
 		enableRanks();
-//		enableScoreboards();
+		// enableScoreboards();
 		file = getFile();
 		getCommand("prison").setExecutor(new PrisonCommandManager());
 		new AutoSmelt();
 		new BlockCommand();
 		getServer().getPluginManager().registerEvents(this, this);
-		l.info("&2Enabled Prison &6v" + getDescription().getVersion()
-				+ "&2. Made by &6SirFaizdat&2.");
+		l.info("&2Enabled Prison &6v" + getDescription().getVersion() + "&2. Made by &6SirFaizdat&2.");
 		long endTime = System.currentTimeMillis();
 		l.info("&6Enabled in " + (endTime - startTime) + "ms.");
-		if (config.checkUpdates
-				&& !getDescription().getVersion().contains("dev")) {
-			Updater updater = new Updater(this, 76155, this.getFile(),
-					UpdateType.NO_DOWNLOAD, true);
+		if (config.checkUpdates && !getDescription().getVersion().contains("dev")) {
+			Updater updater = new Updater(this, 76155, this.getFile(), UpdateType.NO_DOWNLOAD, true);
 			if (updater.getResult() == UpdateResult.UPDATE_AVAILABLE) {
 				updateLatestName = updater.getLatestName();
-				l.info(MessageUtil.get("general.updateAvailable",
-						updateLatestName));
+				l.info(MessageUtil.get("general.updateAvailable", updateLatestName));
 				this.updateAvailable = true;
 				for (Player p : getServer().getOnlinePlayers()) {
 					if (p.isOp() || p.hasPermission("prison.manage")) {
-						p.sendMessage(MessageUtil.get(
-								"general.updateAvailable", updateLatestName));
+						p.sendMessage(MessageUtil.get("general.updateAvailable", updateLatestName));
 					}
 				}
 			}
@@ -108,6 +104,14 @@ public class Prison extends JavaPlugin implements Listener {
 				}
 			}
 		}, 10L);
+	}
+	
+	public void onDisable() {
+		if(mines.isEnabled()) {
+			for(Mine m : mines.mm.mines.values()) {
+				m.save();
+			}
+		}
 	}
 
 	public void reload() {
@@ -146,26 +150,24 @@ public class Prison extends JavaPlugin implements Listener {
 		}
 	}
 
-//	public void enableScoreboards() {
-//		if (!ranks.isEnabled()) {
-//			sbs.setEnabled(false);
-//			l.warning("Could not enable scoreboards because Ranks is not enabled.");
-//		}
-//		if (sbs.isEnabled()) {
-//			try {
-//				sbs.enable();
-//			} catch (FailedToStartException e) {
-//				l.severe("Could not start scoreboards");
-//				return;
-//			}
-//		}
-//		l.info("&2Scoreboards enabled.");
-//	}
+	// public void enableScoreboards() {
+	// if (!ranks.isEnabled()) {
+	// sbs.setEnabled(false);
+	// l.warning("Could not enable scoreboards because Ranks is not enabled.");
+	// }
+	// if (sbs.isEnabled()) {
+	// try {
+	// sbs.enable();
+	// } catch (FailedToStartException e) {
+	// l.severe("Could not start scoreboards");
+	// return;
+	// }
+	// }
+	// l.info("&2Scoreboards enabled.");
+	// }
 
 	public void initEconomy() {
-		RegisteredServiceProvider<Economy> economyProvider = getServer()
-				.getServicesManager().getRegistration(
-						net.milkbowl.vault.economy.Economy.class);
+		RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
 		if (economyProvider != null) {
 			economy = economyProvider.getProvider();
 			return;
@@ -174,9 +176,7 @@ public class Prison extends JavaPlugin implements Listener {
 	}
 
 	public void initPermissions() {
-		RegisteredServiceProvider<Permission> permissionProvider = getServer()
-				.getServicesManager().getRegistration(
-						net.milkbowl.vault.permission.Permission.class);
+		RegisteredServiceProvider<Permission> permissionProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.permission.Permission.class);
 		if (permissionProvider != null) {
 			permissions = permissionProvider.getProvider();
 			return;
@@ -185,7 +185,7 @@ public class Prison extends JavaPlugin implements Listener {
 	}
 
 	public void checkCompatibility() {
-		if(!hasPlugin("Vault")) {
+		if (!hasPlugin("Vault")) {
 			ranks.setEnabled(false);
 			l.warning("Could not enable Ranks because Vault is not loaded.");
 		}
@@ -218,8 +218,7 @@ public class Prison extends JavaPlugin implements Listener {
 		if (updateAvailable) {
 			Player p = e.getPlayer();
 			if (p.isOp() || p.hasPermission("prison.manage")) {
-				p.sendMessage(MessageUtil.get("general.updateAvailable",
-						updateLatestName));
+				p.sendMessage(MessageUtil.get("general.updateAvailable", updateLatestName));
 			}
 		}
 	}

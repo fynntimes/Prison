@@ -39,7 +39,9 @@ public class ItemManager {
 	public ItemManager() {
 		items = new HashMap<String, ItemSet>();
 		names = new ArrayList<ItemManager.Bundle>();
-
+		
+		backup = new File(Prison.i().getDataFolder(), "localitems.csv");
+		
 		Prison.i().saveResource("localitems.csv", true);
 	}
 

@@ -95,7 +95,7 @@ public class MinesManager {
 						+ ".");
 			}
 			Mine m = new Mine(sm.name, sm.world, sm.minX,
-					sm.minY, sm.minZ, sm.maxX, sm.maxY, sm.maxZ);
+					sm.minY, sm.minZ, sm.maxX, sm.maxY, sm.maxZ, sm.ranks == null ? new ArrayList<String>() : sm.ranks);
 			if(sm.blocks != null && sm.blocks.size() != 0) {
 				transferComposition(m, sm.blocks);
 			}

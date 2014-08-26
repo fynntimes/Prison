@@ -36,11 +36,13 @@ public class Mine {
 
 	public HashMap<String, Block> blocks = new HashMap<String, Block>();
 
+	public ArrayList<String> ranks;
+	
 	File mineFile;
 
 	public boolean worldMissing = false;
 
-	public Mine(String name, String worldName, int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
+	public Mine(String name, String worldName, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, ArrayList<String> ranks) {
 		m = Mines.i;
 		this.name = name;
 		this.worldName = worldName;
@@ -55,6 +57,7 @@ public class Mine {
 		this.maxY = maxY;
 		this.maxZ = maxZ;
 		mineFile = new File(Prison.i().getDataFolder(), "/mines/" + name + ".mine");
+		this.ranks = ranks;
 	}
 
 	public void save() {
@@ -68,6 +71,9 @@ public class Mine {
 		sm.maxY = maxY;
 		sm.maxZ = maxZ;
 		sm.blocks = blocks;
+		for(String s : ranks) {
+			sm.ranks.add(s);
+		}
 		if (mineFile.exists()) {
 			mineFile.delete();
 		}
@@ -148,8 +154,24 @@ public class Mine {
 		return true;
 	}
 
-	private boolean withinMine(Location l) {
-		return l.getWorld().equals(world) && (l.getX() + 1 >= minX && l.getX() + 1 <= maxX) && (l.getY() + 1 >= minY && l.getY() + 1 <= maxY) && (l.getZ() + 1 >= minZ && l.getZ() + 1 <= maxZ);
+	public boolean withinMine(Location l) {
+		int x1 = minX - 1;
+		int x2 = maxX + 1;
+		int z1 = minZ - 1;
+		int z2 = maxZ + 1;
+		int y1 = minY - 1;
+		int y2 = maxY + 1;
+
+		double px = l.getX();
+		double pz = l.getZ();
+		double py = l.getY();
+
+		if ((px >= x1 && px <= x2) || (px <= x1 && px >= x2)) {
+			if ((pz >= z1 && pz <= z2) || (pz <= z1 && pz >= z2)) {
+				if ((py >= y1 && py <= y2) || (py <= y1 && py >= y2)) return true;
+			}
+		}
+		return false;
 	}
 
 	// Composition Utilities
@@ -203,4 +225,5 @@ public class Mine {
 		block.setChance(chance);
 		blocks.put(block.toString(), block);
 	}
+	
 }

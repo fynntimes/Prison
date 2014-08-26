@@ -70,7 +70,10 @@ public class MessageUtil {
 				"&cYou must use the block's item ID. (For example, Stone is 1 and Birch wood is 5:2)");
 		add("mines.invalidPercent", "&cInvalid percentage.");
 		add("mines.addSuccess", "&aMine &6%0&a is now &6%1&a of block &6%2&a.");
-
+		add("mines.addedRank", "&aSuccessfully added rank &6%0&a to mine &6%1&a!");
+		add("mines.removedRank", "&aSuccessfully removed rank &6%0&a from mine &6%1&a!");
+		add("mines.removeFailure", "&cThat rank is not associated with this mine.");
+		add("mines.rankAlreadyAdded", "&6That rank is already associated with this mine.");
 		// Ranks
 		add("ranks.noRanksLoaded", "&6No ranks are loaded.");
 		add("ranks.highestRank", "&cYou have already reached the highest rank!");

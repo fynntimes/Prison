@@ -3,6 +3,8 @@
  */
 package me.sirfaizdat.prison.mines.cmds;
 
+import java.util.ArrayList;
+
 import me.sirfaizdat.prison.core.Command;
 import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.core.Prison;
@@ -41,7 +43,7 @@ public class CommandCreate extends Command {
 		int maxX = s.getMaximumPoint().getBlockX();
 		int maxY = s.getMaximumPoint().getBlockY();
 		int maxZ = s.getMaximumPoint().getBlockZ();
-		Mine m = new Mine(name, world, minX, minY, minZ, maxX, maxY, maxZ);
+		Mine m = new Mine(name, world, minX, minY, minZ, maxX, maxY, maxZ, new ArrayList<String>());
 		try {
 			Mines.i.mm.addMine(m);
 			sender.sendMessage(MessageUtil.get("mines.created", m.name));

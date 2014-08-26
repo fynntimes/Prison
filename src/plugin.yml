@@ -50,6 +50,7 @@ permissions:
       prison.mines.list: true
       prison.mines.removeblock: true
       prison.mines.reset: true
+      prison.mines.bypassprotection: true
    prison.mines.addblock:
     default: op
    prison.mines.create:
@@ -63,6 +64,8 @@ permissions:
    prison.mines.removeblock:
     default: op
    prison.mines.reset:
+    default: op
+   prison.mines.bypassprotection:
     default: op
    prison.ranks.*:
     default: op

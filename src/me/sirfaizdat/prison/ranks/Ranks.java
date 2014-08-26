@@ -135,13 +135,14 @@ public class Ranks implements Component {
 	}
 
 	private boolean load() {
-		// <-- BEGIN CONVERTER CODE -->
+		// <-- BEGIN CONVERTER CODE --> 
 		File configFile = new File(Prison.i().getDataFolder(), "ranks.yml");
 		if (configFile.exists()) {
 			RanksConfig config = new RanksConfig();
 			List<String> rankList = config.getConfig().getStringList("ranklist");
 			boolean successful = true;
 			for (String rank : rankList) {
+				if(!successful) break;
 				Rank r = new Rank();
 				r.setName(rank);
 				r.setPrefix(config.getConfig().getString("ranks." + rank + ".prefix"));

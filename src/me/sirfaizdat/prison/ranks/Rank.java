@@ -3,6 +3,7 @@
  */
 package me.sirfaizdat.prison.ranks;
 
+
 /**
  * @author SirFaizdat
  */

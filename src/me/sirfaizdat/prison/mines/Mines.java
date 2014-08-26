@@ -23,9 +23,10 @@ public class Mines implements Component {
 	Prison core = Prison.i();
 
 	MinesCommandManager mcm;
+	MinesBlockListener mbl;
 	public MinesManager mm;
 	WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
-	
+
 	public String getName() {
 		return "Mines";
 	}
@@ -43,15 +44,19 @@ public class Mines implements Component {
 		mm = new MinesManager();
 		mcm = new MinesCommandManager(this);
 		core.getCommand("mines").setExecutor(mcm);
+		if (Prison.i().ranks.isEnabled()) {
+			mbl = new MinesBlockListener();
+			Prison.i().getServer().getPluginManager().registerEvents(mbl, Prison.i());
+		}
 	}
-	
+
 	public void reload() {
 		mm.mines.clear();
 		mm.load();
 		Bukkit.getScheduler().cancelTask(mm.autoResetID);
 		mm.timer();
 	}
-	
+
 	public void disable() {
 		mm.mines.clear();
 		Bukkit.getScheduler().cancelTask(mm.autoResetID);
@@ -65,5 +70,5 @@ public class Mines implements Component {
 	public String getBaseCommand() {
 		return "mines";
 	}
-	
+
 }

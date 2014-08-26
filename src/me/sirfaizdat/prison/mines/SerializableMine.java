@@ -4,6 +4,7 @@
 package me.sirfaizdat.prison.mines;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -21,4 +22,5 @@ public class SerializableMine implements Serializable {
 	public int maxY;
 	public int maxZ;
 	public HashMap<String, Block> blocks = new HashMap<String, Block>();
+	public ArrayList<String> ranks = new ArrayList<String>();
 }
