@@ -117,12 +117,14 @@ public class Prison extends JavaPlugin implements Listener {
 	public void reload() {
 		config.reload();
 		playerList = new PlayerList();
+		mines.disable();
 		mines = new Mines();
 		enableMines();
-		mines.reload();
+//		mines.reload();
+		ranks.disable();
 		ranks = new Ranks();
 		enableRanks();
-		ranks.reload();
+//		ranks.reload();
 	}
 
 	// Initialization

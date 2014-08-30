@@ -4,7 +4,6 @@ import me.sirfaizdat.prison.ranks.Ranks;
 import me.sirfaizdat.prison.ranks.UserInfo;
 
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
