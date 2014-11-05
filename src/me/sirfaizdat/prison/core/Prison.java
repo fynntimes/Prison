@@ -70,7 +70,6 @@ public class Prison extends JavaPlugin implements Listener {
 		checkCompatibility();
 		enableMines();
 		enableRanks();
-		// enableScoreboards();
 		file = getFile();
 		getCommand("prison").setExecutor(new PrisonCommandManager());
 		new AutoSmelt();
@@ -90,6 +89,11 @@ public class Prison extends JavaPlugin implements Listener {
 						p.sendMessage(MessageUtil.get("general.updateAvailable", updateLatestName));
 					}
 				}
+			}
+		}
+		for (Player p : getServer().getOnlinePlayers()) {
+			if (p.isOp() || p.hasPermission("prison.manage")) {
+				p.sendMessage("§aThe Prison auto-updater is disabled in this version. Be sure to check the SPIGOT update page for the latest updates! §bhttp://www.spigotmc.org/resources/prison.1223/");
 			}
 		}
 		Bukkit.getScheduler().runTaskLater(Prison.i(), new Runnable() {
@@ -120,11 +124,9 @@ public class Prison extends JavaPlugin implements Listener {
 		mines.disable();
 		mines = new Mines();
 		enableMines();
-//		mines.reload();
 		ranks.disable();
 		ranks = new Ranks();
 		enableRanks();
-//		ranks.reload();
 	}
 
 	// Initialization
@@ -151,22 +153,6 @@ public class Prison extends JavaPlugin implements Listener {
 			l.info("&2Ranks enabled.");
 		}
 	}
-
-	// public void enableScoreboards() {
-	// if (!ranks.isEnabled()) {
-	// sbs.setEnabled(false);
-	// l.warning("Could not enable scoreboards because Ranks is not enabled.");
-	// }
-	// if (sbs.isEnabled()) {
-	// try {
-	// sbs.enable();
-	// } catch (FailedToStartException e) {
-	// l.severe("Could not start scoreboards");
-	// return;
-	// }
-	// }
-	// l.info("&2Scoreboards enabled.");
-	// }
 
 	public void initEconomy() {
 		RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);

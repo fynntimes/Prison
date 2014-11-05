@@ -30,7 +30,12 @@ import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
+import org.bukkit.FireworkEffect;
+import org.bukkit.FireworkEffect.Type;
+import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.meta.FireworkMeta;
 
 /**
  * Manages the ranks component.
@@ -357,6 +362,13 @@ public class Ranks implements Component {
 					changeRank(info.getPlayer(), currentRank, nextRank);
 					info.getPlayer().sendMessage(MessageUtil.get("ranks.rankedUp", nextRank.getPrefix()));
 					Bukkit.broadcastMessage(MessageUtil.get("ranks.rankedUpBroadcast", info.getPlayer().getName(), nextRank.getPrefix()));
+	                // Launch a firework! Yay!
+					Firework fw = info.getPlayer().getWorld().spawn(info.getPlayer().getLocation(), Firework.class);
+	                FireworkMeta data = fw.getFireworkMeta();
+	                data.addEffects(FireworkEffect.builder().withColor(Color.BLUE).with(Type.BALL_LARGE).build());
+	                data.setPower(3);
+	                fw.setFireworkMeta(data);
+	                // End firework code
 					Bukkit.getServer().getPluginManager().callEvent(new RankupEvent(info.getPlayer(), buy));
 				}
 			}

@@ -14,6 +14,9 @@ import java.util.Map;
 import me.sirfaizdat.prison.core.Prison;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
 
 /**
@@ -28,7 +31,7 @@ public class MinesManager {
 	public int resetTimeCounter;
 	int resetTime;
 	int autoResetID = -1;
-	
+
 	public MinesManager() {
 		File mineRoot = new File(Prison.i().getDataFolder(), "/mines/");
 		if (!mineRoot.exists()) {
@@ -36,9 +39,9 @@ public class MinesManager {
 		}
 		load();
 		timer();
-		
+
 	}
-	
+
 	public void timer() {
 		resetTime = Prison.i().config.resetTime;
 		resetTimeCounter = resetTime;
@@ -46,22 +49,32 @@ public class MinesManager {
 		ResetClock rs = new ResetClock();
 		autoResetID = scheduler.scheduleSyncRepeatingTask(Prison.i(), rs, 1200L, 1200L);
 	}
+
+	// Unused for now
+	@SuppressWarnings("unused")
+	private void broadcastToWorld(String s, World w) {
+		for(Player p : Bukkit.getOnlinePlayers()) {
+			if(p.getWorld().getName().equals(w.getName())) {
+				p.sendMessage(s);
+			}
+		}
+	}
 	
 	private class ResetClock implements Runnable {
 		public void run() {
-			if(mines.size() == 0) return;
-			if(resetTime == 0) return;
-			if(resetTimeCounter > 0) resetTimeCounter--;
-			for(int warning: Prison.i().config.resetWarnings) {
-				if(warning == resetTimeCounter) {
+			if (mines.size() == 0) return;
+			if (resetTime == 0) return;
+			if (resetTimeCounter > 0) resetTimeCounter--;
+			for (int warning : Prison.i().config.resetWarnings) {
+				if (warning == resetTimeCounter) {
 					String warnMsg = Prison.i().config.resetWarningMessage;
 					warnMsg = warnMsg.replaceAll("<mins>", warning + "");
-					Bukkit.broadcastMessage(warnMsg);
+					Bukkit.broadcastMessage(warnMsg); // TODO - make this per world (may have to change entire setup)
 				}
 			}
-			if(resetTimeCounter == 0) {
-				for(Mine mine : mines.values()) {
-					if(!mine.worldMissing) {
+			if (resetTimeCounter == 0) {
+				for (Mine mine : mines.values()) {
+					if (!mine.worldMissing) {
 						mine.reset();
 					} else {
 						Prison.l.warning("Did not reset mine " + mine.name + " because the world it is in could not be found.");
@@ -82,8 +95,7 @@ public class MinesManager {
 		for (String name : files) {
 			SerializableMine sm = null;
 			try {
-				FileInputStream fileIn = new FileInputStream(new File(Prison.i()
-						.getDataFolder(), "/mines/" + name));
+				FileInputStream fileIn = new FileInputStream(new File(Prison.i().getDataFolder(), "/mines/" + name));
 				ObjectInputStream in = new ObjectInputStream(fileIn);
 				sm = (SerializableMine) in.readObject();
 				in.close();
@@ -91,12 +103,10 @@ public class MinesManager {
 			} catch (ClassNotFoundException e) {
 				Prison.l.severe("An unexpected error occured. Check to make sure your copy of the plugin is not corrupted.");
 			} catch (IOException e) {
-				Prison.l.warning("There was an error in loading file " + name
-						+ ".");
+				Prison.l.warning("There was an error in loading file " + name + ".");
 			}
-			Mine m = new Mine(sm.name, sm.world, sm.minX,
-					sm.minY, sm.minZ, sm.maxX, sm.maxY, sm.maxZ, sm.ranks == null ? new ArrayList<String>() : sm.ranks);
-			if(sm.blocks != null && sm.blocks.size() != 0) {
+			Mine m = new Mine(sm.name, sm.world, sm.minX, sm.minY, sm.minZ, sm.maxX, sm.maxY, sm.maxZ, new Location(Bukkit.getWorld(sm.world), sm.spawnX, sm.spawnY, sm.spawnZ), sm.ranks == null ? new ArrayList<String>() : sm.ranks);
+			if (sm.blocks != null && sm.blocks.size() != 0) {
 				transferComposition(m, sm.blocks);
 			}
 			mines.put(sm.name, m);
@@ -115,8 +125,8 @@ public class MinesManager {
 	}
 
 	public Mine getMine(String name) {
-		for(String s : mines.keySet()) {
-			if(name.equalsIgnoreCase(s)) {
+		for (String s : mines.keySet()) {
+			if (name.equalsIgnoreCase(s)) {
 				return mines.get(s);
 			}
 		}
@@ -126,13 +136,13 @@ public class MinesManager {
 	public HashMap<String, Mine> getMines() {
 		return mines;
 	}
-	
+
 	public void removeMine(String name) {
 		File file = mines.get(name).mineFile;
 		mines.remove(name);
 		file.delete();
 	}
-	
+
 	public ArrayList<String> getAllMineFiles() {
 		ArrayList<String> returnVal = new ArrayList<String>();
 		File folder = new File(Prison.i().getDataFolder(), "/mines/");

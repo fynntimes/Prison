@@ -59,6 +59,9 @@ public class MessageUtil {
 		add("mines.removeFailure", "&cThat rank is not associated with this mine.");
 		add("mines.rankAlreadyAdded", "&6That rank is already associated with this mine.");
 		add("mines.redefineSuccess", "&aSuccessfully redefined mine &6%0&a.");
+		add("mines.wrongWorld", "&cThis mine is in the world &6%0&c. Please go to that world to set the spawn for this mine.");
+		add("mines.missingWorld", "&cThe world for this mine is missing and therefore a spawn cannot be set for it.");
+		add("mines.setSpawn", "&aThe spawn for this mine was set!");
 		// Ranks
 		add("ranks.noRanksLoaded", "&6No ranks are loaded.");
 		add("ranks.highestRank", "&cYou have already reached the highest rank!");

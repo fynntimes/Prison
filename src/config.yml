@@ -2,6 +2,7 @@
 #     (C) 2014 SirFaizdat      #
 #== == == == === == == == == ==#
 
+server-prefix: "&4Prison &7>"
 check-updates: true
 
 reset-time: 10

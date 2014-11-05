@@ -16,6 +16,7 @@ import me.sirfaizdat.prison.mines.cmds.CommandRedefine;
 import me.sirfaizdat.prison.mines.cmds.CommandRemoveBlock;
 import me.sirfaizdat.prison.mines.cmds.CommandRemoveRank;
 import me.sirfaizdat.prison.mines.cmds.CommandReset;
+import me.sirfaizdat.prison.mines.cmds.CommandSetSpawn;
 
 /**
  * @author SirFaizdat
@@ -36,6 +37,7 @@ public class MinesCommandManager extends AbstractCommandManager {
 		commands.put("removeblock", new CommandRemoveBlock());
 		commands.put("delete", new CommandDelete());
 		commands.put("redefine", new CommandRedefine());
+		commands.put("setspawn", new CommandSetSpawn());
 		if (Prison.i().ranks.isEnabled()) {
 			commands.put("addrank", new CommandAddRank());
 			commands.put("removerank", new CommandRemoveRank());

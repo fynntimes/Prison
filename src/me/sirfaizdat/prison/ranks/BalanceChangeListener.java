@@ -21,10 +21,12 @@ import org.bukkit.event.player.PlayerQuitEvent;
  */
 class BalanceChangeListener implements Listener {
 
-	private static Economy eco = Ranks.i.eco;
-	HashMap<String, Double> balance = new HashMap<String, Double>();
+	private static Economy eco;
+	HashMap<String, Double> balance;
 
 	public BalanceChangeListener() {
+		eco = Ranks.i.eco;
+		balance = new HashMap<String, Double>();
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			balance.put(p.getName(), eco.getBalance(p));
 		}

@@ -21,6 +21,9 @@ public class SerializableMine implements Serializable {
 	public int maxX;
 	public int maxY;
 	public int maxZ;
+	public int spawnX;
+	public int spawnY;
+	public int spawnZ;
 	public HashMap<String, Block> blocks = new HashMap<String, Block>();
 	public ArrayList<String> ranks = new ArrayList<String>();
 }

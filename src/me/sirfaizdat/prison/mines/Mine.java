@@ -34,15 +34,17 @@ public class Mine {
 	public World world;
 	public int minX, minY, minZ, maxX, maxY, maxZ;
 
+	public Location mineSpawn;
+
 	public HashMap<String, Block> blocks = new HashMap<String, Block>();
 
 	public ArrayList<String> ranks;
-	
+
 	File mineFile;
 
 	public boolean worldMissing = false;
 
-	public Mine(String name, String worldName, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, ArrayList<String> ranks) {
+	public Mine(String name, String worldName, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, Location mineSpawn, ArrayList<String> ranks) {
 		m = Mines.i;
 		this.name = name;
 		this.worldName = worldName;
@@ -56,6 +58,7 @@ public class Mine {
 		this.maxX = maxX;
 		this.maxY = maxY;
 		this.maxZ = maxZ;
+		this.mineSpawn = mineSpawn;
 		mineFile = new File(Prison.i().getDataFolder(), "/mines/" + name + ".mine");
 		this.ranks = ranks;
 	}
@@ -71,7 +74,7 @@ public class Mine {
 		sm.maxY = maxY;
 		sm.maxZ = maxZ;
 		sm.blocks = blocks;
-		for(String s : ranks) {
+		for (String s : ranks) {
 			sm.ranks.add(s);
 		}
 		if (mineFile.exists()) {
@@ -103,12 +106,11 @@ public class Mine {
 		for (Player p : Bukkit.getServer().getOnlinePlayers()) {
 			Location l = p.getLocation();
 			if (withinMine(l)) {
-				if (maxY > minY) {
-					p.teleport(new Location(world, l.getX(), maxY + 1, l.getZ()));
-				} else if (minY > maxY) {
+				if (mineSpawn != null) {
+					p.teleport(mineSpawn);
+				} else {
 					p.teleport(new Location(world, l.getX(), minY + 1, l.getZ()));
 				}
-
 			}
 		}
 
@@ -155,6 +157,10 @@ public class Mine {
 	}
 
 	public boolean withinMine(Location l) {
+		if (!l.getWorld().getName().equals(world.getName())) {
+			return false;
+		}
+
 		int x1 = minX - 1;
 		int x2 = maxX + 1;
 		int z1 = minZ - 1;
@@ -225,5 +231,5 @@ public class Mine {
 		block.setChance(chance);
 		blocks.put(block.toString(), block);
 	}
-	
+
 }

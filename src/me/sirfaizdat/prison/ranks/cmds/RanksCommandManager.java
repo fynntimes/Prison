@@ -15,6 +15,7 @@ import me.sirfaizdat.prison.ranks.Ranks;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.util.ChatPaginator;
 
 /**
  * @author SirFaizdat
@@ -36,6 +37,7 @@ public class RanksCommandManager extends AbstractCommandManager {
 			}
 			sender.sendMessage(Prison
 					.colorize("&6===========&c{&2Ranks&c}&6==========="));
+			StringBuilder sb = new StringBuilder();
 			for (Rank rank : Ranks.i.ranks) {
 				double amountNeededD = rank.getPrice();
 				String amountNeeded;
@@ -46,9 +48,19 @@ public class RanksCommandManager extends AbstractCommandManager {
 							+ new DecimalFormat("#,###.00")
 									.format(new BigDecimal(amountNeededD));
 				}
-				sender.sendMessage(Prison.colorize(rank.getPrefix() + " &f- "
-						+ amountNeeded));
+				sb.append(Prison.colorize(rank.getPrefix() + " &f- "
+						+ amountNeeded) + "\n");
 			}
+			int page = 0;
+			if(args.length >= 1) {
+				try {
+					page = Integer.parseInt(args[0]);
+				} catch(NumberFormatException e) {
+					page = 0;
+				}
+			}
+			sender.sendMessage(ChatPaginator.paginate(sb.toString(), page, 56, 8).getLines());
+			sender.sendMessage(Prison.colorize("&cType /ranks " + (page + 1) + ""));
 			sender.sendMessage(Prison.colorize("&6============================"));
 			return true;
 		} else if (label.equalsIgnoreCase("rankup")) {
