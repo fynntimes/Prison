@@ -27,7 +27,7 @@ public class Config {
 	public Config() {
 		FileConfiguration c = Prison.i().getConfig();
 
-		serverPrefix = Prison.colorize(c.getString("server-prefix")) + " &r";
+		serverPrefix = Prison.colorize(c.getString("server-prefix"));
 		checkUpdates = c.getBoolean("check-updates");
 		resetTime = c.getInt("reset-time");
 		resetWarnings = c.getIntegerList("reset-warnings");
@@ -44,7 +44,7 @@ public class Config {
 		Prison.i().reloadConfig();
 		FileConfiguration c = Prison.i().getConfig();
 
-		serverPrefix = Prison.colorize(c.getString("server-prefix") + " &r");
+		serverPrefix = Prison.colorize(c.getString("server-prefix"));
 		checkUpdates = c.getBoolean("check-updates");
 		resetTime = c.getInt("reset-time");
 		resetWarnings = c.getIntegerList("reset-warnings");
