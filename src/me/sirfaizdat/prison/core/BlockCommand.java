@@ -94,8 +94,8 @@ public class BlockCommand implements CommandExecutor {
 			int ironOverflow = amountOfIron % 9;
 			int goldToTransform = amountOfGold / 9;
 			int goldOverflow = amountOfGold % 9;
-			int glowstoneToTransform = amountOfGlowstone / 9;
-			int glowstoneOverflow = amountOfGlowstone % 9;
+			int glowstoneToTransform = amountOfGlowstone / 4;
+			int glowstoneOverflow = amountOfGlowstone % 4;
 
 			int rT = redstone / 9;
 			int rO = redstone % 9;
@@ -168,7 +168,7 @@ public class BlockCommand implements CommandExecutor {
 			player.getInventory().addItem(
 					new ItemStack[] { new ItemStack(rO > 0 ? Material.REDSTONE
 							: Material.AIR, rO) });
-			player.getInventory().addItem(new ItemStack(lO > 0 ? Material.INK_SACK : Material.AIR, lO));
+			player.getInventory().addItem(new ItemStack(lO > 0 ? Material.INK_SACK : Material.AIR, lO, DyeColor.BLUE.getDyeData()));
 			
 			player.getInventory().addItem(
 					new ItemStack[] { new ItemStack(cO > 0 ? Material.COAL
