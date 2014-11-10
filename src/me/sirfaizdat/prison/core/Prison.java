@@ -16,6 +16,7 @@ import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,9 +24,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-/**
- * @author SirFaizdat
- */
+/** @author SirFaizdat */
 // Considered a component, but not implementing due to class hierarchy.
 public class Prison extends JavaPlugin implements Listener {
 
@@ -109,10 +108,10 @@ public class Prison extends JavaPlugin implements Listener {
 			}
 		}, 10L);
 	}
-	
+
 	public void onDisable() {
-		if(mines.isEnabled()) {
-			for(Mine m : mines.mm.mines.values()) {
+		if (mines.isEnabled()) {
+			for (Mine m : mines.mm.mines.values()) {
 				m.save();
 			}
 		}
@@ -193,7 +192,7 @@ public class Prison extends JavaPlugin implements Listener {
 
 	// Utility Methods
 	public static String colorize(String text) {
-		return text.replaceAll("&", "§");
+		return ChatColor.translateAlternateColorCodes('&', text);
 	}
 
 	public static boolean hasPlugin(String name) {
