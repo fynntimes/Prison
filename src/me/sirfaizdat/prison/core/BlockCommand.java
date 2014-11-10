@@ -174,7 +174,7 @@ public class BlockCommand implements CommandExecutor {
 					new ItemStack[] { new ItemStack(cO > 0 ? Material.COAL
 							: Material.AIR, cO) });
 
-			player.sendMessage(MessageUtil.get("general.blocksCompacted", itemsChanged + "", "" + (itemsChanged / 9)));
+			player.sendMessage(MessageUtil.get("general.blocksCompacted", itemsChanged + "", "" + (diamondsToTransform + emeraldsToTransform + glowstoneToTransform + goldToTransform + ironToTransform + lT + rT + cT)));
 			player.updateInventory();
 		} catch (Exception e) {
 			e.printStackTrace();
