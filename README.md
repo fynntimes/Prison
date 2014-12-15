@@ -13,3 +13,7 @@ Dependencies:
 - Vault
 
 Compatible with Multiverse-Core.
+
+Development Builds
+======
+Development builds may be found in the "Development Builds" folder in the root directory. These are not official builds and I release them mainly so you guys can test them out and help me find bugs. If you find any bugs while using a development build, please report it in the issues section. Thanks!
