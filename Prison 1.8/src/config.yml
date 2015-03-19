@@ -1,6 +1,6 @@
-#======= Prison 2.0 Configuration =======#
-# (C) 2015 TheOneAndOnlyDMP9, SirFaizdat #
-#========================================#
+#== Prison 2.0 Configuration ==#
+#     (C) 2014 SirFaizdat      #
+#== == == == === == == == == ==#
 
 server-prefix: "&4Prison &7>"
 check-updates: true
@@ -9,23 +9,8 @@ reset-time: 10
 reset-warnings: [10,5,1]
 fill-mode: true
 
-prison-warp-gui-title: "&1&lPrison Warps"
 reset-warning-message: "&6Mines will reset in &c<mins> &6minutes!"
 reset-broadcast-message: "&aMines have been reset!"
 
 multiworld: false
 world-list: [plots, mines]
-
-autosmelt-on-warp: false
-
-warps:
-  total: 0
-
-dmp9core:
-  # DMP9 Core is something used in prison so DMP9
-  # can use his style of data to manage the plugin.
-  # Normally, this section of config should be left
-  # alone.
-  warpdata:
-    amountCreated: 0
-    dmp9coredatacode: ""
