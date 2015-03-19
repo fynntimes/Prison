@@ -24,7 +24,7 @@ public class MessageUtil {
 		add("general.notEnoughArgs", "&cNot enough arguments. &6Proper usage: %0");
 		add("general.noCmdPassed", "&cPlease specify a command.");
 		add("general.updateAvailable", "&aThere is a new version of Prison available &7(%0)&a! &6Type &c/prison update &6to update.");
-		add("general.versionString", "&6Prison v" + Prison.i().getDescription().getVersion() + "\n&cAuthor: SirFaizdat\n&bWebsite: " + Prison.i().getDescription().getWebsite() + "\n&7(C) 2014 SirFaizdat All Rights Reserved.");
+		add("general.versionString", "&6Prison v" + Prison.i().getDescription().getVersion() + "\n&cAuthors: TheOneAndOnlyDMP9, SirFaizdat\n&cTester: MattXXXQ\n&bWebsite: " + Prison.i().getDescription().getWebsite() + "\n&7(C) 2015 TheOneAndOnlyDMP9 and SirFaizdat All Rights Reserved.");
 		add("general.reloaded", "&aReloaded.");
 		add("general.itemManagerNotLoaded", "&6Please wait for the item manager to load.");
 		add("general.noUpdate", "&aYou are running the latest version!");
@@ -93,6 +93,10 @@ public class MessageUtil {
 		add("shops.invalidItem", "&cThe item is invalid.");
 		add("shops.invalidPrice", "&cThat price is invalid.");
 		add("shops.createSuccess", "&aSuccessfully created shop!");
+		
+		// DMP9
+		add("warps.warping", "&6Warping...");
+		add("warps.tolessargs", "&cToo few arguments! Use the command like this:\n&c/pwarps setwarp {NAME}");
 	}
 
 	public static void add(String key, String value) {
