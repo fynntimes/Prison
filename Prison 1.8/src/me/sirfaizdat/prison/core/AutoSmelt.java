@@ -22,7 +22,7 @@ import org.bukkit.inventory.ItemStack;
  */
 public class AutoSmelt implements CommandExecutor, Listener {
 
-	ArrayList<String> enabledPlayers = new ArrayList<String>();
+	static ArrayList<String> enabledPlayers = new ArrayList<String>();
 
 	public AutoSmelt() {
 		Prison.i().getCommand("autosmelt").setExecutor(this);
@@ -77,7 +77,7 @@ public class AutoSmelt implements CommandExecutor, Listener {
 		}
 	}
 
-	public boolean isEnabled(String s) {
+	public static boolean isEnabled(String s) {
 		for (String player : enabledPlayers) {
 			if (player.equalsIgnoreCase(s)) {
 				return true;
