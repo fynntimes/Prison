@@ -31,10 +31,11 @@ public class RanksCommandManager extends AbstractCommandManager {
 		
 		int exponent = 0;
 		String scale = "";
-		while (exponent < Scales.length && amount > 1000) {
-			 exponent += 1;
-			 amount = amount / 1000;
-			 scale = Scales[exponent];
+		while (exponent < Scales.length && amount >= 1000) {
+			scale = Scales[exponent]; 
+			exponent += 1;
+			amount = amount / 1000;
+			 
 		}
 		
 		return new DecimalFormat("###").format(new BigDecimal(amount)) + " " + scale;
