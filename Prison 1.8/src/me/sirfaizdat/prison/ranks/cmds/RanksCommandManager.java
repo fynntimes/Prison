@@ -26,6 +26,21 @@ public class RanksCommandManager extends AbstractCommandManager {
 		super(Ranks.i, "prisonranks");
 	}
 
+	public static String Scales[] = {"Thousand", "Million", "Billion", "Trillion", "Quadrillion", "Quintillion", "Sextillion", "Septillion", "Octiliion", "Decillion"}; 
+	public String numberFormatter(double amount) {
+		
+		int exponent = 0;
+		String scale = "";
+		while (exponent < Scales.length && amount >= 1000) {
+			scale = Scales[exponent]; 
+			exponent += 1;
+			amount = amount / 1000;
+			 
+		}
+		
+		return new DecimalFormat("###").format(new BigDecimal(amount)) + " " + scale;
+	}
+	
 	// Override the onCommand method to add /ranks and /rankup
 	@Override
 	public boolean onCommand(CommandSender sender, Command command,
@@ -45,8 +60,7 @@ public class RanksCommandManager extends AbstractCommandManager {
 					amountNeeded = "&6$0.00";
 				} else {
 					amountNeeded = "&6$"
-							+ new DecimalFormat("#,###.00")
-									.format(new BigDecimal(amountNeededD));
+							+ numberFormatter(amountNeededD);
 				}
 				sb.append(Prison.colorize(rank.getPrefix() + " &f- "
 						+ amountNeeded) + "\n");
