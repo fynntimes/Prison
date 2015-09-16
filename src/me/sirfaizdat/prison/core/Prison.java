@@ -90,7 +90,6 @@ public class Prison extends JavaPlugin implements Listener {
 				}
 			}
 		}
-		l.info(ChatColor.BLUE + "" + ChatColor.BOLD + "[DMP9 Software] Enabled prison DMP9 Core!");
 		Bukkit.getScheduler().runTaskLater(Prison.i(), new Runnable() {
 
 			@Override
