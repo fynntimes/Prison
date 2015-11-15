@@ -120,9 +120,13 @@ public class MinesManager {
 				fileIn.close();
 			} catch (ClassNotFoundException e) {
 				Prison.l.severe("An unexpected error occured. Check to make sure your copy of the plugin is not corrupted.");
+				e.printStackTrace();
+				continue; // Skip this one
 			} catch (IOException e) {
 				Prison.l.warning("There was an error in loading file " + name
 						+ ".");
+				e.printStackTrace();
+				continue; // Skip this one
 			}
 			Mine m = new Mine(sm.name, sm.world, sm.minX, sm.minY, sm.minZ,
 					sm.maxX, sm.maxY, sm.maxZ, sm.spawnX, sm.spawnY, sm.spawnZ,

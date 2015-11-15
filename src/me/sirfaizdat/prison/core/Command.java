@@ -1,5 +1,5 @@
 /**
-³¤¶ft * (C) 2014 SirFaizdat
+ * (C) 2014 SirFaizdat
  */
 package me.sirfaizdat.prison.core;
 
