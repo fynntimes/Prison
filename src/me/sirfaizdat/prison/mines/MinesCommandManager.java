@@ -7,14 +7,12 @@ import me.sirfaizdat.prison.core.AbstractCommandManager;
 import me.sirfaizdat.prison.core.Component;
 import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.mines.cmds.CommandAddBlock;
-import me.sirfaizdat.prison.mines.cmds.CommandAddRank;
 import me.sirfaizdat.prison.mines.cmds.CommandCreate;
 import me.sirfaizdat.prison.mines.cmds.CommandDelete;
 import me.sirfaizdat.prison.mines.cmds.CommandInfo;
 import me.sirfaizdat.prison.mines.cmds.CommandList;
 import me.sirfaizdat.prison.mines.cmds.CommandRedefine;
 import me.sirfaizdat.prison.mines.cmds.CommandRemoveBlock;
-import me.sirfaizdat.prison.mines.cmds.CommandRemoveRank;
 import me.sirfaizdat.prison.mines.cmds.CommandReset;
 import me.sirfaizdat.prison.mines.cmds.CommandSetSpawn;
 
@@ -23,24 +21,20 @@ import me.sirfaizdat.prison.mines.cmds.CommandSetSpawn;
  */
 public class MinesCommandManager extends AbstractCommandManager {
 
-	public MinesCommandManager(Component c) {
-		super(c, "mines");
-	}
+    public MinesCommandManager(Component c) {
+        super(c, "mines");
+    }
 
-	@Override
-	public void registerCommands() {
-		commands.put("create", new CommandCreate());
-		commands.put("addblock", new CommandAddBlock());
-		commands.put("reset", new CommandReset());
-		commands.put("info", new CommandInfo());
-		commands.put("list", new CommandList());
-		commands.put("removeblock", new CommandRemoveBlock());
-		commands.put("delete", new CommandDelete());
-		commands.put("redefine", new CommandRedefine());
-		commands.put("setspawn", new CommandSetSpawn());
-		if (Prison.i().ranks.isEnabled()) {
-			commands.put("addrank", new CommandAddRank());
-			commands.put("removerank", new CommandRemoveRank());
-		}
-	}
+    @Override
+    public void registerCommands() {
+        commands.put("create", new CommandCreate());
+        commands.put("addblock", new CommandAddBlock());
+        commands.put("reset", new CommandReset());
+        commands.put("info", new CommandInfo());
+        commands.put("list", new CommandList());
+        commands.put("removeblock", new CommandRemoveBlock());
+        commands.put("delete", new CommandDelete());
+        commands.put("redefine", new CommandRedefine());
+        commands.put("setspawn", new CommandSetSpawn());
+    }
 }

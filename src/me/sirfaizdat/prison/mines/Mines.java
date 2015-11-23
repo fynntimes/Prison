@@ -13,62 +13,57 @@ import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 
 /**
  * Manages the Mines component.
- * 
+ *
  * @author SirFaizdat
  */
 public class Mines implements Component {
 
-	public static Mines i;
-	private boolean enabled = true;
-	Prison core = Prison.i();
+    public static Mines i;
+    private boolean enabled = true;
+    Prison core = Prison.i();
 
-	MinesCommandManager mcm;
-	MinesBlockListener mbl;
-	public MinesManager mm;
-	WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
+    MinesCommandManager mcm;
+    public MinesManager mm;
+    WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
 
-	public String getName() {
-		return "Mines";
-	}
+    public String getName() {
+        return "Mines";
+    }
 
-	public boolean isEnabled() {
-		return enabled;
-	}
+    public boolean isEnabled() {
+        return enabled;
+    }
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
-	public void enable() throws FailedToStartException {
-		i = this;
-		mm = new MinesManager();
-		mcm = new MinesCommandManager(this);
-		core.getCommand("mines").setExecutor(mcm);
-		if (Prison.i().ranks.isEnabled()) {
-			mbl = new MinesBlockListener();
-			Prison.i().getServer().getPluginManager().registerEvents(mbl, Prison.i());
-		}
-	}
+    public void enable() throws FailedToStartException {
+        i = this;
+        mm = new MinesManager();
+        mcm = new MinesCommandManager(this);
+        core.getCommand("mines").setExecutor(mcm);
+    }
 
-	public void reload() {
-		mm.mines.clear();
-		mm.load();
-		Bukkit.getScheduler().cancelTask(mm.autoResetID);
-		mm.timer();
-	}
+    public void reload() {
+        mm.mines.clear();
+        mm.load();
+        Bukkit.getScheduler().cancelTask(mm.autoResetID);
+        mm.timer();
+    }
 
-	public void disable() {
-		mm.mines.clear();
-		Bukkit.getScheduler().cancelTask(mm.autoResetID);
-	}
+    public void disable() {
+        mm.mines.clear();
+        Bukkit.getScheduler().cancelTask(mm.autoResetID);
+    }
 
-	public WorldEditPlugin getWE() {
-		return worldEdit;
-	}
+    public WorldEditPlugin getWE() {
+        return worldEdit;
+    }
 
-	@Override
-	public String getBaseCommand() {
-		return "mines";
-	}
+    @Override
+    public String getBaseCommand() {
+        return "mines";
+    }
 
 }
