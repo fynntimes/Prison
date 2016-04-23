@@ -1,5 +1,6 @@
 language: java
 branches:
   only:
-    - master
-    - 3.0
+    - "master"
+    - "3.0"
+    - /.*/
