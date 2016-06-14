@@ -12,18 +12,18 @@ import java.util.HashMap;
  */
 public class SerializableMine implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	public String name;
-	public String world;
-	public int minX;
-	public int minY;
-	public int minZ;
-	public int maxX;
-	public int maxY;
-	public int maxZ;
-	public int spawnX;
-	public int spawnY;
-	public int spawnZ;
-	public HashMap<String, Block> blocks = new HashMap<String, Block>();
-	public ArrayList<String> ranks = new ArrayList<String>();
+    private static final long serialVersionUID = 1L;
+    public String name;
+    public String world;
+    public int minX;
+    public int minY;
+    public int minZ;
+    public int maxX;
+    public int maxY;
+    public int maxZ;
+    public int spawnX;
+    public int spawnY;
+    public int spawnZ;
+    public HashMap<String, Block> blocks = new HashMap<String, Block>();
+    public ArrayList<String> ranks = new ArrayList<String>();
 }

@@ -12,19 +12,19 @@ import me.sirfaizdat.prison.core.MessageUtil;
 public class CmdVersion extends Command {
 
 
-	public CmdVersion() {
-		super("version");
-	}
+    public CmdVersion() {
+        super("version");
+    }
 
-	@Override
-	protected void execute() {
-		sender.sendMessage(MessageUtil.get("general.versionString"));
-	}
+    @Override
+    protected void execute() {
+        sender.sendMessage(MessageUtil.get("general.versionString"));
+    }
 
-	@Override
-	public String description() {
-		return "View information about Prison.";
-	}
-	
-	
+    @Override
+    public String description() {
+        return "View information about Prison.";
+    }
+
+
 }

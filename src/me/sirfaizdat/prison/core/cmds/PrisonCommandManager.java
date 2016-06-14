@@ -12,46 +12,47 @@ import me.sirfaizdat.prison.core.FailedToStartException;
  */
 public class PrisonCommandManager extends AbstractCommandManager {
 
-	public PrisonCommandManager() {
-		super(new Component() {
-			boolean enabled = true;
-			@Override
-			public void setEnabled(boolean enabled) {
-				this.enabled = enabled;
-			}
-			
-			@Override
-			public boolean isEnabled() {
-				return enabled;
-			}
-			
-			@Override
-			public String getName() {
-				return "Prison";
-			}
-			
-			@Override
-			public String getBaseCommand() {
-				return "prison";
-			}
-			
-			@Override
-			public void enable() throws FailedToStartException {
-			}
+    public PrisonCommandManager() {
+        super(new Component() {
+            boolean enabled = true;
 
-			@Override
-			public void reload() {
-			}
+            @Override
+            public boolean isEnabled() {
+                return enabled;
+            }
 
-			public void disable() {
-			}
-		}, "prison");
-	}
+            @Override
+            public void setEnabled(boolean enabled) {
+                this.enabled = enabled;
+            }
 
-	@Override
-	public void registerCommands() {
-		commands.put("update", new CmdUpdate());
-		commands.put("version", new CmdVersion());
-	}
+            @Override
+            public String getName() {
+                return "Prison";
+            }
+
+            @Override
+            public String getBaseCommand() {
+                return "prison";
+            }
+
+            @Override
+            public void enable() throws FailedToStartException {
+            }
+
+            @Override
+            public void reload() {
+            }
+
+            public void disable() {
+            }
+        }, "prison");
+    }
+
+    @Override
+    public void registerCommands() {
+        commands.put("update", new CmdUpdate());
+        commands.put("version", new CmdVersion());
+    }
 
 }

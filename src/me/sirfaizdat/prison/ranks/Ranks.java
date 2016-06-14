@@ -3,22 +3,6 @@
  */
 package me.sirfaizdat.prison.ranks;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-
 import me.sirfaizdat.prison.core.Component;
 import me.sirfaizdat.prison.core.FailedToStartException;
 import me.sirfaizdat.prison.core.MessageUtil;
@@ -28,7 +12,6 @@ import me.sirfaizdat.prison.ranks.events.DemoteEvent;
 import me.sirfaizdat.prison.ranks.events.RankupEvent;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
@@ -37,526 +20,530 @@ import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.FireworkMeta;
 
+import java.io.*;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Manages the ranks component.
- * 
+ *
  * @author SirFaizdat
  */
 public class Ranks implements Component {
 
-	private boolean enabled = true;
+    public static Ranks i;
+    public Economy eco;
+    public List<Rank> ranks = new ArrayList<Rank>();
+    public File rankFolder;
+    Permission permission;
+    private boolean enabled = true;
 
-	public static Ranks i;
+    public String getName() {
+        return "Ranks";
+    }
 
-	Permission permission;
-	public Economy eco;
+    public boolean isEnabled() {
+        return enabled;
+    }
 
-	public List<Rank> ranks = new ArrayList<Rank>();
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
-	public File rankFolder;
+    public void enable() throws FailedToStartException {
+        i = this;
 
-	public String getName() {
-		return "Ranks";
-	}
+        permission = Prison.i().getPermissions();
+        eco = Prison.i().getEconomy();
 
-	public boolean isEnabled() {
-		return enabled;
-	}
+        rankFolder = new File(Prison.i().getDataFolder(), "/ranks");
+        if (!rankFolder.exists()) {
+            if (!rankFolder.mkdirs()) {
+                Prison.l.severe("Failed to generate ranks folder. Will not load ranks.");
+                throw new FailedToStartException("Failed to generate ranks folder.");
+            }
+        }
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
+        load();
+        RanksCommandManager rcm = new RanksCommandManager();
+        Prison.i().getCommand("prisonranks").setExecutor(rcm);
+        Prison.i().getCommand("ranks").setExecutor(rcm);
+        Prison.i().getCommand("rankup").setExecutor(rcm);
 
-	public void enable() throws FailedToStartException {
-		i = this;
+        Bukkit.getScheduler().runTaskLater(Prison.i(), new Runnable() {
+            @Override
+            public void run() {
+                new BalanceChangeListener();
+            }
+        }, 0);
 
-		permission = Prison.i().getPermissions();
-		eco = Prison.i().getEconomy();
+    }
 
-		rankFolder = new File(Prison.i().getDataFolder(), "/ranks");
-		if (!rankFolder.exists()) {
-			if (!rankFolder.mkdirs()) {
-				Prison.l.severe("Failed to generate ranks folder. Will not load ranks.");
-				throw new FailedToStartException("Failed to generate ranks folder.");
-			}
-		}
+    public void reload() {
+        ranks.clear();
+        load();
+    }
 
-		load();
-		RanksCommandManager rcm = new RanksCommandManager();
-		Prison.i().getCommand("prisonranks").setExecutor(rcm);
-		Prison.i().getCommand("ranks").setExecutor(rcm);
-		Prison.i().getCommand("rankup").setExecutor(rcm);
+    public void disable() {
+        ranks.clear();
+    }
 
-		Bukkit.getScheduler().runTaskLater(Prison.i(), new Runnable() {
-			@Override
-			public void run() {
-				new BalanceChangeListener();
-			}
-		}, 0);
+    public List<String> getRankList() {
 
-	}
+        File rankListFile = new File(rankFolder, "ranksList.txt");
+        if (!rankListFile.exists()) {
+            try {
+                rankListFile.createNewFile();
+            } catch (IOException e) {
+                Prison.l.severe("Failed to create ranks list. Will not load ranks.");
+                setEnabled(false);
+                return null;
+            }
+        }
+        List<String> ranksList = new ArrayList<String>();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(rankListFile));
 
-	public void reload() {
-		ranks.clear();
-		load();
-	}
+            String line;
+            while ((line = reader.readLine()) != null) {
+                ranksList.add(line);
+            }
+            reader.close();
+        } catch (FileNotFoundException e) {
+            // Should never happen.
+            Prison.l.severe("Failed to find ranks list. Will not load ranks.");
+            setEnabled(false);
+            return null;
+        } catch (IOException e) {
+            Prison.l.severe("Failed to read ranks list. Will not load ranks.");
+            setEnabled(false);
+            return null;
+        }
+        return ranksList;
+    }
 
-	public void disable() {
-		ranks.clear();
-	}
+    private boolean load() {
+        // <-- BEGIN CONVERTER CODE -->
+        File configFile = new File(Prison.i().getDataFolder(), "ranks.yml");
+        if (configFile.exists()) {
+            RanksConfig config = new RanksConfig();
+            List<String> rankList = config.getConfig().getStringList("ranklist");
+            boolean successful = true;
+            for (String rank : rankList) {
+                if (!successful) break;
+                Rank r = new Rank();
+                r.setName(rank);
+                r.setPrefix(config.getConfig().getString("ranks." + rank + ".prefix"));
+                r.setPrice(config.getConfig().getDouble("ranks." + rank + ".price"));
+                successful = addRank(r);
+            }
+            if (successful) {
+                successful = configFile.delete();
+                if (!successful) {
+                    // Warn but still allow ranks to load.
+                    Prison.l.warning("Failed to delete old ranks save file (ranks.yml). You must do it manually.");
+                    successful = true;
+                }
+            } else {
+                Prison.l.severe("Failed to convert rank(s).");
+                successful = false;
+            }
+            return successful;
+        }
 
-	public List<String> getRankList() {
+        // <-- END CONVERTER CODE -->
 
-		File rankListFile = new File(rankFolder, "ranksList.txt");
-		if (!rankListFile.exists()) {
-			try {
-				rankListFile.createNewFile();
-			} catch (IOException e) {
-				Prison.l.severe("Failed to create ranks list. Will not load ranks.");
-				setEnabled(false);
-				return null;
-			}
-		}
-		List<String> ranksList = new ArrayList<String>();
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(rankListFile));
+        File rankListFile = new File(rankFolder, "ranksList.txt");
+        if (!rankListFile.exists()) {
+            try {
+                rankListFile.createNewFile();
+            } catch (IOException e) {
+                Prison.l.severe("Failed to create ranks list. Will not load ranks.");
+                setEnabled(false);
+                return false;
+            }
+        }
+        List<String> ranksList = new ArrayList<String>();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(rankListFile));
 
-			String line;
-			while ((line = reader.readLine()) != null) {
-				ranksList.add(line);
-			}
-			reader.close();
-		} catch (FileNotFoundException e) {
-			// Should never happen.
-			Prison.l.severe("Failed to find ranks list. Will not load ranks.");
-			setEnabled(false);
-			return null;
-		} catch (IOException e) {
-			Prison.l.severe("Failed to read ranks list. Will not load ranks.");
-			setEnabled(false);
-			return null;
-		}
-		return ranksList;
-	}
+            String line;
+            while ((line = reader.readLine()) != null) {
+                ranksList.add(line);
+            }
+            reader.close();
+        } catch (FileNotFoundException e) {
+            // Should never happen.
+            Prison.l.severe("Failed to find ranks list. Will not load ranks.");
+            setEnabled(false);
+            return false;
+        } catch (IOException e) {
+            Prison.l.severe("Failed to read ranks list. Will not load ranks.");
+            setEnabled(false);
+            return false;
+        }
 
-	private boolean load() {
-		// <-- BEGIN CONVERTER CODE --> 
-		File configFile = new File(Prison.i().getDataFolder(), "ranks.yml");
-		if (configFile.exists()) {
-			RanksConfig config = new RanksConfig();
-			List<String> rankList = config.getConfig().getStringList("ranklist");
-			boolean successful = true;
-			for (String rank : rankList) {
-				if(!successful) break;
-				Rank r = new Rank();
-				r.setName(rank);
-				r.setPrefix(config.getConfig().getString("ranks." + rank + ".prefix"));
-				r.setPrice(config.getConfig().getDouble("ranks." + rank + ".price"));
-				successful = addRank(r);
-			}
-			if (successful) {
-				successful = configFile.delete();
-				if (!successful) {
-					// Warn but still allow ranks to load.
-					Prison.l.warning("Failed to delete old ranks save file (ranks.yml). You must do it manually.");
-					successful = true;
-				}
-			} else {
-				Prison.l.severe("Failed to convert rank(s).");
-				successful = false;
-			}
-			return successful;
-		}
+        int count = 0;
+        for (String s : ranksList) {
+            boolean good = true;
+            String fileName = s + ".rank";
+            SerializableRank sr = null;
+            try {
+                FileInputStream fileIn = new FileInputStream(new File(rankFolder, fileName));
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                sr = (SerializableRank) in.readObject();
+                in.close();
+                fileIn.close();
+            } catch (ClassNotFoundException e) {
+                Prison.l.severe("An unexpected error occured. Check to make sure your copy of the plugin is not corrupted.");
+                return false;
+            } catch (IOException e) {
+                try {
 
-		// <-- END CONVERTER CODE -->
+                    File inputFile = new File(rankFolder, "ranksList.txt");
+                    File tempFile = new File(rankFolder, "ranksTemp.txt");
 
-		File rankListFile = new File(rankFolder, "ranksList.txt");
-		if (!rankListFile.exists()) {
-			try {
-				rankListFile.createNewFile();
-			} catch (IOException e) {
-				Prison.l.severe("Failed to create ranks list. Will not load ranks.");
-				setEnabled(false);
-				return false;
-			}
-		}
-		List<String> ranksList = new ArrayList<String>();
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(rankListFile));
+                    BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
 
-			String line;
-			while ((line = reader.readLine()) != null) {
-				ranksList.add(line);
-			}
-			reader.close();
-		} catch (FileNotFoundException e) {
-			// Should never happen.
-			Prison.l.severe("Failed to find ranks list. Will not load ranks.");
-			setEnabled(false);
-			return false;
-		} catch (IOException e) {
-			Prison.l.severe("Failed to read ranks list. Will not load ranks.");
-			setEnabled(false);
-			return false;
-		}
+                    String lineToRemove = s;
+                    String currentLine;
 
-		int count = 0;
-		for (String s : ranksList) {
-			boolean good = true;
-			String fileName = s + ".rank";
-			SerializableRank sr = null;
-			try {
-				FileInputStream fileIn = new FileInputStream(new File(rankFolder, fileName));
-				ObjectInputStream in = new ObjectInputStream(fileIn);
-				sr = (SerializableRank) in.readObject();
-				in.close();
-				fileIn.close();
-			} catch (ClassNotFoundException e) {
-				Prison.l.severe("An unexpected error occured. Check to make sure your copy of the plugin is not corrupted.");
-				return false;
-			} catch (IOException e) {
-				try {
+                    while ((currentLine = reader.readLine()) != null) {
+                        String trimmedLine = currentLine.trim();
+                        if (trimmedLine.equals(lineToRemove)) continue;
+                        writer.write(currentLine);
+                        writer.newLine();
+                    }
+                    reader.close();
+                    writer.close();
+                    boolean successful = tempFile.renameTo(inputFile);
+                    if (!successful) {
+                        return false;
+                    }
+                } catch (IOException ex) {
+                    Prison.l.severe("Failed to remove rank " + s + " from rank list.");
+                    ex.printStackTrace();
+                    return false;
+                }
+                Prison.l.warning("There was an error in loading file " + fileName + ". It has been removed from the rank list.");
+                good = false;
+            }
 
-					File inputFile = new File(rankFolder, "ranksList.txt");
-					File tempFile = new File(rankFolder, "ranksTemp.txt");
+            if (good) {
+                Rank rank = new Rank();
+                rank.setId(count);
+                rank.setName(sr.name);
+                rank.setPrefix(sr.prefix);
+                rank.setPrice(sr.price);
+                ranks.add(rank);
+            }
+            count++;
+        }
 
-					BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-					BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+        return true;
+    }
 
-					String lineToRemove = s;
-					String currentLine;
+    private String getGroup(String world, Player player) {
 
-					while ((currentLine = reader.readLine()) != null) {
-						String trimmedLine = currentLine.trim();
-						if (trimmedLine.equals(lineToRemove)) continue;
-						writer.write(currentLine);
-						writer.newLine();
-					}
-					reader.close();
-					writer.close();
-					boolean successful = tempFile.renameTo(inputFile);
-					if (!successful) {
-						return false;
-					}
-				} catch (IOException ex) {
-					Prison.l.severe("Failed to remove rank " + s + " from rank list.");
-					ex.printStackTrace();
-					return false;
-				}
-				Prison.l.warning("There was an error in loading file " + fileName + ". It has been removed from the rank list.");
-				good = false;
-			}
+        String[] groups = permission.getPlayerGroups(world, player);
 
-			if (good) {
-				Rank rank = new Rank();
-				rank.setId(count);
-				rank.setName(sr.name);
-				rank.setPrefix(sr.prefix);
-				rank.setPrice(sr.price);
-				ranks.add(rank);
-			}
-			count++;
-		}
+        for (String group : groups) {
+            for (Rank rank : ranks) {
+                if (group.equals(rank.getName())) {
+                    return group;
+                }
+            }
+        }
 
-		return true;
-	}
+        return null;
+    }
 
-	private String getGroup(String world, Player player) {
+    public UserInfo getUserInfo(String name) {
+        UserInfo info = null;
+        Player player = Prison.i().playerList.getPlayer(name);
+        if (player != null) {
+            info = new UserInfo();
+            info.setPlayer(player);
 
-		String[] groups = permission.getPlayerGroups(world, player);
+            Rank currentRank = null;
+            Rank previousRank = null;
+            Rank nextRank = null;
 
-		for (String group : groups) {
-			for (Rank rank : ranks) {
-				if (group.equals(rank.getName())) {
-					return group;
-				}
-			}
-		}
+            for (Rank rank : ranks) {
+                String primaryGroup = getGroup(player.getWorld().getName(), player);
+                if (primaryGroup != null) {
+                    if (currentRank != null) {
+                        nextRank = rank;
+                        break;
+                    }
 
-		return null;
-	}
+                    if (primaryGroup.equalsIgnoreCase(rank.getName())) {
+                        currentRank = rank;
+                    }
 
-	public UserInfo getUserInfo(String name) {
-		UserInfo info = null;
-		Player player = Prison.i().playerList.getPlayer(name);
-		if (player != null) {
-			info = new UserInfo();
-			info.setPlayer(player);
+                    if (currentRank == null) {
+                        previousRank = rank;
+                    }
+                } else {
+                    nextRank = ranks.get(0);
+                }
+            }
 
-			Rank currentRank = null;
-			Rank previousRank = null;
-			Rank nextRank = null;
+            if (previousRank != null && currentRank == null) {
+                previousRank = null;
+            }
 
-			for (Rank rank : ranks) {
-				String primaryGroup = getGroup(player.getWorld().getName(), player);
-				if (primaryGroup != null) {
-					if (currentRank != null) {
-						nextRank = rank;
-						break;
-					}
+            info.setCurrentRank(currentRank);
+            info.setPreviousRank(previousRank);
+            info.setNextRank(nextRank);
+        }
+        return info;
+    }
 
-					if (primaryGroup.equalsIgnoreCase(rank.getName())) {
-						currentRank = rank;
-					}
+    public void promote(String name, boolean buy) {
+        if (ranks.size() == 0) {
+            Prison.i().playerList.getPlayer(name).sendMessage(MessageUtil.get("ranks.noRanksLoaded"));
+            return;
+        }
+        Rank currentRank = null;
+        Rank nextRank = null;
 
-					if (currentRank == null) {
-						previousRank = rank;
-					}
-				} else {
-					nextRank = ranks.get(0);
-				}
-			}
+        UserInfo info = getUserInfo(name);
+        if (info != null) {
+            currentRank = info.getCurrentRank();
+            nextRank = info.getNextRank();
 
-			if (previousRank != null && currentRank == null) {
-				previousRank = null;
-			}
+            if (nextRank == null && currentRank == null) {
+                nextRank = ranks.get(0);
+            }
+            if (nextRank == null) {
+                info.getPlayer().sendMessage(buy ? MessageUtil.get("ranks.highestRank") : MessageUtil.get("ranks.highestRank.other"));
+                return;
+            }
+            if (!isRank(nextRank.getName())) {
+                info.getPlayer().sendMessage(MessageUtil.get("ranks.notAGroup"));
+                return;
+            }
+            if (nextRank != null) {
+                boolean paid = true;
+                if (buy) {
+                    if (nextRank.getPrice() != 0) {
+                        if (eco.has(info.getPlayer(), nextRank.getPrice())) {
+                            eco.withdrawPlayer(info.getPlayer(), nextRank.getPrice());
+                        } else {
+                            if (info.getPlayer() != null) {
+                                double amountNeededD = nextRank.getPrice() - eco.getBalance(info.getPlayer());
+                                String amountNeeded = new DecimalFormat("#,###.00").format(new BigDecimal(amountNeededD));
+                                info.getPlayer().sendMessage(MessageUtil.get("ranks.notEnoughMoney", amountNeeded, nextRank.getPrefix()));
+                                paid = false;
+                            }
+                        }
+                    }
+                }
+                if (paid) {
+                    changeRank(info.getPlayer(), currentRank, nextRank);
+                    info.getPlayer().sendMessage(MessageUtil.get("ranks.rankedUp", nextRank.getPrefix()));
+                    Bukkit.broadcastMessage(MessageUtil.get("ranks.rankedUpBroadcast", info.getPlayer().getName(), nextRank.getPrefix()));
+                    // Launch a firework! Yay!
+                    Firework fw = info.getPlayer().getWorld().spawn(info.getPlayer().getLocation(), Firework.class);
+                    FireworkMeta data = fw.getFireworkMeta();
+                    data.addEffects(FireworkEffect.builder().withColor(Color.BLUE).with(Type.BALL_LARGE).build());
+                    data.setPower(3);
+                    fw.setFireworkMeta(data);
+                    fw.detonate();
+                    // End firework code
+                    Bukkit.getServer().getPluginManager().callEvent(new RankupEvent(info.getPlayer(), buy));
+                }
+            }
+        }
+    }
 
-			info.setCurrentRank(currentRank);
-			info.setPreviousRank(previousRank);
-			info.setNextRank(nextRank);
-		}
-		return info;
-	}
+    public void demote(Player sender, String name) {
+        if (ranks.size() == 0) {
+            Prison.i().playerList.getPlayer(name).sendMessage(MessageUtil.get("ranks.noRanksLoaded"));
+            return;
+        }
+        Rank currentRank = null;
+        Rank previousRank = null;
 
-	public void promote(String name, boolean buy) {
-		if (ranks.size() == 0) {
-			Prison.i().playerList.getPlayer(name).sendMessage(MessageUtil.get("ranks.noRanksLoaded"));
-			return;
-		}
-		Rank currentRank = null;
-		Rank nextRank = null;
+        UserInfo info = getUserInfo(name);
+        if (info != null) {
+            currentRank = info.getCurrentRank();
+            previousRank = info.getPreviousRank();
+            if (previousRank == null) {
+                sender.sendMessage(MessageUtil.get("ranks.lowestRank"));
+                return;
+            }
+            changeRank(info.getPlayer(), currentRank, previousRank);
+            info.getPlayer().sendMessage(MessageUtil.get("ranks.demoteSuccess", info.getPlayer().getName(), previousRank.getPrefix()));
+            sender.sendMessage(MessageUtil.get("ranks.demoteSuccess", info.getPlayer().getName(), previousRank.getPrefix()));
+            Bukkit.getServer().getPluginManager().callEvent(new DemoteEvent(info.getPlayer()));
+        } else {
+            sender.sendMessage(MessageUtil.get("ranks.notAPlayer"));
+        }
+    }
 
-		UserInfo info = getUserInfo(name);
-		if (info != null) {
-			currentRank = info.getCurrentRank();
-			nextRank = info.getNextRank();
+    public boolean addRank(Rank rank) {
+        if (isLoadedRank(rank.getName())) {
+            return false;
+        }
+        rank.setId(ranks.size() + 1);
+        ranks.add(rank);
+        try {
+            BufferedWriter output = new BufferedWriter(new FileWriter(new File(rankFolder, "ranksList.txt"), true));
+            output.append(rank.getName());
+            output.newLine();
+            output.close();
+        } catch (IOException e) {
 
-			if (nextRank == null && currentRank == null) {
-				nextRank = ranks.get(0);
-			}
-			if (nextRank == null) {
-				info.getPlayer().sendMessage(buy ? MessageUtil.get("ranks.highestRank") : MessageUtil.get("ranks.highestRank.other"));
-				return;
-			}
-			if (!isRank(nextRank.getName())) {
-				info.getPlayer().sendMessage(MessageUtil.get("ranks.notAGroup"));
-				return;
-			}
-			if (nextRank != null) {
-				boolean paid = true;
-				if (buy) {
-					if (nextRank.getPrice() != 0) {
-						if (eco.has(info.getPlayer(), nextRank.getPrice())) {
-							eco.withdrawPlayer(info.getPlayer(), nextRank.getPrice());
-						} else {
-							if (info.getPlayer() != null) {
-								double amountNeededD = nextRank.getPrice() - eco.getBalance(info.getPlayer());
-								String amountNeeded = new DecimalFormat("#,###.00").format(new BigDecimal(amountNeededD));
-								info.getPlayer().sendMessage(MessageUtil.get("ranks.notEnoughMoney", amountNeeded, nextRank.getPrefix()));
-								paid = false;
-							}
-						}
-					}
-				}
-				if (paid) {
-					changeRank(info.getPlayer(), currentRank, nextRank);
-					info.getPlayer().sendMessage(MessageUtil.get("ranks.rankedUp", nextRank.getPrefix()));
-					Bukkit.broadcastMessage(MessageUtil.get("ranks.rankedUpBroadcast", info.getPlayer().getName(), nextRank.getPrefix()));
-	                // Launch a firework! Yay!
-					Firework fw = info.getPlayer().getWorld().spawn(info.getPlayer().getLocation(), Firework.class);
-	                FireworkMeta data = fw.getFireworkMeta();
-	                data.addEffects(FireworkEffect.builder().withColor(Color.BLUE).with(Type.BALL_LARGE).build());
-	                data.setPower(3);
-	                fw.setFireworkMeta(data);
-	                fw.detonate();
-	                // End firework code
-					Bukkit.getServer().getPluginManager().callEvent(new RankupEvent(info.getPlayer(), buy));
-				}
-			}
-		}
-	}
+        }
+        File rankFile = new File(rankFolder, rank.getName() + ".rank");
+        SerializableRank sr = new SerializableRank();
+        sr.name = rank.getName();
+        sr.prefix = rank.getPrefix();
+        sr.price = rank.getPrice();
+        if (rankFile.exists()) {
+            if (!rankFile.delete()) {
+                Prison.l.severe("Failed to save file " + rankFile.getName() + " - Could not delete existing copy.");
+                return false;
+            }
+        }
+        try {
+            FileOutputStream out = new FileOutputStream(rankFile);
+            ObjectOutputStream oOut = new ObjectOutputStream(out);
+            oOut.writeObject(sr);
+            oOut.close();
+            out.close();
+        } catch (FileNotFoundException e) {
+            Prison.l.severe("Failed to save rank " + rank.getName() + ".");
+            e.printStackTrace();
+            return false;
+        } catch (IOException e) {
+            Prison.l.severe("Failed to save rank " + rank.getName() + ".");
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 
-	public void demote(Player sender, String name) {
-		if (ranks.size() == 0) {
-			Prison.i().playerList.getPlayer(name).sendMessage(MessageUtil.get("ranks.noRanksLoaded"));
-			return;
-		}
-		Rank currentRank = null;
-		Rank previousRank = null;
+    public boolean removeRank(Rank rank) {
+        if (!isLoadedRank(rank.getName())) {
+            return false;
+        }
+        for (int i = 0; i < ranks.size(); i++) {
+            Rank r = ranks.get(i);
+            if (r.getName().equalsIgnoreCase(rank.getName())) {
+                ranks.remove(i);
+            }
+        }
+        try {
 
-		UserInfo info = getUserInfo(name);
-		if (info != null) {
-			currentRank = info.getCurrentRank();
-			previousRank = info.getPreviousRank();
-			if (previousRank == null) {
-				sender.sendMessage(MessageUtil.get("ranks.lowestRank"));
-				return;
-			}
-			changeRank(info.getPlayer(), currentRank, previousRank);
-			info.getPlayer().sendMessage(MessageUtil.get("ranks.demoteSuccess", info.getPlayer().getName(), previousRank.getPrefix()));
-			sender.sendMessage(MessageUtil.get("ranks.demoteSuccess", info.getPlayer().getName(), previousRank.getPrefix()));
-			Bukkit.getServer().getPluginManager().callEvent(new DemoteEvent(info.getPlayer()));
-		} else {
-			sender.sendMessage(MessageUtil.get("ranks.notAPlayer"));
-		}
-	}
+            File inputFile = new File(rankFolder, "ranksList.txt");
+            File tempFile = new File(rankFolder, "ranksTemp.txt");
 
-	public boolean addRank(Rank rank) {
-		if (isLoadedRank(rank.getName())) {
-			return false;
-		}
-		rank.setId(ranks.size() + 1);
-		ranks.add(rank);
-		try {
-			BufferedWriter output = new BufferedWriter(new FileWriter(new File(rankFolder, "ranksList.txt"), true));
-			output.append(rank.getName());
-			output.newLine();
-			output.close();
-		} catch (IOException e) {
+            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
 
-		}
-		File rankFile = new File(rankFolder, rank.getName() + ".rank");
-		SerializableRank sr = new SerializableRank();
-		sr.name = rank.getName();
-		sr.prefix = rank.getPrefix();
-		sr.price = rank.getPrice();
-		if (rankFile.exists()) {
-			if (!rankFile.delete()) {
-				Prison.l.severe("Failed to save file " + rankFile.getName() + " - Could not delete existing copy.");
-				return false;
-			}
-		}
-		try {
-			FileOutputStream out = new FileOutputStream(rankFile);
-			ObjectOutputStream oOut = new ObjectOutputStream(out);
-			oOut.writeObject(sr);
-			oOut.close();
-			out.close();
-		} catch (FileNotFoundException e) {
-			Prison.l.severe("Failed to save rank " + rank.getName() + ".");
-			e.printStackTrace();
-			return false;
-		} catch (IOException e) {
-			Prison.l.severe("Failed to save rank " + rank.getName() + ".");
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}
+            String lineToRemove = rank.getName();
+            String currentLine;
 
-	public boolean removeRank(Rank rank) {
-		if (!isLoadedRank(rank.getName())) {
-			return false;
-		}
-		for (int i = 0; i < ranks.size(); i++) {
-			Rank r = ranks.get(i);
-			if (r.getName().equalsIgnoreCase(rank.getName())) {
-				ranks.remove(i);
-			}
-		}
-		try {
+            while ((currentLine = reader.readLine()) != null) {
+                String trimmedLine = currentLine.trim();
+                if (trimmedLine.equals(lineToRemove)) continue;
+                writer.write(currentLine);
+                writer.newLine();
+            }
+            reader.close();
+            writer.close();
+            boolean successful = tempFile.renameTo(inputFile);
+            if (!successful) {
+                return false;
+            }
+        } catch (IOException e) {
+            Prison.l.severe("Failed to remove rank " + rank.getName() + ".");
+            e.printStackTrace();
+            return false;
+        }
+        File rankFile = new File(rankFolder, rank.getName() + ".rank");
+        if (rankFile.exists()) {
+            boolean successful = rankFile.delete();
+            if (!successful) {
+                // Won't effect the plugin, as long as rankFile.txt successfully
+                // removes the rank from it's list.
+                Prison.l.warning("Failed to delete rank file" + rank.getName() + ".");
+                return true;
+            }
+        }
 
-			File inputFile = new File(rankFolder, "ranksList.txt");
-			File tempFile = new File(rankFolder, "ranksTemp.txt");
+        return true;
+    }
 
-			BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-			BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+    public void changeRank(Player player, Rank currentRank, Rank newRank) {
+        if (Prison.i().config.rankWorlds.size() == 0 || !Prison.i().config.enableMultiworld) {
+            permission.playerAddGroup(null, player, newRank.getName());
+            if (currentRank != null) {
+                permission.playerRemoveGroup(null, player, currentRank.getName());
+            }
+            return;
+        }
+        for (String world : Prison.i().config.rankWorlds) {
+            if (Prison.i().wm.getWorld(world) != null) {
+                permission.playerAddGroup(world, player, newRank.getName());
+                if (currentRank != null) {
+                    permission.playerRemoveGroup(world, player, currentRank.getName());
+                }
+            } else {
+                Prison.l.warning("One of the worlds specified in the ranks multiworld configuration does not exist. It has been ignored.");
+            }
+        }
+    }
 
-			String lineToRemove = rank.getName();
-			String currentLine;
+    public boolean isLoadedRank(String rankName) {
+        try {
+            if (ranks.size() < 1) {
+                return false;
+            }
+            for (int i = 0; i < ranks.size(); i++) {
+                if (ranks.get(i) == null) return false;
+                if (ranks.get(i).getName().equalsIgnoreCase(rankName)) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (NullPointerException e) {
+            return false;
+        }
+    }
 
-			while ((currentLine = reader.readLine()) != null) {
-				String trimmedLine = currentLine.trim();
-				if (trimmedLine.equals(lineToRemove)) continue;
-				writer.write(currentLine);
-				writer.newLine();
-			}
-			reader.close();
-			writer.close();
-			boolean successful = tempFile.renameTo(inputFile);
-			if (!successful) {
-				return false;
-			}
-		} catch (IOException e) {
-			Prison.l.severe("Failed to remove rank " + rank.getName() + ".");
-			e.printStackTrace();
-			return false;
-		}
-		File rankFile = new File(rankFolder, rank.getName() + ".rank");
-		if (rankFile.exists()) {
-			boolean successful = rankFile.delete();
-			if (!successful) {
-				// Won't effect the plugin, as long as rankFile.txt successfully
-				// removes the rank from it's list.
-				Prison.l.warning("Failed to delete rank file" + rank.getName() + ".");
-				return true;
-			}
-		}
+    public boolean isRank(String rankName) {
+        String[] groups = permission.getGroups();
+        for (int i = 0; i < groups.length; i++) {
+            String groupName = groups[i];
+            if (groupName.equalsIgnoreCase(rankName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-		return true;
-	}
+    /**
+     * Returns null if no rank was found.
+     */
+    public Rank getRank(String r) {
+        for (int i = 0; i < ranks.size(); i++) {
+            if (ranks.get(i).getName().equalsIgnoreCase(r)) {
+                return ranks.get(i);
+            }
+        }
+        return null;
+    }
 
-	public void changeRank(Player player, Rank currentRank, Rank newRank) {
-		if (Prison.i().config.rankWorlds.size() == 0 || !Prison.i().config.enableMultiworld) {
-			permission.playerAddGroup(null, player, newRank.getName());
-			if (currentRank != null) {
-				permission.playerRemoveGroup(null, player, currentRank.getName());
-			}
-			return;
-		}
-		for (String world : Prison.i().config.rankWorlds) {
-			if (Prison.i().wm.getWorld(world) != null) {
-				permission.playerAddGroup(world, player, newRank.getName());
-				if (currentRank != null) {
-					permission.playerRemoveGroup(world, player, currentRank.getName());
-				}
-			} else {
-				Prison.l.warning("One of the worlds specified in the ranks multiworld configuration does not exist. It has been ignored.");
-			}
-		}
-	}
-
-	public boolean isLoadedRank(String rankName) {
-		try {
-			if (ranks.size() < 1) {
-				return false;
-			}
-			for (int i = 0; i < ranks.size(); i++) {
-				if (ranks.get(i) == null) return false;
-				if (ranks.get(i).getName().equalsIgnoreCase(rankName)) {
-					return true;
-				}
-			}
-			return false;
-		} catch (NullPointerException e) {
-			return false;
-		}
-	}
-
-	public boolean isRank(String rankName) {
-		String[] groups = permission.getGroups();
-		for (int i = 0; i < groups.length; i++) {
-			String groupName = groups[i];
-			if (groupName.equalsIgnoreCase(rankName)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/** Returns null if no rank was found. */
-	public Rank getRank(String r) {
-		for (int i = 0; i < ranks.size(); i++) {
-			if (ranks.get(i).getName().equalsIgnoreCase(r)) {
-				return ranks.get(i);
-			}
-		}
-		return null;
-	}
-
-	@Override
-	public String getBaseCommand() {
-		return "prisonranks";
-	}
+    @Override
+    public String getBaseCommand() {
+        return "prisonranks";
+    }
 
 }

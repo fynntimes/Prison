@@ -12,20 +12,20 @@ import me.sirfaizdat.prison.core.Prison;
  */
 public class CmdReload extends Command {
 
-	public CmdReload() {
-		super("reload");
-	}
+    public CmdReload() {
+        super("reload");
+    }
 
-	@Override
-	protected void execute() {
-		Prison.i().reload();
-		sender.sendMessage(MessageUtil.get("general.reloaded"));
-	}
+    @Override
+    protected void execute() {
+        Prison.i().reload();
+        sender.sendMessage(MessageUtil.get("general.reloaded"));
+    }
 
-	@Override
-	public String description() {
-		return "Reloads the config.yml.";
-	}
-	
-	
+    @Override
+    public String description() {
+        return "Reloads the config.yml.";
+    }
+
+
 }

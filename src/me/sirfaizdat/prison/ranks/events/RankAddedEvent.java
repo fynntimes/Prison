@@ -4,7 +4,6 @@
 package me.sirfaizdat.prison.ranks.events;
 
 import me.sirfaizdat.prison.ranks.Rank;
-
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
@@ -13,23 +12,23 @@ import org.bukkit.event.HandlerList;
  */
 public class RankAddedEvent extends Event {
 
-	private static final HandlerList handlers = new HandlerList();
-	private Rank newRank;
-	
-	public RankAddedEvent(Rank newRank) {
-		this.newRank = newRank;
-	}
-	
-	public Rank getRank() {
-		return newRank;
-	}
+    private static final HandlerList handlers = new HandlerList();
+    private Rank newRank;
 
-	public HandlerList getHandlers() {
-		return handlers;
-	}
+    public RankAddedEvent(Rank newRank) {
+        this.newRank = newRank;
+    }
 
-	public static HandlerList getHandlerList() {
-		return handlers;
-	}
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
+    public Rank getRank() {
+        return newRank;
+    }
+
+    public HandlerList getHandlers() {
+        return handlers;
+    }
 
 }

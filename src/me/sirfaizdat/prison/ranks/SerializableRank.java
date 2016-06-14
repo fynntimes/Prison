@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 public class SerializableRank implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public String name;
-	public double price;
-	public String prefix;
-	
-	
+    public String name;
+    public double price;
+    public String prefix;
+
+
 }

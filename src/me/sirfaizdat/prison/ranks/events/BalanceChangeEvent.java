@@ -12,36 +12,36 @@ import org.bukkit.event.HandlerList;
  */
 public class BalanceChangeEvent extends Event {
 
-	private static final HandlerList handlers = new HandlerList();
-	private Player player;
-	private double oldBalance;
-	private double newBalance;
+    private static final HandlerList handlers = new HandlerList();
+    private Player player;
+    private double oldBalance;
+    private double newBalance;
 
-	public BalanceChangeEvent(Player player, double oldBalance,
-			double newBalance) {
-		this.player = player;
-		this.oldBalance = oldBalance;
-		this.newBalance = newBalance;
-	}
+    public BalanceChangeEvent(Player player, double oldBalance,
+                              double newBalance) {
+        this.player = player;
+        this.oldBalance = oldBalance;
+        this.newBalance = newBalance;
+    }
 
-	public Player getPlayer() {
-		return player;
-	}
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
 
-	public double getOldBalance() {
-		return oldBalance;
-	}
+    public Player getPlayer() {
+        return player;
+    }
 
-	public double getNewBalance() {
-		return newBalance;
-	}
+    public double getOldBalance() {
+        return oldBalance;
+    }
 
-	@Override
-	public HandlerList getHandlers() {
-		return handlers;
-	}
-	
-	public static HandlerList getHandlerList() {
+    public double getNewBalance() {
+        return newBalance;
+    }
+
+    @Override
+    public HandlerList getHandlers() {
         return handlers;
     }
 

@@ -3,9 +3,9 @@
  */
 package me.sirfaizdat.prison.core;
 
-import java.util.List;
-
 import org.bukkit.configuration.file.FileConfiguration;
+
+import java.util.List;
 
 /**
  * @author SirFaizdat

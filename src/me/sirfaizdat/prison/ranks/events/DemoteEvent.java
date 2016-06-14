@@ -12,24 +12,24 @@ import org.bukkit.event.HandlerList;
  */
 public class DemoteEvent extends Event {
 
-	private static final HandlerList handlers = new HandlerList();
-	private Player player;
-	
-	public DemoteEvent(Player player) {
-		this.player = player;
-	}
-	
-	public Player getPlayer() {
-		return player;
-	}
-	
-	@Override
-	public HandlerList getHandlers() {
-		return handlers;
-	}
+    private static final HandlerList handlers = new HandlerList();
+    private Player player;
 
-	public static HandlerList getHandlerList() {
+    public DemoteEvent(Player player) {
+        this.player = player;
+    }
+
+    public static HandlerList getHandlerList() {
         return handlers;
     }
-	
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    @Override
+    public HandlerList getHandlers() {
+        return handlers;
+    }
+
 }

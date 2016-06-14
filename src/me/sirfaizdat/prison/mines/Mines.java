@@ -3,13 +3,11 @@
  */
 package me.sirfaizdat.prison.mines;
 
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import me.sirfaizdat.prison.core.Component;
 import me.sirfaizdat.prison.core.FailedToStartException;
 import me.sirfaizdat.prison.core.Prison;
-
 import org.bukkit.Bukkit;
-
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 
 /**
  * Manages the Mines component.
@@ -19,12 +17,12 @@ import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 public class Mines implements Component {
 
     public static Mines i;
-    private boolean enabled = true;
+    public MinesManager mm;
     Prison core = Prison.i();
 
     MinesCommandManager mcm;
-    public MinesManager mm;
     WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
+    private boolean enabled = true;
 
     public String getName() {
         return "Mines";

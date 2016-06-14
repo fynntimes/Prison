@@ -13,23 +13,23 @@ import me.sirfaizdat.prison.mines.Mines;
  */
 public class CommandDelete extends Command {
 
-	public CommandDelete() {
-		super("delete");
-		addRequiredArg("mine");
-	}
+    public CommandDelete() {
+        super("delete");
+        addRequiredArg("mine");
+    }
 
-	public void execute() {
-		Mine m = Mines.i.mm.getMine(args[1]);
-		if(m == null) {
-			sender.sendMessage(MessageUtil.get("mines.notFound"));
-			return;
-		}
-		Mines.i.mm.removeMine(m.name);
-		sender.sendMessage(MessageUtil.get("mines.deletedMine"));
-	}
+    public void execute() {
+        Mine m = Mines.i.mm.getMine(args[1]);
+        if (m == null) {
+            sender.sendMessage(MessageUtil.get("mines.notFound"));
+            return;
+        }
+        Mines.i.mm.removeMine(m.name);
+        sender.sendMessage(MessageUtil.get("mines.deletedMine"));
+    }
 
-	public String description() {
-		return "Delete a mine.";
-	}
+    public String description() {
+        return "Delete a mine.";
+    }
 
 }

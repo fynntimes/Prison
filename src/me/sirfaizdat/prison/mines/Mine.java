@@ -3,22 +3,17 @@
  */
 package me.sirfaizdat.prison.mines;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
 import me.sirfaizdat.prison.core.Prison;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.*;
 
 /**
  * Represents an individual mine.
@@ -27,23 +22,17 @@ import org.bukkit.entity.Player;
  */
 public class Mine {
 
-    Mines m;
-
     public String name;
     public String worldName;
     public World world;
     public int minX, minY, minZ, maxX, maxY, maxZ;
-
     public int spawnX, spawnY, spawnZ;
-    private Location mineSpawn;
-
     public HashMap<String, Block> blocks = new HashMap<String, Block>();
-
     public ArrayList<String> ranks;
-
-    File mineFile;
-
     public boolean worldMissing = false;
+    Mines m;
+    File mineFile;
+    private Location mineSpawn;
 
     public Mine(String name, String worldName, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, int spawnX, int spawnY, int spawnZ, ArrayList<String> ranks) {
         m = Mines.i;
@@ -65,6 +54,28 @@ public class Mine {
         mineSpawn = new Location(world, spawnX, spawnY, spawnZ);
         mineFile = new File(Prison.i().getDataFolder(), "/mines/" + name + ".mine");
         this.ranks = ranks;
+    }
+
+    public static ArrayList<CompositionEntry> mapComposition(Map<String, Block> compositionIn) {
+        ArrayList<CompositionEntry> probabilityMap = new ArrayList<CompositionEntry>();
+        Map<String, Block> composition = new HashMap<String, Block>(compositionIn);
+        double max = 0;
+        for (Map.Entry<String, Block> entry : composition.entrySet()) {
+            max += entry.getValue().getChance();
+        }
+        if (max < 1) {
+            Block air = new Block(0);
+            air.setChance(1 - max);
+            composition.put(air.toString(), air);
+            max = 1;
+        }
+        double i = 0;
+        for (Map.Entry<String, Block> entry : composition.entrySet()) {
+            double v = entry.getValue().getChance() / max;
+            i += v;
+            probabilityMap.add(new CompositionEntry(entry.getValue(), i));
+        }
+        return probabilityMap;
     }
 
     public void save() {
@@ -162,6 +173,8 @@ public class Mine {
         return true;
     }
 
+    // Composition Utilities
+
     public boolean withinMine(Location l) {
         if (!l.getWorld().getName().equals(world.getName())) {
             return false;
@@ -186,7 +199,15 @@ public class Mine {
         return false;
     }
 
-    // Composition Utilities
+    // FIXES BUG
+    void setWorld(World world) {
+        this.world = world;
+    }
+
+    public void addBlock(Block block, double chance) {
+        block.setChance(chance);
+        blocks.put(block.toString(), block);
+    }
 
     public static class CompositionEntry {
         private Block block;
@@ -204,38 +225,6 @@ public class Mine {
         public double getChance() {
             return chance;
         }
-    }
-
-    public static ArrayList<CompositionEntry> mapComposition(Map<String, Block> compositionIn) {
-        ArrayList<CompositionEntry> probabilityMap = new ArrayList<CompositionEntry>();
-        Map<String, Block> composition = new HashMap<String, Block>(compositionIn);
-        double max = 0;
-        for (Map.Entry<String, Block> entry : composition.entrySet()) {
-            max += entry.getValue().getChance();
-        }
-        if (max < 1) {
-            Block air = new Block(0);
-            air.setChance(1 - max);
-            composition.put(air.toString(), air);
-            max = 1;
-        }
-        double i = 0;
-        for (Map.Entry<String, Block> entry : composition.entrySet()) {
-            double v = entry.getValue().getChance() / max;
-            i += v;
-            probabilityMap.add(new CompositionEntry(entry.getValue(), i));
-        }
-        return probabilityMap;
-    }
-
-    // FIXES BUG
-    void setWorld(World world) {
-        this.world = world;
-    }
-
-    public void addBlock(Block block, double chance) {
-        block.setChance(chance);
-        blocks.put(block.toString(), block);
     }
 
 }

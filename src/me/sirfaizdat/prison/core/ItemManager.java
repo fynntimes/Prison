@@ -3,6 +3,8 @@
  */
 package me.sirfaizdat.prison.core;
 
+import org.bukkit.Material;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -10,104 +12,100 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.bukkit.Material;
-
 /**
  * @author SirFaizdat
  */
 public class ItemManager {
 
-	public static class ItemSet {
+    HashMap<String, ItemSet> items;
+    ArrayList<Bundle> names;
+    boolean loaded = false;
+    File backup;
 
-		public int id;
-		public short data;
+    public ItemManager() {
+        items = new HashMap<String, ItemSet>();
+        names = new ArrayList<ItemManager.Bundle>();
 
-		public ItemSet(int id, short data) {
-			this.id = id;
-			this.data = data;
-		}
+        backup = new File(Prison.i().getDataFolder(), "localitems.csv");
 
-	}
+        Prison.i().saveResource("localitems.csv", true);
+    }
 
-	HashMap<String, ItemSet> items;
-	ArrayList<Bundle> names;
+    public void populateLists() throws IOException {
+        BufferedReader in = new BufferedReader(new FileReader(backup));
+        String inputLine;
 
-	boolean loaded = false;
+        while ((inputLine = in.readLine()) != null) {
+            if (!inputLine.startsWith("#")) {
+                String[] array = inputLine.split(",");
+                String itemName = array[0];
+                int id = Integer.parseInt(array[1]);
+                short data = Short.parseShort(array[2]);
+                items.put(itemName, new ItemSet(id, data));
+                names.add(new Bundle(new ItemSet(id, data), itemName));
+            }
+        }
+        in.close();
 
-	File backup;
+        setLoaded(true);
+    }
 
-	public ItemManager() {
-		items = new HashMap<String, ItemSet>();
-		names = new ArrayList<ItemManager.Bundle>();
-		
-		backup = new File(Prison.i().getDataFolder(), "localitems.csv");
-		
-		Prison.i().saveResource("localitems.csv", true);
-	}
+    public ItemSet getItem(String name) {
+        if (isAnInt(name.replaceAll(":", ""))) {
+            return items.get(Material.matchMaterial(name.toLowerCase()).toString().toLowerCase().replaceAll("_", ""));
+        }
+        return items.get(name);
+    }
 
-	public void populateLists() throws IOException {
-		BufferedReader in = new BufferedReader(new FileReader(backup));
-		String inputLine;
+    public String getName(ItemSet set) {
+        for (int i = 0; i < names.size(); i++) {
+            ItemSet localSet = names.get(i).set;
+            if (localSet.id == set.id) {
+                if (localSet.data == set.data) {
+                    return names.get(i).name;
+                }
+            }
+        }
+        return set.data != 0 ? set.id + ":" + set.data : set.id + "";
+    }
 
-		while ((inputLine = in.readLine()) != null) {
-			if (!inputLine.startsWith("#")) {
-				String[] array = inputLine.split(",");
-				String itemName = array[0];
-				int id = Integer.parseInt(array[1]);
-				short data = Short.parseShort(array[2]);
-				items.put(itemName, new ItemSet(id, data));
-				names.add(new Bundle(new ItemSet(id, data), itemName));
-			}
-		}
-		in.close();
+    public boolean isLoaded() {
+        return loaded;
+    }
 
-		setLoaded(true);
-	}
+    public void setLoaded(boolean loaded) {
+        this.loaded = loaded;
+    }
 
-	public ItemSet getItem(String name) {
-		if (isAnInt(name.replaceAll(":", ""))) {
-			return items.get(Material.matchMaterial(name.toLowerCase()).toString().toLowerCase().replaceAll("_", ""));
-		}
-		return items.get(name);
-	}
+    public boolean isAnInt(String s) {
+        try {
+            Integer.parseInt(s);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
 
-	class Bundle {
-		public ItemSet set;
-		public String name;
+    public static class ItemSet {
 
-		public Bundle(ItemSet set, String name) {
-			this.set = set;
-			this.name = name;
-		}
-	}
+        public int id;
+        public short data;
 
-	public String getName(ItemSet set) {
-		for (int i = 0; i < names.size(); i++) {
-			ItemSet localSet = names.get(i).set;
-			if (localSet.id == set.id) {
-				if (localSet.data == set.data) {
-					return names.get(i).name;
-				}
-			}
-		}
-		return set.data != 0 ? set.id + ":" + set.data : set.id + "";
-	}
+        public ItemSet(int id, short data) {
+            this.id = id;
+            this.data = data;
+        }
 
-	public boolean isLoaded() {
-		return loaded;
-	}
+    }
 
-	public void setLoaded(boolean loaded) {
-		this.loaded = loaded;
-	}
+    class Bundle {
+        public ItemSet set;
+        public String name;
 
-	public boolean isAnInt(String s) {
-		try {
-			Integer.parseInt(s);
-		} catch (NumberFormatException e) {
-			return false;
-		}
-		return true;
-	}
+        public Bundle(ItemSet set, String name) {
+            this.set = set;
+            this.name = name;
+        }
+    }
 
 }

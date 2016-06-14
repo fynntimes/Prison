@@ -6,13 +6,13 @@
 
 package me.sirfaizdat.prison.core;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.Plugin;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -20,12 +20,6 @@ import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.Plugin;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 
 /**
  * Check dev.bukkit.org to find updates for a given plugin, and download the updates if needed.
@@ -46,113 +40,31 @@ import org.json.simple.JSONValue;
 
 public class Updater {
 
-    private Plugin plugin;
-    private UpdateType type;
-    private String versionName;
-    private String versionLink;
-    private String versionType;
-    private String versionGameVersion;
-
-    private boolean announce; // Whether to announce file downloads
-
-    private URL url; // Connecting to RSS
-    private File file; // The plugin's file
-    private Thread thread; // Updater thread
-
-    private int id = -1; // Project's Curse ID
-    private String apiKey = null; // BukkitDev ServerMods API key
     private static final String TITLE_VALUE = "name"; // Gets remote file's title
     private static final String LINK_VALUE = "downloadUrl"; // Gets remote file's download link
     private static final String TYPE_VALUE = "releaseType"; // Gets remote file's release type
     private static final String VERSION_VALUE = "gameVersion"; // Gets remote file's build version
     private static final String QUERY = "/servermods/files?projectIds="; // Path to GET
     private static final String HOST = "https://api.curseforge.com"; // Slugs will be appended to this to get to the project's RSS feed
-
     private static final String USER_AGENT = "Updater (by Gravity)";
     private static final String delimiter = "^v|[\\s_-]v"; // Used for locating version numbers in file names
-    private static final String[] NO_UPDATE_TAG = { "dev", "-DEV", "-PRE", "-SNAPSHOT" }; // If the version number contains one of these, don't update.
+    private static final String[] NO_UPDATE_TAG = {"dev", "-DEV", "-PRE", "-SNAPSHOT"}; // If the version number contains one of these, don't update.
     private static final int BYTE_SIZE = 1024; // Used for downloading files
     private final YamlConfiguration config = new YamlConfiguration(); // Config file
+    private Plugin plugin;
+    private UpdateType type;
+    private String versionName;
+    private String versionLink;
+    private String versionType;
+    private String versionGameVersion;
+    private boolean announce; // Whether to announce file downloads
+    private URL url; // Connecting to RSS
+    private File file; // The plugin's file
+    private Thread thread; // Updater thread
+    private int id = -1; // Project's Curse ID
+    private String apiKey = null; // BukkitDev ServerMods API key
     private String updateFolder;// The folder that downloads will be placed in
     private Updater.UpdateResult result = Updater.UpdateResult.SUCCESS; // Used for determining the outcome of the update process
-
-    /**
-     * Gives the developer the result of the update process. Can be obtained by called {@link #getResult()}
-     */
-    public enum UpdateResult {
-        /**
-         * The updater found an update, and has readied it to be loaded the next time the server restarts/reloads.
-         */
-        SUCCESS,
-        /**
-         * The updater did not find an update, and nothing was downloaded.
-         */
-        NO_UPDATE,
-        /**
-         * The server administrator has disabled the updating system.
-         */
-        DISABLED,
-        /**
-         * The updater found an update, but was unable to download it.
-         */
-        FAIL_DOWNLOAD,
-        /**
-         * For some reason, the updater was unable to contact dev.bukkit.org to download the file.
-         */
-        FAIL_DBO,
-        /**
-         * When running the version check, the file on DBO did not contain a recognizable version.
-         */
-        FAIL_NOVERSION,
-        /**
-         * The id provided by the plugin running the updater was invalid and doesn't exist on DBO.
-         */
-        FAIL_BADID,
-        /**
-         * The server administrator has improperly configured their API key in the configuration.
-         */
-        FAIL_APIKEY,
-        /**
-         * The updater found an update, but because of the UpdateType being set to NO_DOWNLOAD, it wasn't downloaded.
-         */
-        UPDATE_AVAILABLE
-    }
-
-    /**
-     * Allows the developer to specify the type of update that will be run.
-     */
-    public enum UpdateType {
-        /**
-         * Run a version check, and then if the file is out of date, download the newest version.
-         */
-        DEFAULT,
-        /**
-         * Don't run a version check, just find the latest update and download it.
-         */
-        NO_VERSION_CHECK,
-        /**
-         * Get information about the version and the download size, but don't actually download anything.
-         */
-        NO_DOWNLOAD
-    }
-
-    /**
-     * Represents the various release types of a file on BukkitDev.
-     */
-    public enum ReleaseType {
-        /**
-         * An "alpha" file.
-         */
-        ALPHA,
-        /**
-         * A "beta" file.
-         */
-        BETA,
-        /**
-         * A "release" file.
-         */
-        RELEASE
-    }
 
     /**
      * Initialize the updater.
@@ -303,8 +215,8 @@ public class Updater {
      * Save an update from dev.bukkit.org into the server's update folder.
      *
      * @param folder the updates folder location.
-     * @param file the name of the file to save it as.
-     * @param link the url of the file.
+     * @param file   the name of the file to save it as.
+     * @param link   the url of the file.
      */
     private void saveFile(File folder, String file, String link) {
         if (!folder.exists()) {
@@ -510,7 +422,8 @@ public class Updater {
      * Without revision, this method will always consider a remote version at all different from
      * that of the local version a new update.
      * </p>
-     * @param localVersion the current version
+     *
+     * @param localVersion  the current version
      * @param remoteVersion the remote version
      * @return true if Updater should consider the remote version an update, false if not.
      */
@@ -580,6 +493,84 @@ public class Updater {
             this.plugin.getLogger().log(Level.SEVERE, null, e);
             return false;
         }
+    }
+
+    /**
+     * Gives the developer the result of the update process. Can be obtained by called {@link #getResult()}
+     */
+    public enum UpdateResult {
+        /**
+         * The updater found an update, and has readied it to be loaded the next time the server restarts/reloads.
+         */
+        SUCCESS,
+        /**
+         * The updater did not find an update, and nothing was downloaded.
+         */
+        NO_UPDATE,
+        /**
+         * The server administrator has disabled the updating system.
+         */
+        DISABLED,
+        /**
+         * The updater found an update, but was unable to download it.
+         */
+        FAIL_DOWNLOAD,
+        /**
+         * For some reason, the updater was unable to contact dev.bukkit.org to download the file.
+         */
+        FAIL_DBO,
+        /**
+         * When running the version check, the file on DBO did not contain a recognizable version.
+         */
+        FAIL_NOVERSION,
+        /**
+         * The id provided by the plugin running the updater was invalid and doesn't exist on DBO.
+         */
+        FAIL_BADID,
+        /**
+         * The server administrator has improperly configured their API key in the configuration.
+         */
+        FAIL_APIKEY,
+        /**
+         * The updater found an update, but because of the UpdateType being set to NO_DOWNLOAD, it wasn't downloaded.
+         */
+        UPDATE_AVAILABLE
+    }
+
+    /**
+     * Allows the developer to specify the type of update that will be run.
+     */
+    public enum UpdateType {
+        /**
+         * Run a version check, and then if the file is out of date, download the newest version.
+         */
+        DEFAULT,
+        /**
+         * Don't run a version check, just find the latest update and download it.
+         */
+        NO_VERSION_CHECK,
+        /**
+         * Get information about the version and the download size, but don't actually download anything.
+         */
+        NO_DOWNLOAD
+    }
+
+    /**
+     * Represents the various release types of a file on BukkitDev.
+     */
+    public enum ReleaseType {
+        /**
+         * An "alpha" file.
+         */
+        ALPHA,
+        /**
+         * A "beta" file.
+         */
+        BETA,
+        /**
+         * A "release" file.
+         */
+        RELEASE
     }
 
     private class UpdateRunnable implements Runnable {
