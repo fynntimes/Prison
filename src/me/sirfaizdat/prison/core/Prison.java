@@ -39,10 +39,10 @@ public class Prison extends JavaPlugin implements Listener {
     public ItemManager im;
     public PWorldManager wm;
     public File file;
-    Economy economy;
-    Permission permissions;
-    boolean updateAvailable = false;
-    String updateLatestName;
+    private Economy economy;
+    private Permission permissions;
+    private boolean updateAvailable = false;
+    private String updateLatestName;
 
     public static Prison i() {
         return i;
@@ -53,7 +53,7 @@ public class Prison extends JavaPlugin implements Listener {
         return ChatColor.translateAlternateColorCodes('&', text);
     }
 
-    public static boolean hasPlugin(String name) {
+    private boolean hasPlugin(String name) {
         return Bukkit.getServer().getPluginManager().getPlugin(name) != null;
     }
 
@@ -61,12 +61,14 @@ public class Prison extends JavaPlugin implements Listener {
         long startTime = System.currentTimeMillis();
         i = this;
         this.saveDefaultConfig();
+
         config = new Config();
         im = new ItemManager();
         wm = new PWorldManager();
         new MessageUtil();
         playerList = new PlayerList();
         getServer().getPluginManager().registerEvents(playerList, this);
+
         mines = new Mines();
         ranks = new Ranks();
         initEconomy();
@@ -74,11 +76,14 @@ public class Prison extends JavaPlugin implements Listener {
         checkCompatibility();
         enableMines();
         enableRanks();
+
         file = getFile();
         getCommand("prison").setExecutor(new PrisonCommandManager());
+
         new AutoSmelt();
         new BlockCommand();
         getServer().getPluginManager().registerEvents(this, this);
+
         l.info("&2Enabled Prison &6v" + getDescription().getVersion() + "&2. Made by &6SirFaizdat&2.");
         long endTime = System.currentTimeMillis();
         l.info("&6Enabled in " + (endTime - startTime) + "ms.");
@@ -129,7 +134,7 @@ public class Prison extends JavaPlugin implements Listener {
     }
 
     // Initialization
-    public void enableMines() {
+    private void enableMines() {
         if (mines.isEnabled()) {
             try {
                 mines.enable();
@@ -141,7 +146,7 @@ public class Prison extends JavaPlugin implements Listener {
         }
     }
 
-    public void enableRanks() {
+    private void enableRanks() {
         if (ranks.isEnabled()) {
             try {
                 ranks.enable();
@@ -153,7 +158,7 @@ public class Prison extends JavaPlugin implements Listener {
         }
     }
 
-    public void initEconomy() {
+    private void initEconomy() {
         RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
         if (economyProvider != null) {
             economy = economyProvider.getProvider();
@@ -162,7 +167,7 @@ public class Prison extends JavaPlugin implements Listener {
         economy = null;
     }
 
-    public void initPermissions() {
+    private void initPermissions() {
         RegisteredServiceProvider<Permission> permissionProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.permission.Permission.class);
         if (permissionProvider != null) {
             permissions = permissionProvider.getProvider();
@@ -171,7 +176,7 @@ public class Prison extends JavaPlugin implements Listener {
         permissions = null;
     }
 
-    public void checkCompatibility() {
+    private void checkCompatibility() {
         if (!hasPlugin("Vault")) {
             ranks.setEnabled(false);
             l.warning("Could not enable Ranks because Vault is not loaded.");

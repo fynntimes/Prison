@@ -13,16 +13,16 @@ import me.sirfaizdat.prison.core.Updater.UpdateType;
 /**
  * @author SirFaizdat
  */
-public class CmdUpdate extends Command {
+class CmdUpdate extends Command {
 
-    public CmdUpdate() {
+    CmdUpdate() {
         super("update");
     }
 
     @Override
     protected void execute() {
         if (Prison.i().config.checkUpdates) {
-            if (Prison.i().getDescription().getVersion().contains("dev")) {
+            if (Prison.i().getDescription().getVersion().contains("SNAPSHOT")) {
                 sender.sendMessage(MessageUtil.get("general.devBuild"));
                 return;
             }

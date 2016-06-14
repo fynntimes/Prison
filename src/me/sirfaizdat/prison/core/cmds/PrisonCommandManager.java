@@ -12,6 +12,7 @@ import me.sirfaizdat.prison.core.FailedToStartException;
  */
 public class PrisonCommandManager extends AbstractCommandManager {
 
+    // Fake a component for Prison so that the AbstractCommandManager is happy
     public PrisonCommandManager() {
         super(new Component() {
             boolean enabled = true;

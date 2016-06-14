@@ -54,7 +54,7 @@ public class PWorldManager {
         return worlds.get(world.toLowerCase());
     }
 
-    public MultiverseCore getMultiverseCore() {
+    private MultiverseCore getMultiverseCore() {
         Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin("Multiverse-Core");
 
         if (plugin instanceof MultiverseCore) {

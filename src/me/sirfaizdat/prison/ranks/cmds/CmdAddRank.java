@@ -26,7 +26,7 @@ public class CmdAddRank extends Command {
     protected void execute() {
         String rankName = args[1];
         if (!Ranks.i.isRank(rankName)) {
-            sender.sendMessage(MessageUtil.get("ranks.notARank"));
+            sender.sendMessage(MessageUtil.get("ranks.notAGroup"));
             return;
         }
         if (Ranks.i.isLoadedRank(rankName)) {
