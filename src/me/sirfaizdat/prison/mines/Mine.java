@@ -138,7 +138,6 @@ public class Mine {
                                     break;
                                 }
                             }
-//							empty = world.getBlockAt(x, y, z).isEmpty();
                         } catch (NullPointerException e) {
                             Prison.l.severe("The world " + worldName + " could not be found! Mine " + name + " was not reset.");
                             return false;

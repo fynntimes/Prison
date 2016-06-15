@@ -3,17 +3,13 @@
  */
 package me.sirfaizdat.prison.mines;
 
-import me.sirfaizdat.prison.core.Config;
 import me.sirfaizdat.prison.core.Prison;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -69,16 +65,10 @@ public class MinesManager {
         File minesUpdated = new File(Prison.i().getDataFolder(),
                 "minesupdated.txt");
 
-        ArrayList<String> files = getAllMineFiles();
-        if (files.size() == 0 || files == null) {
-            Prison.l.info("&2Loaded 0 mines! (no mines found)");
-            return;
-        }
-        for (String name : files) {
-            SerializableMine sm = null;
+        for (File file : getAllMineFiles()) {
+            SerializableMine sm;
             try {
-                FileInputStream fileIn = new FileInputStream(new File(Prison
-                        .i().getDataFolder(), "/mines/" + name));
+                FileInputStream fileIn = new FileInputStream(file);
                 ObjectInputStream in = new ObjectInputStream(fileIn);
                 sm = (SerializableMine) in.readObject();
                 in.close();
@@ -88,8 +78,7 @@ public class MinesManager {
                 e.printStackTrace();
                 continue; // Skip this one
             } catch (IOException e) {
-                Prison.l.warning("There was an error in loading file " + name
-                        + ".");
+                Prison.l.warning("There was an error in loading file " + file.getName() + ".");
                 e.printStackTrace();
                 continue; // Skip this one
             }
@@ -151,21 +140,14 @@ public class MinesManager {
         file.delete();
     }
 
-    public ArrayList<String> getAllMineFiles() {
-        ArrayList<String> returnVal = new ArrayList<String>();
+    private File[] getAllMineFiles() {
         File folder = new File(Prison.i().getDataFolder(), "/mines/");
-        File[] files = folder.listFiles();
-        if (files == null || files.length == 0) {
-            return new ArrayList<String>();
-        }
-        for (File file : files) {
-            if (file.isFile()) { // Make sure it isn't directory
-                if (file.getName().endsWith(".mine")) {
-                    returnVal.add(file.getName());
-                }
+        return folder.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".mine");
             }
-        }
-        return returnVal;
+        });
     }
 
     private class ResetClock implements Runnable {
@@ -178,7 +160,9 @@ public class MinesManager {
                 if (warning == resetTimeCounter) {
                     String warnMsg = Prison.i().config.resetWarningMessage;
                     warnMsg = warnMsg.replaceAll("<mins>", warning + "");
-                    if(!Prison.i().config.enableMultiworld) Bukkit.getServer().broadcastMessage(Prison.colorize(warnMsg));
+
+                    if (!Prison.i().config.enableMultiworld)
+                        Bukkit.getServer().broadcastMessage(Prison.colorize(warnMsg));
                     else for (String s : Prison.i().config.rankWorlds) broadcastToWorld(warnMsg, Bukkit.getWorld(s));
                 }
             }
@@ -192,8 +176,10 @@ public class MinesManager {
                                 + " because the world it is in could not be found.");
                     }
                 }
-                if(!Prison.i().config.enableMultiworld) Bukkit.getServer().broadcastMessage(Prison.colorize(Prison.i().config.resetBroadcastMessage));
-                else for (String s : Prison.i().config.rankWorlds) broadcastToWorld(Prison.i().config.resetBroadcastMessage, Bukkit.getWorld(s));
+                if (!Prison.i().config.enableMultiworld)
+                    Bukkit.getServer().broadcastMessage(Prison.colorize(Prison.i().config.resetBroadcastMessage));
+                else for (String s : Prison.i().config.rankWorlds)
+                    broadcastToWorld(Prison.i().config.resetBroadcastMessage, Bukkit.getWorld(s));
                 resetTimeCounter = resetTime;
             }
         }
