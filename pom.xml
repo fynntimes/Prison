@@ -52,7 +52,6 @@
                 <filtering>true</filtering>
                 <includes>
                     <include>plugin.yml</include>
-                    <include>ranks.yml</include>
                     <include>config.yml</include>
                     <include>messages.yml</include>
                     <include>localitems.csv</include>
