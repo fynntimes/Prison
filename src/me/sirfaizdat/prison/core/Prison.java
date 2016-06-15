@@ -26,7 +26,6 @@ import java.io.IOException;
 /**
  * @author SirFaizdat
  */
-// Considered a component, but not implementing due to class hierarchy.
 public class Prison extends JavaPlugin implements Listener {
 
     public static PrisonLogger l = new PrisonLogger();
@@ -37,9 +36,11 @@ public class Prison extends JavaPlugin implements Listener {
     public PlayerList playerList;
     public Config config;
     public ItemManager im;
-    public File file;
+
     private Economy economy;
     private Permission permissions;
+
+    public Updater updater;
     private boolean updateAvailable = false;
     private String updateLatestName;
 
@@ -48,25 +49,41 @@ public class Prison extends JavaPlugin implements Listener {
     }
 
     // Utility Methods
-    public static String colorize(String text) {
+    public static String color(String text) {
         return ChatColor.translateAlternateColorCodes('&', text);
     }
 
-    private boolean hasPlugin(String name) {
-        return Bukkit.getServer().getPluginManager().getPlugin(name) != null;
-    }
+    // BEGIN ENABLE STUFF
 
     public void onEnable() {
         long startTime = System.currentTimeMillis();
         i = this;
         this.saveDefaultConfig();
+        getServer().getPluginManager().registerEvents(this, this);
 
+        bootstrap();
+        initComponents();
+        initCommands();
+
+        l.info("&7Enabled &3Prison v" + getDescription().getVersion() + "&7. Made with <3 by &3SirFaizdat&7.");
+        long endTime = System.currentTimeMillis();
+        l.info("&8Enabled in " + (endTime - startTime) + " milliseconds.");
+
+        // Post-enable tasks
+        updateCheck();
+        populateItemManagerLater();
+    }
+
+    private void bootstrap() {
         config = new Config();
         im = new ItemManager();
         new MessageUtil();
         playerList = new PlayerList();
         getServer().getPluginManager().registerEvents(playerList, this);
+        updater = new Updater(this, 76155, this.getFile(), UpdateType.NO_DOWNLOAD, true);
+    }
 
+    private void initComponents() {
         mines = new Mines();
         ranks = new Ranks();
         initEconomy();
@@ -74,19 +91,16 @@ public class Prison extends JavaPlugin implements Listener {
         checkCompatibility();
         enableMines();
         enableRanks();
+    }
 
-        file = getFile();
-        getCommand("prison").setExecutor(new PrisonCommandManager());
-
+    private void initCommands() {
         new AutoSmelt();
         new BlockCommand();
-        getServer().getPluginManager().registerEvents(this, this);
+        getCommand("prison").setExecutor(new PrisonCommandManager());
+    }
 
-        l.info("&2Enabled Prison &6v" + getDescription().getVersion() + "&2. Made by &6SirFaizdat&2.");
-        long endTime = System.currentTimeMillis();
-        l.info("&6Enabled in " + (endTime - startTime) + "ms.");
+    private void updateCheck() {
         if (config.checkUpdates && !getDescription().getVersion().contains("dev") && !getDescription().getVersion().contains("-SNAPSHOT")) {
-            Updater updater = new Updater(this, 76155, this.getFile(), UpdateType.NO_DOWNLOAD, true);
             if (updater.getResult() == UpdateResult.UPDATE_AVAILABLE) {
                 updateLatestName = updater.getLatestName();
                 l.info(MessageUtil.get("general.updateAvailable", updateLatestName));
@@ -98,6 +112,9 @@ public class Prison extends JavaPlugin implements Listener {
                 }
             }
         }
+    }
+
+    private void populateItemManagerLater() {
         Bukkit.getScheduler().runTaskLater(Prison.i(), new Runnable() {
 
             @Override
@@ -112,26 +129,6 @@ public class Prison extends JavaPlugin implements Listener {
         }, 10L);
     }
 
-    public void onDisable() {
-        if (mines.isEnabled()) {
-            for (Mine m : mines.mm.mines.values()) {
-                m.save();
-            }
-        }
-    }
-
-    public void reload() {
-        config.reload();
-        playerList = new PlayerList();
-        mines.disable();
-        mines = new Mines();
-        enableMines();
-        ranks.disable();
-        ranks = new Ranks();
-        enableRanks();
-    }
-
-    // Initialization
     private void enableMines() {
         if (mines.isEnabled()) {
             try {
@@ -183,6 +180,32 @@ public class Prison extends JavaPlugin implements Listener {
             mines.setEnabled(false);
             l.warning("Could not enable Mines because WorldEdit is not loaded.");
         }
+    }
+
+    private boolean hasPlugin(String name) {
+        return Bukkit.getServer().getPluginManager().getPlugin(name) != null;
+    }
+
+    // END ENABLE STUFF
+
+    public void onDisable() {
+        if (mines.isEnabled()) {
+            for (Mine m : mines.mm.mines.values()) {
+                m.save();
+            }
+        }
+    }
+
+    public void reload() {
+        config.reload();
+        MessageUtil.reload();
+        playerList = new PlayerList();
+        mines.disable();
+        mines = new Mines();
+        enableMines();
+        ranks.disable();
+        ranks = new Ranks();
+        enableRanks();
     }
 
     public Permission getPermissions() {

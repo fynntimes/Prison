@@ -50,7 +50,7 @@ public class MinesManager {
     private void broadcastToWorld(String s, World w) {
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (p.getWorld().getName().equals(w.getName())) {
-                p.sendMessage(Prison.colorize(s));
+                p.sendMessage(Prison.color(s));
             }
         }
     }
@@ -179,7 +179,7 @@ public class MinesManager {
                     warnMsg = warnMsg.replaceAll("<mins>", warning + "");
 
                     if (!Prison.i().config.enableMultiworld)
-                        Bukkit.getServer().broadcastMessage(Prison.colorize(warnMsg));
+                        Bukkit.getServer().broadcastMessage(Prison.color(warnMsg));
                     else for (String s : Prison.i().config.rankWorlds) broadcastToWorld(warnMsg, Bukkit.getWorld(s));
                 }
             }
@@ -194,7 +194,7 @@ public class MinesManager {
                     }
                 }
                 if (!Prison.i().config.enableMultiworld)
-                    Bukkit.getServer().broadcastMessage(Prison.colorize(Prison.i().config.resetBroadcastMessage));
+                    Bukkit.getServer().broadcastMessage(Prison.color(Prison.i().config.resetBroadcastMessage));
                 else for (String s : Prison.i().config.rankWorlds)
                     broadcastToWorld(Prison.i().config.resetBroadcastMessage, Bukkit.getWorld(s));
                 resetTimeCounter = resetTime;

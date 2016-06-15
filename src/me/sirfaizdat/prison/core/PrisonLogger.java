@@ -27,32 +27,32 @@ public class PrisonLogger {
         if (level.equals(Level.INFO)) {
             if (sender != null) {
                 String fullMsg = Prison
-                        .colorize(coloredLogPrefix + " " + message);
+                        .color(coloredLogPrefix + " " + message);
                 sender.sendMessage(fullMsg);
             } else {
                 String fullMsg = Prison
-                        .colorize(coloredLogPrefix + " " + message);
+                        .color(coloredLogPrefix + " " + message);
                 Bukkit.getLogger().info(ChatColor.stripColor(fullMsg));
             }
         } else if (level.equals(Level.WARN)) {
             message = ChatColor.stripColor(message);
             if (sender != null) {
-                String fullMsg = Prison.colorize(coloredLogPrefix + " &6"
+                String fullMsg = Prison.color(coloredLogPrefix + " &6"
                         + message);
                 sender.sendMessage(fullMsg);
             } else {
-                String fullMsg = Prison.colorize(coloredLogPrefix + " &6"
+                String fullMsg = Prison.color(coloredLogPrefix + " &6"
                         + message);
                 Bukkit.getLogger().info(ChatColor.stripColor(fullMsg));
             }
         } else if (level.equals(Level.SEVERE)) {
             message = ChatColor.stripColor(message);
             if (sender != null) {
-                String fullMsg = Prison.colorize(coloredLogPrefix + " &c"
+                String fullMsg = Prison.color(coloredLogPrefix + " &c"
                         + message);
                 sender.sendMessage(fullMsg);
             } else {
-                String fullMsg = Prison.colorize(coloredLogPrefix + " &c"
+                String fullMsg = Prison.color(coloredLogPrefix + " &c"
                         + message);
                 Bukkit.getLogger().info(ChatColor.stripColor(fullMsg));
             }

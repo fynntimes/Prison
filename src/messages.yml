@@ -8,6 +8,7 @@ general:
   noUpdate: "&7You are running the &3latest version&7."
   updated: "&3%0 &7has been downloaded. &8Restart your server for the changes to take effect."
   updateFailed: "&cFailed to check for an update. &8Check the console for details."
+  reloadSuccessful: "&7Reload complete."
   devBuild: "&cYou are running a development build, so the update check has been canceled."
   notAllowedToCheck: "&cYou've disabled update checks in the configuration."
   itemManagerNotLoaded: "&7The item manager is loading, please try again later."

@@ -25,14 +25,14 @@ public class CommandList extends Command {
             sender.sendMessage(MessageUtil.get("mines.noMinesLoaded"));
             return;
         }
-        sender.sendMessage(Prison.colorize("&6===========&c[&2Mines&c]&6==========="));
+        sender.sendMessage(Prison.color("&6===========&c[&2Mines&c]&6==========="));
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, Mine> mine : Mines.i.mm.getMines().entrySet()) {
             sb.append("&6" + mine.getKey() + "&c, ");
         }
         String returnVal = sb.toString();
         returnVal = returnVal.substring(0, returnVal.length() - 2); // Get rid of last comma
-        sender.sendMessage(Prison.colorize(returnVal));
+        sender.sendMessage(Prison.color(returnVal));
     }
 
     public String description() {

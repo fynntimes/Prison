@@ -52,6 +52,7 @@ public class PrisonCommandManager extends AbstractCommandManager {
 
     @Override
     public void registerCommands() {
+        commands.put("reload", new CmdReload());
         commands.put("update", new CmdUpdate());
         commands.put("version", new CmdVersion());
     }

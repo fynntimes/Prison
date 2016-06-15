@@ -3,8 +3,6 @@
  */
 package me.sirfaizdat.prison.core;
 
-import java.util.HashMap;
-
 /**
  * @author SirFaizdat
  */
@@ -19,14 +17,18 @@ public class MessageUtil {
 
     public static String get(String key) {
         String returnVal = messageConfiguration.getConfig().getString(key);
-        if (returnVal == null) returnVal = Prison.colorize("&cInvalid message key - &6" + key + "&c.");
-        return Prison.colorize(Prison.i().config.serverPrefix + returnVal);
+        if (returnVal == null) returnVal = Prison.color("&cInvalid message key - &6" + key + "&c.");
+        return Prison.color(Prison.i().config.serverPrefix + returnVal);
     }
 
     public static String get(String key, String... replace) {
         String returnVal = get(key);
-        for (int i = 0; i < replace.length; i++) returnVal = returnVal.replaceAll("%" + i, Prison.colorize(replace[i]));
+        for (int i = 0; i < replace.length; i++) returnVal = returnVal.replaceAll("%" + i, Prison.color(replace[i]));
         return returnVal;
+    }
+
+    public static void reload() {
+        messageConfiguration.reload();
     }
 
     private class MessageConfiguration extends Configuration {

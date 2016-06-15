@@ -6,6 +6,7 @@ package me.sirfaizdat.prison.mines;
 import me.sirfaizdat.prison.core.Prison;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
@@ -33,6 +34,7 @@ public class Mine {
     public boolean worldMissing = false;
     File mineFile;
     Location mineSpawn;
+    private volatile List<CompositionEntry> cachedCompositionMap;
 
     public Mine(String name, String worldName, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, ArrayList<String> ranks) {
         this.name = name;
@@ -114,8 +116,8 @@ public class Mine {
             Prison.l.warning("Mine " + name + " was not reset because the world it was created in (" + worldName + ") can not be found.");
             return false;
         }
-        List<CompositionEntry> probabilityMap = mapComposition(blocks);
-        if (probabilityMap.size() == 0) {
+        if(cachedCompositionMap == null) cachedCompositionMap = mapComposition(blocks);
+        if (cachedCompositionMap.size() == 0) {
             Prison.l.warning("Mine " + name + " could not regenerate because it has no composition.");
             return false;
         }
@@ -127,22 +129,9 @@ public class Mine {
             for (int x = minX; x <= maxX; x++) {
                 for (int z = minZ; z <= maxZ; z++) {
                     if (Prison.i().config.fillMode) {
-                        boolean empty = false;
-                        try {
-                            for (Block blockId : blocks.values()) {
-                                // Only if this block is not supposed to be in the mine.
-                                if (world.getBlockAt(x, y, z).getTypeId() != blockId.getId()) {
-                                    empty = true;
-                                    break;
-                                }
-                            }
-                        } catch (NullPointerException e) {
-                            Prison.l.severe("The world " + worldName + " could not be found! Mine " + name + " was not reset.");
-                            return false;
-                        }
-                        if (empty) {
+                        if (shouldBeReplaced(world.getBlockAt(x, y, z).getType())) {
                             double chance = r.nextDouble();
-                            for (CompositionEntry ce : probabilityMap) {
+                            for (CompositionEntry ce : cachedCompositionMap) {
                                 if (chance <= ce.getChance()) {
                                     world.getBlockAt(x, y, z).setTypeIdAndData(ce.getBlock().getId(), (byte) ce.getBlock().getData(), false);
                                     break;
@@ -152,7 +141,7 @@ public class Mine {
                     } else {
                         // Reset all blocks
                         double chance = r.nextDouble();
-                        for (CompositionEntry ce : probabilityMap) {
+                        for (CompositionEntry ce : cachedCompositionMap) {
                             if (chance <= ce.getChance()) {
                                 try {
                                     world.getBlockAt(x, y, z).setTypeIdAndData(ce.getBlock().getId(), (byte) ce.getBlock().getData(), false);
@@ -167,6 +156,20 @@ public class Mine {
                 }
             }
         }
+
+        // Get the next composition ready
+        if(Prison.i().config.asyncReset)
+        Prison.i().getServer().getScheduler().runTaskAsynchronously(Prison.i(), new Runnable() {
+            @Override
+            public void run() {
+                cachedCompositionMap = mapComposition(blocks);
+            }
+        });
+        return true;
+    }
+
+    private boolean shouldBeReplaced(Material material) {
+        for(Block block : blocks.values()) if(block.getId() == material.getId()) return false;
         return true;
     }
 

@@ -17,7 +17,7 @@ public class Config {
 
     public int resetTime;
     public List<Integer> resetWarnings;
-    public boolean fillMode;
+    public boolean fillMode, asyncReset;
     public String resetWarningMessage;
     public String resetBroadcastMessage;
 
@@ -28,14 +28,15 @@ public class Config {
         FileConfiguration c = Prison.i().getConfig();
 
         try {
-            serverPrefix = Prison.colorize(c.getString("server-prefix") + " &r");
+            serverPrefix = Prison.color(c.getString("server-prefix") + " &r");
             checkUpdates = c.getBoolean("check-updates");
             resetTime = c.getInt("reset-time");
             resetWarnings = c.getIntegerList("reset-warnings");
             fillMode = c.getBoolean("fill-mode");
-            resetWarningMessage = Prison.colorize(c
+            asyncReset = c.getBoolean("async-reset");
+            resetWarningMessage = Prison.color(c
                     .getString("reset-warning-message"));
-            resetBroadcastMessage = Prison.colorize(c
+            resetBroadcastMessage = Prison.color(c
                     .getString("reset-broadcast-message"));
             rankWorlds = c.getStringList("world-list");
             enableMultiworld = c.getBoolean("multiworld");
@@ -48,14 +49,14 @@ public class Config {
         Prison.i().reloadConfig();
         FileConfiguration c = Prison.i().getConfig();
 
-        serverPrefix = Prison.colorize(c.getString("server-prefix") + " &r");
+        serverPrefix = Prison.color(c.getString("server-prefix") + " &r");
         checkUpdates = c.getBoolean("check-updates");
         resetTime = c.getInt("reset-time");
         resetWarnings = c.getIntegerList("reset-warnings");
         fillMode = c.getBoolean("fill-mode");
-        resetWarningMessage = Prison.colorize(c
+        resetWarningMessage = Prison.color(c
                 .getString("reset-warning-message"));
-        resetBroadcastMessage = Prison.colorize(c
+        resetBroadcastMessage = Prison.color(c
                 .getString("reset-broadcast-message"));
         enableMultiworld = c.getBoolean("multiworld");
     }

@@ -26,13 +26,11 @@ class CmdUpdate extends Command {
                 sender.sendMessage(MessageUtil.get("general.devBuild"));
                 return;
             }
-            Updater updater = new Updater(Prison.i(), 76155, Prison.i().file,
-                    UpdateType.DEFAULT, true);
-            if (updater.getResult() == UpdateResult.NO_UPDATE) {
+            if (Prison.i().updater.getResult() == UpdateResult.NO_UPDATE) {
                 sender.sendMessage(MessageUtil.get("general.noUpdate"));
-            } else if (updater.getResult() == UpdateResult.SUCCESS) {
+            } else if (Prison.i().updater.getResult() == UpdateResult.SUCCESS) {
                 sender.sendMessage(MessageUtil.get("general.updated",
-                        updater.getLatestName()));
+                        Prison.i().updater.getLatestName()));
             } else {
                 sender.sendMessage(MessageUtil.get("general.updateFailed"));
             }
