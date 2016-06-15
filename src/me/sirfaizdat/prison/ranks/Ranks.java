@@ -490,7 +490,7 @@ public class Ranks implements Component {
             return;
         }
         for (String world : Prison.i().config.rankWorlds) {
-            if (Prison.i().wm.getWorld(world) != null) {
+            if (Prison.i().getServer().getWorld(world) != null) {
                 permission.playerAddGroup(world, player, newRank.getName());
                 if (currentRank != null) {
                     permission.playerRemoveGroup(world, player, currentRank.getName());

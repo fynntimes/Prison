@@ -37,7 +37,6 @@ public class Prison extends JavaPlugin implements Listener {
     public PlayerList playerList;
     public Config config;
     public ItemManager im;
-    public PWorldManager wm;
     public File file;
     private Economy economy;
     private Permission permissions;
@@ -64,7 +63,6 @@ public class Prison extends JavaPlugin implements Listener {
 
         config = new Config();
         im = new ItemManager();
-        wm = new PWorldManager();
         new MessageUtil();
         playerList = new PlayerList();
         getServer().getPluginManager().registerEvents(playerList, this);

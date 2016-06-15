@@ -10,12 +10,7 @@ import java.util.HashMap;
  */
 public class MessageUtil {
 
-    private static HashMap<String, String> messages = new HashMap<String, String>();
     private static MessageConfiguration messageConfiguration;
-
-    // &c - Errors
-    // &7 - Success messages
-    // &3 - Extra tips or normal; uncategorized.
 
     public MessageUtil() {
         messageConfiguration = new MessageConfiguration();

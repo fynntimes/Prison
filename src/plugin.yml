@@ -4,7 +4,6 @@ description: ${project.description}
 author: SirFaizdat
 main: me.sirfaizdat.prison.core.Prison
 depend: [Vault, WorldEdit]
-softdepend: [Multiverse-Core]
 commands:
   prison:
     description: Basic commands for Prison.

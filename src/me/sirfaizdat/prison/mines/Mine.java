@@ -38,7 +38,7 @@ public class Mine {
         m = Mines.i;
         this.name = name;
         this.worldName = worldName;
-        this.world = Prison.i().wm.getWorld(worldName);
+        this.world = Prison.i().getServer().getWorld(worldName);
         if (world == null) {
             worldMissing = true;
         }

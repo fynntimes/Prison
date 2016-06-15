@@ -3,6 +3,7 @@
  */
 package me.sirfaizdat.prison.mines;
 
+import me.sirfaizdat.prison.core.Config;
 import me.sirfaizdat.prison.core.Prison;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -25,8 +26,6 @@ import java.util.Map;
 public class MinesManager {
 
     public HashMap<String, Mine> mines = new HashMap<String, Mine>();
-
-    public ArrayList<String> worldsWhereMinesArePresent = new ArrayList<String>();
 
     public int resetTimeCounter;
     int resetTime;
@@ -54,7 +53,7 @@ public class MinesManager {
     private void broadcastToWorld(String s, World w) {
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (p.getWorld().getName().equals(w.getName())) {
-                p.sendMessage(s);
+                p.sendMessage(Prison.colorize(s));
             }
         }
     }
@@ -119,19 +118,8 @@ public class MinesManager {
                 Prison.l.info("Converted mines to new mines spawn system.");
             }
             mines.put(sm.name, m);
-            if (!isInList(sm.world)) {
-                worldsWhereMinesArePresent.add(sm.world);
-            }
         }
         Prison.l.info("&2Loaded " + mines.size() + " mines.");
-    }
-
-    private boolean isInList(String name) {
-        for (String s : worldsWhereMinesArePresent) {
-            if (s.equalsIgnoreCase(name))
-                return true;
-        }
-        return false;
     }
 
     private void transferComposition(Mine m, HashMap<String, Block> compo) {
@@ -142,9 +130,6 @@ public class MinesManager {
 
     public void addMine(Mine m) {
         mines.put(m.name, m);
-        if (!isInList(m.world.getName())) {
-            worldsWhereMinesArePresent.add(m.world.getName());
-        }
     }
 
     public Mine getMine(String name) {
@@ -185,19 +170,16 @@ public class MinesManager {
 
     private class ResetClock implements Runnable {
         public void run() {
-            if (mines.size() == 0)
-                return;
-            if (resetTime == 0)
-                return;
-            if (resetTimeCounter > 0)
-                resetTimeCounter--;
+            if (mines.size() == 0) return;
+            if (resetTime == 0) return;
+            if (resetTimeCounter > 0) resetTimeCounter--;
+
             for (int warning : Prison.i().config.resetWarnings) {
                 if (warning == resetTimeCounter) {
                     String warnMsg = Prison.i().config.resetWarningMessage;
                     warnMsg = warnMsg.replaceAll("<mins>", warning + "");
-                    for (String s : worldsWhereMinesArePresent) {
-                        broadcastToWorld(warnMsg, Bukkit.getWorld(s));
-                    }
+                    if(!Prison.i().config.enableMultiworld) Bukkit.getServer().broadcastMessage(Prison.colorize(warnMsg));
+                    else for (String s : Prison.i().config.rankWorlds) broadcastToWorld(warnMsg, Bukkit.getWorld(s));
                 }
             }
             if (resetTimeCounter == 0) {
@@ -210,7 +192,8 @@ public class MinesManager {
                                 + " because the world it is in could not be found.");
                     }
                 }
-                Bukkit.broadcastMessage(Prison.i().config.resetBroadcastMessage);
+                if(!Prison.i().config.enableMultiworld) Bukkit.getServer().broadcastMessage(Prison.colorize(Prison.i().config.resetBroadcastMessage));
+                else for (String s : Prison.i().config.rankWorlds) broadcastToWorld(Prison.i().config.resetBroadcastMessage, Bukkit.getWorld(s));
                 resetTimeCounter = resetTime;
             }
         }
