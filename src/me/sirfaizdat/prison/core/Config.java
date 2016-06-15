@@ -14,6 +14,7 @@ public class Config {
 
     public String serverPrefix;
     public boolean checkUpdates;
+    public boolean optOut;
 
     public boolean enableMines, enableRanks, enableAutosmelt, enableAutoblock;
 
@@ -28,10 +29,20 @@ public class Config {
 
     public Config() {
         FileConfiguration c = Prison.i().getConfig();
+        loadAll();
+    }
 
+    public void reload() {
+        Prison.i().reloadConfig();
+        loadAll();
+    }
+
+    private void loadAll() {
+        FileConfiguration c = Prison.i().getConfig();
         try {
             serverPrefix = Prison.color(c.getString("server-prefix") + " &r");
             checkUpdates = c.getBoolean("check-updates");
+            optOut = c.getBoolean("opt-out");
             enableMines = c.getBoolean("enable.mines");
             enableRanks = c.getBoolean("enable.ranks");
             enableAutosmelt = c.getBoolean("enable.autosmelt");
@@ -49,22 +60,6 @@ public class Config {
         } catch (NullPointerException e) {
             Prison.l.severe("Your configuration is missing a setting or two. Try deleting it and reloading the server.");
         }
-    }
-
-    public void reload() {
-        Prison.i().reloadConfig();
-        FileConfiguration c = Prison.i().getConfig();
-
-        serverPrefix = Prison.color(c.getString("server-prefix") + " &r");
-        checkUpdates = c.getBoolean("check-updates");
-        resetTime = c.getInt("reset-time");
-        resetWarnings = c.getIntegerList("reset-warnings");
-        fillMode = c.getBoolean("fill-mode");
-        resetWarningMessage = Prison.color(c
-                .getString("reset-warning-message"));
-        resetBroadcastMessage = Prison.color(c
-                .getString("reset-broadcast-message"));
-        enableMultiworld = c.getBoolean("multiworld");
     }
 
 }

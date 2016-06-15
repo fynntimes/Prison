@@ -4,6 +4,7 @@
 
 server-prefix: "&4Prison &7>"
 check-updates: true
+opt-out: false
 
 # The enable block tells Prison whether or not to enable a component.
 # Changes in this block will not take effect until the SERVER is reloaded or restarted.

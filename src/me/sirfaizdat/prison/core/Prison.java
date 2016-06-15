@@ -20,7 +20,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -65,6 +64,8 @@ public class Prison extends JavaPlugin implements Listener {
         initComponents();
         initCommands();
 
+        initMetrics();
+
         l.info("&7Enabled &3Prison v" + getDescription().getVersion() + "&7. Made with <3 by &3SirFaizdat&7.");
         long endTime = System.currentTimeMillis();
         l.info("&8Enabled in " + (endTime - startTime) + " milliseconds.");
@@ -84,7 +85,6 @@ public class Prison extends JavaPlugin implements Listener {
     }
 
     private void initComponents() {
-
         mines = new Mines();
         ranks = new Ranks();
         mines.setEnabled(config.enableMines);
@@ -98,13 +98,23 @@ public class Prison extends JavaPlugin implements Listener {
     }
 
     private void initCommands() {
-        if(config.enableAutosmelt) new AutoSmelt();
-        if(config.enableAutoblock) new BlockCommand();
+        if (config.enableAutosmelt) new AutoSmelt();
+        if (config.enableAutoblock) new BlockCommand();
         getCommand("prison").setExecutor(new PrisonCommandManager());
     }
 
+    private void initMetrics() {
+        if (config.optOut) return;
+        try {
+            MetricsLite metricsLite = new MetricsLite(this);
+            metricsLite.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void updateCheck() {
-        if (config.checkUpdates && !getDescription().getVersion().contains("dev") && !getDescription().getVersion().contains("-SNAPSHOT")) {
+        if (config.checkUpdates && !getDescription().getVersion().contains("-SNAPSHOT")) {
             if (updater.getResult() == UpdateResult.UPDATE_AVAILABLE) {
                 updateLatestName = updater.getLatestName();
                 l.info(MessageUtil.get("general.updateAvailable", updateLatestName));

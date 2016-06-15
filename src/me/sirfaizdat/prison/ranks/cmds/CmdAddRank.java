@@ -5,6 +5,7 @@ package me.sirfaizdat.prison.ranks.cmds;
 
 import me.sirfaizdat.prison.core.Command;
 import me.sirfaizdat.prison.core.MessageUtil;
+import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.ranks.Rank;
 import me.sirfaizdat.prison.ranks.Ranks;
 import me.sirfaizdat.prison.ranks.events.RankAddedEvent;
@@ -26,7 +27,7 @@ public class CmdAddRank extends Command {
     protected void execute() {
         String rankName = args[1];
         if (!Ranks.i.isRank(rankName)) {
-            sender.sendMessage(MessageUtil.get("ranks.notAGroup"));
+            sender.sendMessage(MessageUtil.get("ranks.notAGroup", Prison.i().getPermissions().getName()));
             return;
         }
         if (Ranks.i.isLoadedRank(rankName)) {

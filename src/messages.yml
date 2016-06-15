@@ -59,4 +59,4 @@ ranks:
   notAPlayer: "&cThat player is not online."
   editSuccess: "&7Successfully edited the rank."
   editFail: "&cFailed to edit rank."
-  notAGroup: "&7The rank must be loaded into your &cpermissions plugin &7first."
+  notAGroup: "&7The rank must be loaded into &c%0 &7first."
