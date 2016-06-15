@@ -9,20 +9,24 @@ commands:
     description: Basic commands for Prison.
   autosmelt:
     description: Toggles automatic smelting.
+    usage: Autosmelt is disabled in config.yml.
     aliases: [as, astoggle]
   block:
     description: Compacts items into blocks.
+    usage: Autoblock is disabled in config.yml.
   mines:
     description: Ability to control mines.
-    usage: There was an error in starting mines. Check the console for details.
+    usage: Mines are disabled in config.yml.
   prisonranks:
     description: Ability to control ranks.
-    usage: There was an error in starting ranks. Check the console for details.
+    usage: Ranks are disabled in config.yml.
     aliases: [pranks, rsetup]
   rankup:
     description: Purchase the next rank.
+    usage: Ranks are disabled in config.yml.
   ranks:
     description: See a list of all ranks.
+    usage: Ranks are disabled in config.yml.
 permissions:
    prison.manage:
       default: op

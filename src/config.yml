@@ -5,6 +5,14 @@
 server-prefix: "&4Prison &7>"
 check-updates: true
 
+# The enable block tells Prison whether or not to enable a component.
+# Changes in this block will not take effect until the SERVER is reloaded or restarted.
+enable:
+  mines: true
+  ranks: true
+  autosmelt: true
+  autoblock: true
+
 reset-time: 10
 reset-warnings: [10,5,1]
 reset-warning-message: "&6Mines are going to reset in &c<mins> &6minutes."

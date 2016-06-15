@@ -84,8 +84,12 @@ public class Prison extends JavaPlugin implements Listener {
     }
 
     private void initComponents() {
+
         mines = new Mines();
         ranks = new Ranks();
+        mines.setEnabled(config.enableMines);
+        ranks.setEnabled(config.enableRanks);
+
         initEconomy();
         initPermissions();
         checkCompatibility();
@@ -94,8 +98,8 @@ public class Prison extends JavaPlugin implements Listener {
     }
 
     private void initCommands() {
-        new AutoSmelt();
-        new BlockCommand();
+        if(config.enableAutosmelt) new AutoSmelt();
+        if(config.enableAutoblock) new BlockCommand();
         getCommand("prison").setExecutor(new PrisonCommandManager());
     }
 
@@ -200,9 +204,11 @@ public class Prison extends JavaPlugin implements Listener {
         config.reload();
         MessageUtil.reload();
         playerList = new PlayerList();
+
         mines.disable();
         mines = new Mines();
         enableMines();
+
         ranks.disable();
         ranks = new Ranks();
         enableRanks();

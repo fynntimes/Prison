@@ -15,6 +15,8 @@ public class Config {
     public String serverPrefix;
     public boolean checkUpdates;
 
+    public boolean enableMines, enableRanks, enableAutosmelt, enableAutoblock;
+
     public int resetTime;
     public List<Integer> resetWarnings;
     public boolean fillMode, asyncReset;
@@ -30,6 +32,10 @@ public class Config {
         try {
             serverPrefix = Prison.color(c.getString("server-prefix") + " &r");
             checkUpdates = c.getBoolean("check-updates");
+            enableMines = c.getBoolean("enable.mines");
+            enableRanks = c.getBoolean("enable.ranks");
+            enableAutosmelt = c.getBoolean("enable.autosmelt");
+            enableAutoblock = c.getBoolean("enable.autoblock");
             resetTime = c.getInt("reset-time");
             resetWarnings = c.getIntegerList("reset-warnings");
             fillMode = c.getBoolean("fill-mode");
