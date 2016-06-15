@@ -5,6 +5,7 @@ package me.sirfaizdat.prison.mines;
 
 import me.sirfaizdat.prison.core.Prison;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -63,7 +64,7 @@ public class MinesManager {
 
     public void load() {
         File minesUpdated = new File(Prison.i().getDataFolder(),
-                "minesupdated.txt");
+                "minesUpdatedAgain.txt");
 
         for (File file : getAllMineFiles()) {
             SerializableMine sm;
@@ -83,31 +84,47 @@ public class MinesManager {
                 continue; // Skip this one
             }
             Mine m = new Mine(sm.name, sm.world, sm.minX, sm.minY, sm.minZ,
-                    sm.maxX, sm.maxY, sm.maxZ, sm.spawnX, sm.spawnY, sm.spawnZ,
-                    sm.ranks == null ? new ArrayList<String>() : sm.ranks);
+                    sm.maxX, sm.maxY, sm.maxZ, sm.ranks == null ? new ArrayList<String>() : sm.ranks);
             if (sm.blocks != null && sm.blocks.size() != 0) {
                 transferComposition(m, sm.blocks);
             }
-            if (!minesUpdated.exists()) {
-                int spawnX = m.minX, spawnY, spawnZ = m.minZ;
+
+            // Set the spawn
+            if (!minesUpdated.exists()) { // Spawnpoint needs to be generated
+                int spawnY;
                 if (m.minY < m.maxY) {
                     spawnY = m.maxY;
                 } else {
                     spawnY = m.minY;
                 }
-                m.spawnX = spawnX;
+                spawnY += 5;
+
+                m.spawnX = m.minX;
                 m.spawnY = spawnY;
-                m.spawnZ = spawnZ;
+                m.spawnZ = m.minZ;
+                m.spawnPitch = 0;
+                m.spawnYaw = 0;
+                m.mineSpawn = new Location(m.world, m.spawnX, m.spawnY, m.spawnZ, m.spawnPitch, m.spawnYaw);
                 m.save();
-                try {
-                    minesUpdated.createNewFile();
-                } catch (IOException e) {
-                    Prison.l.severe("Could not create the minesupdated.txt file. Please manually create a file in the /plugins/Prison folder called minesupdated.txt to avoid data loss.");
-                }
-                Prison.l.info("Converted mines to new mines spawn system.");
+            } else { // Spawnpoint already is in the mine file (usually the case, unless converting)
+                m.spawnX = sm.spawnX;
+                m.spawnY = sm.spawnY;
+                m.spawnZ = sm.spawnZ;
+                m.spawnPitch = sm.spawnPitch;
+                m.spawnYaw = sm.spawnYaw;
+                m.mineSpawn = new Location(m.world, m.spawnX, m.spawnY, m.spawnZ, m.spawnPitch, m.spawnYaw);
             }
+
             mines.put(sm.name, m);
         }
+
+        try {
+            minesUpdated.createNewFile();
+            Prison.l.info("Converted mines to new mines spawn system.");
+        } catch (IOException e) {
+            Prison.l.severe("Could not create the minesUpdatedAgain.txt file. Please manually create a file in the /plugins/Prison folder called minesUpdatedAgain.txt to avoid data loss.");
+        }
+
         Prison.l.info("&2Loaded " + mines.size() + " mines.");
     }
 

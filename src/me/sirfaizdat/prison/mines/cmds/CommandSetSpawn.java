@@ -2,6 +2,7 @@ package me.sirfaizdat.prison.mines.cmds;
 
 import me.sirfaizdat.prison.core.Command;
 import me.sirfaizdat.prison.core.MessageUtil;
+import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.mines.Mine;
 import me.sirfaizdat.prison.mines.Mines;
 import org.bukkit.Location;
@@ -38,6 +39,9 @@ public class CommandSetSpawn extends Command {
         m.spawnX = pLoc.getBlockX();
         m.spawnY = pLoc.getBlockY();
         m.spawnZ = pLoc.getBlockZ();
+        Prison.l.info("Pitch: " + pLoc.getPitch() + " | Yaw: " + pLoc.getYaw());
+        m.spawnPitch = pLoc.getPitch();
+        m.spawnYaw = pLoc.getYaw();
         m.save();
         sender.sendMessage(MessageUtil.get("mines.setSpawn"));
     }

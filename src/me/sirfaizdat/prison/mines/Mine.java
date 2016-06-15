@@ -23,19 +23,18 @@ import java.util.*;
 public class Mine {
 
     public String name;
-    public String worldName;
+    private String worldName;
     public World world;
     public int minX, minY, minZ, maxX, maxY, maxZ;
     public int spawnX, spawnY, spawnZ;
+    public float spawnPitch, spawnYaw;
     public HashMap<String, Block> blocks = new HashMap<String, Block>();
     public ArrayList<String> ranks;
     public boolean worldMissing = false;
-    Mines m;
     File mineFile;
-    private Location mineSpawn;
+    Location mineSpawn;
 
-    public Mine(String name, String worldName, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, int spawnX, int spawnY, int spawnZ, ArrayList<String> ranks) {
-        m = Mines.i;
+    public Mine(String name, String worldName, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, ArrayList<String> ranks) {
         this.name = name;
         this.worldName = worldName;
         this.world = Prison.i().getServer().getWorld(worldName);
@@ -48,15 +47,11 @@ public class Mine {
         this.maxX = maxX;
         this.maxY = maxY;
         this.maxZ = maxZ;
-        this.spawnX = spawnX;
-        this.spawnY = spawnY;
-        this.spawnZ = spawnZ;
-        mineSpawn = new Location(world, spawnX, spawnY, spawnZ);
         mineFile = new File(Prison.i().getDataFolder(), "/mines/" + name + ".mine");
         this.ranks = ranks;
     }
 
-    public static ArrayList<CompositionEntry> mapComposition(Map<String, Block> compositionIn) {
+    private static ArrayList<CompositionEntry> mapComposition(Map<String, Block> compositionIn) {
         ArrayList<CompositionEntry> probabilityMap = new ArrayList<CompositionEntry>();
         Map<String, Block> composition = new HashMap<String, Block>(compositionIn);
         double max = 0;
@@ -91,6 +86,9 @@ public class Mine {
         sm.spawnX = spawnX;
         sm.spawnY = spawnY;
         sm.spawnZ = spawnZ;
+        sm.spawnPitch = spawnPitch;
+        sm.spawnYaw = spawnYaw;
+        mineSpawn = new Location(world, spawnX, spawnY, spawnZ, spawnPitch, spawnYaw);
         sm.blocks = blocks;
         for (String s : ranks) {
             sm.ranks.add(s);
