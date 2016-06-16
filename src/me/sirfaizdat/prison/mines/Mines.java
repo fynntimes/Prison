@@ -9,6 +9,8 @@ import me.sirfaizdat.prison.core.FailedToStartException;
 import me.sirfaizdat.prison.core.Prison;
 import org.bukkit.Bukkit;
 
+import java.io.File;
+
 /**
  * Manages the Mines component.
  *
@@ -38,6 +40,10 @@ public class Mines implements Component {
 
     public void enable() throws FailedToStartException {
         i = this;
+
+        File oldUnecessaryFile = new File(Prison.i().getDataFolder(), "minesupdated.txt");
+        if(oldUnecessaryFile.exists()) oldUnecessaryFile.delete();
+
         mm = new MinesManager();
         mcm = new MinesCommandManager(this);
         core.getCommand("mines").setExecutor(mcm);

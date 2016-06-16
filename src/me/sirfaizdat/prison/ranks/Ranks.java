@@ -125,8 +125,10 @@ public class Ranks implements Component {
         // <-- END CONVERTER CODE -->
 
         File oldRanksListFile = new File(rankFolder, "ranksList.txt");
-        if(oldRanksListFile.exists()) oldRanksListFile.delete();
+        if (oldRanksListFile.exists()) oldRanksListFile.delete();
 
+        int offsetCounter = -1;
+        boolean needsSave = false;
         File[] files = rankFolder.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
@@ -151,12 +153,21 @@ public class Ranks implements Component {
             }
 
             Rank rank = new Rank();
+            offsetCounter++;
+            if (sr.id == 0 && getRankById(0) != null) {
+                sr.id = offsetCounter;
+                needsSave = true;
+            }
             Prison.l.info("Rank " + sr.name + " ID: " + sr.id);
             rank.setId(sr.id);
             rank.setName(sr.name);
             rank.setPrefix(sr.prefix);
             rank.setPrice(sr.price);
             ranks.add(rank);
+            if (needsSave) {
+                saveRank(rank);
+                needsSave = false;
+            }
         }
 
         return true;
