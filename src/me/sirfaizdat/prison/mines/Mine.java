@@ -27,13 +27,10 @@ public class Mine {
     private String worldName;
     public World world;
     public int minX, minY, minZ, maxX, maxY, maxZ;
-    public int spawnX, spawnY, spawnZ;
-    public float spawnPitch, spawnYaw;
     public HashMap<String, Block> blocks = new HashMap<String, Block>();
     public ArrayList<String> ranks;
     public boolean worldMissing = false;
     File mineFile;
-    Location mineSpawn;
     private volatile List<CompositionEntry> cachedCompositionMap;
 
     public Mine(String name, String worldName, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, ArrayList<String> ranks) {
@@ -85,12 +82,6 @@ public class Mine {
         sm.maxX = maxX;
         sm.maxY = maxY;
         sm.maxZ = maxZ;
-        sm.spawnX = spawnX;
-        sm.spawnY = spawnY;
-        sm.spawnZ = spawnZ;
-        sm.spawnPitch = spawnPitch;
-        sm.spawnYaw = spawnYaw;
-        mineSpawn = new Location(world, spawnX, spawnY, spawnZ, spawnPitch, spawnYaw);
         sm.blocks = blocks;
         for (String s : ranks) {
             sm.ranks.add(s);
@@ -122,7 +113,7 @@ public class Mine {
             return false;
         }
 
-        for (Player p : Bukkit.getServer().getOnlinePlayers()) if (withinMine(p.getLocation())) p.teleport(mineSpawn);
+        for (Player p : Bukkit.getServer().getOnlinePlayers()) if (withinMine(p.getLocation())) p.teleport(p.getLocation().add(0, (Math.max(minY, maxY) - p.getLocation().getBlockY()) + 3, 0));
 
         Random r = new Random();
         for (int y = minY; y <= maxY; y++) {

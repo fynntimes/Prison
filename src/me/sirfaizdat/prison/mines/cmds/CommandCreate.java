@@ -43,20 +43,7 @@ public class CommandCreate extends Command {
         int maxY = s.getMaximumPoint().getBlockY();
         int maxZ = s.getMaximumPoint().getBlockZ();
 
-        int spawnY;
-        if (minY < maxY) {
-            spawnY = maxY;
-        } else {
-            spawnY = minY;
-        }
-        spawnY += 5;
-
         Mine m = new Mine(name, world, minX, minY, minZ, maxX, maxY, maxZ, new ArrayList<String>());
-        m.spawnX = minX;
-        m.spawnY = spawnY;
-        m.spawnZ = minZ;
-        m.spawnPitch = 0;
-        m.spawnYaw = 0;
         try {
             Mines.i.mm.addMine(m);
             sender.sendMessage(MessageUtil.get("mines.created", m.name));

@@ -55,13 +55,6 @@ public class MinesManager {
         }
     }
 
-    public void run() {
-        if (mines.size() == 0)
-            return;
-        if (resetTime == 0)
-            return;
-    }
-
     public void load() {
         File minesUpdated = new File(Prison.i().getDataFolder(),
                 "minesUpdatedAgain.txt");
@@ -87,32 +80,6 @@ public class MinesManager {
                     sm.maxX, sm.maxY, sm.maxZ, sm.ranks == null ? new ArrayList<String>() : sm.ranks);
             if (sm.blocks != null && sm.blocks.size() != 0) {
                 transferComposition(m, sm.blocks);
-            }
-
-            // Set the spawn
-            if (!minesUpdated.exists()) { // Spawnpoint needs to be generated
-                int spawnY;
-                if (m.minY < m.maxY) {
-                    spawnY = m.maxY;
-                } else {
-                    spawnY = m.minY;
-                }
-                spawnY += 5;
-
-                m.spawnX = m.minX;
-                m.spawnY = spawnY;
-                m.spawnZ = m.minZ;
-                m.spawnPitch = 0;
-                m.spawnYaw = 0;
-                m.mineSpawn = new Location(m.world, m.spawnX, m.spawnY, m.spawnZ, m.spawnPitch, m.spawnYaw);
-                m.save();
-            } else { // Spawnpoint already is in the mine file (usually the case, unless converting)
-                m.spawnX = sm.spawnX;
-                m.spawnY = sm.spawnY;
-                m.spawnZ = sm.spawnZ;
-                m.spawnPitch = sm.spawnPitch;
-                m.spawnYaw = sm.spawnYaw;
-                m.mineSpawn = new Location(m.world, m.spawnX, m.spawnY, m.spawnZ, m.spawnPitch, m.spawnYaw);
             }
 
             mines.put(sm.name, m);

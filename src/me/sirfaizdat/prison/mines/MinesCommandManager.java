@@ -26,6 +26,5 @@ public class MinesCommandManager extends AbstractCommandManager {
         commands.put("removeblock", new CommandRemoveBlock());
         commands.put("delete", new CommandDelete());
         commands.put("redefine", new CommandRedefine());
-        commands.put("setspawn", new CommandSetSpawn());
     }
 }

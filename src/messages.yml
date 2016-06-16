@@ -34,7 +34,7 @@ mines:
   deletedMine: "&cThe mine has been successfully deleted."
   mustSpecifyID: "&cThe item manager failed to load, so you must use the block's item ID. &8Example: stone is 1, birch wood is 3:2."
   invalidPercent: "&cThe percentage value is invalid."
-  addSuccess: "&7Mine &3%0&7 is now &3%0&7 of the block &3%0&7."
+  addSuccess: "&7Mine &3%0&7 is now &3%1&7 of the block &3%2&7."
   redefineSuccess: "&7Successfully redefined the area of mine &3%0&7."
   wrongWorld: "&7This mine is in world &c%0&7. &8You must go to &c%0&8 to set the spawn for this mine."
   missingWorld: "&cThe world for this mine is missing; therefore, the spawn cannot be set for it."
