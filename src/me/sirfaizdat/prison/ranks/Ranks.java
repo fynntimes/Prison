@@ -90,40 +90,6 @@ public class Ranks implements Component {
         ranks.clear();
     }
 
-    public List<String> getRankList() {
-
-        File rankListFile = new File(rankFolder, "ranksList.txt");
-        if (!rankListFile.exists()) {
-            try {
-                rankListFile.createNewFile();
-            } catch (IOException e) {
-                Prison.l.severe("Failed to create ranks list. Will not load ranks.");
-                setEnabled(false);
-                return null;
-            }
-        }
-        List<String> ranksList = new ArrayList<String>();
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(rankListFile));
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                ranksList.add(line);
-            }
-            reader.close();
-        } catch (FileNotFoundException e) {
-            // Should never happen.
-            Prison.l.severe("Failed to find ranks list. Will not load ranks.");
-            setEnabled(false);
-            return null;
-        } catch (IOException e) {
-            Prison.l.severe("Failed to read ranks list. Will not load ranks.");
-            setEnabled(false);
-            return null;
-        }
-        return ranksList;
-    }
-
     private boolean load() {
         // <-- BEGIN CONVERTER CODE -->
         File configFile = new File(Prison.i().getDataFolder(), "ranks.yml");
@@ -131,13 +97,16 @@ public class Ranks implements Component {
             RanksConfig config = new RanksConfig();
             List<String> rankList = config.getConfig().getStringList("ranklist");
             boolean successful = true;
+            int count = 0;
             for (String rank : rankList) {
                 if (!successful) break;
                 Rank r = new Rank();
+                r.setId(count);
                 r.setName(rank);
                 r.setPrefix(config.getConfig().getString("ranks." + rank + ".prefix"));
                 r.setPrice(config.getConfig().getDouble("ranks." + rank + ".price"));
                 successful = addRank(r);
+                count++;
             }
             if (successful) {
                 successful = configFile.delete();
@@ -155,25 +124,19 @@ public class Ranks implements Component {
 
         // <-- END CONVERTER CODE -->
 
-        File rankListFile = new File(rankFolder, "ranksList.txt");
-        if (!rankListFile.exists()) {
-            try {
-                rankListFile.createNewFile();
-            } catch (IOException e) {
-                Prison.l.severe("Failed to create ranks list. Will not load ranks.");
-                setEnabled(false);
-                return false;
-            }
-        }
-        List<String> ranksList = getRankList();
+        File oldRanksListFile = new File(rankFolder, "ranksList.txt");
+        if(oldRanksListFile.exists()) oldRanksListFile.delete();
 
-        int count = 0;
-        for (String s : ranksList) {
-            boolean good = true;
-            String fileName = s + ".rank";
-            SerializableRank sr = null;
+        File[] files = rankFolder.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".rank");
+            }
+        });
+        for (File file : files) {
+            SerializableRank sr;
             try {
-                FileInputStream fileIn = new FileInputStream(new File(rankFolder, fileName));
+                FileInputStream fileIn = new FileInputStream(file);
                 ObjectInputStream in = new ObjectInputStream(fileIn);
                 sr = (SerializableRank) in.readObject();
                 in.close();
@@ -182,47 +145,18 @@ public class Ranks implements Component {
                 Prison.l.severe("An unexpected error occured. Check to make sure your copy of the plugin is not corrupted.");
                 return false;
             } catch (IOException e) {
-                try {
-
-                    File inputFile = new File(rankFolder, "ranksList.txt");
-                    File tempFile = new File(rankFolder, "ranksTemp.txt");
-
-                    BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-                    BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-
-                    String currentLine;
-
-                    while ((currentLine = reader.readLine()) != null) {
-                        String trimmedLine = currentLine.trim();
-                        if (trimmedLine.equals(s)) continue;
-                        writer.write(currentLine);
-                        writer.newLine();
-                    }
-                    reader.close();
-                    writer.close();
-                    boolean successful = tempFile.renameTo(inputFile);
-                    if (!successful) {
-                        return false;
-                    }
-                } catch (IOException ex) {
-                    Prison.l.severe("Failed to remove rank " + s + " from rank list.");
-                    ex.printStackTrace();
-                    return false;
-                }
-                Prison.l.warning("There was an error in loading file " + fileName + ". It has been removed from the rank list.");
-                good = false;
+                Prison.l.warning("There was an error in loading the file " + file.getName());
+                e.printStackTrace();
+                continue;
             }
 
-            if (good) {
-                Rank rank = new Rank();
-                Prison.l.info("Rank " + rank.getName() + " ID: " + sr.id);
-                rank.setId(sr.id);
-                rank.setName(sr.name);
-                rank.setPrefix(sr.prefix);
-                rank.setPrice(sr.price);
-                ranks.add(rank);
-            }
-            count++;
+            Rank rank = new Rank();
+            Prison.l.info("Rank " + sr.name + " ID: " + sr.id);
+            rank.setId(sr.id);
+            rank.setName(sr.name);
+            rank.setPrefix(sr.prefix);
+            rank.setPrice(sr.price);
+            ranks.add(rank);
         }
 
         return true;
@@ -278,9 +212,9 @@ public class Ranks implements Component {
 //                previousRank = null;
 //            }
 
-            for(Rank rank : ranks) {
+            for (Rank rank : ranks) {
                 String group = getGroup(player.getWorld().getName(), player);
-                if(rank.getName().equals(group)) {
+                if (rank.getName().equals(group)) {
                     currentRank = rank;
                     break;
                 }
@@ -383,16 +317,8 @@ public class Ranks implements Component {
         if (isLoadedRank(rank.getName())) {
             return false;
         }
-        rank.setId(ranks.size() + 1);
+        rank.setId(ranks.size());
         ranks.add(rank);
-        try {
-            BufferedWriter output = new BufferedWriter(new FileWriter(new File(rankFolder, "ranksList.txt"), true));
-            output.append(rank.getName());
-            output.newLine();
-            output.close();
-        } catch (IOException e) {
-
-        }
         return saveRank(rank);
     }
 
@@ -436,34 +362,6 @@ public class Ranks implements Component {
             if (r.getName().equalsIgnoreCase(rank.getName())) {
                 ranks.remove(i);
             }
-        }
-        try {
-
-            File inputFile = new File(rankFolder, "ranksList.txt");
-            File tempFile = new File(rankFolder, "ranksTemp.txt");
-
-            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-
-            String lineToRemove = rank.getName();
-            String currentLine;
-
-            while ((currentLine = reader.readLine()) != null) {
-                String trimmedLine = currentLine.trim();
-                if (trimmedLine.equals(lineToRemove)) continue;
-                writer.write(currentLine);
-                writer.newLine();
-            }
-            reader.close();
-            writer.close();
-            boolean successful = tempFile.renameTo(inputFile);
-            if (!successful) {
-                return false;
-            }
-        } catch (IOException e) {
-            Prison.l.severe("Failed to remove rank " + rank.getName() + ".");
-            e.printStackTrace();
-            return false;
         }
         File rankFile = new File(rankFolder, rank.getName() + ".rank");
         if (rankFile.exists()) {
@@ -540,7 +438,7 @@ public class Ranks implements Component {
     }
 
     public Rank getRankById(int id) {
-        for(Rank rank : ranks) if(rank.getId() == id) return rank;
+        for (Rank rank : ranks) if (rank.getId() == id) return rank;
         return null;
     }
 

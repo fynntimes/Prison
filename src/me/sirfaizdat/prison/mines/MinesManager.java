@@ -5,7 +5,6 @@ package me.sirfaizdat.prison.mines;
 
 import me.sirfaizdat.prison.core.Prison;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -56,9 +55,6 @@ public class MinesManager {
     }
 
     public void load() {
-        File minesUpdated = new File(Prison.i().getDataFolder(),
-                "minesUpdatedAgain.txt");
-
         for (File file : getAllMineFiles()) {
             SerializableMine sm;
             try {
@@ -83,13 +79,6 @@ public class MinesManager {
             }
 
             mines.put(sm.name, m);
-        }
-
-        try {
-            minesUpdated.createNewFile();
-            Prison.l.info("Converted mines to new mines spawn system.");
-        } catch (IOException e) {
-            Prison.l.severe("Could not create the minesUpdatedAgain.txt file. Please manually create a file in the /plugins/Prison folder called minesUpdatedAgain.txt to avoid data loss.");
         }
 
         Prison.l.info("&2Loaded " + mines.size() + " mines.");

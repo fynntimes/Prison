@@ -16,6 +16,7 @@ general:
   blocksCompacted: "&3%0 items &7have been compacted into &3%1 blocks&7."
   multiworld: "&7You are not in a &3Prison world&7."
   invalidInteger: "&7The integer value &c%0&7 is invalid."
+  valueTooHigh: "&7The value you specified for &c%0&7 is too high. &8It must be between &c(%1-%2)"
 
 mines:
   noMinesLoaded: "&cThere are no mines loaded."
@@ -62,3 +63,4 @@ ranks:
   editSuccess: "&7Successfully edited the rank."
   editFail: "&cFailed to edit rank."
   notAGroup: "&7The rank must be loaded into &c%0 &7first."
+  valueSet: "&7Set the value &3%0&7 to &3%1&7 for rank &3%2&7."

@@ -23,7 +23,7 @@ public class MessageUtil {
 
     public static String get(String key, String... replace) {
         String returnVal = get(key);
-        for (int i = 0; i < replace.length; i++) returnVal = returnVal.replaceAll("%" + i, Prison.color(replace[i]));
+        for (int i = 0; i < replace.length; i++) returnVal = returnVal.replace("%" + i, Prison.color(replace[i]));
         return returnVal;
     }
 

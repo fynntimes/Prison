@@ -11,6 +11,9 @@ import me.sirfaizdat.prison.ranks.Ranks;
 import me.sirfaizdat.prison.ranks.events.RankAddedEvent;
 import org.bukkit.Bukkit;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
+
 /**
  * @author SirFaizdat
  */
@@ -37,10 +40,10 @@ public class CmdAddRank extends Command {
         Rank rank = new Rank();
         rank.setName(rankName);
 
-        double price = 0;
+        double price;
         try {
-            price = Double.parseDouble(args[2].replaceAll("$", "").trim());
-        } catch (NumberFormatException e) {
+            price = NumberFormat.getCurrencyInstance().parse(args[2]).doubleValue();
+        } catch (ParseException e) {
             sender.sendMessage(MessageUtil.get("ranks.invalidPrice"));
             return;
         }
