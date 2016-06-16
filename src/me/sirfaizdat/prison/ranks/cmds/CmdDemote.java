@@ -15,6 +15,7 @@ public class CmdDemote extends Command {
     public CmdDemote() {
         super("demote");
         addRequiredArg("user");
+        mustBePlayer(true);
     }
 
     public void execute() {

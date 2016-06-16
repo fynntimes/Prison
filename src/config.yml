@@ -6,6 +6,12 @@ server-prefix: "&4Prison &7>"
 check-updates: true
 opt-out: false
 
+# Multiworld prohibits players from using prison commands in worlds not listed below.
+# It is useful for servers that want to designate certain worlds towards prison.
+# To use this feature, set multiworld to true and add the desired worlds in world-list.
+multiworld: false
+world-list: [plots, mines]
+
 # The enable block tells Prison whether or not to enable a component.
 # Changes in this block will not take effect until the SERVER is reloaded or restarted.
 enable:
@@ -14,13 +20,11 @@ enable:
   autosmelt: true
   autoblock: true
 
+# Mines
+
 reset-time: 10
 reset-warnings: [10,5,1]
 reset-warning-message: "&6Mines are going to reset in &c<mins> &6minutes."
 reset-broadcast-message: "&6All mines have been reset."
 fill-mode: true
 async-reset: true
-
-# Only use this if you know what you're doing!
-multiworld: false
-world-list: [plots, mines]

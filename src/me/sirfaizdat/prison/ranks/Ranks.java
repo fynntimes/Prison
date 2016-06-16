@@ -165,25 +165,7 @@ public class Ranks implements Component {
                 return false;
             }
         }
-        List<String> ranksList = new ArrayList<String>();
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(rankListFile));
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                ranksList.add(line);
-            }
-            reader.close();
-        } catch (FileNotFoundException e) {
-            // Should never happen.
-            Prison.l.severe("Failed to find ranks list. Will not load ranks.");
-            setEnabled(false);
-            return false;
-        } catch (IOException e) {
-            Prison.l.severe("Failed to read ranks list. Will not load ranks.");
-            setEnabled(false);
-            return false;
-        }
+        List<String> ranksList = getRankList();
 
         int count = 0;
         for (String s : ranksList) {
@@ -208,12 +190,11 @@ public class Ranks implements Component {
                     BufferedReader reader = new BufferedReader(new FileReader(inputFile));
                     BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
 
-                    String lineToRemove = s;
                     String currentLine;
 
                     while ((currentLine = reader.readLine()) != null) {
                         String trimmedLine = currentLine.trim();
-                        if (trimmedLine.equals(lineToRemove)) continue;
+                        if (trimmedLine.equals(s)) continue;
                         writer.write(currentLine);
                         writer.newLine();
                     }
@@ -234,7 +215,8 @@ public class Ranks implements Component {
 
             if (good) {
                 Rank rank = new Rank();
-                rank.setId(count);
+                Prison.l.info("Rank " + rank.getName() + " ID: " + sr.id);
+                rank.setId(sr.id);
                 rank.setName(sr.name);
                 rank.setPrefix(sr.prefix);
                 rank.setPrice(sr.price);
@@ -269,32 +251,43 @@ public class Ranks implements Component {
             info.setPlayer(player);
 
             Rank currentRank = null;
-            Rank previousRank = null;
-            Rank nextRank = null;
+            Rank previousRank;
+            Rank nextRank;
 
-            for (Rank rank : ranks) {
-                String primaryGroup = getGroup(player.getWorld().getName(), player);
-                if (primaryGroup != null) {
-                    if (currentRank != null) {
-                        nextRank = rank;
-                        break;
-                    }
+//            for (Rank rank : ranks) {
+//                String primaryGroup = getGroup(player.getWorld().getName(), player);
+//                if (primaryGroup != null) {
+//                    if (currentRank != null) {
+//                        nextRank = rank;
+//                        break;
+//                    }
+//
+//                    if (primaryGroup.equalsIgnoreCase(rank.getName())) {
+//                        currentRank = rank;
+//                    }
+//
+//                    if (currentRank == null) {
+//                        previousRank = rank;
+//                    }
+//                } else {
+//                    nextRank = ranks.get(0);
+//                }
+//            }
+//
+//            if (previousRank != null && currentRank == null) {
+//                previousRank = null;
+//            }
 
-                    if (primaryGroup.equalsIgnoreCase(rank.getName())) {
-                        currentRank = rank;
-                    }
-
-                    if (currentRank == null) {
-                        previousRank = rank;
-                    }
-                } else {
-                    nextRank = ranks.get(0);
+            for(Rank rank : ranks) {
+                String group = getGroup(player.getWorld().getName(), player);
+                if(rank.getName().equals(group)) {
+                    currentRank = rank;
+                    break;
                 }
             }
 
-            if (previousRank != null && currentRank == null) {
-                previousRank = null;
-            }
+            previousRank = getRankById(currentRank.getId() - 1);
+            nextRank = getRankById(currentRank.getId() + 1);
 
             info.setCurrentRank(currentRank);
             info.setPreviousRank(previousRank);
@@ -400,8 +393,13 @@ public class Ranks implements Component {
         } catch (IOException e) {
 
         }
+        return saveRank(rank);
+    }
+
+    public boolean saveRank(Rank rank) {
         File rankFile = new File(rankFolder, rank.getName() + ".rank");
         SerializableRank sr = new SerializableRank();
+        sr.id = rank.getId();
         sr.name = rank.getName();
         sr.prefix = rank.getPrefix();
         sr.price = rank.getPrice();
@@ -538,6 +536,11 @@ public class Ranks implements Component {
                 return ranks.get(i);
             }
         }
+        return null;
+    }
+
+    public Rank getRankById(int id) {
+        for(Rank rank : ranks) if(rank.getId() == id) return rank;
         return null;
     }
 

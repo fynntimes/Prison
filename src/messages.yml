@@ -15,6 +15,7 @@ general:
   autoSmeltToggled: "&7Autosmelt has been %0&7."
   blocksCompacted: "&3%0 items &7have been compacted into &3%1 blocks&7."
   multiworld: "&7You are not in a &3Prison world&7."
+  invalidInteger: "&7The integer value &c%0&7 is invalid."
 
 mines:
   noMinesLoaded: "&cThere are no mines loaded."

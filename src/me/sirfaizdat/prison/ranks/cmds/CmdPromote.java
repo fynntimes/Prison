@@ -14,6 +14,7 @@ public class CmdPromote extends Command {
     public CmdPromote() {
         super("promote");
         addRequiredArg("user");
+        mustBePlayer(true);
     }
 
     public void execute() {

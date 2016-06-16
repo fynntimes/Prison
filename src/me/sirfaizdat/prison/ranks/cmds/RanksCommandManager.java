@@ -52,7 +52,8 @@ public class RanksCommandManager extends AbstractCommandManager {
             sender.sendMessage(Prison
                     .color("&7=========== &3Ranks &7==========="));
             StringBuilder sb = new StringBuilder();
-            for (Rank rank : Ranks.i.ranks) {
+            for (int i = 0; i < Ranks.i.ranks.size(); i++) {
+                Rank rank = Ranks.i.getRankById(i);
                 double amountNeededD = rank.getPrice();
                 String amountNeeded;
                 if (amountNeededD < 1) {
@@ -87,6 +88,7 @@ public class RanksCommandManager extends AbstractCommandManager {
         commands.put("remove", new CmdRemoveRank());
         commands.put("promote", new CmdPromote());
         commands.put("demote", new CmdDemote());
+        commands.put("set", new CmdSet());
     }
 
 }
