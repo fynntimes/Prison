@@ -56,17 +56,17 @@ public class Ranks implements Component {
         i = this;
 
         permission = Prison.i().getPermissions();
-        if (permission == null) {
+        if (permission == null || permission.getName().equalsIgnoreCase("superperms")) { // We ain't allowing no SuperPerms!
             Prison.l.severe("No permissions plugin found (such as PermissionsEx). You must have one in order to start ranks.");
             setEnabled(false);
-            return;
+            throw new FailedToStartException("No permissons plugin found.");
         }
 
         eco = Prison.i().getEconomy();
         if (eco == null) {
             Prison.l.severe("No economy plugin found (such as Essentials or iConomy). You must have one in order to start ranks.");
             setEnabled(false);
-            return;
+            throw new FailedToStartException("No economy plugin found.");
         }
 
         rankFolder = new File(Prison.i().getDataFolder(), "/ranks");

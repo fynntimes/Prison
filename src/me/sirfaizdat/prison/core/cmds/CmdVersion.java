@@ -4,6 +4,7 @@
 package me.sirfaizdat.prison.core.cmds;
 
 import me.sirfaizdat.prison.core.Command;
+import me.sirfaizdat.prison.core.Component;
 import me.sirfaizdat.prison.core.Prison;
 
 /**
@@ -19,10 +20,15 @@ class CmdVersion extends Command {
     protected void execute() {
         sender.sendMessage(Prison.color("&7============ &3Prison v" + Prison.i().getDescription().getVersion() + " &7============"));
         if(Prison.i().getDescription().getVersion().contains("-SNAPSHOT")) sender.sendMessage(Prison.color("&cThis is a development build and may be unstable."));
-        sender.sendMessage(Prison.color("&7Written by &3SirFaizdat&7."));
-        sender.sendMessage(Prison.color("&7Mines enabled? &3" + Prison.i().mines.isEnabled()));
-        sender.sendMessage(Prison.color("&7Ranks enabled? &3" + Prison.i().ranks.isEnabled()));
+        sender.sendMessage(Prison.color("&7Author: &3SirFaizdat"));
+        sender.sendMessage(Prison.color("&7Website: &3" + Prison.i().getDescription().getWebsite()));
+        sender.sendMessage(Prison.color("&7Mines are " + getEnabledString(Prison.i().mines)));
+        sender.sendMessage(Prison.color("&7Ranks are " + getEnabledString(Prison.i().ranks)));
         sender.sendMessage(Prison.color("&7======================================="));
+    }
+
+    private String getEnabledString(Component c) {
+        return c.isEnabled() ? "&2enabled" : "&cdisabled";
     }
 
     @Override

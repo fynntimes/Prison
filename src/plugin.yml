@@ -4,31 +4,31 @@ description: ${project.description}
 author: SirFaizdat
 main: me.sirfaizdat.prison.core.Prison
 depend: [Vault, WorldEdit]
+website: http://github.com/SirFaizdat/Prison/wiki
 
-# If any of the usage statements are
 commands:
   prison:
     description: Basic commands for Prison.
   autosmelt:
     description: Toggles automatic smelting.
-    usage: Autosmelt is disabled in config.yml.
+    usage: §cAutosmelt is disabled.
     aliases: [as, astoggle]
   block:
     description: Compacts items into blocks.
-    usage: Autoblock is disabled in config.yml.
+    usage: §cAutoblock is disabled.
   mines:
     description: Ability to control mines.
-    usage: Mines are disabled in config.yml.
+    usage: §cMines are disabled.
   prisonranks:
     description: Ability to control ranks.
-    usage: Ranks are disabled in config.yml.
+    usage: §cRanks are disabled.
     aliases: [pranks, rsetup]
   rankup:
     description: Purchase the next rank.
-    usage: Ranks are disabled in config.yml.
+    usage: §cRanks are disabled.
   ranks:
     description: See a list of all ranks.
-    usage: Ranks are disabled in config.yml.
+    usage: §cRanks are disabled.
 
 permissions:
    prison.manage:
