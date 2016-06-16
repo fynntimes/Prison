@@ -104,7 +104,6 @@ public class Ranks implements Component {
                 int counter = 0;
 
                 while((line = reader.readLine()) != null) {
-                    Prison.l.info("Assigning " + line + " as " + counter);
                     convertedValues.put(line, counter);
                     counter++;
                 }
@@ -133,7 +132,7 @@ public class Ranks implements Component {
                 in.close();
                 fileIn.close();
             } catch (ClassNotFoundException e) {
-                Prison.l.severe("An unexpected error occured. Check to make sure your copy of the plugin is not corrupted.");
+                Prison.l.severe("An unexpected error occurred. Check to make sure your copy of the plugin is not corrupted.");
                 return false;
             } catch (IOException e) {
                 Prison.l.warning("There was an error in loading the file " + file.getName());
@@ -143,11 +142,9 @@ public class Ranks implements Component {
 
             Rank rank = new Rank();
             if (convertedValues != null && convertedValues.containsKey(sr.name)) {
-                Prison.l.info("Contains " + sr.name + " with value " + convertedValues.get(sr.name));
                 sr.id = convertedValues.get(sr.name);
                 needsSave = true;
             }
-            Prison.l.info("Rank " + sr.name + " ID: " + sr.id);
             rank.setId(sr.id);
             rank.setName(sr.name);
             rank.setPrefix(sr.prefix);

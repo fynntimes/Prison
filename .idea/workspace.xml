@@ -58,8 +58,8 @@
       <file leaf-file-name="Ranks.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/Ranks.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="137" column="37" selection-start-line="137" selection-start-column="37" selection-end-line="137" selection-end-column="37" />
+            <state relative-caret-position="-274">
+              <caret line="106" column="55" selection-start-line="106" selection-start-column="55" selection-end-line="106" selection-end-column="55" />
               <folding />
             </state>
           </provider>
@@ -184,9 +184,9 @@
         <option value="$PROJECT_DIR$/Changelog.txt" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/RanksCommandManager.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/AbstractCommandManager.java" />
-        <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/Ranks.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Updater.java" />
         <option value="$PROJECT_DIR$/../../TestZones/Spigot TestZone/plugins/Prison 2/plugin.yml" />
+        <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/Ranks.java" />
       </list>
     </option>
   </component>
@@ -922,7 +922,7 @@
       <workItem from="1465855699153" duration="14000" />
       <workItem from="1465907567370" duration="9958000" />
       <workItem from="1466016027281" duration="5067000" />
-      <workItem from="1466034393778" duration="13932000" />
+      <workItem from="1466034393778" duration="13964000" />
     </task>
     <task id="LOCAL-00001" summary="This is v2.1.5">
       <created>1447562574532</created>
@@ -1071,11 +1071,18 @@
       <option name="project" value="LOCAL" />
       <updated>1466094270779</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Added rank converter">
+      <created>1466097525886</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1466097525886</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33939000" />
+    <option name="totallyTimeSpent" value="33971000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="990" extended-state="0" />
@@ -1144,7 +1151,8 @@
     <MESSAGE value="Added safety net to rank loading&#10;&#10;Also, minesupdated.txt will now be deleted upon updating to Prison v2.2 (it's not used anymore)." />
     <MESSAGE value="Removed backwards compatibility with v2.0.5.2" />
     <MESSAGE value="Fixed multiworld support" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed multiworld support" />
+    <MESSAGE value="Added rank converter" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added rank converter" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1574,8 +1582,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/Ranks.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="137" column="37" selection-start-line="137" selection-start-column="37" selection-end-line="137" selection-end-column="37" />
+        <state relative-caret-position="-274">
+          <caret line="106" column="55" selection-start-line="106" selection-start-column="55" selection-end-line="106" selection-end-column="55" />
           <folding />
         </state>
       </provider>
