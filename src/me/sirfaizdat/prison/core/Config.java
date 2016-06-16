@@ -18,14 +18,18 @@ public class Config {
 
     public boolean enableMines, enableRanks, enableAutosmelt, enableAutoblock;
 
+    public List<String> worlds;
+    public boolean enableMultiworld;
+
     public int resetTime;
     public List<Integer> resetWarnings;
     public boolean fillMode, asyncReset;
     public String resetWarningMessage;
     public String resetBroadcastMessage;
 
-    public List<String> rankWorlds;
-    public boolean enableMultiworld;
+    public boolean fireworksOnRankup;
+
+    public boolean flamesOnAutosmelt;
 
     public Config() {
         FileConfiguration c = Prison.i().getConfig();
@@ -55,8 +59,10 @@ public class Config {
                     .getString("reset-warning-message"));
             resetBroadcastMessage = Prison.color(c
                     .getString("reset-broadcast-message"));
-            rankWorlds = c.getStringList("world-list");
+            worlds = c.getStringList("world-list");
             enableMultiworld = c.getBoolean("multiworld");
+            fireworksOnRankup = c.getBoolean("fireworks-on-rankup");
+            flamesOnAutosmelt = c.getBoolean("flames-on-autosmelt");
         } catch (NullPointerException e) {
             Prison.l.severe("Your configuration is missing a setting or two. Try deleting it and reloading the server.");
         }

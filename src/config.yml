@@ -20,11 +20,19 @@ enable:
   autosmelt: true
   autoblock: true
 
-# Mines
+# Mines Settings
 
 reset-time: 10
 reset-warnings: [10,5,1]
-reset-warning-message: "&6Mines are going to reset in &c<mins> &6minutes."
-reset-broadcast-message: "&6All mines have been reset."
+reset-warning-message: "&7Mines are going to reset in &3<mins> minutes&7."
+reset-broadcast-message: "&3All mines have been reset."
 fill-mode: true
 async-reset: true
+
+# Ranks Settings
+
+fireworks-on-rankup: true
+
+# Autosmelt Setings
+
+flames-on-autosmelt: true

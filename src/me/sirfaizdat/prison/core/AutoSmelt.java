@@ -58,7 +58,7 @@ public class AutoSmelt implements CommandExecutor, Listener {
             } else {
                 enabledPlayers.add(sender.getName());
                 sender.sendMessage(MessageUtil.get("general.autoSmeltToggled",
-                        "&2enabled"));
+                        "&3enabled"));
             }
         }
         return true;
@@ -71,17 +71,19 @@ public class AutoSmelt implements CommandExecutor, Listener {
             if (m == Material.IRON_ORE) {
                 Block smelted = e.getBlock();
                 Location loc = smelted.getLocation();
+                Location centerOfBlock = loc.add(0.5, 0.5, 0.5);
                 smelted.setType(Material.AIR);
-                loc.getWorld().playEffect(loc, Effect.MOBSPAWNER_FLAMES, 0, 50);
+                if(Prison.i().config.flamesOnAutosmelt) loc.getWorld().playEffect(loc, Effect.MOBSPAWNER_FLAMES, 0, 50);
                 ItemStack ironing = new ItemStack(Material.IRON_INGOT);
-                smelted.getWorld().dropItemNaturally(loc, ironing);
+                smelted.getWorld().dropItemNaturally(centerOfBlock, ironing);
             } else if (m == Material.GOLD_ORE) {
                 Block smelted = e.getBlock();
                 Location loc = smelted.getLocation();
+                Location centerOfBlock = loc.add(0.5, 0.5, 0.5);
                 smelted.setType(Material.AIR);
-                loc.getWorld().playEffect(loc, Effect.MOBSPAWNER_FLAMES, 0, 50);
+                if(Prison.i().config.flamesOnAutosmelt) loc.getWorld().playEffect(loc, Effect.MOBSPAWNER_FLAMES, 0, 50);
                 ItemStack golding = new ItemStack(Material.GOLD_INGOT);
-                smelted.getWorld().dropItemNaturally(loc, golding);
+                smelted.getWorld().dropItemNaturally(centerOfBlock, golding);
             }
         }
     }

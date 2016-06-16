@@ -38,7 +38,7 @@ permissions:
    prison.prison.version:
       default: op
    prison.autosmelt:
-      default: true
+      default: op
    prison.autosmelt.auto:
       default: false
    prison.block:

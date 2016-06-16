@@ -136,7 +136,7 @@ public class MinesManager {
 
                     if (!Prison.i().config.enableMultiworld)
                         Bukkit.getServer().broadcastMessage(Prison.color(warnMsg));
-                    else for (String s : Prison.i().config.rankWorlds) broadcastToWorld(warnMsg, Bukkit.getWorld(s));
+                    else for (String s : Prison.i().config.worlds) broadcastToWorld(warnMsg, Bukkit.getWorld(s));
                 }
             }
             if (resetTimeCounter == 0) {
@@ -151,7 +151,7 @@ public class MinesManager {
                 }
                 if (!Prison.i().config.enableMultiworld)
                     Bukkit.getServer().broadcastMessage(Prison.color(Prison.i().config.resetBroadcastMessage));
-                else for (String s : Prison.i().config.rankWorlds)
+                else for (String s : Prison.i().config.worlds)
                     broadcastToWorld(Prison.i().config.resetBroadcastMessage, Bukkit.getWorld(s));
                 resetTimeCounter = resetTime;
             }

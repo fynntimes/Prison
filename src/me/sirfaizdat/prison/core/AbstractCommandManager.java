@@ -65,7 +65,7 @@ public abstract class AbstractCommandManager implements CommandExecutor {
 
     protected boolean isInProperWorld(CommandSender sender) {
         World playerWorld = ((Player) sender).getWorld();
-        for(String multiworld : Prison.i().config.rankWorlds)
+        for(String multiworld : Prison.i().config.worlds)
             if (playerWorld.getName().equalsIgnoreCase(multiworld)) return true;
         sender.sendMessage(MessageUtil.get("general.multiworld"));
         return false;

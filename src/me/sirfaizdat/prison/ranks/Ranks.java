@@ -16,6 +16,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.FireworkEffect.Type;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.FireworkMeta;
@@ -23,10 +24,7 @@ import org.bukkit.inventory.meta.FireworkMeta;
 import java.io.*;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Manages the ranks component.
@@ -58,7 +56,18 @@ public class Ranks implements Component {
         i = this;
 
         permission = Prison.i().getPermissions();
+        if (permission == null) {
+            Prison.l.severe("No permissions plugin found (such as PermissionsEx). You must have one in order to start ranks.");
+            setEnabled(false);
+            return;
+        }
+
         eco = Prison.i().getEconomy();
+        if (eco == null) {
+            Prison.l.severe("No economy plugin found (such as Essentials or iConomy). You must have one in order to start ranks.");
+            setEnabled(false);
+            return;
+        }
 
         rankFolder = new File(Prison.i().getDataFolder(), "/ranks");
         if (!rankFolder.exists()) {
@@ -103,7 +112,7 @@ public class Ranks implements Component {
                 String line;
                 int counter = 0;
 
-                while((line = reader.readLine()) != null) {
+                while ((line = reader.readLine()) != null) {
                     convertedValues.put(line, counter);
                     counter++;
                 }
@@ -193,7 +202,7 @@ public class Ranks implements Component {
                 }
             }
 
-            if(currentRank != null) {
+            if (currentRank != null) {
                 previousRank = getRankById(currentRank.getId() - 1);
                 nextRank = getRankById(currentRank.getId() + 1);
             }
@@ -249,17 +258,110 @@ public class Ranks implements Component {
                 info.getPlayer().sendMessage(MessageUtil.get("ranks.rankedUp", nextRank.getPrefix()));
                 Bukkit.broadcastMessage(MessageUtil.get("ranks.rankedUpBroadcast", info.getPlayer().getName(), nextRank.getPrefix()));
                 // Launch a firework! Yay!
-                Firework fw = info.getPlayer().getWorld().spawn(info.getPlayer().getLocation(), Firework.class);
-                FireworkMeta data = fw.getFireworkMeta();
-                data.addEffects(FireworkEffect.builder().withColor(Color.BLUE).with(Type.BALL_LARGE).build());
-                data.setPower(3);
-                fw.setFireworkMeta(data);
-                fw.detonate();
+                if(Prison.i().config.fireworksOnRankup) launchFirework(info.getPlayer());
                 // End firework code
                 Bukkit.getServer().getPluginManager().callEvent(new RankupEvent(info.getPlayer(), buy));
             }
         }
     }
+
+    // ALL FIREWORK STUFF
+
+    private void launchFirework(Player p) {
+        //Spawn the Firework, get the FireworkMeta.
+        Firework fw = (Firework) p.getWorld().spawnEntity(p.getLocation(), EntityType.FIREWORK);
+        FireworkMeta fwm = fw.getFireworkMeta();
+
+        //Our random generator
+        Random r = new Random();
+
+        //Get the type
+        int rt = r.nextInt(5) + 1;
+        Type type = Type.BALL;
+        if (rt == 1) type = Type.BALL;
+        if (rt == 2) type = Type.BALL_LARGE;
+        if (rt == 3) type = Type.BURST;
+        if (rt == 4) type = Type.CREEPER;
+        if (rt == 5) type = Type.STAR;
+
+        //Get our random colors
+        int r1i = r.nextInt(17) + 1;
+        int r2i = r.nextInt(17) + 1;
+        Color c1 = getColor(r1i);
+        Color c2 = getColor(r2i);
+
+        //Create our effect with this
+        FireworkEffect effect = FireworkEffect.builder().flicker(r.nextBoolean()).withColor(c1).withFade(c2).with(type).trail(r.nextBoolean()).build();
+
+        //Then apply the effect to the meta
+        fwm.addEffect(effect);
+
+        //Generate some random power and set it
+        int rp = r.nextInt(2) + 1;
+        fwm.setPower(rp);
+
+        //Then apply this to our rocket
+        fw.setFireworkMeta(fwm);
+    }
+
+    private Color getColor(int i) {
+        Color c = null;
+        if (i == 1) {
+            c = Color.AQUA;
+        }
+        if (i == 2) {
+            c = Color.BLACK;
+        }
+        if (i == 3) {
+            c = Color.BLUE;
+        }
+        if (i == 4) {
+            c = Color.FUCHSIA;
+        }
+        if (i == 5) {
+            c = Color.GRAY;
+        }
+        if (i == 6) {
+            c = Color.GREEN;
+        }
+        if (i == 7) {
+            c = Color.LIME;
+        }
+        if (i == 8) {
+            c = Color.MAROON;
+        }
+        if (i == 9) {
+            c = Color.NAVY;
+        }
+        if (i == 10) {
+            c = Color.OLIVE;
+        }
+        if (i == 11) {
+            c = Color.ORANGE;
+        }
+        if (i == 12) {
+            c = Color.PURPLE;
+        }
+        if (i == 13) {
+            c = Color.RED;
+        }
+        if (i == 14) {
+            c = Color.SILVER;
+        }
+        if (i == 15) {
+            c = Color.TEAL;
+        }
+        if (i == 16) {
+            c = Color.WHITE;
+        }
+        if (i == 17) {
+            c = Color.YELLOW;
+        }
+
+        return c;
+    }
+
+    // END FIREWORK STUFF
 
     public void demote(Player sender, String name) {
         if (ranks.size() == 0) {
@@ -351,14 +453,14 @@ public class Ranks implements Component {
     }
 
     public void changeRank(Player player, Rank currentRank, Rank newRank) {
-        if (Prison.i().config.rankWorlds.size() == 0 || !Prison.i().config.enableMultiworld) {
+        if (Prison.i().config.worlds.size() == 0 || !Prison.i().config.enableMultiworld) {
             permission.playerAddGroup(null, player, newRank.getName());
             if (currentRank != null) {
                 permission.playerRemoveGroup(null, player, currentRank.getName());
             }
             return;
         }
-        for (String world : Prison.i().config.rankWorlds) {
+        for (String world : Prison.i().config.worlds) {
             if (Prison.i().getServer().getWorld(world) != null) {
                 permission.playerAddGroup(world, player, newRank.getName());
                 if (currentRank != null) {
