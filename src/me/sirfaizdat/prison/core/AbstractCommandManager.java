@@ -61,19 +61,17 @@ public abstract class AbstractCommandManager implements CommandExecutor {
 
     public String generateHelpMessage() {
         StringBuilder b = new StringBuilder();
-        b.append("&6==============&c[&2" + c.getName() + "&c]&6==============\n");
-        b.append("&7<> = Required argument    [] = Optional argument\n");
+        b.append("&7============== &3" + c.getName() + " &7==============\n");
+        b.append("&8<> = Required argument    [] = Optional argument\n");
         for (Map.Entry<String, Command> cmd : commands.entrySet()) {
-            String cmdString = cmd.getValue().usage() + " &2-&c " + cmd.getValue().description();
+            String cmdString = cmd.getValue().usage() + " &8-&7 " + cmd.getValue().description();
             b.append(cmdString + "\n");
         }
         return Prison.color(b.toString());
     }
 
     private void componentize() {
-        for (Map.Entry<String, Command> c : commands.entrySet()) {
-            c.getValue().setComponent(this.c);
-        }
+        for (Map.Entry<String, Command> c : commands.entrySet()) c.getValue().setComponent(this.c);
     }
 
 }

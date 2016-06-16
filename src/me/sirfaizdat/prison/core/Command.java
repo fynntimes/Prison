@@ -77,7 +77,7 @@ public abstract class Command {
 
     public String usage() {
         StringBuilder usage = new StringBuilder();
-        usage.append("&6/" + c.getBaseCommand() + " " + name + " &6");
+        usage.append("&3/" + c.getBaseCommand() + " " + name + " &3");
         for (String s : requiredArgs) {
             usage.append("<" + s + "> ");
         }
