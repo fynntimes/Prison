@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="9b4d7934-576d-4d2a-b246-dbeb163ecebd" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/Ranks.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/Ranks.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/AbstractCommandManager.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/AbstractCommandManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/RanksCommandManager.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/RanksCommandManager.java" />
     </list>
     <ignored path="Prison.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -46,8 +47,8 @@
       <file leaf-file-name="CmdSet.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdSet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="25" column="45" selection-start-line="25" selection-start-column="45" selection-end-line="25" selection-end-column="45" />
+            <state relative-caret-position="410">
+              <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -55,14 +56,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Ranks.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/Ranks.java">
+      <file leaf-file-name="AbstractCommandManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/AbstractCommandManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="122" column="28" selection-start-line="122" selection-start-column="28" selection-end-line="122" selection-end-column="28" />
+            <state relative-caret-position="108">
+              <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
               <folding>
-                <element signature="e#5011#5050#0" expanded="false" />
+                <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RanksCommandManager.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/RanksCommandManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="230">
+              <caret line="37" column="9" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -72,6 +83,16 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="288">
               <caret line="44" column="66" selection-start-line="44" selection-start-column="66" selection-end-line="44" selection-end-column="66" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Config.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Config.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-22">
+              <caret line="27" column="19" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -127,7 +148,6 @@
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdVersion.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CommandList.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CommandInfo.java" />
-        <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/AbstractCommandManager.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/MetricsLite.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Metrics.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Prison.java" />
@@ -135,7 +155,6 @@
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdDemote.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdPromote.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/SerializableRank.java" />
-        <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/RanksCommandManager.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/MessageUtil.java" />
         <option value="$PROJECT_DIR$/../../TestZones/Spigot TestZone/plugins/Prison/ranks/ranksList.txt" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/MinesManager.java" />
@@ -145,6 +164,8 @@
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/Mines.java" />
         <option value="$PROJECT_DIR$/Changelog.txt" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/Ranks.java" />
+        <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/RanksCommandManager.java" />
+        <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/AbstractCommandManager.java" />
       </list>
     </option>
   </component>
@@ -402,7 +423,7 @@
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="SearchEverywhereHistoryKey" value="ranks&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/ranks/cmds/RanksCommandManager.java&#10;prison&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/core/Prison.java&#10;messa&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/messages.yml&#10;messag&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/messages.yml&#10;min&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/mines/Mine.java&#10;minesmana&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/mines/MinesManager.java&#10;serializablemin&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/mines/SerializableMine.java&#10;serializable&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/ranks/SerializableRank.java&#10;mine&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/mines/Mine.java" />
+    <property name="SearchEverywhereHistoryKey" value="rankcomm&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/ranks/cmds/RanksCommandManager.java&#10;ranks&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/ranks/cmds/RanksCommandManager.java&#10;prison&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/core/Prison.java&#10;messa&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/messages.yml&#10;messag&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/messages.yml&#10;min&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/mines/Mine.java&#10;minesmana&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/mines/MinesManager.java&#10;serializablemin&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/mines/SerializableMine.java&#10;serializable&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/ranks/SerializableRank.java&#10;mine&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/mines/Mine.java" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="last.edited.regexp" value="" />
@@ -880,7 +901,7 @@
       <workItem from="1465855699153" duration="14000" />
       <workItem from="1465907567370" duration="9958000" />
       <workItem from="1466016027281" duration="5067000" />
-      <workItem from="1466034393778" duration="10209000" />
+      <workItem from="1466034393778" duration="11233000" />
     </task>
     <task id="LOCAL-00001" summary="This is v2.1.5">
       <created>1447562574532</created>
@@ -1015,11 +1036,18 @@
       <option name="project" value="LOCAL" />
       <updated>1466093094377</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Removed backwards compatibility with v2.0.5.2">
+      <created>1466093239944</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1466093239944</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30216000" />
+    <option name="totallyTimeSpent" value="31240000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="990" extended-state="0" />
@@ -1032,7 +1060,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934928" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32899022" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32899022" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1086,7 +1114,8 @@
     <MESSAGE value="Rank positions can now be set, switched to ID system" />
     <MESSAGE value="Rewrote mine and rank loading code" />
     <MESSAGE value="Added safety net to rank loading&#10;&#10;Also, minesupdated.txt will now be deleted upon updating to Prison v2.2 (it's not used anymore)." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added safety net to rank loading&#10;&#10;Also, minesupdated.txt will now be deleted upon updating to Prison v2.2 (it's not used anymore)." />
+    <MESSAGE value="Removed backwards compatibility with v2.0.5.2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed backwards compatibility with v2.0.5.2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1215,14 +1244,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Config.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="39" column="28" selection-start-line="39" selection-start-column="28" selection-end-line="39" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/Mine.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
@@ -1267,14 +1288,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="196">
           <caret line="53" column="58" selection-start-line="53" selection-start-column="58" selection-end-line="53" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/AbstractCommandManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="62" column="20" selection-start-line="62" selection-start-column="20" selection-end-line="62" selection-end-column="20" />
           <folding />
         </state>
       </provider>
@@ -1445,14 +1458,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/RanksCommandManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="738">
-          <caret line="55" column="51" selection-start-line="55" selection-start-column="51" selection-end-line="55" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/messages.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -1477,16 +1482,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdSet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="25" column="45" selection-start-line="25" selection-start-column="45" selection-end-line="25" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/plugin.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="338">
@@ -1503,6 +1498,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/Ranks.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1710">
+          <caret line="132" column="28" selection-start-line="132" selection-start-column="28" selection-end-line="132" selection-end-column="28" />
+          <folding>
+            <element signature="e#5011#5050#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdSet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="410">
+          <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Config.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-22">
+          <caret line="27" column="19" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/Mines.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
@@ -1511,13 +1534,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/Ranks.java">
+    <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/AbstractCommandManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="122" column="28" selection-start-line="122" selection-start-column="28" selection-end-line="122" selection-end-column="28" />
+        <state relative-caret-position="108">
+          <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
           <folding>
-            <element signature="e#5011#5050#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/RanksCommandManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="37" column="9" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>

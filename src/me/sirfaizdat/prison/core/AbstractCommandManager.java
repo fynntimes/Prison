@@ -3,10 +3,10 @@
  */
 package me.sirfaizdat.prison.core;
 
-import com.sk89q.worldedit.entity.Player;
-import com.sk89q.worldedit.world.World;
+import org.bukkit.World;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -63,11 +63,10 @@ public abstract class AbstractCommandManager implements CommandExecutor {
         return true;
     }
 
-    private boolean isInProperWorld(CommandSender sender) {
+    protected boolean isInProperWorld(CommandSender sender) {
         World playerWorld = ((Player) sender).getWorld();
-        for(String multiworld : Prison.i().config.rankWorlds) {
-            if(playerWorld.getName().equalsIgnoreCase(multiworld)) return true;
-        }
+        for(String multiworld : Prison.i().config.rankWorlds)
+            if (playerWorld.getName().equalsIgnoreCase(multiworld)) return true;
         sender.sendMessage(MessageUtil.get("general.multiworld"));
         return false;
     }
