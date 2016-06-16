@@ -2,61 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b4d7934-576d-4d2a-b246-dbeb163ecebd" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/copyright/GPL.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/LICENSE.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/AbstractCommandManager.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/AbstractCommandManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/AutoSmelt.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/AutoSmelt.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/BlockCommand.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/BlockCommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Command.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Command.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Component.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Component.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Config.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Config.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Configuration.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Configuration.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/FailedToStartException.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/FailedToStartException.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/ItemManager.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/ItemManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/MessageUtil.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/MessageUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Metrics.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Metrics.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/PlayerList.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/PlayerList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Prison.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Prison.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/PrisonLogger.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/PrisonLogger.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Updater.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Updater.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdReload.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdReload.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdUpdate.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdUpdate.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdVersion.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdVersion.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/PrisonCommandManager.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/PrisonCommandManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/Block.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/Block.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/Mine.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/Mine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/Mines.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/Mines.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/MinesCommandManager.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/MinesCommandManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/MinesManager.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/MinesManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/SerializableMine.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/SerializableMine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CommandAddBlock.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CommandAddBlock.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CommandCreate.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CommandCreate.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CommandDelete.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CommandDelete.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CommandInfo.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CommandInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CommandList.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CommandList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CommandRedefine.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CommandRedefine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CommandRemoveBlock.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CommandRemoveBlock.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CommandReset.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CommandReset.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/BalanceChangeListener.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/BalanceChangeListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/Rank.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/Rank.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/Ranks.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/Ranks.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/RanksConfig.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/RanksConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/SerializableRank.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/SerializableRank.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/UserInfo.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/UserInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdAddRank.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdAddRank.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdDemote.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdDemote.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdPromote.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdPromote.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdRemoveRank.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdRemoveRank.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdSet.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdSet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/RanksCommandManager.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/RanksCommandManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/events/BalanceChangeEvent.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/events/BalanceChangeEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/events/DemoteEvent.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/events/DemoteEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/events/RankAddedEvent.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/events/RankAddedEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/events/RankupEvent.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/events/RankupEvent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/messages.yml" afterPath="$PROJECT_DIR$/src/messages.yml" />
     </list>
     <ignored path="Prison.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -86,11 +34,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MinesManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/MinesManager.java">
+      <file leaf-file-name="messages.yml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/messages.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="52" column="5" selection-start-line="52" selection-start-column="5" selection-end-line="52" selection-end-column="5" />
+            <state relative-caret-position="250">
+              <caret line="36" column="62" selection-start-line="36" selection-start-column="62" selection-end-line="36" selection-end-column="62" />
               <folding />
             </state>
           </provider>
@@ -99,54 +47,20 @@
       <file leaf-file-name="Changelog.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Changelog.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
+            <state relative-caret-position="432">
+              <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CommandRedefine.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CommandRedefine.java">
+      <file leaf-file-name="AutoSmelt.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/AutoSmelt.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="1" column="15" selection-start-line="1" selection-start-column="15" selection-end-line="1" selection-end-column="15" />
+            <state relative-caret-position="50">
+              <caret line="84" column="68" selection-start-line="84" selection-start-column="68" selection-end-line="84" selection-end-column="68" />
               <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CmdSet.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdSet.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="666">
-              <caret line="56" column="50" selection-start-line="56" selection-start-column="50" selection-end-line="56" selection-end-column="50" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="6" column="35" selection-start-line="6" selection-start-column="35" selection-end-line="6" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RankupEvent.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/events/RankupEvent.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#1486#0" expanded="true" />
+                <element signature="e#0#4266#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -204,7 +118,6 @@
         <option value="$PROJECT_DIR$/../../TestZones/Spigot TestZone/plugins/Prison/ranks/ranksList.txt" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/MinesManager.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdAddRank.java" />
-        <option value="$PROJECT_DIR$/src/messages.yml" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdSet.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/Mines.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/RanksCommandManager.java" />
@@ -213,7 +126,6 @@
         <option value="$PROJECT_DIR$/../../TestZones/Spigot TestZone/plugins/Prison 2/plugin.yml" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Config.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/AutoPickup.java" />
-        <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/AutoSmelt.java" />
         <option value="$PROJECT_DIR$/src/config.yml" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Prison.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdUpdate.java" />
@@ -225,6 +137,8 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/displays.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CommandRedefine.java" />
+        <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/AutoSmelt.java" />
+        <option value="$PROJECT_DIR$/src/messages.yml" />
       </list>
     </option>
   </component>
@@ -339,110 +253,6 @@
               <option name="myItemId" value="prison" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ranks" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Prison22" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Prison22" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="prison" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ranks" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="events" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Prison22" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Prison22" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="prison" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ranks" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cmds" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Prison22" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Prison22" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="prison" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mines" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Prison22" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Prison22" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="prison" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mines" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cmds" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -463,32 +273,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Prison22" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Prison22" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="prison" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cmds" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -508,7 +292,7 @@
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="SearchEverywhereHistoryKey" value="cmdvers&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/core/cmds/CmdVersion.java&#10;prison&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/core/Prison.java&#10;ranks&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/ranks/Ranks.java&#10;mines&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/mines/Mines.java&#10;autosmelt&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/core/AutoSmelt.java&#10;rankcomm&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/ranks/cmds/RanksCommandManager.java&#10;messa&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/messages.yml&#10;messag&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/messages.yml&#10;min&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/mines/Mine.java&#10;minesmana&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/mines/MinesManager.java&#10;serializablemin&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/mines/SerializableMine.java&#10;serializable&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/ranks/SerializableRank.java&#10;mine&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/mines/Mine.java" />
+    <property name="SearchEverywhereHistoryKey" value="messages.&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/messages.yml&#10;autosme&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/core/AutoSmelt.java&#10;cmdvers&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/core/cmds/CmdVersion.java&#10;prison&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/core/Prison.java&#10;ranks&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/ranks/Ranks.java&#10;mines&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/mines/Mines.java&#10;autosmelt&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/core/AutoSmelt.java&#10;rankcomm&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/ranks/cmds/RanksCommandManager.java&#10;messa&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/messages.yml&#10;messag&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/messages.yml&#10;min&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/mines/Mine.java&#10;minesmana&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/mines/MinesManager.java&#10;serializablemin&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/mines/SerializableMine.java&#10;serializable&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/ranks/SerializableRank.java&#10;mine&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/mines/Mine.java" />
     <property name="settings.editor.selected.configurable" value="copyright.profiles" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="last.edited.regexp" value="" />
@@ -986,7 +770,7 @@
       <workItem from="1465855699153" duration="14000" />
       <workItem from="1465907567370" duration="9958000" />
       <workItem from="1466016027281" duration="5067000" />
-      <workItem from="1466034393778" duration="18018000" />
+      <workItem from="1466034393778" duration="18985000" />
     </task>
     <task id="LOCAL-00001" summary="This is v2.1.5">
       <created>1447562574532</created>
@@ -1170,11 +954,18 @@
       <option name="project" value="LOCAL" />
       <updated>1466101182415</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Switch to GPL License">
+      <created>1466101646273</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1466101646273</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38025000" />
+    <option name="totallyTimeSpent" value="38992000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1231,7 +1022,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="This is v2.1.5_r1" />
     <MESSAGE value="Begin on 2.1.7&#10;&#10;I reformatted and rearranged all the code, so most files were changed." />
     <MESSAGE value="Messages are now customizable, updated localitems.csv" />
     <MESSAGE value="Removed world manager, plus refinements" />
@@ -1256,7 +1046,8 @@
     <MESSAGE value="Prettier fireworks" />
     <MESSAGE value="Fixed /prison update" />
     <MESSAGE value="Better version command" />
-    <option name="LAST_COMMIT_MESSAGE" value="Better version command" />
+    <MESSAGE value="Switch to GPL License" />
+    <option name="LAST_COMMIT_MESSAGE" value="Switch to GPL License" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1546,22 +1337,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/AutoSmelt.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="3" column="34" selection-start-line="3" selection-start-column="34" selection-end-line="3" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/messages.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Config.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
@@ -1648,20 +1423,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdSet.java">
+    <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CommandRedefine.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="666">
-          <caret line="56" column="50" selection-start-line="56" selection-start-column="50" selection-end-line="56" selection-end-column="50" />
+        <state relative-caret-position="18">
+          <caret line="1" column="15" selection-start-line="1" selection-start-column="15" selection-end-line="1" selection-end-column="15" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CommandRedefine.java">
+    <entry file="file://$PROJECT_DIR$/.travis.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="1" column="15" selection-start-line="1" selection-start-column="15" selection-end-line="1" selection-end-column="15" />
+        <state relative-caret-position="144">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/events/RankupEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="14">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#1486#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="6" column="35" selection-start-line="6" selection-start-column="35" selection-end-line="6" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdSet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="666">
+          <caret line="56" column="50" selection-start-line="56" selection-start-column="50" selection-end-line="56" selection-end-column="50" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1676,37 +1477,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.travis.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Changelog.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
+        <state relative-caret-position="432">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/AutoSmelt.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="35" selection-start-line="6" selection-start-column="35" selection-end-line="6" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/events/RankupEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="50">
+          <caret line="84" column="68" selection-start-line="84" selection-start-column="68" selection-end-line="84" selection-end-column="68" />
           <folding>
-            <element signature="e#0#1486#0" expanded="true" />
+            <element signature="e#0#4266#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/messages.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="36" column="62" selection-start-line="36" selection-start-column="62" selection-end-line="36" selection-end-column="62" />
+          <folding />
         </state>
       </provider>
     </entry>

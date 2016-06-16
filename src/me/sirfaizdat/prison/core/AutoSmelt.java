@@ -19,6 +19,7 @@
 package me.sirfaizdat.prison.core;
 
 import org.bukkit.Effect;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -81,6 +82,7 @@ public class AutoSmelt implements CommandExecutor, Listener {
 
     @EventHandler
     public void onBreak(BlockBreakEvent e) {
+        if(e.getPlayer().getGameMode() == GameMode.CREATIVE) return;
         Material m = e.getBlock().getType();
         if (isEnabled(e.getPlayer().getName()) || e.getPlayer().hasPermission("prison.autosmelt.auto")) {
             if (m == Material.IRON_ORE) {

@@ -34,7 +34,7 @@ mines:
   mineDoesntHaveThisBlock: "&cThe mine doesn't contain this block."
   removedBlock: "&7Successfully removed the block &3%0&7 from mine &3%1&7."
   mineFull: "&cThat percentage might be too high, or the mine is already full."
-  deletedMine: "&cThe mine has been successfully deleted."
+  deletedMine: "&7The mine has been &3successfully deleted&7."
   mustSpecifyID: "&cThe item manager failed to load, so you must use the block's item ID. &8Example: stone is 1, birch wood is 3:2."
   invalidPercent: "&cThe percentage value is invalid."
   addSuccess: "&7Mine &3%0&7 is now &3%1&7 of the block &3%2&7."
