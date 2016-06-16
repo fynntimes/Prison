@@ -4,6 +4,8 @@ description: ${project.description}
 author: SirFaizdat
 main: me.sirfaizdat.prison.core.Prison
 depend: [Vault, WorldEdit]
+
+# If any of the usage statements are
 commands:
   prison:
     description: Basic commands for Prison.
@@ -27,6 +29,7 @@ commands:
   ranks:
     description: See a list of all ranks.
     usage: Ranks are disabled in config.yml.
+
 permissions:
    prison.manage:
       default: op

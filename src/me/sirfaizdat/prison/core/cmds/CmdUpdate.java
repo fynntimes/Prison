@@ -9,6 +9,7 @@ import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.core.Updater;
 import me.sirfaizdat.prison.core.Updater.UpdateResult;
 import me.sirfaizdat.prison.core.Updater.UpdateType;
+import org.bukkit.Bukkit;
 
 /**
  * @author SirFaizdat
@@ -26,9 +27,10 @@ class CmdUpdate extends Command {
                 sender.sendMessage(MessageUtil.get("general.devBuild"));
                 return;
             }
-            if (Prison.i().updater.getResult() == UpdateResult.NO_UPDATE) {
+            Updater updater = new Updater(Prison.i(), 76155, Prison.i().getFile(), UpdateType.NO_VERSION_CHECK, true);
+            if (updater.getResult() == UpdateResult.NO_UPDATE) {
                 sender.sendMessage(MessageUtil.get("general.noUpdate"));
-            } else if (Prison.i().updater.getResult() == UpdateResult.SUCCESS) {
+            } else if (updater.getResult() == UpdateResult.SUCCESS) {
                 sender.sendMessage(MessageUtil.get("general.updated",
                         Prison.i().updater.getLatestName()));
             } else {
