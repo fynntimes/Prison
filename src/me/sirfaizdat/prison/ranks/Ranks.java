@@ -24,7 +24,9 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Manages the ranks component.
@@ -92,9 +94,29 @@ public class Ranks implements Component {
 
     private boolean load() {
         File oldRanksListFile = new File(rankFolder, "ranksList.txt");
-        if (oldRanksListFile.exists()) oldRanksListFile.delete();
+        Map<String, Integer> convertedValues = null; // If this is not null, the conversion has occurred
+        if (oldRanksListFile.exists()) {
+            // Convert from old
+            try {
+                BufferedReader reader = new BufferedReader(new FileReader(oldRanksListFile));
+                convertedValues = new HashMap<>();
+                String line;
+                int counter = 0;
 
-        int offsetCounter = -1;
+                while((line = reader.readLine()) != null) {
+                    Prison.l.info("Assigning " + line + " as " + counter);
+                    convertedValues.put(line, counter);
+                    counter++;
+                }
+
+                reader.close();
+            } catch (IOException e) {
+                Prison.l.severe("Failed to convert old ranks to the new system.");
+                e.printStackTrace();
+                return false;
+            }
+        }
+
         boolean needsSave = false;
         File[] files = rankFolder.listFiles(new FilenameFilter() {
             @Override
@@ -120,9 +142,9 @@ public class Ranks implements Component {
             }
 
             Rank rank = new Rank();
-            offsetCounter++;
-            if (sr.id == 0 && getRankById(0) != null) {
-                sr.id = offsetCounter;
+            if (convertedValues != null && convertedValues.containsKey(sr.name)) {
+                Prison.l.info("Contains " + sr.name + " with value " + convertedValues.get(sr.name));
+                sr.id = convertedValues.get(sr.name);
                 needsSave = true;
             }
             Prison.l.info("Rank " + sr.name + " ID: " + sr.id);
@@ -163,32 +185,8 @@ public class Ranks implements Component {
             info.setPlayer(player);
 
             Rank currentRank = null;
-            Rank previousRank;
-            Rank nextRank;
-
-//            for (Rank rank : ranks) {
-//                String primaryGroup = getGroup(player.getWorld().getName(), player);
-//                if (primaryGroup != null) {
-//                    if (currentRank != null) {
-//                        nextRank = rank;
-//                        break;
-//                    }
-//
-//                    if (primaryGroup.equalsIgnoreCase(rank.getName())) {
-//                        currentRank = rank;
-//                    }
-//
-//                    if (currentRank == null) {
-//                        previousRank = rank;
-//                    }
-//                } else {
-//                    nextRank = ranks.get(0);
-//                }
-//            }
-//
-//            if (previousRank != null && currentRank == null) {
-//                previousRank = null;
-//            }
+            Rank previousRank = null;
+            Rank nextRank = null;
 
             for (Rank rank : ranks) {
                 String group = getGroup(player.getWorld().getName(), player);
@@ -198,8 +196,10 @@ public class Ranks implements Component {
                 }
             }
 
-            previousRank = getRankById(currentRank.getId() - 1);
-            nextRank = getRankById(currentRank.getId() + 1);
+            if(currentRank != null) {
+                previousRank = getRankById(currentRank.getId() - 1);
+                nextRank = getRankById(currentRank.getId() + 1);
+            }
 
             info.setCurrentRank(currentRank);
             info.setPreviousRank(previousRank);
@@ -232,36 +232,34 @@ public class Ranks implements Component {
                 info.getPlayer().sendMessage(MessageUtil.get("ranks.notAGroup"));
                 return;
             }
-            if (nextRank != null) {
-                boolean paid = true;
-                if (buy) {
-                    if (nextRank.getPrice() != 0) {
-                        if (eco.has(info.getPlayer(), nextRank.getPrice())) {
-                            eco.withdrawPlayer(info.getPlayer(), nextRank.getPrice());
-                        } else {
-                            if (info.getPlayer() != null) {
-                                double amountNeededD = nextRank.getPrice() - eco.getBalance(info.getPlayer());
-                                String amountNeeded = new DecimalFormat("#,###.00").format(new BigDecimal(amountNeededD));
-                                info.getPlayer().sendMessage(MessageUtil.get("ranks.notEnoughMoney", amountNeeded, nextRank.getPrefix()));
-                                paid = false;
-                            }
+            boolean paid = true;
+            if (buy) {
+                if (nextRank.getPrice() != 0) {
+                    if (eco.has(info.getPlayer(), nextRank.getPrice())) {
+                        eco.withdrawPlayer(info.getPlayer(), nextRank.getPrice());
+                    } else {
+                        if (info.getPlayer() != null) {
+                            double amountNeededD = nextRank.getPrice() - eco.getBalance(info.getPlayer());
+                            String amountNeeded = new DecimalFormat("#,###.00").format(new BigDecimal(amountNeededD));
+                            info.getPlayer().sendMessage(MessageUtil.get("ranks.notEnoughMoney", amountNeeded, nextRank.getPrefix()));
+                            paid = false;
                         }
                     }
                 }
-                if (paid) {
-                    changeRank(info.getPlayer(), currentRank, nextRank);
-                    info.getPlayer().sendMessage(MessageUtil.get("ranks.rankedUp", nextRank.getPrefix()));
-                    Bukkit.broadcastMessage(MessageUtil.get("ranks.rankedUpBroadcast", info.getPlayer().getName(), nextRank.getPrefix()));
-                    // Launch a firework! Yay!
-                    Firework fw = info.getPlayer().getWorld().spawn(info.getPlayer().getLocation(), Firework.class);
-                    FireworkMeta data = fw.getFireworkMeta();
-                    data.addEffects(FireworkEffect.builder().withColor(Color.BLUE).with(Type.BALL_LARGE).build());
-                    data.setPower(3);
-                    fw.setFireworkMeta(data);
-                    fw.detonate();
-                    // End firework code
-                    Bukkit.getServer().getPluginManager().callEvent(new RankupEvent(info.getPlayer(), buy));
-                }
+            }
+            if (paid) {
+                changeRank(info.getPlayer(), currentRank, nextRank);
+                info.getPlayer().sendMessage(MessageUtil.get("ranks.rankedUp", nextRank.getPrefix()));
+                Bukkit.broadcastMessage(MessageUtil.get("ranks.rankedUpBroadcast", info.getPlayer().getName(), nextRank.getPrefix()));
+                // Launch a firework! Yay!
+                Firework fw = info.getPlayer().getWorld().spawn(info.getPlayer().getLocation(), Firework.class);
+                FireworkMeta data = fw.getFireworkMeta();
+                data.addEffects(FireworkEffect.builder().withColor(Color.BLUE).with(Type.BALL_LARGE).build());
+                data.setPower(3);
+                fw.setFireworkMeta(data);
+                fw.detonate();
+                // End firework code
+                Bukkit.getServer().getPluginManager().callEvent(new RankupEvent(info.getPlayer(), buy));
             }
         }
     }
