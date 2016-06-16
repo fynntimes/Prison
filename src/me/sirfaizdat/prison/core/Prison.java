@@ -106,8 +106,29 @@ public class Prison extends JavaPlugin implements Listener {
     private void initMetrics() {
         if (config.optOut) return;
         try {
-            MetricsLite metricsLite = new MetricsLite(this);
-            metricsLite.start();
+            Metrics metrics = new Metrics(this);
+
+            if(getPermissions() != null) {
+                Metrics.Graph permissionsPluginGraph = metrics.createGraph("Permissions Plugins");
+                permissionsPluginGraph.addPlotter(new Metrics.Plotter(getPermissions().getName()) {
+                    @Override
+                    public int getValue() {
+                        return 1;
+                    }
+                });
+            }
+
+            if(getEconomy() != null) {
+                Metrics.Graph economyPluginGraph = metrics.createGraph("Economy Plugins");
+                economyPluginGraph.addPlotter(new Metrics.Plotter(getEconomy().getName()) {
+                    @Override
+                    public int getValue() {
+                        return 1;
+                    }
+                });
+            }
+
+            metrics.start();
         } catch (IOException e) {
             e.printStackTrace();
         }
