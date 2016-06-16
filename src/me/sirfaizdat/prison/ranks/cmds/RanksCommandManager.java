@@ -50,22 +50,22 @@ public class RanksCommandManager extends AbstractCommandManager {
                 return true;
             }
             sender.sendMessage(Prison
-                    .color("&6===========&c{&2Ranks&c}&6==========="));
+                    .color("&7=========== &3Ranks &7==========="));
             StringBuilder sb = new StringBuilder();
             for (Rank rank : Ranks.i.ranks) {
                 double amountNeededD = rank.getPrice();
                 String amountNeeded;
                 if (amountNeededD < 1) {
-                    amountNeeded = "&6$0.00";
+                    amountNeeded = "&7$0.00";
                 } else {
-                    amountNeeded = "&6$"
+                    amountNeeded = "&7$"
                             + numberFormatter(amountNeededD);
                 }
-                sb.append(Prison.color(rank.getPrefix() + " &f- "
+                sb.append(Prison.color(rank.getPrefix() + " &8- "
                         + amountNeeded) + "\n");
             }
             sender.sendMessage(sb.toString());
-            sender.sendMessage(Prison.color("&6============================"));
+            sender.sendMessage(Prison.color("&7============================"));
             return true;
         } else if (label.equalsIgnoreCase("rankup")) {
             if (!sender.hasPermission("prison.ranks.purchase")) {

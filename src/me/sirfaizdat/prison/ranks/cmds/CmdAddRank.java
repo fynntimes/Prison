@@ -48,7 +48,7 @@ public class CmdAddRank extends Command {
         if (amountOfOptionalArgs >= 1) {
             rank.setPrefix(args[3]);
         } else {
-            rank.setPrefix("&6" + rank.getName());
+            rank.setPrefix("&3" + rank.getName());
         }
         boolean success = Ranks.i.addRank(rank);
         if (success) {

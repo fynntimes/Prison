@@ -43,7 +43,7 @@ mines:
 ranks:
   noRanksLoaded: "&cNo ranks are loaded."
   highestRank: "&cYou've already reached the highest rank!"
-  highestRank.other: "&cThat player has already reached the highest rank!"
+  highestRankOther: "&cThat player has already reached the highest rank!"
   notEnoughMoney: "&7You still need &c$%0&7 to rank up to &c%1&7."
   rankedUp: "&7You've ranked up to &3%0&7!"
   rankedUpBroadcast: "&3%0 &7has ranked up to &3%1&7!"

@@ -320,7 +320,7 @@ public class Ranks implements Component {
                 nextRank = ranks.get(0);
             }
             if (nextRank == null) {
-                info.getPlayer().sendMessage(buy ? MessageUtil.get("ranks.highestRank") : MessageUtil.get("ranks.highestRank.other"));
+                info.getPlayer().sendMessage(buy ? MessageUtil.get("ranks.highestRank") : MessageUtil.get("ranks.highestRankOther"));
                 return;
             }
             if (!isRank(nextRank.getName())) {

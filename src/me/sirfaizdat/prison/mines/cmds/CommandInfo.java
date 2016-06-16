@@ -13,6 +13,8 @@ import me.sirfaizdat.prison.mines.Mines;
 
 import java.util.Map;
 
+import static me.sirfaizdat.prison.core.Prison.l;
+
 /**
  * @author SirFaizdat
  */
@@ -31,32 +33,25 @@ public class CommandInfo extends Command {
             return;
         }
 
-        sender.sendMessage(Prison.color("&6===========&c[&2" + m.name + "&c]&6==========="));
-        String worldName = null;
+        sender.sendMessage(Prison.color("&7=========== &3" + m.name + " &7==========="));
+        String worldName;
         if (m.worldMissing) {
-            worldName = "&4ERROR: &cWorld is missing!";
+            worldName = "&cWorld is missing :O";
         } else {
-            worldName = "&c" + m.world.getName();
+            worldName = "&3" + m.world.getName();
         }
-        sender.sendMessage(Prison.color("&6World: " + worldName));
-        sender.sendMessage(Prison.color("&6Size: &c" + ((m.maxX - m.minX) + 1) + "&6x&c" + ((m.maxZ - m.minZ) + 1) + "   &6Height: &c" + ((m.maxY - m.minY) + 1)));
-        sender.sendMessage(Prison.color("&6Coordinates: &cFrom " + m.minX + "x," + m.minY + "y," + m.minZ + "z to " + m.maxX + "x," + m.maxY + "y," + m.maxZ + "z."));
-        sender.sendMessage(Prison.color("&6Composition:"));
+        sender.sendMessage(Prison.color("&7World: " + worldName));
+        sender.sendMessage(Prison.color("&7Size: &3" + ((m.maxX - m.minX) + 1) + "&8x&3" + ((m.maxZ - m.minZ) + 1) + "   &7Height: &3" + ((m.maxY - m.minY) + 1)));
+        sender.sendMessage(Prison.color("&7Coordinates: &3From " + m.minX + "x," + m.minY + "y," + m.minZ + "z to " + m.maxX + "x," + m.maxY + "y," + m.maxZ + "z"));
+        sender.sendMessage(Prison.color("&7Composition:"));
         for (Map.Entry<String, Block> entry : m.blocks.entrySet()) {
             if (Prison.i().im.isLoaded()) {
-                sender.sendMessage(Prison.color("  &c" + (entry.getValue().getChance() * 100) + "% &6of &c" + Prison.i().im.getName(new ItemSet(entry.getValue().getId(), entry.getValue().getData()))));
+                sender.sendMessage(Prison.color("  &3" + (entry.getValue().getChance() * 100) + "% &7of &3" + Prison.i().im.getName(new ItemSet(entry.getValue().getId(), entry.getValue().getData()))));
             } else {
-                sender.sendMessage(Prison.color("&6block  &c" + entry.getValue().getId() + ":" + entry.getValue().getData()));
+                sender.sendMessage(Prison.color("&3block  &c" + entry.getValue().getId() + ":" + entry.getValue().getData()));
             }
         }
-        sender.sendMessage(Prison.color("&6Associated Ranks:"));
-        StringBuilder sb = new StringBuilder();
-        for (String rank : m.ranks) {
-            sb.append("   &c" + rank + "\n");
-        }
-        String returnVal = sb.toString();
-        sender.sendMessage(Prison.color(returnVal));
-        sender.sendMessage(Prison.color("&6================================"));
+        sender.sendMessage(Prison.color("&7================================"));
     }
 
     @Override
