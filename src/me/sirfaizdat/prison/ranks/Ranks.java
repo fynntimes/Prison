@@ -91,39 +91,6 @@ public class Ranks implements Component {
     }
 
     private boolean load() {
-        // <-- BEGIN CONVERTER CODE -->
-        File configFile = new File(Prison.i().getDataFolder(), "ranks.yml");
-        if (configFile.exists()) {
-            RanksConfig config = new RanksConfig();
-            List<String> rankList = config.getConfig().getStringList("ranklist");
-            boolean successful = true;
-            int count = 0;
-            for (String rank : rankList) {
-                if (!successful) break;
-                Rank r = new Rank();
-                r.setId(count);
-                r.setName(rank);
-                r.setPrefix(config.getConfig().getString("ranks." + rank + ".prefix"));
-                r.setPrice(config.getConfig().getDouble("ranks." + rank + ".price"));
-                successful = addRank(r);
-                count++;
-            }
-            if (successful) {
-                successful = configFile.delete();
-                if (!successful) {
-                    // Warn but still allow ranks to load.
-                    Prison.l.warning("Failed to delete old ranks save file (ranks.yml). You must do it manually.");
-                    successful = true;
-                }
-            } else {
-                Prison.l.severe("Failed to convert rank(s).");
-                successful = false;
-            }
-            return successful;
-        }
-
-        // <-- END CONVERTER CODE -->
-
         File oldRanksListFile = new File(rankFolder, "ranksList.txt");
         if (oldRanksListFile.exists()) oldRanksListFile.delete();
 
