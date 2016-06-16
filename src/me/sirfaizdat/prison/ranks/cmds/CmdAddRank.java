@@ -20,7 +20,7 @@ public class CmdAddRank extends Command {
         super("add");
         addRequiredArg("rank");
         addRequiredArg("price");
-        addOptionalArg("prefix");
+        addOptionalArg("colorfulName");
     }
 
     @Override

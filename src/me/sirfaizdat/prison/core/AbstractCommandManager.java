@@ -3,6 +3,8 @@
  */
 package me.sirfaizdat.prison.core;
 
+import com.sk89q.worldedit.entity.Player;
+import com.sk89q.worldedit.world.World;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
@@ -29,6 +31,10 @@ public abstract class AbstractCommandManager implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
+        if(sender instanceof Player && Prison.i().config.enableMultiworld) {
+            if(!isInProperWorld(sender)) return true;
+        }
+
         try {
             if (command.getName().equalsIgnoreCase(baseCommand)) {
                 if (args.length < 1) {
@@ -55,6 +61,16 @@ public abstract class AbstractCommandManager implements CommandExecutor {
             return false;
         }
         return true;
+    }
+
+    private boolean isInProperWorld(CommandSender sender) {
+        // TODO Check if in a multiworld list
+        World playerWorld = ((Player) sender).getWorld();
+        for(String multiworld : Prison.i().config.rankWorlds) {
+            if(playerWorld.getName().equalsIgnoreCase(multiworld)) return true;
+        }
+        sender.sendMessage(MessageUtil.get("general.multiworld"));
+        return false;
     }
 
     public abstract void registerCommands();
