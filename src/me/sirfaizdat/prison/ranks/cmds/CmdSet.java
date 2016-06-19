@@ -80,8 +80,9 @@ public class CmdSet extends Command {
             case "price":
                 double price;
                 try {
-                    price = NumberFormat.getCurrencyInstance().parse(val).doubleValue();
-                } catch (ParseException e) {
+                    val = val.replace("$", "").replaceAll(",", "");
+                    price = Double.parseDouble(val);
+                } catch (NumberFormatException e) {
                     sender.sendMessage(MessageUtil.get("ranks.invalidPrice"));
                     return;
                 }

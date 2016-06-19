@@ -57,8 +57,10 @@ public class CmdAddRank extends Command {
 
         double price;
         try {
-            price = NumberFormat.getCurrencyInstance().parse(args[2]).doubleValue();
-        } catch (ParseException e) {
+            String val = args[2];
+            val = val.replace("$", "").replaceAll(",", "");
+            price = Double.parseDouble(val);
+        } catch (NumberFormatException e) {
             sender.sendMessage(MessageUtil.get("ranks.invalidPrice"));
             return;
         }
