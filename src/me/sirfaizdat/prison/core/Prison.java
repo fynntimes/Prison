@@ -18,14 +18,9 @@
  */
 package me.sirfaizdat.prison.core;
 
-import me.sirfaizdat.prison.core.Updater.UpdateResult;
-import me.sirfaizdat.prison.core.Updater.UpdateType;
-import me.sirfaizdat.prison.core.cmds.PrisonCommandManager;
-import me.sirfaizdat.prison.mines.Mine;
-import me.sirfaizdat.prison.mines.Mines;
-import me.sirfaizdat.prison.ranks.Ranks;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -37,6 +32,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+
+import me.sirfaizdat.prison.core.Updater.UpdateResult;
+import me.sirfaizdat.prison.core.Updater.UpdateType;
+import me.sirfaizdat.prison.core.cmds.PrisonCommandManager;
+import me.sirfaizdat.prison.mines.Mine;
+import me.sirfaizdat.prison.mines.Mines;
+import me.sirfaizdat.prison.ranks.Ranks;
 
 /**
  * @author SirFaizdat
