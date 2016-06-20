@@ -18,14 +18,9 @@
  */
 package me.sirfaizdat.prison.core;
 
-import me.sirfaizdat.prison.core.Updater.UpdateResult;
-import me.sirfaizdat.prison.core.Updater.UpdateType;
-import me.sirfaizdat.prison.core.cmds.PrisonCommandManager;
-import me.sirfaizdat.prison.mines.Mine;
-import me.sirfaizdat.prison.mines.Mines;
-import me.sirfaizdat.prison.ranks.Ranks;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -37,6 +32,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+
+import me.sirfaizdat.prison.core.Updater.UpdateResult;
+import me.sirfaizdat.prison.core.Updater.UpdateType;
+import me.sirfaizdat.prison.core.cmds.PrisonCommandManager;
+import me.sirfaizdat.prison.mines.Mine;
+import me.sirfaizdat.prison.mines.Mines;
+import me.sirfaizdat.prison.ranks.Ranks;
 
 /**
  * @author SirFaizdat
@@ -76,6 +78,7 @@ public class Prison extends JavaPlugin implements Listener {
         this.saveDefaultConfig();
         getServer().getPluginManager().registerEvents(this, this);
 
+        verifyJavaVersion();
         bootstrap();
         initComponents();
         initCommands();
@@ -230,6 +233,14 @@ public class Prison extends JavaPlugin implements Listener {
         if (!hasPlugin("WorldEdit")) {
             mines.setEnabled(false);
             l.warning("Could not enable Mines because WorldEdit is not loaded.");
+        }
+    }
+
+    private void verifyJavaVersion() {
+        String version = System.getProperty("java.version");
+
+        if (version.charAt(2) <= '7') {
+            l.warning("Prison-3 will only be compatible with Java 8. Please update your Java version, or find a better shared hosting company. ");
         }
     }
 
