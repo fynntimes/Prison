@@ -2,9 +2,10 @@ name: ${project.name}
 version: ${project.version}
 description: ${project.description}
 author: SirFaizdat
-authors: [Camouflage100]
+authors: [Camouflage100, SirFaizdat]
 main: me.sirfaizdat.prison.core.Prison
 depend: [Vault, WorldEdit]
+softdepend: [Multiverse-Core]
 website: http://github.com/SirFaizdat/Prison/wiki
 
 commands:
