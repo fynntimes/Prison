@@ -98,8 +98,6 @@ public class Ranks implements Component {
         Prison.i().getCommand("ranks").setExecutor(rcm);
         Prison.i().getCommand("rankup").setExecutor(rcm);
 
-        new PlaceholderSupport().init();
-
         Bukkit.getScheduler().runTaskLater(Prison.i(), new Runnable() {
             @Override
             public void run() {
@@ -275,7 +273,7 @@ public class Ranks implements Component {
                 info.getPlayer().sendMessage(MessageUtil.get("ranks.rankedUp", nextRank.getPrefix()));
                 Bukkit.broadcastMessage(MessageUtil.get("ranks.rankedUpBroadcast", info.getPlayer().getName(), nextRank.getPrefix()));
                 // Launch a firework! Yay!
-                if (Prison.i().config.fireworksOnRankup) launchFirework(info.getPlayer());
+                if(Prison.i().config.fireworksOnRankup) launchFirework(info.getPlayer());
                 // End firework code
                 Bukkit.getServer().getPluginManager().callEvent(new RankupEvent(info.getPlayer(), buy));
             }

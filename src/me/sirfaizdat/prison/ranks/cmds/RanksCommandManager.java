@@ -29,7 +29,6 @@ import org.bukkit.entity.Player;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.Iterator;
 
 /**
  * @author SirFaizdat
@@ -73,8 +72,6 @@ public class RanksCommandManager extends AbstractCommandManager {
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < Ranks.i.ranks.size(); i++) {
                 Rank rank = Ranks.i.getRankById(i);
-                if(rank == null) continue; // Skip this entry if it's null
-
                 double amountNeededD = rank.getPrice();
                 String amountNeeded;
                 if (amountNeededD < 1) {
