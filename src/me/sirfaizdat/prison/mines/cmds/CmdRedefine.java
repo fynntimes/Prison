@@ -25,51 +25,44 @@ import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.mines.Mine;
 import me.sirfaizdat.prison.mines.Mines;
 
-import java.util.ArrayList;
-
 /**
  * @author SirFaizdat
  */
-public class CommandCreate extends Command {
+public class CmdRedefine extends Command {
 
-    public CommandCreate() {
-        super("create");
-        addRequiredArg("name");
-        mustBePlayer(true);
+    public CmdRedefine() {
+        super("redefine");
+        addRequiredArg("mine");
     }
 
     @Override
     protected void execute() {
+        Mine m = Mines.i.mm.getMine(args[1]);
+        if (m == null) {
+            sender.sendMessage(MessageUtil.get("mines.notFound"));
+            return;
+        }
         Selection s = Mines.i.getWE().getSelection(Prison.i().playerList.getPlayer(sender.getName()));
         if (s == null) {
             sender.sendMessage(MessageUtil.get("mines.makeWESel"));
             return;
         }
-        String name = args[1];
-        if (Mines.i.mm.getMine(name) != null) {
-            sender.sendMessage(MessageUtil.get("mines.alreadyExists"));
-            return;
-        }
-        String world = s.getWorld().getName();
-        int minX = s.getMinimumPoint().getBlockX();
-        int minY = s.getMinimumPoint().getBlockY();
-        int minZ = s.getMinimumPoint().getBlockZ();
-        int maxX = s.getMaximumPoint().getBlockX();
-        int maxY = s.getMaximumPoint().getBlockY();
-        int maxZ = s.getMaximumPoint().getBlockZ();
-
-        Mine m = new Mine(name, world, minX, minY, minZ, maxX, maxY, maxZ, new ArrayList<String>());
-        try {
-            Mines.i.mm.addMine(m);
-            sender.sendMessage(MessageUtil.get("mines.created", m.name));
-        } catch (Exception e) {
-            sender.sendMessage(MessageUtil.get("mines.failedToCreate"));
-            e.printStackTrace();
-        }
+        m.minX = s.getMinimumPoint().getBlockX();
+        m.minY = s.getMinimumPoint().getBlockY();
+        m.minZ = s.getMinimumPoint().getBlockZ();
+        m.maxX = s.getMaximumPoint().getBlockX();
+        m.maxY = s.getMaximumPoint().getBlockY();
+        m.maxZ = s.getMaximumPoint().getBlockZ();
+        m.save();
+        Mines.i.mm.mines.remove(args[1]);
+        Mines.i.mm.addMine(m);
+        sender.sendMessage(MessageUtil.get("mines.redefineSuccess", m.name));
     }
 
+    @Override
     public String description() {
-        return "Creates a new mine based on your current WorldEdit selection.";
+        return "Redefine a mine's area.";
     }
+
 
 }

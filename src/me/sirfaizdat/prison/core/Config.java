@@ -70,10 +70,8 @@ public class Config {
             resetWarnings = c.getIntegerList("reset-warnings");
             fillMode = c.getBoolean("fill-mode");
             asyncReset = c.getBoolean("async-reset");
-            resetWarningMessage = Prison.color(c
-                    .getString("reset-warning-message"));
-            resetBroadcastMessage = Prison.color(c
-                    .getString("reset-broadcast-message"));
+            resetWarningMessage = Prison.color(c.getString("reset-warning-message"));
+            resetBroadcastMessage = Prison.color(c.getString("reset-broadcast-message"));
             worlds = c.getStringList("world-list");
             enableMultiworld = c.getBoolean("multiworld");
             fireworksOnRankup = c.getBoolean("fireworks-on-rankup");

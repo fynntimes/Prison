@@ -16,8 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package me.sirfaizdat.prison.core;
 
+package me.sirfaizdat.prison.core.cmds;
+
+import me.sirfaizdat.prison.core.MessageUtil;
+import me.sirfaizdat.prison.core.Prison;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.command.CommandExecutor;
@@ -29,9 +32,9 @@ import org.bukkit.material.Dye;
 /**
  * @author SirFaizdat
  */
-public class BlockCommand implements CommandExecutor {
+public class CmdBlock implements CommandExecutor {
 
-    public BlockCommand() {
+    public CmdBlock() {
         Prison.i().getCommand("block").setExecutor(this);
     }
 
@@ -57,7 +60,7 @@ public class BlockCommand implements CommandExecutor {
             int redstone = 0;
             int lapis = 0;
 
-            int itemsChanged = 0;
+            int itemsChanged;
 
             for (ItemStack is : player.getInventory().getContents())
                 if (is != null) {
@@ -125,69 +128,68 @@ public class BlockCommand implements CommandExecutor {
 
             player.getInventory()
                     .addItem(
-                            new ItemStack[]{
-                                    new ItemStack(
-                                            diamondsToTransform > 0 ? Material.DIAMOND_BLOCK
-                                                    : Material.AIR,
-                                            diamondsToTransform),
-                                    new ItemStack(
-                                            emeraldsToTransform > 0 ? Material.EMERALD_BLOCK
-                                                    : Material.AIR,
-                                            emeraldsToTransform),
-                                    new ItemStack(
-                                            diamondOverflow > 0 ? Material.DIAMOND
-                                                    : Material.AIR,
-                                            diamondOverflow),
-                                    new ItemStack(
-                                            emeraldsOverflow > 0 ? Material.EMERALD
-                                                    : Material.AIR,
-                                            emeraldsOverflow),
-                                    new ItemStack(
-                                            ironToTransform > 0 ? Material.IRON_BLOCK
-                                                    : Material.AIR,
-                                            ironToTransform),
-                                    new ItemStack(
-                                            goldToTransform > 0 ? Material.GOLD_BLOCK
-                                                    : Material.AIR,
-                                            goldToTransform),
-                                    new ItemStack(
-                                            glowstoneToTransform > 0 ? Material.GLOWSTONE
-                                                    : Material.AIR,
-                                            glowstoneToTransform),
-                                    new ItemStack(
-                                            ironOverflow > 0 ? Material.IRON_INGOT
-                                                    : Material.AIR,
-                                            ironOverflow),
-                                    new ItemStack(
-                                            goldOverflow > 0 ? Material.GOLD_INGOT
-                                                    : Material.AIR,
-                                            goldOverflow),
-                                    new ItemStack(
-                                            glowstoneOverflow > 0 ? Material.GLOWSTONE_DUST
-                                                    : Material.AIR,
-                                            glowstoneOverflow)});
+                            new ItemStack(
+                                    diamondsToTransform > 0 ? Material.DIAMOND_BLOCK
+                                            : Material.AIR,
+                                    diamondsToTransform),
+                            new ItemStack(
+                                    emeraldsToTransform > 0 ? Material.EMERALD_BLOCK
+                                            : Material.AIR,
+                                    emeraldsToTransform),
+                            new ItemStack(
+                                    diamondOverflow > 0 ? Material.DIAMOND
+                                            : Material.AIR,
+                                    diamondOverflow),
+                            new ItemStack(
+                                    emeraldsOverflow > 0 ? Material.EMERALD
+                                            : Material.AIR,
+                                    emeraldsOverflow),
+                            new ItemStack(
+                                    ironToTransform > 0 ? Material.IRON_BLOCK
+                                            : Material.AIR,
+                                    ironToTransform),
+                            new ItemStack(
+                                    goldToTransform > 0 ? Material.GOLD_BLOCK
+                                            : Material.AIR,
+                                    goldToTransform),
+                            new ItemStack(
+                                    glowstoneToTransform > 0 ? Material.GLOWSTONE
+                                            : Material.AIR,
+                                    glowstoneToTransform),
+                            new ItemStack(
+                                    ironOverflow > 0 ? Material.IRON_INGOT
+                                            : Material.AIR,
+                                    ironOverflow),
+                            new ItemStack(
+                                    goldOverflow > 0 ? Material.GOLD_INGOT
+                                            : Material.AIR,
+                                    goldOverflow),
+                            new ItemStack(
+                                    glowstoneOverflow > 0 ? Material.GLOWSTONE_DUST
+                                            : Material.AIR,
+                                    glowstoneOverflow));
 
             player.getInventory()
                     .addItem(
-                            new ItemStack[]{new ItemStack(
+                            new ItemStack(
                                     rT > 0 ? Material.REDSTONE_BLOCK
-                                            : Material.AIR, rT)});
+                                            : Material.AIR, rT));
             player.getInventory()
                     .addItem(
-                            new ItemStack[]{new ItemStack(
+                            new ItemStack(
                                     lT > 0 ? Material.LAPIS_BLOCK
-                                            : Material.AIR, lT)});
+                                            : Material.AIR, lT));
             player.getInventory().addItem(
-                    new ItemStack[]{new ItemStack(
-                            cT > 0 ? Material.COAL_BLOCK : Material.AIR, cT)});
+                    new ItemStack(
+                            cT > 0 ? Material.COAL_BLOCK : Material.AIR, cT));
             player.getInventory().addItem(
-                    new ItemStack[]{new ItemStack(rO > 0 ? Material.REDSTONE
-                            : Material.AIR, rO)});
+                    new ItemStack(rO > 0 ? Material.REDSTONE
+                            : Material.AIR, rO));
             player.getInventory().addItem(new ItemStack(lO > 0 ? Material.INK_SACK : Material.AIR, lO, DyeColor.BLUE.getDyeData()));
 
             player.getInventory().addItem(
-                    new ItemStack[]{new ItemStack(cO > 0 ? Material.COAL
-                            : Material.AIR, cO)});
+                    new ItemStack(cO > 0 ? Material.COAL
+                            : Material.AIR, cO));
 
             player.sendMessage(MessageUtil.get("general.blocksCompacted", itemsChanged + "", "" + (diamondsToTransform + emeraldsToTransform + glowstoneToTransform + goldToTransform + ironToTransform + lT + rT + cT)));
             player.updateInventory();

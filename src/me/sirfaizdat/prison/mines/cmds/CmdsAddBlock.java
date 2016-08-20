@@ -32,9 +32,9 @@ import java.util.Map;
 /**
  * @author SirFaizdat
  */
-public class CommandAddBlock extends Command {
+public class CmdsAddBlock extends Command {
 
-    public CommandAddBlock() {
+    public CmdsAddBlock() {
         super("addblock");
         addRequiredArg("mine");
         addRequiredArg("block");

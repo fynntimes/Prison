@@ -16,8 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package me.sirfaizdat.prison.core;
 
+package me.sirfaizdat.prison.core.cmds;
+
+import me.sirfaizdat.prison.core.MessageUtil;
+import me.sirfaizdat.prison.core.Prison;
 import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -26,6 +29,7 @@ import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -35,28 +39,29 @@ import java.util.ArrayList;
 
 /**
  * @author SirFaizdat
+ * @author Camouflage100
  */
-public class AutoSmelt implements CommandExecutor, Listener {
+public class CmdAutoSmelt implements CommandExecutor, Listener {
 
-    static ArrayList<String> enabledPlayers = new ArrayList<String>();
+    private static ArrayList<String> enabledPlayers = new ArrayList<>();
 
-    public AutoSmelt() {
+    public CmdAutoSmelt() {
         Prison.i().getCommand("autosmelt").setExecutor(this);
         Prison.i().getServer().getPluginManager().registerEvents(this, Prison.i());
     }
 
     public static boolean isEnabled(String s) {
-        for (String player : enabledPlayers) {
-            if (player.equalsIgnoreCase(s)) {
-                return true;
-            }
-        }
-        return false;
+        return enabledPlayers.contains(s);
     }
 
     public boolean onCommand(CommandSender sender, Command command,
                              String label, String[] args) {
         if (command.getName().equalsIgnoreCase("autosmelt")) {
+            if (!(sender instanceof Player)) {
+                sender.sendMessage(MessageUtil.get("general.mustBePlayer"));
+                return true;
+            }
+
             if (!sender.hasPermission("prison.autosmelt")) {
                 sender.sendMessage(MessageUtil.get("general.noPermission"));
                 return true;
@@ -82,7 +87,7 @@ public class AutoSmelt implements CommandExecutor, Listener {
 
     @EventHandler
     public void onBreak(BlockBreakEvent e) {
-        if(e.getPlayer().getGameMode() == GameMode.CREATIVE) return;
+        if (e.getPlayer().getGameMode() == GameMode.CREATIVE) return;
         Material m = e.getBlock().getType();
         if (isEnabled(e.getPlayer().getName()) || e.getPlayer().hasPermission("prison.autosmelt.auto")) {
             if (m == Material.IRON_ORE) {
@@ -90,7 +95,8 @@ public class AutoSmelt implements CommandExecutor, Listener {
                 Location loc = smelted.getLocation();
                 Location centerOfBlock = loc.add(0.5, 0.5, 0.5);
                 smelted.setType(Material.AIR);
-                if(Prison.i().config.flamesOnAutosmelt) loc.getWorld().playEffect(loc, Effect.MOBSPAWNER_FLAMES, 0, 50);
+                if (Prison.i().config.flamesOnAutosmelt)
+                    loc.getWorld().playEffect(loc, Effect.MOBSPAWNER_FLAMES, 0, 50);
                 ItemStack ironing = new ItemStack(Material.IRON_INGOT);
                 smelted.getWorld().dropItemNaturally(centerOfBlock, ironing);
             } else if (m == Material.GOLD_ORE) {
@@ -98,7 +104,8 @@ public class AutoSmelt implements CommandExecutor, Listener {
                 Location loc = smelted.getLocation();
                 Location centerOfBlock = loc.add(0.5, 0.5, 0.5);
                 smelted.setType(Material.AIR);
-                if(Prison.i().config.flamesOnAutosmelt) loc.getWorld().playEffect(loc, Effect.MOBSPAWNER_FLAMES, 0, 50);
+                if (Prison.i().config.flamesOnAutosmelt)
+                    loc.getWorld().playEffect(loc, Effect.MOBSPAWNER_FLAMES, 0, 50);
                 ItemStack golding = new ItemStack(Material.GOLD_INGOT);
                 smelted.getWorld().dropItemNaturally(centerOfBlock, golding);
             }

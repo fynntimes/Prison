@@ -33,9 +33,9 @@ import static me.sirfaizdat.prison.core.Prison.l;
 /**
  * @author SirFaizdat
  */
-public class CommandInfo extends Command {
+public class CmdInfo extends Command {
 
-    public CommandInfo() {
+    public CmdInfo() {
         super("info");
         addRequiredArg("mine");
     }

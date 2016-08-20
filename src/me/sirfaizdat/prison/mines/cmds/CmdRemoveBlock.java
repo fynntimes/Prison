@@ -30,9 +30,9 @@ import org.bukkit.Material;
 /**
  * @author SirFaizdat
  */
-public class CommandRemoveBlock extends Command {
+public class CmdRemoveBlock extends Command {
 
-    public CommandRemoveBlock() {
+    public CmdRemoveBlock() {
         super("removeblock");
         addRequiredArg("mine");
         addRequiredArg("block");
