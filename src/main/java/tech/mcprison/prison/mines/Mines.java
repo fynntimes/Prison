@@ -38,7 +38,6 @@ public class Mines implements Component {
     public MinesManager mm;
     Prison core = Prison.i();
 
-    MinesCommandManager mcm;
     WorldEditPlugin worldEdit =
         (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
     private boolean enabled = true;
@@ -64,8 +63,6 @@ public class Mines implements Component {
         }
 
         mm = new MinesManager();
-        mcm = new MinesCommandManager(this);
-        core.getCommand("mines").setExecutor(mcm);
     }
 
     public void reload() {
@@ -82,10 +79,6 @@ public class Mines implements Component {
 
     public WorldEditPlugin getWE() {
         return worldEdit;
-    }
-
-    @Override public String getBaseCommand() {
-        return "mines";
     }
 
 }

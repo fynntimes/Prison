@@ -29,9 +29,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-import tech.mcprison.prison.core.cmds.CmdAutoSmelt;
-import tech.mcprison.prison.core.cmds.CmdBlock;
-import tech.mcprison.prison.core.cmds.PrisonCommandManager;
 import tech.mcprison.prison.mines.Mine;
 import tech.mcprison.prison.mines.Mines;
 import tech.mcprison.prison.ranks.Ranks;
@@ -50,7 +47,6 @@ public class Prison extends JavaPlugin implements Listener {
     public Mines mines;
     public Ranks ranks;
     public PlayerList playerList;
-    public Config config;
     public ItemManager im;
     public Updater updater;
     private Economy economy;
@@ -77,7 +73,6 @@ public class Prison extends JavaPlugin implements Listener {
 
         bootstrap();
         initComponents();
-        initCommands();
 
         initMetrics();
 
@@ -92,9 +87,7 @@ public class Prison extends JavaPlugin implements Listener {
     }
 
     private void bootstrap() {
-        config = new Config();
         im = new ItemManager();
-        new MessageUtil();
         playerList = new PlayerList();
         getServer().getPluginManager().registerEvents(playerList, this);
         updater = new Updater(this, 76155, this.getFile(), Updater.UpdateType.NO_DOWNLOAD, true);
@@ -111,16 +104,6 @@ public class Prison extends JavaPlugin implements Listener {
         checkCompatibility();
         enableMines();
         enableRanks();
-    }
-
-    private void initCommands() {
-        if (config.enableAutosmelt) {
-            new CmdAutoSmelt();
-        }
-        if (config.enableAutoblock) {
-            new CmdBlock();
-        }
-        getCommand("prison").setExecutor(new PrisonCommandManager());
     }
 
     private void initMetrics() {

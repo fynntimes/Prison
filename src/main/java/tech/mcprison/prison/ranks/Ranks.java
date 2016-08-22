@@ -31,9 +31,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.FireworkMeta;
 import tech.mcprison.prison.core.Component;
 import tech.mcprison.prison.core.FailedToStartException;
-import tech.mcprison.prison.core.MessageUtil;
 import tech.mcprison.prison.core.Prison;
-import tech.mcprison.prison.ranks.cmds.RanksCommandManager;
 import tech.mcprison.prison.ranks.events.DemoteEvent;
 import tech.mcprison.prison.ranks.events.RankupEvent;
 
@@ -97,10 +95,6 @@ public class Ranks implements Component {
         }
 
         load();
-        RanksCommandManager rcm = new RanksCommandManager();
-        Prison.i().getCommand("prisonranks").setExecutor(rcm);
-        Prison.i().getCommand("ranks").setExecutor(rcm);
-        Prison.i().getCommand("rankup").setExecutor(rcm);
 
         Bukkit.getScheduler().runTaskLater(Prison.i(), new Runnable() {
             @Override public void run() {
@@ -569,10 +563,6 @@ public class Ranks implements Component {
             }
         }
         return null;
-    }
-
-    @Override public String getBaseCommand() {
-        return "prisonranks";
     }
 
 }
