@@ -1,0 +1,96 @@
+name: ${project.name}
+version: ${project.version}
+description: ${project.description}
+author: SirFaizdat
+main: me.sirfaizdat.prison.core.Prison
+depend: [Vault, WorldEdit]
+website: http://github.com/SirFaizdat/Prison/wiki
+
+commands:
+  prison:
+    description: Basic commands for Prison.
+  autosmelt:
+    description: Toggles automatic smelting.
+    usage: §cAutosmelt is disabled.
+    aliases: [as, astoggle]
+  block:
+    description: Compacts items into blocks.
+    usage: §cAutoblock is disabled.
+  mines:
+    description: Ability to control mines.
+    usage: §cMines are disabled.
+  prisonranks:
+    description: Ability to control ranks.
+    usage: §cRanks are disabled.
+    aliases: [pranks, rsetup]
+  rankup:
+    description: Purchase the next rank.
+    usage: §cRanks are disabled.
+  ranks:
+    description: See a list of all ranks.
+    usage: §cRanks are disabled.
+
+permissions:
+   prison.manage:
+      default: op
+      children:
+         prison.prison.update: true
+         prison.prison.version: true
+   prison.prison.update:
+      default: op
+   prison.prison.version:
+      default: op
+   prison.autosmelt:
+      default: op
+   prison.autosmelt.auto:
+      default: false
+   prison.block:
+      default: true
+   prison.mines.*:
+    default: op
+    children:
+      prison.mines.addblock: true
+      prison.mines.create: true
+      prison.mines.delete: true
+      prison.mines.info: true
+      prison.mines.list: true
+      prison.mines.removeblock: true
+      prison.mines.reset: true
+      prison.mines.bypassprotection: true
+   prison.mines.addblock:
+    default: op
+   prison.mines.create:
+    default: op
+   prison.mines.delete:
+    default: op
+   prison.mines.info:
+    default: op
+   prison.mines.list:
+    default: op
+   prison.mines.removeblock:
+    default: op
+   prison.mines.reset:
+    default: op
+   prison.mines.bypassprotection:
+    default: op
+   prison.ranks.*:
+    default: op
+    children:
+      prison.ranks.add: true
+      prison.ranks.demote: true
+      prison.ranks.promote: true
+      prison.ranks.remove: true
+   prison.ranks.add:
+    default: op
+   prison.ranks.demote:
+    default: op
+   prison.ranks.promote:
+    default: op
+   prison.ranks.remove:
+    default: op
+   prison.ranks.purchase:
+    description: Permission to rankup.
+    default: true
+   prison.ranks.list:
+    description: Permission for /ranks.
+    default: true
