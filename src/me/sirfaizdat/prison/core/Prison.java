@@ -23,8 +23,8 @@ import me.sirfaizdat.prison.core.Updater.UpdateType;
 import me.sirfaizdat.prison.core.cmds.CmdAutoSmelt;
 import me.sirfaizdat.prison.core.cmds.CmdBlock;
 import me.sirfaizdat.prison.core.cmds.PrisonCommandManager;
-import me.sirfaizdat.prison.mines.entities.Mine;
 import me.sirfaizdat.prison.mines.Mines;
+import me.sirfaizdat.prison.mines.entities.Mine;
 import me.sirfaizdat.prison.ranks.Ranks;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
@@ -82,7 +82,7 @@ public class Prison extends JavaPlugin implements Listener {
 
         initMetrics();
 
-        l.info("&7Enabled &3Prison v" + getDescription().getVersion() + "&7. Made with <3 by &3SirFaizdat &7&&3Camouflage100&7.");
+        l.info("&7Enabled &3Prison v" + getDescription().getVersion() + "&7. Made with <3 by &3SirFaizdat &7& &3Camouflage100&7.");
         long endTime = System.currentTimeMillis();
         l.info("&8Enabled in " + (endTime - startTime) + " milliseconds.");
 

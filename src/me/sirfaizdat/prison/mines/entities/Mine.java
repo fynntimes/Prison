@@ -21,6 +21,7 @@ package me.sirfaizdat.prison.mines.entities;
 
 import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.mines.SerializableMine;
+import me.sirfaizdat.prison.mines.events.MineResetEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -175,6 +176,9 @@ public class Mine {
                     cachedCompositionMap = mapComposition(blocks);
                 }
             });
+
+        MineResetEvent event = new MineResetEvent(this);
+        Bukkit.getServer().getPluginManager().callEvent(event);
         return true;
     }
 
