@@ -67,11 +67,12 @@ public class RanksCommandManager extends AbstractCommandManager {
                 sender.sendMessage(MessageUtil.get("general.noPermission"));
                 return true;
             }
-            sender.sendMessage(Prison
-                    .color("&7=========== &3Ranks &7==========="));
+            sender.sendMessage(Prison.color("&7=========== &3Ranks &7==========="));
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < Ranks.i.ranks.size(); i++) {
                 Rank rank = Ranks.i.getRankById(i);
+                if (rank == null) continue;
+
                 double amountNeededD = rank.getPrice();
                 String amountNeeded;
                 if (amountNeededD < 1) {
