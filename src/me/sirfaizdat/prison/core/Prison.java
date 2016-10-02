@@ -87,6 +87,7 @@ public class Prison extends JavaPlugin implements Listener {
         l.info("&8Enabled in " + (endTime - startTime) + " milliseconds.");
 
         // Post-enable tasks
+        verifyJavaVersion();
         updateCheck();
         populateItemManagerLater();
     }
@@ -147,6 +148,14 @@ public class Prison extends JavaPlugin implements Listener {
             metrics.start();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void verifyJavaVersion() {
+        String version = System.getProperty("java.version");
+
+        if (version.charAt(2) <= '7') {
+            l.warning("Prison-3 will only be compatible with Java 8. Please update your Java version, or find a better shared hosting company. ");
         }
     }
 

@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9b4d7934-576d-4d2a-b246-dbeb163ecebd" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/RanksCommandManager.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/RanksCommandManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Prison.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Prison.java" />
     </list>
     <ignored path="Prison.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -49,6 +49,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="plugin.yml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/plugin.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="28" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="MineResetEvent.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/events/MineResetEvent.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -81,11 +91,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Prison.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Prison.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Prison.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
-              <caret line="284" column="5" selection-start-line="284" selection-start-column="5" selection-end-line="284" selection-end-column="5" />
+            <state relative-caret-position="357">
+              <caret line="89" column="28" selection-start-line="89" selection-start-column="28" selection-end-line="89" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -111,7 +121,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RanksCommandManager.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RanksCommandManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/RanksCommandManager.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="104">
@@ -201,12 +211,12 @@
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/events/BalanceChangeEvent.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/BalanceChangeListener.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/Ranks.java" />
-        <option value="$PROJECT_DIR$/src/plugin.yml" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdBlock.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/entities/Mine.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/events/MineResetEvent.java" />
-        <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Prison.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/RanksCommandManager.java" />
+        <option value="$PROJECT_DIR$/src/plugin.yml" />
+        <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Prison.java" />
       </list>
     </option>
   </component>
@@ -1049,7 +1059,7 @@
       <workItem from="1466016027281" duration="5067000" />
       <workItem from="1466034393778" duration="19031000" />
       <workItem from="1466359356109" duration="380000" />
-      <workItem from="1475431300684" duration="3974000" />
+      <workItem from="1475431300684" duration="4145000" />
     </task>
     <task id="LOCAL-00001" summary="This is v2.1.5">
       <created>1447562574532</created>
@@ -1261,11 +1271,25 @@
       <option name="project" value="LOCAL" />
       <updated>1475437500457</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Made the ''/ranks' list &quot;safer&quot;">
+      <created>1475442359550</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1475442359550</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Softdepend Multiverse-Core so that it loads before Prison. (Fixes issue #166)">
+      <created>1475442455007</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1475442455007</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43392000" />
+    <option name="totallyTimeSpent" value="43563000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1287,7 +1311,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934928" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Floobits" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1358,7 +1382,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Attempt to fix mine spawns, pitch and yaw are still messed up" />
     <MESSAGE value="ranks.yml will no longer be auto-generated." />
     <MESSAGE value="Added reload command, asynchronous resets, and more" />
     <MESSAGE value="Added most requested feature: enabling and disabling components." />
@@ -1383,7 +1406,8 @@
     <MESSAGE value="Misc code cleanup &amp; reorganization" />
     <MESSAGE value="Added a MineResetEvent" />
     <MESSAGE value="Made the ''/ranks' list &quot;safer&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Made the ''/ranks' list &quot;safer&quot;" />
+    <MESSAGE value="Softdepend Multiverse-Core so that it loads before Prison. (Fixes issue #166)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Softdepend Multiverse-Core so that it loads before Prison. (Fixes issue #166)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1740,14 +1764,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/plugin.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdBlock.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -1811,14 +1827,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Prison.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="284" column="5" selection-start-line="284" selection-start-column="5" selection-end-line="284" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/events/RankupEvent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -1839,6 +1847,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="104">
           <caret line="69" column="37" selection-start-line="69" selection-start-column="37" selection-end-line="69" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/plugin.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="28" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Prison.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="89" column="28" selection-start-line="89" selection-start-column="28" selection-end-line="89" selection-end-column="28" />
           <folding />
         </state>
       </provider>
