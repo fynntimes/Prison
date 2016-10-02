@@ -18,20 +18,21 @@
  */
 package me.sirfaizdat.prison.mines.cmds;
 
+import com.sk89q.worldedit.bukkit.selections.Selection;
 import me.sirfaizdat.prison.core.Command;
 import me.sirfaizdat.prison.core.MessageUtil;
-import me.sirfaizdat.prison.mines.Mine;
+import me.sirfaizdat.prison.core.Prison;
+import me.sirfaizdat.prison.mines.entities.Mine;
 import me.sirfaizdat.prison.mines.Mines;
 
 /**
  * @author SirFaizdat
  */
-public class CommandReset extends Command {
+public class CmdRedefine extends Command {
 
-    public CommandReset() {
-        super("reset");
+    public CmdRedefine() {
+        super("redefine");
         addRequiredArg("mine");
-
     }
 
     @Override
@@ -41,16 +42,27 @@ public class CommandReset extends Command {
             sender.sendMessage(MessageUtil.get("mines.notFound"));
             return;
         }
-        if (m.reset()) {
-            sender.sendMessage(MessageUtil.get("mines.resetSuccess", m.name));
-        } else {
-            sender.sendMessage(MessageUtil.get("mines.resetFailed", m.name));
+        Selection s = Mines.i.getWE().getSelection(Prison.i().playerList.getPlayer(sender.getName()));
+        if (s == null) {
+            sender.sendMessage(MessageUtil.get("mines.makeWESel"));
+            return;
         }
+        m.minX = s.getMinimumPoint().getBlockX();
+        m.minY = s.getMinimumPoint().getBlockY();
+        m.minZ = s.getMinimumPoint().getBlockZ();
+        m.maxX = s.getMaximumPoint().getBlockX();
+        m.maxY = s.getMaximumPoint().getBlockY();
+        m.maxZ = s.getMaximumPoint().getBlockZ();
+        m.save();
+        Mines.i.mm.mines.remove(args[1]);
+        Mines.i.mm.addMine(m);
+        sender.sendMessage(MessageUtil.get("mines.redefineSuccess", m.name));
     }
 
     @Override
     public String description() {
-        return "Reset a mine";
+        return "Redefine a mine's area.";
     }
+
 
 }

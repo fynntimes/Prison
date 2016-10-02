@@ -22,7 +22,7 @@ import com.sk89q.worldedit.bukkit.selections.Selection;
 import me.sirfaizdat.prison.core.Command;
 import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.core.Prison;
-import me.sirfaizdat.prison.mines.Mine;
+import me.sirfaizdat.prison.mines.entities.Mine;
 import me.sirfaizdat.prison.mines.Mines;
 
 import java.util.ArrayList;
@@ -30,9 +30,9 @@ import java.util.ArrayList;
 /**
  * @author SirFaizdat
  */
-public class CommandCreate extends Command {
+public class CmdCreate extends Command {
 
-    public CommandCreate() {
+    public CmdCreate() {
         super("create");
         addRequiredArg("name");
         mustBePlayer(true);

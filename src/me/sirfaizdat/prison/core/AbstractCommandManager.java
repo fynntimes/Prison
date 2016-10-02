@@ -33,8 +33,8 @@ public abstract class AbstractCommandManager implements CommandExecutor {
 
     public LinkedHashMap<String, Command> commands = new LinkedHashMap<String, Command>();
     protected Component c;
-    String baseCommand;
-    String helpMessage;
+    private String baseCommand;
+    private String helpMessage;
 
     public AbstractCommandManager(Component c, String baseCommand) {
         this.c = c;
@@ -46,9 +46,8 @@ public abstract class AbstractCommandManager implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
-        if(sender instanceof Player && Prison.i().config.enableMultiworld) {
-            if(!isInProperWorld(sender)) return true;
-        }
+        if (sender instanceof Player && Prison.i().config.enableMultiworld)
+            if (!isInProperWorld(sender)) return true;
 
         try {
             if (command.getName().equalsIgnoreCase(baseCommand)) {
@@ -80,7 +79,7 @@ public abstract class AbstractCommandManager implements CommandExecutor {
 
     protected boolean isInProperWorld(CommandSender sender) {
         World playerWorld = ((Player) sender).getWorld();
-        for(String multiworld : Prison.i().config.worlds)
+        for (String multiworld : Prison.i().config.worlds)
             if (playerWorld.getName().equalsIgnoreCase(multiworld)) return true;
         sender.sendMessage(MessageUtil.get("general.multiworld"));
         return false;

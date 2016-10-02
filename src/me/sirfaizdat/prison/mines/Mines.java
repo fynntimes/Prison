@@ -35,10 +35,10 @@ public class Mines implements Component {
 
     public static Mines i;
     public MinesManager mm;
-    Prison core = Prison.i();
+    private Prison core = Prison.i();
 
-    MinesCommandManager mcm;
-    WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
+    private MinesCommandManager mcm;
+    private WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
     private boolean enabled = true;
 
     public String getName() {

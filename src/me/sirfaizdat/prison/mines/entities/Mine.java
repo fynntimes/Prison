@@ -16,9 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package me.sirfaizdat.prison.mines;
+
+package me.sirfaizdat.prison.mines.entities;
 
 import me.sirfaizdat.prison.core.Prison;
+import me.sirfaizdat.prison.mines.SerializableMine;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -39,13 +41,13 @@ import java.util.*;
 public class Mine {
 
     public String name;
-    private String worldName;
     public World world;
     public int minX, minY, minZ, maxX, maxY, maxZ;
-    public HashMap<String, Block> blocks = new HashMap<String, Block>();
+    public HashMap<String, Block> blocks = new HashMap<>();
     public ArrayList<String> ranks;
     public boolean worldMissing = false;
-    File mineFile;
+    public File mineFile;
+    private String worldName;
     private volatile List<CompositionEntry> cachedCompositionMap;
 
     public Mine(String name, String worldName, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, ArrayList<String> ranks) {
@@ -122,13 +124,15 @@ public class Mine {
             Prison.l.warning("Mine " + name + " was not reset because the world it was created in (" + worldName + ") can not be found.");
             return false;
         }
-        if(cachedCompositionMap == null) cachedCompositionMap = mapComposition(blocks);
+        if (cachedCompositionMap == null) cachedCompositionMap = mapComposition(blocks);
         if (cachedCompositionMap.size() == 0) {
             Prison.l.warning("Mine " + name + " could not regenerate because it has no composition.");
             return false;
         }
 
-        for (Player p : Bukkit.getServer().getOnlinePlayers()) if (withinMine(p.getLocation())) p.teleport(p.getLocation().add(0, (Math.max(minY, maxY) - p.getLocation().getBlockY()) + 3, 0));
+        for (Player p : Bukkit.getServer().getOnlinePlayers())
+            if (withinMine(p.getLocation()))
+                p.teleport(p.getLocation().add(0, (Math.max(minY, maxY) - p.getLocation().getBlockY()) + 3, 0));
 
         Random r = new Random();
         for (int y = minY; y <= maxY; y++) {
@@ -164,18 +168,18 @@ public class Mine {
         }
 
         // Get the next composition ready
-        if(Prison.i().config.asyncReset)
-        Prison.i().getServer().getScheduler().runTaskAsynchronously(Prison.i(), new Runnable() {
-            @Override
-            public void run() {
-                cachedCompositionMap = mapComposition(blocks);
-            }
-        });
+        if (Prison.i().config.asyncReset)
+            Prison.i().getServer().getScheduler().runTaskAsynchronously(Prison.i(), new Runnable() {
+                @Override
+                public void run() {
+                    cachedCompositionMap = mapComposition(blocks);
+                }
+            });
         return true;
     }
 
     private boolean shouldBeReplaced(Material material) {
-        for(Block block : blocks.values()) if(block.getId() == material.getId()) return false;
+        for (Block block : blocks.values()) if (block.getId() == material.getId()) return false;
         return true;
     }
 

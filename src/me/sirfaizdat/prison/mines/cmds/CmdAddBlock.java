@@ -22,8 +22,8 @@ import me.sirfaizdat.prison.core.Command;
 import me.sirfaizdat.prison.core.ItemManager;
 import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.core.Prison;
-import me.sirfaizdat.prison.mines.Block;
-import me.sirfaizdat.prison.mines.Mine;
+import me.sirfaizdat.prison.mines.entities.Block;
+import me.sirfaizdat.prison.mines.entities.Mine;
 import me.sirfaizdat.prison.mines.Mines;
 import org.bukkit.Material;
 
@@ -32,9 +32,9 @@ import java.util.Map;
 /**
  * @author SirFaizdat
  */
-public class CommandAddBlock extends Command {
+public class CmdAddBlock extends Command {
 
-    public CommandAddBlock() {
+    public CmdAddBlock() {
         super("addblock");
         addRequiredArg("mine");
         addRequiredArg("block");
@@ -66,7 +66,7 @@ public class CommandAddBlock extends Command {
                 data = "0";
             }
 
-            Integer id = null;
+            Integer id;
             try {
                 id = Integer.parseInt(blocky[0]);
             } catch (NumberFormatException e) {
@@ -97,8 +97,9 @@ public class CommandAddBlock extends Command {
                     sender.sendMessage(MessageUtil.get("mines.alreadyInMine"));
                     return;
                 }
-            } catch (NullPointerException e) {
+            } catch (NullPointerException ignored) {
             }
+
             set = new ItemManager.ItemSet(mat.getId(), b);
             // End "IF IT IS AN ID"
         } else {
@@ -124,7 +125,7 @@ public class CommandAddBlock extends Command {
                     sender.sendMessage(MessageUtil.get("mines.alreadyInMine"));
                     return;
                 }
-            } catch (NullPointerException e) {
+            } catch (NullPointerException ignored) {
             }
 
         }
@@ -132,7 +133,7 @@ public class CommandAddBlock extends Command {
         // End block recognition
         String percent = args[3];
         percent = percent.replaceAll("%", "").replaceAll("percent", "");
-        double percentage = 0;
+        double percentage;
         try {
             percentage = Double.valueOf(percent);
         } catch (NumberFormatException nfe) {

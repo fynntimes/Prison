@@ -22,20 +22,18 @@ import me.sirfaizdat.prison.core.Command;
 import me.sirfaizdat.prison.core.ItemManager.ItemSet;
 import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.core.Prison;
-import me.sirfaizdat.prison.mines.Block;
-import me.sirfaizdat.prison.mines.Mine;
+import me.sirfaizdat.prison.mines.entities.Block;
+import me.sirfaizdat.prison.mines.entities.Mine;
 import me.sirfaizdat.prison.mines.Mines;
 
 import java.util.Map;
 
-import static me.sirfaizdat.prison.core.Prison.l;
-
 /**
  * @author SirFaizdat
  */
-public class CommandInfo extends Command {
+public class CmdInfo extends Command {
 
-    public CommandInfo() {
+    public CmdInfo() {
         super("info");
         addRequiredArg("mine");
     }
@@ -55,6 +53,7 @@ public class CommandInfo extends Command {
         } else {
             worldName = "&3" + m.world.getName();
         }
+
         sender.sendMessage(Prison.color("&7World: " + worldName));
         sender.sendMessage(Prison.color("&7Size: &3" + ((m.maxX - m.minX) + 1) + "&8x&3" + ((m.maxZ - m.minZ) + 1) + "   &7Height: &3" + ((m.maxY - m.minY) + 1)));
         sender.sendMessage(Prison.color("&7Coordinates: &3From " + m.minX + "x," + m.minY + "y," + m.minZ + "z to " + m.maxX + "x," + m.maxY + "y," + m.maxZ + "z"));

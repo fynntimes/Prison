@@ -32,8 +32,7 @@ public class BalanceChangeEvent extends Event {
     private double oldBalance;
     private double newBalance;
 
-    public BalanceChangeEvent(Player player, double oldBalance,
-                              double newBalance) {
+    public BalanceChangeEvent(Player player, double oldBalance, double newBalance) {
         this.player = player;
         this.oldBalance = oldBalance;
         this.newBalance = newBalance;

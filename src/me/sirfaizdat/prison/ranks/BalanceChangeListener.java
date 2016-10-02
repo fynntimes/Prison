@@ -33,14 +33,14 @@ import java.util.HashMap;
 /**
  * @author SirFaizdat
  */
-class BalanceChangeListener implements Listener {
+public class BalanceChangeListener implements Listener {
 
     private static Economy eco;
-    HashMap<String, Double> balance;
+    private HashMap<String, Double> balance;
 
     public BalanceChangeListener() {
         eco = Ranks.i.eco;
-        balance = new HashMap<String, Double>();
+        balance = new HashMap<>();
         for (Player p : Bukkit.getOnlinePlayers()) {
             balance.put(p.getName(), eco.getBalance(p));
         }

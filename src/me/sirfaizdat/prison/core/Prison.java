@@ -20,8 +20,10 @@ package me.sirfaizdat.prison.core;
 
 import me.sirfaizdat.prison.core.Updater.UpdateResult;
 import me.sirfaizdat.prison.core.Updater.UpdateType;
+import me.sirfaizdat.prison.core.cmds.CmdAutoSmelt;
+import me.sirfaizdat.prison.core.cmds.CmdBlock;
 import me.sirfaizdat.prison.core.cmds.PrisonCommandManager;
-import me.sirfaizdat.prison.mines.Mine;
+import me.sirfaizdat.prison.mines.entities.Mine;
 import me.sirfaizdat.prison.mines.Mines;
 import me.sirfaizdat.prison.ranks.Ranks;
 import net.milkbowl.vault.economy.Economy;
@@ -51,11 +53,9 @@ public class Prison extends JavaPlugin implements Listener {
     public PlayerList playerList;
     public Config config;
     public ItemManager im;
-
+    public Updater updater;
     private Economy economy;
     private Permission permissions;
-
-    public Updater updater;
     private boolean updateAvailable = false;
     private String updateLatestName;
 
@@ -82,7 +82,7 @@ public class Prison extends JavaPlugin implements Listener {
 
         initMetrics();
 
-        l.info("&7Enabled &3Prison v" + getDescription().getVersion() + "&7. Made with <3 by &3SirFaizdat&7.");
+        l.info("&7Enabled &3Prison v" + getDescription().getVersion() + "&7. Made with <3 by &3SirFaizdat &7&&3Camouflage100&7.");
         long endTime = System.currentTimeMillis();
         l.info("&8Enabled in " + (endTime - startTime) + " milliseconds.");
 
@@ -114,8 +114,8 @@ public class Prison extends JavaPlugin implements Listener {
     }
 
     private void initCommands() {
-        if (config.enableAutosmelt) new AutoSmelt();
-        if (config.enableAutoblock) new BlockCommand();
+        if (config.enableAutosmelt) new CmdAutoSmelt();
+        if (config.enableAutoblock) new CmdBlock();
         getCommand("prison").setExecutor(new PrisonCommandManager());
     }
 
@@ -124,7 +124,7 @@ public class Prison extends JavaPlugin implements Listener {
         try {
             Metrics metrics = new Metrics(this);
 
-            if(getPermissions() != null) {
+            if (getPermissions() != null) {
                 Metrics.Graph permissionsPluginGraph = metrics.createGraph("Permissions Plugins");
                 permissionsPluginGraph.addPlotter(new Metrics.Plotter(getPermissions().getName()) {
                     @Override
@@ -134,7 +134,7 @@ public class Prison extends JavaPlugin implements Listener {
                 });
             }
 
-            if(getEconomy() != null) {
+            if (getEconomy() != null) {
                 Metrics.Graph economyPluginGraph = metrics.createGraph("Economy Plugins");
                 economyPluginGraph.addPlotter(new Metrics.Plotter(getEconomy().getName()) {
                     @Override

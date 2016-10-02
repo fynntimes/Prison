@@ -19,6 +19,8 @@
 package me.sirfaizdat.prison.mines;
 
 import me.sirfaizdat.prison.core.Prison;
+import me.sirfaizdat.prison.mines.entities.Block;
+import me.sirfaizdat.prison.mines.entities.Mine;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -36,11 +38,10 @@ import java.util.Map;
  */
 public class MinesManager {
 
-    public HashMap<String, Mine> mines = new HashMap<String, Mine>();
-
-    public int resetTimeCounter;
-    int resetTime;
+    public HashMap<String, Mine> mines = new HashMap<>();
     int autoResetID = -1;
+    private int resetTimeCounter;
+    private int resetTime;
 
     public MinesManager() {
         File mineRoot = new File(Prison.i().getDataFolder(), "/mines/");
@@ -160,8 +161,7 @@ public class MinesManager {
                         mine.reset();
                     } else {
                         Prison.l.warning("Did not reset mine "
-                                + mine.name
-                                + " because the world it is in could not be found.");
+                                + mine.name + " because the world it is in could not be found.");
                     }
                 }
                 if (!Prison.i().config.enableMultiworld)

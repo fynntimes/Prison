@@ -20,15 +20,15 @@ package me.sirfaizdat.prison.mines.cmds;
 
 import me.sirfaizdat.prison.core.Command;
 import me.sirfaizdat.prison.core.MessageUtil;
-import me.sirfaizdat.prison.mines.Mine;
+import me.sirfaizdat.prison.mines.entities.Mine;
 import me.sirfaizdat.prison.mines.Mines;
 
 /**
  * @author SirFaizdat
  */
-public class CommandDelete extends Command {
+public class CmdDelete extends Command {
 
-    public CommandDelete() {
+    public CmdDelete() {
         super("delete");
         addRequiredArg("mine");
     }

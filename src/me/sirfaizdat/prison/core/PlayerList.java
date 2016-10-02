@@ -33,7 +33,7 @@ import java.util.HashMap;
  */
 public class PlayerList implements Listener {
 
-    private static HashMap<String, Player> players = new HashMap<String, Player>();
+    private static HashMap<String, Player> players = new HashMap<>();
 
     public PlayerList() {
         for (Player p : Bukkit.getOnlinePlayers()) {

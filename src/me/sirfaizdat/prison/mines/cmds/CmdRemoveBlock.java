@@ -22,17 +22,17 @@ import me.sirfaizdat.prison.core.Command;
 import me.sirfaizdat.prison.core.ItemManager.ItemSet;
 import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.core.Prison;
-import me.sirfaizdat.prison.mines.Block;
-import me.sirfaizdat.prison.mines.Mine;
+import me.sirfaizdat.prison.mines.entities.Block;
+import me.sirfaizdat.prison.mines.entities.Mine;
 import me.sirfaizdat.prison.mines.Mines;
 import org.bukkit.Material;
 
 /**
  * @author SirFaizdat
  */
-public class CommandRemoveBlock extends Command {
+public class CmdRemoveBlock extends Command {
 
-    public CommandRemoveBlock() {
+    public CmdRemoveBlock() {
         super("removeblock");
         addRequiredArg("mine");
         addRequiredArg("block");
@@ -62,7 +62,7 @@ public class CommandRemoveBlock extends Command {
                 data = "0";
             }
 
-            Integer id = null;
+            Integer id;
             try {
                 id = Integer.parseInt(blocky[0]);
             } catch (NumberFormatException e) {
@@ -94,8 +94,7 @@ public class CommandRemoveBlock extends Command {
                             .get("mines.mineDoesntHaveThisBlock"));
                     return;
                 }
-            } catch (NullPointerException e) {
-            }
+            } catch (NullPointerException ignored) {}
             set = new ItemSet(mat.getId(), b);
             // End "IF IT IS AN ID"
         } else {
@@ -122,8 +121,7 @@ public class CommandRemoveBlock extends Command {
                             .get("mines.mineDoesntHaveThisBlock"));
                     return;
                 }
-            } catch (NullPointerException e) {
-            }
+            } catch (NullPointerException ignored) {}
 
         }
 

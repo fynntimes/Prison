@@ -25,9 +25,6 @@ import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.ranks.Rank;
 import me.sirfaizdat.prison.ranks.Ranks;
 
-import java.text.NumberFormat;
-import java.text.ParseException;
-
 /**
  * @author SirFaizdat
  */
@@ -49,24 +46,24 @@ public class CmdSet extends Command {
         Rank rank = Ranks.i.getRank(args[1]);
         String val = args[3];
 
-        switch(args[2]) {
+        switch (args[2]) {
             case "id":
                 int id;
                 try {
                     id = Integer.parseInt(val);
-                } catch(NumberFormatException e) {
+                } catch (NumberFormatException e) {
                     sender.sendMessage(MessageUtil.get("general.invalidInteger"));
                     return;
                 }
 
-                if(id < 0 || id > Ranks.i.ranks.size() - 1) {
+                if (id < 0 || id > Ranks.i.ranks.size() - 1) {
                     sender.sendMessage(MessageUtil.get("general.valueTooHigh", "value", "0", String.valueOf(Ranks.i.ranks.size() - 1)));
                     return;
                 }
 
                 Ranks.i.ranks.remove(rank);
                 Ranks.i.ranks.add(id, rank);
-                for(int i = 0; i < Ranks.i.ranks.size(); i++) {
+                for (int i = 0; i < Ranks.i.ranks.size(); i++) {
                     Ranks.i.ranks.get(i).setId(i);
                     Ranks.i.saveRank(Ranks.i.ranks.get(i));
                 }

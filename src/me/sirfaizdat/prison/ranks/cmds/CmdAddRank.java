@@ -26,9 +26,6 @@ import me.sirfaizdat.prison.ranks.Ranks;
 import me.sirfaizdat.prison.ranks.events.RankAddedEvent;
 import org.bukkit.Bukkit;
 
-import java.text.NumberFormat;
-import java.text.ParseException;
-
 /**
  * @author SirFaizdat
  */

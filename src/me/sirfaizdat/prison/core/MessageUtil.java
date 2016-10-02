@@ -27,7 +27,7 @@ public class MessageUtil {
 
     public MessageUtil() {
         messageConfiguration = new MessageConfiguration();
-        messageConfiguration.saveDefaultConfig();;
+        messageConfiguration.saveDefaultConfig();
     }
 
     public static String get(String key) {

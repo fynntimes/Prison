@@ -21,7 +21,7 @@ package me.sirfaizdat.prison.mines.cmds;
 import me.sirfaizdat.prison.core.Command;
 import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.core.Prison;
-import me.sirfaizdat.prison.mines.Mine;
+import me.sirfaizdat.prison.mines.entities.Mine;
 import me.sirfaizdat.prison.mines.Mines;
 
 import java.util.Map;
@@ -29,9 +29,9 @@ import java.util.Map;
 /**
  * @author SirFaizdat
  */
-public class CommandList extends Command {
+public class CmdList extends Command {
 
-    public CommandList() {
+    public CmdList() {
         super("list");
     }
 

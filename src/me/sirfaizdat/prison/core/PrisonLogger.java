@@ -29,7 +29,7 @@ import org.bukkit.command.ConsoleCommandSender;
  */
 public class PrisonLogger {
 
-    String coloredLogPrefix = "&6[&4Prison&6]";
+    private String coloredLogPrefix = "&6[&4Prison&6]";
 
     /**
      * Logs a message to the server.
@@ -101,8 +101,8 @@ public class PrisonLogger {
         log(Level.SEVERE, message);
     }
 
-    public static enum Level {
-        INFO, WARN, SEVERE;
+    public enum Level {
+        INFO, WARN, SEVERE
     }
 
 }

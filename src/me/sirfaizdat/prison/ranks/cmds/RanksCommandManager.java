@@ -59,8 +59,8 @@ public class RanksCommandManager extends AbstractCommandManager {
     @Override
     public boolean onCommand(CommandSender sender, Command command,
                              String label, String[] args) {
-        if(sender instanceof Player && Prison.i().config.enableMultiworld) {
-            if(!isInProperWorld(sender)) return true;
+        if (sender instanceof Player && Prison.i().config.enableMultiworld) {
+            if (!isInProperWorld(sender)) return true;
         }
         if (label.equalsIgnoreCase("ranks")) {
             if (!sender.hasPermission("prison.ranks.list")) {

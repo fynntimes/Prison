@@ -32,14 +32,14 @@ import java.util.HashMap;
  */
 public class ItemManager {
 
-    HashMap<String, ItemSet> items;
-    ArrayList<Bundle> names;
-    boolean loaded = false;
-    File backup;
+    private HashMap<String, ItemSet> items;
+    private ArrayList<Bundle> names;
+    private boolean loaded = false;
+    private File backup;
 
     public ItemManager() {
-        items = new HashMap<String, ItemSet>();
-        names = new ArrayList<ItemManager.Bundle>();
+        items = new HashMap<>();
+        names = new ArrayList<>();
 
         backup = new File(Prison.i().getDataFolder(), "localitems.csv");
 
@@ -73,11 +73,11 @@ public class ItemManager {
     }
 
     public String getName(ItemSet set) {
-        for (int i = 0; i < names.size(); i++) {
-            ItemSet localSet = names.get(i).set;
+        for (Bundle name : names) {
+            ItemSet localSet = name.set;
             if (localSet.id == set.id) {
                 if (localSet.data == set.data) {
-                    return names.get(i).name;
+                    return name.name;
                 }
             }
         }

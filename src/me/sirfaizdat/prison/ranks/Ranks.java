@@ -50,9 +50,9 @@ public class Ranks implements Component {
 
     public static Ranks i;
     public Economy eco;
-    public List<Rank> ranks = new ArrayList<Rank>();
+    public List<Rank> ranks = new ArrayList<>();
     public File rankFolder;
-    Permission permission;
+    private Permission permission;
     private boolean enabled = true;
 
     public String getName() {
@@ -147,6 +147,9 @@ public class Ranks implements Component {
                 return name.endsWith(".rank");
             }
         });
+
+        // Make sure that we have files to look at :P
+        assert files != null;
         for (File file : files) {
             SerializableRank sr;
             try {
@@ -184,7 +187,6 @@ public class Ranks implements Component {
     }
 
     private String getGroup(String world, Player player) {
-
         String[] groups = permission.getPlayerGroups(world, player);
 
         for (String group : groups) {
@@ -234,9 +236,9 @@ public class Ranks implements Component {
             Prison.i().playerList.getPlayer(name).sendMessage(MessageUtil.get("ranks.noRanksLoaded"));
             return;
         }
-        Rank currentRank = null;
-        Rank nextRank = null;
-
+        Rank currentRank;
+        Rank nextRank;
+    
         UserInfo info = getUserInfo(name);
         if (info != null) {
             currentRank = info.getCurrentRank();
@@ -273,7 +275,7 @@ public class Ranks implements Component {
                 info.getPlayer().sendMessage(MessageUtil.get("ranks.rankedUp", nextRank.getPrefix()));
                 Bukkit.broadcastMessage(MessageUtil.get("ranks.rankedUpBroadcast", info.getPlayer().getName(), nextRank.getPrefix()));
                 // Launch a firework! Yay!
-                if(Prison.i().config.fireworksOnRankup) launchFirework(info.getPlayer());
+                if (Prison.i().config.fireworksOnRankup) launchFirework(info.getPlayer());
                 // End firework code
                 Bukkit.getServer().getPluginManager().callEvent(new RankupEvent(info.getPlayer(), buy));
             }

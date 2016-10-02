@@ -41,8 +41,8 @@ public abstract class Command {
 
     public Command(String name) {
         this.name = name;
-        requiredArgs = new ArrayList<String>();
-        optionalArgs = new ArrayList<String>();
+        requiredArgs = new ArrayList<>();
+        optionalArgs = new ArrayList<>();
         // Default permission
         permission = "prison." + name;
     }
