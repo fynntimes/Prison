@@ -57,7 +57,7 @@ public class Mines implements Component {
         i = this;
 
         File oldUnecessaryFile = new File(Prison.i().getDataFolder(), "minesupdated.txt");
-        if(oldUnecessaryFile.exists()) oldUnecessaryFile.delete();
+        if (oldUnecessaryFile.exists()) oldUnecessaryFile.delete();
 
         mm = new MinesManager();
         mcm = new MinesCommandManager(this);

@@ -35,12 +35,12 @@ public class MineResetEvent extends Event {
         this.mine = mine;
     }
 
-    public Mine getMine() {
-        return this.mine;
-    }
-
     public static HandlerList getHandlerList() {
         return handlers;
+    }
+
+    public Mine getMine() {
+        return this.mine;
     }
 
     @Override

@@ -56,16 +56,16 @@ public class CmdSet extends Command {
                     return;
                 }
 
-                if (id < 0 || id > Ranks.i.ranks.size() - 1) {
+                if (id < 0 || id > Ranks.i.getRanks().size() - 1) {
                     sender.sendMessage(MessageUtil.get("general.valueTooHigh", "value", "0", String.valueOf(Ranks.i.ranks.size() - 1)));
                     return;
                 }
 
-                Ranks.i.ranks.remove(rank);
-                Ranks.i.ranks.add(id, rank);
-                for (int i = 0; i < Ranks.i.ranks.size(); i++) {
-                    Ranks.i.ranks.get(i).setId(i);
-                    Ranks.i.saveRank(Ranks.i.ranks.get(i));
+                Ranks.i.getRanks().remove(rank);
+                Ranks.i.getRanks().add(id, rank);
+                for (int i = 0; i < Ranks.i.getRanks().size(); i++) {
+                    Ranks.i.getRanks().get(i).setId(i);
+                    Ranks.i.saveRank(Ranks.i.getRanks().get(i));
                 }
                 sender.sendMessage(MessageUtil.get("ranks.valueSet", "id", val, rank.getName()));
                 break;

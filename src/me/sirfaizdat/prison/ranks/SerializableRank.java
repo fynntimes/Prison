@@ -21,6 +21,9 @@ package me.sirfaizdat.prison.ranks;
 
 import java.io.Serializable;
 
+/**
+ * @author SirFaizdat
+ */
 public class SerializableRank implements Serializable {
 
     private static final long serialVersionUID = 1L;

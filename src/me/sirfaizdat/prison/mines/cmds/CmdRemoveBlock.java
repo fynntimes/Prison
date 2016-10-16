@@ -22,9 +22,9 @@ import me.sirfaizdat.prison.core.Command;
 import me.sirfaizdat.prison.core.ItemManager.ItemSet;
 import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.core.Prison;
+import me.sirfaizdat.prison.mines.Mines;
 import me.sirfaizdat.prison.mines.entities.Block;
 import me.sirfaizdat.prison.mines.entities.Mine;
-import me.sirfaizdat.prison.mines.Mines;
 import org.bukkit.Material;
 
 /**
@@ -94,7 +94,8 @@ public class CmdRemoveBlock extends Command {
                             .get("mines.mineDoesntHaveThisBlock"));
                     return;
                 }
-            } catch (NullPointerException ignored) {}
+            } catch (NullPointerException ignored) {
+            }
             set = new ItemSet(mat.getId(), b);
             // End "IF IT IS AN ID"
         } else {
@@ -121,7 +122,8 @@ public class CmdRemoveBlock extends Command {
                             .get("mines.mineDoesntHaveThisBlock"));
                     return;
                 }
-            } catch (NullPointerException ignored) {}
+            } catch (NullPointerException ignored) {
+            }
 
         }
 

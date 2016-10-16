@@ -16,11 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
 package me.sirfaizdat.prison.ranks.cmds;
 
 import me.sirfaizdat.prison.core.Command;
 import me.sirfaizdat.prison.ranks.Ranks;
-import org.bukkit.entity.Player;
 
 /**
  * @author SirFaizdat
@@ -30,14 +30,22 @@ public class CmdDemote extends Command {
     public CmdDemote() {
         super("demote");
         addRequiredArg("user");
+        addOptionalArg("refund");
         mustBePlayer(true);
     }
 
     public void execute() {
-        Ranks.i.demote((Player) sender, args[1]);
+        boolean refund = false;
+        if (args[2] != null) {
+            String a2 = args[2].toLowerCase();
+            if (a2.equals("yes") || a2.equals("true") || a2.equals("1"))
+                refund = true;
+        }
+
+        Ranks.i.demote(sender, args[1], refund);
     }
 
     public String description() {
-        return "Demote another user. NO REFUNDS!";
+        return "Demote another user.";
     }
 }

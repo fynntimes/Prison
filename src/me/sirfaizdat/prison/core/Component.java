@@ -30,42 +30,42 @@ public interface Component {
      *
      * @return The name of the component.
      */
-     String getName();
+    String getName();
 
     /**
      * Get the base command for this component.
      *
      * @return The base command.
      */
-     String getBaseCommand();
+    String getBaseCommand();
 
     /**
      * Check if the component is enabled.
      *
      * @return true if the component is enabled, false otherwise.
      */
-     boolean isEnabled();
+    boolean isEnabled();
 
     /**
      * Enable or disable the component. Only works at startup.
      *
      * @param enabled true or false
      */
-     void setEnabled(boolean enabled);
+    void setEnabled(boolean enabled);
 
     /**
      * Called on a reload.
      */
-     void reload();
+    void reload();
 
     /**
      * Called after the component is deemed compatible and enabled.
      */
-     void enable() throws FailedToStartException;
+    void enable() throws FailedToStartException;
 
     /**
      * Called when the plugin disables.
      */
-     void disable();
+    void disable();
 
 }

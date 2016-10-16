@@ -21,7 +21,6 @@ enable:
   autoblock: true
 
 # Mines Settings
-
 reset-time: 10
 reset-warnings: [10,5,1]
 reset-warning-message: "&7Mines are going to reset in &3<mins> minutes&7."
@@ -30,9 +29,7 @@ fill-mode: true
 async-reset: true
 
 # Ranks Settings
-
 fireworks-on-rankup: true
 
 # Autosmelt Setings
-
 flames-on-autosmelt: true

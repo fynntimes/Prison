@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
 package me.sirfaizdat.prison.ranks;
 
 import me.sirfaizdat.prison.core.Prison;
@@ -35,24 +36,24 @@ import java.util.HashMap;
  */
 public class BalanceChangeListener implements Listener {
 
-    private static Economy eco;
+    private static Economy economy;
     private HashMap<String, Double> balance;
 
     public BalanceChangeListener() {
-        eco = Ranks.i.eco;
+        economy = me.sirfaizdat.prison.ranks.Ranks.i.economy;
         balance = new HashMap<>();
         for (Player p : Bukkit.getOnlinePlayers()) {
-            balance.put(p.getName(), eco.getBalance(p));
+            balance.put(p.getName(), economy.getBalance(p));
         }
         Bukkit.getServer().getPluginManager().registerEvents(this, Prison.i());
         Bukkit.getScheduler().scheduleSyncRepeatingTask(Prison.i(), new Runnable() {
             @Override
             public void run() {
                 for (Player p : Bukkit.getServer().getOnlinePlayers()) {
-                    if (eco.getBalance(p) != balance.get(p.getName())) {
-                        Bukkit.getServer().getPluginManager().callEvent(new BalanceChangeEvent(p, balance.get(p.getName()), eco.getBalance(p)));
+                    if (economy.getBalance(p) != balance.get(p.getName())) {
+                        Bukkit.getServer().getPluginManager().callEvent(new BalanceChangeEvent(p, balance.get(p.getName()), economy.getBalance(p)));
                         balance.remove(p.getName());
-                        balance.put(p.getName(), eco.getBalance(p));
+                        balance.put(p.getName(), economy.getBalance(p));
                     }
                 }
             }
@@ -61,7 +62,7 @@ public class BalanceChangeListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        balance.put(event.getPlayer().getName(), eco.getBalance(event.getPlayer()));
+        balance.put(event.getPlayer().getName(), economy.getBalance(event.getPlayer()));
     }
 
     @EventHandler

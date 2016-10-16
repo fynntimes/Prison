@@ -17,9 +17,6 @@
  *
  */
 
-/**
- * Copyright 2014 GalaxinaRealms
- */
 package me.sirfaizdat.prison.ranks;
 
 import me.sirfaizdat.prison.core.Prison;
@@ -30,6 +27,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * @author SirFaizdat
+ */
 public class RanksConfig {
 
     private FileConfiguration config = null;
@@ -80,3 +80,4 @@ public class RanksConfig {
     }
 
 }
+
