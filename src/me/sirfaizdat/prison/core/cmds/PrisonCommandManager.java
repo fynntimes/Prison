@@ -69,21 +69,6 @@ public class PrisonCommandManager extends AbstractCommandManager {
         }, "prison");
     }
     @Override
-    public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args)
-    {
-    	/*if (args.length < 1 && !(sender.hasPermission("prison.manage")||sender.isOp()) && sender instanceof Player && Prison.i().config.enableGUI)
-    	{
-    		// Trigger PlayerGUI
-    		
-    		return true;
-    	}
-    	else
-    	{
-    		return super.onCommand(sender,command,label,args);
-    	}*/ // Temp GUI concept
-    	return super.onCommand(sender, command, label, args);
-    }
-    @Override
     public void registerCommands() {
         commands.put("reload", new CmdReload());
         commands.put("update", new CmdUpdate());

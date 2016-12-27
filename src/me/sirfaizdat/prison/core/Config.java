@@ -32,7 +32,7 @@ public class Config {
     public boolean checkUpdates;
     public boolean optOut;
 
-    public boolean enableMines, enableRanks, enableAutosmelt, enableAutoblock, enableGUI;
+    public boolean enableMines, enableRanks, enableAutosmelt, enableAutoblock;
 
     public List<String> worlds;
     public boolean enableMultiworld;
@@ -90,24 +90,6 @@ public class Config {
             	useJson = true;
             	configerr = true;
             }
-            /*try {
-                enableGUI = c.getBoolean("enable.gui");
-            }
-            catch (NullPointerException e)
-            {
-            	c.set("enable.gui", true);
-            	enableGUI = true;
-            	configerr = true;
-            }
-            try {
-            	guiName = Prison.color(c.getString("gui-name"));
-            }
-            catch (NullPointerException e)
-            {
-            	c.set("gui-name", "&4Prison Mines");
-            	guiName = Prison.color("&4Prison Mines");
-            	configerr = true;
-            }*/
             if (configerr){Prison.l.warning("Prison 2.3 contains some configuration changes. Don't worry, the missing settings have been set to their default values.");}
         } catch (NullPointerException e) {
             Prison.l.severe("Your configuration is missing a setting or two. Try deleting it and reloading the server.");
