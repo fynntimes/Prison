@@ -164,7 +164,7 @@ public class Ranks implements Component {
         return true;
     }
 
-    @SuppressWarnings("Deprication")
+    @SuppressWarnings("deprecation")
     public List<Rank> getRanks() {
         return this.ranks;
     }

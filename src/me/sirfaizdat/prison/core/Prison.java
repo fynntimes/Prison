@@ -24,6 +24,7 @@ import me.sirfaizdat.prison.core.cmds.CmdAutoSmelt;
 import me.sirfaizdat.prison.core.cmds.CmdBlock;
 import me.sirfaizdat.prison.core.cmds.PrisonCommandManager;
 import me.sirfaizdat.prison.mines.Mines;
+//import me.sirfaizdat.prison.mines.PlayerGUI;
 import me.sirfaizdat.prison.mines.entities.Mine;
 import me.sirfaizdat.prison.ranks.Ranks;
 import net.milkbowl.vault.economy.Economy;
@@ -58,6 +59,7 @@ public class Prison extends JavaPlugin implements Listener {
     private Permission permissions;
     private boolean updateAvailable = false;
     private String updateLatestName;
+    //public static PlayerGUI gui;
 
     public static Prison i() {
         return i;
@@ -99,6 +101,7 @@ public class Prison extends JavaPlugin implements Listener {
         playerList = new PlayerList();
         getServer().getPluginManager().registerEvents(playerList, this);
         updater = new Updater(this, 76155, this.getFile(), UpdateType.NO_DOWNLOAD, true);
+        //gui = new PlayerGUI();
     }
 
     private void initComponents() {
@@ -254,6 +257,7 @@ public class Prison extends JavaPlugin implements Listener {
                 m.save();
             }
         }
+        saveConfig();
     }
 
     public void reload() {

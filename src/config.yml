@@ -19,6 +19,8 @@ enable:
   ranks: true
   autosmelt: true
   autoblock: true
+  json: true
+  gui: true
 
 # Mines Settings
 reset-time: 10
@@ -27,6 +29,7 @@ reset-warning-message: "&7Mines are going to reset in &3<mins> minutes&7."
 reset-broadcast-message: "&3All mines have been reset."
 fill-mode: true
 async-reset: true
+gui-name: "&4Prison Mines"
 
 # Ranks Settings
 fireworks-on-rankup: true

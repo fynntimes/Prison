@@ -18,9 +18,13 @@
  */
 package me.sirfaizdat.prison.core.cmds;
 
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
 import me.sirfaizdat.prison.core.AbstractCommandManager;
 import me.sirfaizdat.prison.core.Component;
 import me.sirfaizdat.prison.core.FailedToStartException;
+import me.sirfaizdat.prison.core.Prison;
 
 /**
  * @author SirFaizdat
@@ -64,7 +68,21 @@ public class PrisonCommandManager extends AbstractCommandManager {
             }
         }, "prison");
     }
-
+    @Override
+    public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args)
+    {
+    	/*if (args.length < 1 && !(sender.hasPermission("prison.manage")||sender.isOp()) && sender instanceof Player && Prison.i().config.enableGUI)
+    	{
+    		// Trigger PlayerGUI
+    		
+    		return true;
+    	}
+    	else
+    	{
+    		return super.onCommand(sender,command,label,args);
+    	}*/ // Temp GUI concept
+    	return super.onCommand(sender, command, label, args);
+    }
     @Override
     public void registerCommands() {
         commands.put("reload", new CmdReload());
