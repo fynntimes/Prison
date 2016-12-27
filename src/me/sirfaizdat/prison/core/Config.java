@@ -28,7 +28,6 @@ import java.util.List;
 public class Config {
 
     public String serverPrefix;
-    public String guiName;
     public boolean checkUpdates;
     public boolean optOut;
 
