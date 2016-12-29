@@ -159,10 +159,16 @@ public class Ranks implements Component {
                 JsonRank jr = new JsonRank();
                 Gson gson = new Gson();
                 try {
-                    gson.fromJson(new FileReader(file), JsonRank.class);
+                    FileReader fr = new FileReader(file);
+                    jr = gson.fromJson(fr, JsonRank.class);
+                    fr.close();
                 } catch (FileNotFoundException e) {
                     // Don't even know how this is even possible
                     Prison.l.info("Couldn't load rank file " + file.getName() + " because it no longer exists");
+                    continue;
+                } catch (IOException e) {
+                    Prison.l.severe("Couldn't load rank file " + file.getName());
+                    e.printStackTrace();
                     continue;
                 }
                 rank.setId(jr.id);
@@ -213,10 +219,19 @@ public class Ranks implements Component {
                     return false;
                 }
             }
-
+            FileWriter fw;
             try {
+                fw = new FileWriter(rankFile);
+            } catch (IOException e) {
+                Prison.l.severe("Failed to save rank " + rank.getName() + ".");
+                e.printStackTrace();
+                return false;
+            }
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                gson.toJson(jr, new FileWriter(rankFile));
+                gson.toJson(jr, fw);
+            try {
+                fw.flush();
+                fw.close();
             } catch (IOException e) {
                 Prison.l.severe("Failed to save rank " + rank.getName() + ".");
                 e.printStackTrace();
@@ -225,25 +240,22 @@ public class Ranks implements Component {
         }
         else
         {
-            SerializableRank jr;
+            SerializableRank jr = new SerializableRank();
+            jr.id = rank.getId();
+            jr.name = rank.getName();
+            jr.prefix = rank.getPrefix();
+            jr.price = rank.getPrice();
             try {
-                FileInputStream fileIn = new FileInputStream(rankFile);
-                ObjectInputStream in = new ObjectInputStream(fileIn);
-                jr = (SerializableRank) in.readObject();
-                in.close();
-                fileIn.close();
-            } catch (ClassNotFoundException e) {
-                Prison.l.severe("An unexpected error occurred. Check to make sure your copy of the plugin is not corrupted.");
-                return false;
+                FileOutputStream fileOut = new FileOutputStream(rankFile);
+                ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                out.writeObject(jr);
+                out.close();
+                fileOut.close();
             } catch (IOException e) {
                 Prison.l.warning("There was an error in loading the file " + rankFile.getName());
                 e.printStackTrace();
                 return false;
             }
-            jr.id = rank.getId();
-            jr.name = rank.getName();
-            jr.prefix = rank.getPrefix();
-            jr.price = rank.getPrice();
             return true;
         }
         return true;
@@ -283,8 +295,9 @@ public class Ranks implements Component {
             rank.setPrefix(sr.prefix);
             rank.setPrice(sr.price);
 
-            file.renameTo(new File(Prison.i().getDataFolder(),"/mines/"+file.getName().replace(".rank", ".oldrank")));
+            file.delete();
             saveRank(rank);
+            Prison.l.info("Converted rank "+rank.getName() + " to JSON");
         }
 
     }
