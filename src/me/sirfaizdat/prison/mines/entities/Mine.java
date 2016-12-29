@@ -20,16 +20,22 @@
 package me.sirfaizdat.prison.mines.entities;
 
 import me.sirfaizdat.prison.core.Prison;
+import me.sirfaizdat.prison.json.JsonMine;
 import me.sirfaizdat.prison.mines.SerializableMine;
 import me.sirfaizdat.prison.mines.events.MineResetEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.*;
@@ -64,7 +70,7 @@ public class Mine {
         this.maxX = maxX;
         this.maxY = maxY;
         this.maxZ = maxZ;
-        mineFile = new File(Prison.i().getDataFolder(), "/mines/" + name + ".mine");
+        mineFile = new File(Prison.i().getDataFolder(), "/mines/" + name + (Prison.i().config.useJson ? ".json" : ".mine"));
         this.ranks = ranks;
     }
 
@@ -91,6 +97,8 @@ public class Mine {
     }
 
     public void save() {
+    	if (!Prison.i().getConfig().getBoolean("enable.json")){
+    		Prison.l.warning(ChatColor.RED+"The old mine saving system is deprecated and will is likely to be removed in a future release. Please upgrade to JSON as soon as possible ("+ChatColor.YELLOW+"In the config set "+ChatColor.AQUA+"json "+ChatColor.YELLOW+"to "+ChatColor.AQUA+" true"+ChatColor.RED+")");
         SerializableMine sm = new SerializableMine();
         sm.name = name;
         sm.world = worldName;
@@ -116,7 +124,40 @@ public class Mine {
         } catch (IOException e) {
             Prison.l.warning("Failed to save mine " + name + ".");
             e.printStackTrace();
-        }
+        }}
+    	else
+    	{
+    		JsonMine jm = new JsonMine();
+            jm.name = name;
+            jm.world = worldName;
+            jm.minX = minX;
+            jm.minY = minY;
+            jm.minZ = minZ;
+            jm.maxX = maxX;
+            jm.maxY = maxY;
+            jm.maxZ = maxZ;
+            jm.blocks = new HashMap<>();
+            for (Map.Entry<String, Block> e : blocks.entrySet())
+            {
+            	jm.blocks.put(e.getKey(), e.getValue().getChance());
+            }
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            FileWriter f = null;
+            try {
+				f = new FileWriter(new File(Prison.i().getDataFolder(), "/mines/" + name + ".json"));
+			} catch (IOException e1) {
+	            Prison.l.warning("Failed to save mine " + name + ".");
+	            e1.printStackTrace();
+			}
+            try {
+				f.write(gson.toJson(jm));
+				f.flush();
+				f.close();
+			} catch (IOException e1) {
+	            Prison.l.warning("Failed to save mine " + name + ".");
+	            e1.printStackTrace();
+			}
+    	}
     }
 
     @SuppressWarnings("deprecation")

@@ -24,6 +24,7 @@ import me.sirfaizdat.prison.core.cmds.CmdAutoSmelt;
 import me.sirfaizdat.prison.core.cmds.CmdBlock;
 import me.sirfaizdat.prison.core.cmds.PrisonCommandManager;
 import me.sirfaizdat.prison.mines.Mines;
+//import me.sirfaizdat.prison.mines.PlayerGUI;
 import me.sirfaizdat.prison.mines.entities.Mine;
 import me.sirfaizdat.prison.ranks.Ranks;
 import net.milkbowl.vault.economy.Economy;
@@ -254,6 +255,7 @@ public class Prison extends JavaPlugin implements Listener {
                 m.save();
             }
         }
+        saveConfig();
     }
 
     public void reload() {

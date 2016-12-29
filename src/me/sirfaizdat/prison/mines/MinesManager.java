@@ -19,12 +19,16 @@
 package me.sirfaizdat.prison.mines;
 
 import me.sirfaizdat.prison.core.Prison;
+import me.sirfaizdat.prison.json.JsonMine;
 import me.sirfaizdat.prison.mines.entities.Block;
 import me.sirfaizdat.prison.mines.entities.Mine;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
+
+import com.google.gson.Gson;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -71,7 +75,35 @@ public class MinesManager {
     }
 
     public void load() {
-        for (File file : getAllMineFiles()) {
+    	boolean convert = Prison.i().config.useJson;
+    	if (!convert){
+    		Prison.l.warning(ChatColor.RED+"The old mine saving system is deprecated and will is likely to be removed in a future release. Please upgrade to JSON as soon as possible ("+ChatColor.YELLOW+"In the config set "+ChatColor.AQUA+"json "+ChatColor.YELLOW+"to "+ChatColor.AQUA+" true"+ChatColor.RED+")");}
+    	for (File mine : getAllNewMineFiles())
+        {
+        	FileReader fr;
+			try {
+				fr = new FileReader(mine);
+			} catch (FileNotFoundException e) {
+                Prison.l.warning("There was an error in loading file " + mine.getName() + ".");
+                e.printStackTrace();
+                continue; // Skip this one
+			}
+        	JsonMine jm = new Gson().fromJson(fr, JsonMine.class);
+        	HashMap<String, Block> blocks = new HashMap<>();
+        	for (Map.Entry<String, Double> entry : jm.blocks.entrySet())
+        	{
+        		Block b = new Block(Integer.parseInt(entry.getKey().split(":")[0]),Short.parseShort(entry.getKey().split(":")[1]));
+        		b.setChance(entry.getValue());
+        		blocks.put(entry.getKey(), b);
+        	}
+        	Mine m = new Mine(jm.name, jm.world, jm.minX, jm.minY, jm.minZ,
+                    jm.maxX, jm.maxY, jm.maxZ, jm.ranks == null ? new ArrayList<String>() : jm.ranks);
+        	if (blocks != null && blocks.size() != 0) {
+                transferComposition(m, blocks);
+            }
+        	mines.put(jm.name, m);
+        }
+    	for (File file : getAllMineFiles()) { // Backwards compatability
             SerializableMine sm;
             try {
                 FileInputStream fileIn = new FileInputStream(file);
@@ -88,16 +120,26 @@ public class MinesManager {
                 e.printStackTrace();
                 continue; // Skip this one
             }
-            Mine m = new Mine(sm.name, sm.world, sm.minX, sm.minY, sm.minZ,
+            Mine m = null;
+            if (convert) {
+            	Prison.l.info("Converting " + sm.name + " to JSON...");
+                m = new Mine(sm.name, sm.world, sm.minX, sm.minY, sm.minZ,
+                        sm.maxX, sm.maxY, sm.maxZ, sm.ranks == null ? new ArrayList<String>() : sm.ranks);
+                m.save(); // Run the 2.3 save function
+            	file.renameTo(new File(Prison.i().getDataFolder(),"/mines/"+file.getName().replace(".mine", ".oldmine")));
+            }else{
+            m = new Mine(sm.name, sm.world, sm.minX, sm.minY, sm.minZ,
                     sm.maxX, sm.maxY, sm.maxZ, sm.ranks == null ? new ArrayList<String>() : sm.ranks);
             if (sm.blocks != null && sm.blocks.size() != 0) {
                 transferComposition(m, sm.blocks);
-            }
+            }}
 
             mines.put(sm.name, m);
         }
+        
 
         Prison.l.info("&2Loaded " + mines.size() + " mines.");
+        
     }
 
     private void transferComposition(Mine m, HashMap<String, Block> compo) {
@@ -138,7 +180,15 @@ public class MinesManager {
             }
         });
     }
-
+    private File[] getAllNewMineFiles() {
+        File folder = new File(Prison.i().getDataFolder(), "/mines/");
+        return folder.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".json");
+            }
+        });
+    }
     private class ResetClock implements Runnable {
         public void run() {
             if (mines.size() == 0) return;

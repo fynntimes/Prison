@@ -19,6 +19,7 @@ enable:
   ranks: true
   autosmelt: true
   autoblock: true
+  json: true
 
 # Mines Settings
 reset-time: 10

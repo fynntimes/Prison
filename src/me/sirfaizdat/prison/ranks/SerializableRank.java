@@ -24,6 +24,7 @@ import java.io.Serializable;
 /**
  * @author SirFaizdat
  */
+@Deprecated
 public class SerializableRank implements Serializable {
 
     private static final long serialVersionUID = 1L;

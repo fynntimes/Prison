@@ -41,7 +41,7 @@ public class Config {
     public boolean fillMode, asyncReset;
     public String resetWarningMessage;
     public String resetBroadcastMessage;
-
+    public boolean useJson;
     public boolean fireworksOnRankup;
 
     public boolean flamesOnAutosmelt;
@@ -78,6 +78,18 @@ public class Config {
             enableMultiworld = c.getBoolean("multiworld");
             fireworksOnRankup = c.getBoolean("fireworks-on-rankup");
             flamesOnAutosmelt = c.getBoolean("flames-on-autosmelt");
+            boolean configmissing = false;
+            try {
+            	useJson = c.getBoolean("enable.json");
+            }
+            catch (NullPointerException e)
+            {
+            	// Compatibility
+            	c.set("enable.json", true);
+            	useJson = true;
+            	configmissing = true;
+            }
+            if (configmissing){Prison.l.warning("Prison 2.3 contains some configuration changes. Don't worry, the missing settings have been set to their default values.");}
         } catch (NullPointerException e) {
             Prison.l.severe("Your configuration is missing a setting or two. Try deleting it and reloading the server.");
         }

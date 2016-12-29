@@ -23,6 +23,7 @@ import me.sirfaizdat.prison.core.Component;
 import me.sirfaizdat.prison.core.FailedToStartException;
 import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.core.Prison;
+import me.sirfaizdat.prison.json.JsonRank;
 import me.sirfaizdat.prison.ranks.cmds.RanksCommandManager;
 import me.sirfaizdat.prison.ranks.events.DemoteEvent;
 import me.sirfaizdat.prison.ranks.events.RankupEvent;
@@ -38,6 +39,9 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.FireworkMeta;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.*;
 import java.math.BigDecimal;
@@ -116,7 +120,7 @@ public class Ranks implements Component {
             }
         }
 
-        convertRanks();
+        if(Prison.i().config.useJson){convertRanks();}
 
         load();
         RanksCommandManager rcm = new RanksCommandManager();
@@ -143,28 +147,49 @@ public class Ranks implements Component {
         File[] files = ranksFolder.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                return name.endsWith(".yml");
+                return name.endsWith(Prison.i().config.useJson ? ".json" : ".rank");
             }
         });
 
         // Make sure that we have files to look at :P
         assert files != null;
         for (File file : files) {
-            YamlConfiguration rankFl = YamlConfiguration.loadConfiguration(file);
-
             Rank rank = new Rank();
-
-            rank.setId(rankFl.getInt("rank.id"));
-            rank.setName(rankFl.getString("rank.name"));
-            rank.setPrefix(rankFl.getString("rank.prefix"));
-            rank.setPrice(rankFl.getInt("rank.price"));
+            if (Prison.i().config.useJson) {
+                JsonRank jr = new JsonRank();
+                Gson gson = new Gson();
+                try {
+                    FileReader fr = new FileReader(file);
+                    jr = gson.fromJson(fr, JsonRank.class);
+                    fr.close();
+                } catch (FileNotFoundException e) {
+                    // Don't even know how this is even possible
+                    Prison.l.info("Couldn't load rank file " + file.getName() + " because it no longer exists");
+                    continue;
+                } catch (IOException e) {
+                    Prison.l.severe("Couldn't load rank file " + file.getName());
+                    e.printStackTrace();
+                    continue;
+                }
+                rank.setId(jr.id);
+                rank.setName(jr.name);
+                rank.setPrefix(jr.prefix);
+                rank.setPrice(jr.price);
+            }
+            else {
+                SerializableRank jr = new SerializableRank();
+                rank.setId(jr.id);
+                rank.setName(jr.name);
+                rank.setPrefix(jr.prefix);
+                rank.setPrice(jr.price);
+            }
             this.getRanks().add(rank);
         }
 
         return true;
     }
 
-    @SuppressWarnings("Deprication")
+    @SuppressWarnings("deprecation")
     public List<Rank> getRanks() {
         return this.ranks;
     }
@@ -179,29 +204,60 @@ public class Ranks implements Component {
     }
 
     public boolean saveRank(Rank rank) {
-        File rankFile = new File(ranksFolder, rank.getName() + ".yml");
-        YamlConfiguration rankFl = YamlConfiguration.loadConfiguration(rankFile);
+        File rankFile = new File(ranksFolder, rank.getName() + (Prison.i().config.useJson ? ".json" : ".rank"));
+        if (Prison.i().config.useJson) {
+            JsonRank jr = new JsonRank();
 
-        rankFl.set("rank.id", rank.getId());
-        rankFl.set("rank.name", rank.getName());
-        rankFl.set("rank.prefix", rank.getPrefix());
-        rankFl.set("rank.price", rank.getPrice());
+            jr.id = rank.getId();
+            jr.name = rank.getName();
+            jr.prefix = rank.getPrefix();
+            jr.price = rank.getPrice();
 
-        if (rankFile.exists()) {
-            if (!rankFile.delete()) {
-                Prison.l.severe("Failed to save file " + rankFile.getName() + " - Could not delete existing copy.");
+            if (rankFile.exists()) {
+                if (!rankFile.delete()) {
+                    Prison.l.severe("Failed to save file " + rankFile.getName() + " - Could not delete existing copy.");
+                    return false;
+                }
+            }
+            FileWriter fw;
+            try {
+                fw = new FileWriter(rankFile);
+            } catch (IOException e) {
+                Prison.l.severe("Failed to save rank " + rank.getName() + ".");
+                e.printStackTrace();
+                return false;
+            }
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                gson.toJson(jr, fw);
+            try {
+                fw.flush();
+                fw.close();
+            } catch (IOException e) {
+                Prison.l.severe("Failed to save rank " + rank.getName() + ".");
+                e.printStackTrace();
                 return false;
             }
         }
-
-        try {
-            rankFl.save(rankFile);
-        } catch (IOException e) {
-            Prison.l.severe("Failed to save rank " + rank.getName() + ".");
-            e.printStackTrace();
-            return false;
+        else
+        {
+            SerializableRank jr = new SerializableRank();
+            jr.id = rank.getId();
+            jr.name = rank.getName();
+            jr.prefix = rank.getPrefix();
+            jr.price = rank.getPrice();
+            try {
+                FileOutputStream fileOut = new FileOutputStream(rankFile);
+                ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                out.writeObject(jr);
+                out.close();
+                fileOut.close();
+            } catch (IOException e) {
+                Prison.l.warning("There was an error in loading the file " + rankFile.getName());
+                e.printStackTrace();
+                return false;
+            }
+            return true;
         }
-
         return true;
     }
 
@@ -241,6 +297,7 @@ public class Ranks implements Component {
 
             file.delete();
             saveRank(rank);
+            Prison.l.info("Converted rank "+rank.getName() + " to JSON");
         }
 
     }
@@ -257,7 +314,7 @@ public class Ranks implements Component {
             }
         }
 
-        File rankFile = new File(ranksFolder, rank.getName() + ".rank");
+        File rankFile = new File(ranksFolder, rank.getName() + ".json");
         if (rankFile.exists()) {
             boolean successful = rankFile.delete();
             if (!successful) {
