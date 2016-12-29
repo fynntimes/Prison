@@ -23,6 +23,7 @@ import me.sirfaizdat.prison.json.JsonMine;
 import me.sirfaizdat.prison.mines.entities.Block;
 import me.sirfaizdat.prison.mines.entities.Mine;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -75,7 +76,8 @@ public class MinesManager {
 
     public void load() {
     	boolean convert = Prison.i().config.useJson;
-    	if (!convert){Prison.l.warning("The new mine format converter is disabled");Prison.l.warning("Set the json option to true in the config.yml to enable it");}
+    	if (!convert){
+    		Prison.l.warning(ChatColor.RED+"The old mine saving system is deprecated and will is likely to be removed in a future release. Please upgrade to JSON as soon as possible ("+ChatColor.YELLOW+"In the config set "+ChatColor.AQUA+"json "+ChatColor.YELLOW+"to "+ChatColor.AQUA+" true"+ChatColor.RED+")");}
     	for (File mine : getAllNewMineFiles())
         {
         	FileReader fr;

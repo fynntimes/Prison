@@ -24,12 +24,14 @@ import me.sirfaizdat.prison.json.JsonMine;
 import me.sirfaizdat.prison.mines.SerializableMine;
 import me.sirfaizdat.prison.mines.events.MineResetEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -96,6 +98,7 @@ public class Mine {
 
     public void save() {
     	if (!Prison.i().getConfig().getBoolean("enable.json")){
+    		Prison.l.warning(ChatColor.RED+"The old mine saving system is deprecated and will is likely to be removed in a future release. Please upgrade to JSON as soon as possible ("+ChatColor.YELLOW+"In the config set "+ChatColor.AQUA+"json "+ChatColor.YELLOW+"to "+ChatColor.AQUA+" true"+ChatColor.RED+")");
         SerializableMine sm = new SerializableMine();
         sm.name = name;
         sm.world = worldName;
@@ -138,7 +141,7 @@ public class Mine {
             {
             	jm.blocks.put(e.getKey(), e.getValue().getChance());
             }
-            Gson gson = new Gson();
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
             FileWriter f = null;
             try {
 				f = new FileWriter(new File(Prison.i().getDataFolder(), "/mines/" + name + ".json"));

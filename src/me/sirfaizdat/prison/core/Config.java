@@ -78,7 +78,7 @@ public class Config {
             enableMultiworld = c.getBoolean("multiworld");
             fireworksOnRankup = c.getBoolean("fireworks-on-rankup");
             flamesOnAutosmelt = c.getBoolean("flames-on-autosmelt");
-            boolean configerr = false;
+            boolean configmissing = false;
             try {
             	useJson = c.getBoolean("enable.json");
             }
@@ -87,9 +87,9 @@ public class Config {
             	// Compatibility
             	c.set("enable.json", true);
             	useJson = true;
-            	configerr = true;
+            	configmissing = true;
             }
-            if (configerr){Prison.l.warning("Prison 2.3 contains some configuration changes. Don't worry, the missing settings have been set to their default values.");}
+            if (configmissing){Prison.l.warning("Prison 2.3 contains some configuration changes. Don't worry, the missing settings have been set to their default values.");}
         } catch (NullPointerException e) {
             Prison.l.severe("Your configuration is missing a setting or two. Try deleting it and reloading the server.");
         }

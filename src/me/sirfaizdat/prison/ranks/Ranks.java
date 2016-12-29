@@ -23,6 +23,7 @@ import me.sirfaizdat.prison.core.Component;
 import me.sirfaizdat.prison.core.FailedToStartException;
 import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.core.Prison;
+import me.sirfaizdat.prison.json.JsonRank;
 import me.sirfaizdat.prison.ranks.cmds.RanksCommandManager;
 import me.sirfaizdat.prison.ranks.events.DemoteEvent;
 import me.sirfaizdat.prison.ranks.events.RankupEvent;
@@ -38,6 +39,9 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.FireworkMeta;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.*;
 import java.math.BigDecimal;
@@ -143,21 +147,22 @@ public class Ranks implements Component {
         File[] files = ranksFolder.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                return name.endsWith(".yml");
+                return name.endsWith(".json");
             }
         });
 
         // Make sure that we have files to look at :P
         assert files != null;
         for (File file : files) {
-            YamlConfiguration rankFl = YamlConfiguration.loadConfiguration(file);
+            JsonRank jr = new JsonRank();
+
 
             Rank rank = new Rank();
 
-            rank.setId(rankFl.getInt("rank.id"));
-            rank.setName(rankFl.getString("rank.name"));
-            rank.setPrefix(rankFl.getString("rank.prefix"));
-            rank.setPrice(rankFl.getInt("rank.price"));
+            rank.setId(jr.id);
+            rank.setName(jr.name);
+            rank.setPrefix(jr.prefix);
+            rank.setPrice(jr.price);
             this.getRanks().add(rank);
         }
 
@@ -179,13 +184,13 @@ public class Ranks implements Component {
     }
 
     public boolean saveRank(Rank rank) {
-        File rankFile = new File(ranksFolder, rank.getName() + ".yml");
-        YamlConfiguration rankFl = YamlConfiguration.loadConfiguration(rankFile);
+        File rankFile = new File(ranksFolder, rank.getName() + ".json");
+        JsonRank jr = new JsonRank();
 
-        rankFl.set("rank.id", rank.getId());
-        rankFl.set("rank.name", rank.getName());
-        rankFl.set("rank.prefix", rank.getPrefix());
-        rankFl.set("rank.price", rank.getPrice());
+        jr.id = rank.getId();
+        jr.name = rank.getName();
+        jr.prefix = rank.getPrefix();
+        jr.price = rank.getPrice();
 
         if (rankFile.exists()) {
             if (!rankFile.delete()) {
@@ -195,7 +200,8 @@ public class Ranks implements Component {
         }
 
         try {
-            rankFl.save(rankFile);
+        	Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        	gson.toJson(jr, new FileWriter(rankFile));
         } catch (IOException e) {
             Prison.l.severe("Failed to save rank " + rank.getName() + ".");
             e.printStackTrace();
@@ -239,7 +245,7 @@ public class Ranks implements Component {
             rank.setPrefix(sr.prefix);
             rank.setPrice(sr.price);
 
-            file.delete();
+            file.renameTo(new File(Prison.i().getDataFolder(),"/mines/"+file.getName().replace(".rank", ".oldrank")));
             saveRank(rank);
         }
 
@@ -257,7 +263,7 @@ public class Ranks implements Component {
             }
         }
 
-        File rankFile = new File(ranksFolder, rank.getName() + ".rank");
+        File rankFile = new File(ranksFolder, rank.getName() + ".json");
         if (rankFile.exists()) {
             boolean successful = rankFile.delete();
             if (!successful) {
