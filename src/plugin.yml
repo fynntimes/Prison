@@ -1,6 +1,6 @@
-name: Prison
-version: 2.2.3
-description: Prison
+name: ${project.name}
+version: ${project.version}
+description: ${project.description}
 author: SirFaizdat
 authors: [Camouflage100]
 main: me.sirfaizdat.prison.core.Prison
