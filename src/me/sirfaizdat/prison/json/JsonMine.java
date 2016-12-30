@@ -8,7 +8,11 @@ import java.util.HashMap;
 
 import com.google.gson.Gson;
 
+<<<<<<< HEAD
+import me.sirfaizdat.prison.mines.Block;
+=======
 import me.sirfaizdat.prison.mines.entities.Block;
+>>>>>>> 61d1c844d8b63310d8d308dc4568528ecbad6faf
 
 public class JsonMine {
 	public JsonMine fromJson(String json)
