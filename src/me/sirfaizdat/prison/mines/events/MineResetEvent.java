@@ -19,7 +19,7 @@
 
 package me.sirfaizdat.prison.mines.events;
 
-import me.sirfaizdat.prison.mines.entities.Mine;
+import me.sirfaizdat.prison.mines.Mine;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 

@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import me.sirfaizdat.prison.mines.SerializableMine;
-import me.sirfaizdat.prison.mines.entities.Block;
+import me.sirfaizdat.prison.mines.Block;
 import me.sirfaizdat.prison.ranks.SerializableRank;
 
 public class Converter {

@@ -18,8 +18,6 @@
  */
 package me.sirfaizdat.prison.mines;
 
-import me.sirfaizdat.prison.mines.entities.Block;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;

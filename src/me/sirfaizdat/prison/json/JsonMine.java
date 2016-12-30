@@ -8,8 +8,6 @@ import java.util.HashMap;
 
 import com.google.gson.Gson;
 
-import me.sirfaizdat.prison.mines.entities.Block;
-
 public class JsonMine {
 	public JsonMine fromJson(String json)
 	{
