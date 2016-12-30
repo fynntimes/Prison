@@ -22,7 +22,7 @@ import me.sirfaizdat.prison.core.Command;
 import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.mines.Mines;
-import me.sirfaizdat.prison.mines.Mine;
+import me.sirfaizdat.prison.mines.entities.Mine;
 
 import java.util.Map;
 

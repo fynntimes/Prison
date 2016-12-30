@@ -25,7 +25,7 @@ import me.sirfaizdat.prison.core.cmds.CmdBlock;
 import me.sirfaizdat.prison.core.cmds.PrisonCommandManager;
 import me.sirfaizdat.prison.mines.Mines;
 //import me.sirfaizdat.prison.mines.PlayerGUI;
-import me.sirfaizdat.prison.mines.Mine;
+import me.sirfaizdat.prison.mines.entities.Mine;
 import me.sirfaizdat.prison.ranks.Ranks;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
