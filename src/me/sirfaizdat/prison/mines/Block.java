@@ -17,7 +17,7 @@
  *
  */
 
-package me.sirfaizdat.prison.mines.entities;
+package me.sirfaizdat.prison.mines;
 
 import java.io.Serializable;
 

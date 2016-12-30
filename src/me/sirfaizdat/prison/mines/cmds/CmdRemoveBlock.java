@@ -23,7 +23,7 @@ import me.sirfaizdat.prison.core.ItemManager.ItemSet;
 import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.mines.Mines;
-import me.sirfaizdat.prison.mines.entities.Block;
+import me.sirfaizdat.prison.mines.Block;
 import me.sirfaizdat.prison.mines.entities.Mine;
 import org.bukkit.Material;
 
