@@ -18,19 +18,15 @@
  */
 package me.sirfaizdat.prison.mines;
 
+import com.google.gson.Gson;
 import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.json.JsonMine;
-
-import me.sirfaizdat.prison.mines.Block;
-
 import me.sirfaizdat.prison.mines.entities.Mine;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
-
-import com.google.gson.Gson;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -75,7 +71,23 @@ public class MinesManager {
             }
         }
     }
-
+    public SerializableMine twoToOld(SerializableMine2 sm){
+        SerializableMine out = new SerializableMine();
+        out.blocks = new HashMap<String, Block>();
+        for (Map.Entry<String,me.sirfaizdat.prison.mines.entities.Block> b : sm.blocks.entrySet()){
+            Block block = new Block(b.getValue().getId(),b.getValue().getData());
+            block.setChance(b.getValue().getChance());
+            out.blocks.put(b.getKey(),block);
+        }
+        out.minX = sm.minX;
+        out.minY = sm.minY;
+        out.minZ = sm.minZ;
+        out.maxX = sm.maxX;
+        out.maxY = sm.maxY;
+        out.maxZ = sm.maxZ;
+        out.ranks = sm.ranks;
+        return out;
+    }
     public void load() {
     	boolean convert = Prison.i().config.useJson;
     	if (!convert){
@@ -106,13 +118,24 @@ public class MinesManager {
         	mines.put(jm.name, m);
         }
     	for (File file : getAllMineFiles()) { // Backwards compatability
-            SerializableMine sm;
+          SerializableMine sm;
             try {
+                Object tmp;
                 FileInputStream fileIn = new FileInputStream(file);
                 ObjectInputStream in = new ObjectInputStream(fileIn);
-                sm = (SerializableMine) in.readObject();
+                tmp = in.readObject();
                 in.close();
                 fileIn.close();
+                if (((SerializableMine)tmp).blocks == null){
+                    if (((SerializableMine2)tmp).blocks != null){
+                        sm = twoToOld((SerializableMine2)tmp);
+                    }
+                    else { // It's clearly meant to be null
+                        sm = (SerializableMine)tmp;
+                    }
+                } else {
+                    sm = (SerializableMine)tmp;
+                }
             } catch (ClassNotFoundException e) {
                 Prison.l.severe("An unexpected error occured. Check to make sure your copy of the plugin is not corrupted.");
                 e.printStackTrace();
