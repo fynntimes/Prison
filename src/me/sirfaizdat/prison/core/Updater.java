@@ -245,7 +245,7 @@ public class Updater {
         FileOutputStream fout = null;
         try {
             // Download the file
-            final URL url = new URL(link);
+            final URL url = new URL(link.replaceAll("http://servermods.cursecdn.com/","https://addons-origin.cursecdn.com/"));
             final int fileLength = url.openConnection().getContentLength();
             in = new BufferedInputStream(url.openStream());
             fout = new FileOutputStream(folder.getAbsolutePath() + File.separator + file);
