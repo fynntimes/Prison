@@ -5,7 +5,7 @@ author: SirFaizdat
 authors: [Camouflage100]
 main: me.sirfaizdat.prison.core.Prison
 depend: [Vault, WorldEdit]
-softdepend: [Multiverse-Core]
+softdepend: [Multiverse-Core,Multiworld]
 website: http://github.com/SirFaizdat/Prison/wiki
 
 commands:
