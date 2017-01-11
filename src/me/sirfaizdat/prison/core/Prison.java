@@ -255,7 +255,6 @@ public class Prison extends JavaPlugin implements Listener {
                 m.save();
             }
         }
-        saveConfig();
     }
 
     public void reload() {

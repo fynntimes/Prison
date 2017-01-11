@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9b4d7934-576d-4d2a-b246-dbeb163ecebd" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/MinesManager.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/MinesManager.java" />
-    </list>
+    <list default="true" id="9b4d7934-576d-4d2a-b246-dbeb163ecebd" name="Default" comment="" />
     <ignored path="Prison.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -103,8 +101,8 @@
       <file leaf-file-name="MinesManager.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/MinesManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="117">
-              <caret line="123" column="67" lean-forward="false" selection-start-line="123" selection-start-column="67" selection-end-line="123" selection-end-column="67" />
+            <state relative-caret-position="935">
+              <caret line="85" column="27" lean-forward="true" selection-start-line="85" selection-start-column="27" selection-end-line="85" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -491,7 +489,7 @@
     <property name="project.structure.proportion" value="0.15820312" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Prison3/PrisonCells/build.gradle" />
     <property name="SearchEverywhereHistoryKey" value="cmdset&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison/src/me/sirfaizdat/prison/ranks/cmds/CmdSet.java&#10;messages.&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/messages.yml&#10;autosme&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/core/AutoSmelt.java&#10;cmdvers&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/core/cmds/CmdVersion.java&#10;prison&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/core/Prison.java&#10;ranks&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/ranks/Ranks.java&#10;mines&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/mines/Mines.java&#10;autosmelt&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/core/AutoSmelt.java&#10;rankcomm&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/ranks/cmds/RanksCommandManager.java&#10;messa&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/messages.yml&#10;messag&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/messages.yml&#10;min&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/mines/Mine.java&#10;minesmana&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/mines/MinesManager.java&#10;serializablemin&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/mines/SerializableMine.java&#10;serializable&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/ranks/SerializableRank.java&#10;mine&#9;FILE&#9;file:///Users/Faizaan/Developer/Indie Plugins/Prison22/src/me/sirfaizdat/prison/mines/Mine.java" />
     <property name="settings.editor.selected.configurable" value="copyright.profiles" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
@@ -987,7 +985,7 @@
       <workItem from="1475431300684" duration="4145000" />
       <workItem from="1483186740457" duration="111000" />
       <workItem from="1483191101751" duration="62000" />
-      <workItem from="1483234759355" duration="6089000" />
+      <workItem from="1483234759355" duration="6920000" />
     </task>
     <task id="LOCAL-00001" summary="This is v2.1.5">
       <created>1447562574532</created>
@@ -1217,7 +1215,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53157000" />
+    <option name="totallyTimeSpent" value="53988000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1684,7 +1682,7 @@
         <state relative-caret-position="357">
           <caret line="38" column="28" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1694,7 +1692,7 @@
         <state relative-caret-position="491">
           <caret line="50" column="20" lean-forward="true" selection-start-line="50" selection-start-column="20" selection-end-line="50" selection-end-column="20" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1749,8 +1747,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/MinesManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="123" column="67" lean-forward="false" selection-start-line="123" selection-start-column="67" selection-end-line="123" selection-end-column="67" />
+        <state relative-caret-position="935">
+          <caret line="85" column="27" lean-forward="true" selection-start-line="85" selection-start-column="27" selection-end-line="85" selection-end-column="27" />
           <folding />
         </state>
       </provider>
