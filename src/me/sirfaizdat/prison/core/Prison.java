@@ -18,8 +18,6 @@
  */
 package me.sirfaizdat.prison.core;
 
-import me.sirfaizdat.prison.core.Updater.UpdateResult;
-import me.sirfaizdat.prison.core.Updater.UpdateType;
 import me.sirfaizdat.prison.core.cmds.CmdAutoSmelt;
 import me.sirfaizdat.prison.core.cmds.CmdBlock;
 import me.sirfaizdat.prison.core.cmds.PrisonCommandManager;
@@ -41,6 +39,7 @@ import java.io.File;
 import java.io.IOException;
 
 //import me.sirfaizdat.prison.mines.PlayerGUI;
+
 
 /**
  * @author SirFaizdat
@@ -101,7 +100,7 @@ public class Prison extends JavaPlugin implements Listener {
         new MessageUtil();
         playerList = new PlayerList();
         getServer().getPluginManager().registerEvents(playerList, this);
-        updater = new Updater(this, 76155, this.getFile(), UpdateType.NO_DOWNLOAD, true);
+        updater = new Updater();
     }
 
     private void initComponents() {
@@ -131,31 +130,7 @@ public class Prison extends JavaPlugin implements Listener {
         if (config.optOut) {
             return;
         }
-        try {
-            Metrics metrics = new Metrics(this);
-
-            if (getPermissions() != null) {
-                Metrics.Graph permissionsPluginGraph = metrics.createGraph("Permissions Plugins");
-                permissionsPluginGraph.addPlotter(new Metrics.Plotter(getPermissions().getName()) {
-                    @Override public int getValue() {
-                        return 1;
-                    }
-                });
-            }
-
-            if (getEconomy() != null) {
-                Metrics.Graph economyPluginGraph = metrics.createGraph("Economy Plugins");
-                economyPluginGraph.addPlotter(new Metrics.Plotter(getEconomy().getName()) {
-                    @Override public int getValue() {
-                        return 1;
-                    }
-                });
-            }
-
-            metrics.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Metrics metrics = new Metrics(this);
     }
 
     private void verifyJavaVersion() {
@@ -169,13 +144,18 @@ public class Prison extends JavaPlugin implements Listener {
 
     private void updateCheck() {
         if (config.checkUpdates && !getDescription().getVersion().contains("-SNAPSHOT")) {
-            if (updater.getResult() == UpdateResult.UPDATE_AVAILABLE) {
-                updateLatestName = updater.getLatestName();
+            if (updater.checkForUpdates()) {
+                updateLatestName = updater.getUpdate().name;
                 l.info(MessageUtil.get("general.updateAvailable", updateLatestName));
                 this.updateAvailable = true;
+                String msg = MessageUtil.get("general.updateAvailable", updateLatestName);
+                if (updateLatestName.contains("Prison 3")) {
+                    msg =
+                        "&3Prison &7> &fPrison 3 is out! To upgrade, simply type &b/prison update. All your files will be converted!";
+                }
                 for (Player p : getServer().getOnlinePlayers()) {
                     if (p.isOp() || p.hasPermission("prison.manage")) {
-                        p.sendMessage(MessageUtil.get("general.updateAvailable", updateLatestName));
+                        p.sendMessage(msg);
                     }
                 }
             }

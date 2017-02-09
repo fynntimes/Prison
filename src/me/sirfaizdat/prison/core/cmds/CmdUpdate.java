@@ -22,8 +22,6 @@ import me.sirfaizdat.prison.core.Command;
 import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.core.Updater;
-import me.sirfaizdat.prison.core.Updater.UpdateResult;
-import me.sirfaizdat.prison.core.Updater.UpdateType;
 
 /**
  * @author SirFaizdat
@@ -41,14 +39,12 @@ public class CmdUpdate extends Command {
                 return;
             }
 
-            Updater updater =
-                new Updater(Prison.i(), 76155, Prison.i().getFile(), UpdateType.NO_VERSION_CHECK,
-                    true);
-            if (updater.getResult() == UpdateResult.NO_UPDATE) {
+            Updater updater = new Updater();
+            if (updater.getUpdate() == null) {
                 sender.sendMessage(MessageUtil.get("general.noUpdate"));
-            } else if (updater.getResult() == UpdateResult.SUCCESS) {
+            } else if (updater.getUpdate().install()) {
                 sender.sendMessage(
-                    MessageUtil.get("general.updated", Prison.i().updater.getLatestName()));
+                    MessageUtil.get("general.updated", Prison.i().updater.getUpdate().name));
             } else {
                 sender.sendMessage(MessageUtil.get("general.updateFailed"));
             }

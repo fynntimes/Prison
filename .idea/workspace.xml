@@ -2,52 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b4d7934-576d-4d2a-b246-dbeb163ecebd" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Surprise.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/AbstractCommandManager.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/AbstractCommandManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Command.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Command.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Config.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Config.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Configuration.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Configuration.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/ItemManager.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/ItemManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/MessageUtil.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/MessageUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Metrics.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Metrics.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/PlayerList.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/PlayerList.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Prison.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Prison.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/PrisonLogger.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/PrisonLogger.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Updater.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Updater.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdAutoSmelt.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdAutoSmelt.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdBlock.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdBlock.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdReload.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdReload.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdUpdate.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdUpdate.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdVersion.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdVersion.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/PrisonCommandManager.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/PrisonCommandManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/json/Converter.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/json/Converter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/json/JsonMine.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/json/JsonMine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/json/JsonRank.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/json/JsonRank.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/Mines.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/Mines.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/MinesCommandManager.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/MinesCommandManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/MinesManager.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/MinesManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/SerializableMine.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/SerializableMine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CmdAddBlock.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CmdAddBlock.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CmdCreate.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CmdCreate.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CmdInfo.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CmdInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CmdRedefine.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CmdRedefine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CmdRemoveBlock.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CmdRemoveBlock.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CmdReset.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CmdReset.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/entities/Mine.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/entities/Mine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/events/MineResetEvent.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/events/MineResetEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/BalanceChangeListener.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/BalanceChangeListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/Ranks.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/Ranks.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/RanksConfig.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/RanksConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/SerializableRank.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/SerializableRank.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdAddRank.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdAddRank.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdDemote.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdDemote.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdRemoveRank.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdRemoveRank.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdSet.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/CmdSet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/RanksCommandManager.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/RanksCommandManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/events/BalanceChangeEvent.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/events/BalanceChangeEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/events/DemoteEvent.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/events/DemoteEvent.java" />
     </list>
     <ignored path="Prison.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -120,11 +78,38 @@
       <file leaf-file-name="Updater.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Updater.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="91">
-              <caret line="619" column="11" lean-forward="true" selection-start-line="619" selection-start-column="11" selection-end-line="619" selection-end-column="11" />
+            <state relative-caret-position="253">
+              <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <folding>
+                <element signature="e#902#903#0" expanded="true" />
+                <element signature="e#937#938#0" expanded="true" />
+                <element signature="e#982#983#0" expanded="true" />
+                <element signature="e#1010#1011#0" expanded="true" />
+                <element signature="e#1042#1043#0" expanded="true" />
+                <element signature="e#1069#1070#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Prison.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Prison.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="278">
+              <caret line="140" column="57" lean-forward="false" selection-start-line="140" selection-start-column="57" selection-end-line="140" selection-end-column="57" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CmdUpdate.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdUpdate.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="39" column="13" lean-forward="true" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -175,6 +160,7 @@
       <find>UpdateRunnable</find>
       <find>servermods</find>
       <find>zip</find>
+      <find>versionCheck</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -208,7 +194,6 @@
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/AutoSmelt.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/BlockCommand.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdAutoSmelt.java" />
-        <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdUpdate.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdVersion.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/AbstractCommandManager.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Command.java" />
@@ -232,7 +217,6 @@
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/events/MineResetEvent.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/RanksCommandManager.java" />
         <option value="$PROJECT_DIR$/src/plugin.yml" />
-        <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Prison.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/json/JsonMine.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/entities/Block.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/SerializableMine2.java" />
@@ -243,6 +227,8 @@
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Metrics.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Suprise.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Surprise.java" />
+        <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdUpdate.java" />
+        <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Prison.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Updater.java" />
       </list>
     </option>
@@ -1025,7 +1011,7 @@
       <workItem from="1483234759355" duration="6920000" />
       <workItem from="1484160135896" duration="2821000" />
       <workItem from="1486149068396" duration="679000" />
-      <workItem from="1486665174652" duration="2013000" />
+      <workItem from="1486665174652" duration="7086000" />
     </task>
     <task id="LOCAL-00001" summary="This is v2.1.5">
       <created>1447562574532</created>
@@ -1255,7 +1241,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59501000" />
+    <option name="totallyTimeSpent" value="64574000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1673,14 +1659,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/PrisonUpdater.java" />
-    <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Prison.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="106" column="28" lean-forward="false" selection-start-line="106" selection-start-column="28" selection-end-line="106" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/Mines.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="816">
@@ -1718,35 +1696,35 @@
         <state relative-caret-position="187">
           <caret line="341" column="40" lean-forward="true" selection-start-line="341" selection-start-column="40" selection-end-line="341" selection-end-column="40" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#4359#5038#0" expanded="true" />
-            <element signature="e#4868#5012#0" expanded="true" />
-            <element signature="e#5011#5012#0" expanded="true" />
-            <element signature="e#5037#5038#0" expanded="true" />
-            <element signature="e#8608#9108#0" expanded="true" />
-            <element signature="e#9107#9108#0" expanded="true" />
-            <element signature="e#12973#12974#0" expanded="true" />
-            <element signature="e#13011#13012#0" expanded="true" />
-            <element signature="e#13812#13813#0" expanded="true" />
-            <element signature="e#13850#13851#0" expanded="true" />
-            <element signature="e#15431#15432#0" expanded="true" />
-            <element signature="e#15469#15470#0" expanded="true" />
-            <element signature="e#16257#16258#0" expanded="true" />
-            <element signature="e#16295#16296#0" expanded="true" />
-            <element signature="e#17878#17879#0" expanded="true" />
-            <element signature="e#17916#17917#0" expanded="true" />
-            <element signature="e#19312#19313#0" expanded="true" />
-            <element signature="e#19350#19351#0" expanded="true" />
-            <element signature="e#21120#21121#0" expanded="true" />
-            <element signature="e#21158#21159#0" expanded="true" />
-            <element signature="e#21983#21984#0" expanded="true" />
-            <element signature="e#22021#22022#0" expanded="true" />
-            <element signature="e#33078#33079#0" expanded="true" />
-            <element signature="e#33113#33114#0" expanded="true" />
-            <element signature="e#33283#33284#0" expanded="true" />
-            <element signature="e#33320#33321#0" expanded="true" />
-            <element signature="e#34134#34135#0" expanded="true" />
-            <element signature="e#34194#34195#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#4359#5038#0" expanded="false" />
+            <element signature="e#4868#5012#0" expanded="false" />
+            <element signature="e#5011#5012#0" expanded="false" />
+            <element signature="e#5037#5038#0" expanded="false" />
+            <element signature="e#8608#9108#0" expanded="false" />
+            <element signature="e#9107#9108#0" expanded="false" />
+            <element signature="e#12973#12974#0" expanded="false" />
+            <element signature="e#13011#13012#0" expanded="false" />
+            <element signature="e#13812#13813#0" expanded="false" />
+            <element signature="e#13850#13851#0" expanded="false" />
+            <element signature="e#15431#15432#0" expanded="false" />
+            <element signature="e#15469#15470#0" expanded="false" />
+            <element signature="e#16257#16258#0" expanded="false" />
+            <element signature="e#16295#16296#0" expanded="false" />
+            <element signature="e#17878#17879#0" expanded="false" />
+            <element signature="e#17916#17917#0" expanded="false" />
+            <element signature="e#19312#19313#0" expanded="false" />
+            <element signature="e#19350#19351#0" expanded="false" />
+            <element signature="e#21120#21121#0" expanded="false" />
+            <element signature="e#21158#21159#0" expanded="false" />
+            <element signature="e#21983#21984#0" expanded="false" />
+            <element signature="e#22021#22022#0" expanded="false" />
+            <element signature="e#33078#33079#0" expanded="false" />
+            <element signature="e#33113#33114#0" expanded="false" />
+            <element signature="e#33283#33284#0" expanded="false" />
+            <element signature="e#33320#33321#0" expanded="false" />
+            <element signature="e#34134#34135#0" expanded="false" />
+            <element signature="e#34194#34195#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1787,18 +1765,33 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdUpdate.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="37" column="13" lean-forward="false" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="13" />
+        <state relative-caret-position="289">
+          <caret line="39" column="13" lean-forward="true" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Prison.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="140" column="57" lean-forward="false" selection-start-line="140" selection-start-column="57" selection-end-line="140" selection-end-column="57" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Updater.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="91">
-          <caret line="619" column="11" lean-forward="true" selection-start-line="619" selection-start-column="11" selection-end-line="619" selection-end-column="11" />
+        <state relative-caret-position="253">
+          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#902#903#0" expanded="true" />
+            <element signature="e#937#938#0" expanded="true" />
+            <element signature="e#982#983#0" expanded="true" />
+            <element signature="e#1010#1011#0" expanded="true" />
+            <element signature="e#1042#1043#0" expanded="true" />
+            <element signature="e#1069#1070#0" expanded="true" />
           </folding>
         </state>
       </provider>
