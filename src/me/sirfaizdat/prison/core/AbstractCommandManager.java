@@ -45,9 +45,13 @@ public abstract class AbstractCommandManager implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
-        if (sender instanceof Player && Prison.i().config.enableMultiworld)
-            if (!isInProperWorld(sender)) return true;
+    public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label,
+        String[] args) {
+        if (sender instanceof Player && Prison.i().config.enableMultiworld) {
+            if (!isInProperWorld(sender)) {
+                return true;
+            }
+        }
 
         try {
             if (command.getName().equalsIgnoreCase(baseCommand)) {
@@ -62,14 +66,16 @@ public abstract class AbstractCommandManager implements CommandExecutor {
                 }
                 Command c = commands.get(args[0].toLowerCase());
                 if (c == null) {
-                    sender.sendMessage(MessageUtil.get("general.cmdNotFound", "/" + baseCommand + " help"));
+                    sender.sendMessage(
+                        MessageUtil.get("general.cmdNotFound", "/" + baseCommand + " help"));
                     return true;
                 }
                 c.run(sender, args);
             }
         } catch (Exception e) {
             // Only place where a command returns false - might help discover the error.
-            Prison.l.severe("There was an error handling command " + baseCommand + ". Reason: " + e.getMessage());
+            Prison.l.severe("There was an error handling command " + baseCommand + ". Reason: " + e
+                .getMessage());
             Prison.l.warning("More info: ");
             e.printStackTrace();
             return false;
@@ -79,8 +85,11 @@ public abstract class AbstractCommandManager implements CommandExecutor {
 
     protected boolean isInProperWorld(CommandSender sender) {
         World playerWorld = ((Player) sender).getWorld();
-        for (String multiworld : Prison.i().config.worlds)
-            if (playerWorld.getName().equalsIgnoreCase(multiworld)) return true;
+        for (String multiworld : Prison.i().config.worlds) {
+            if (playerWorld.getName().equalsIgnoreCase(multiworld)) {
+                return true;
+            }
+        }
         sender.sendMessage(MessageUtil.get("general.multiworld"));
         return false;
     }
@@ -99,7 +108,9 @@ public abstract class AbstractCommandManager implements CommandExecutor {
     }
 
     private void componentize() {
-        for (Map.Entry<String, Command> c : commands.entrySet()) c.getValue().setComponent(this.c);
+        for (Map.Entry<String, Command> c : commands.entrySet()) {
+            c.getValue().setComponent(this.c);
+        }
     }
 
 }

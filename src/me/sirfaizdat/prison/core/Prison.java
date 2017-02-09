@@ -24,7 +24,6 @@ import me.sirfaizdat.prison.core.cmds.CmdAutoSmelt;
 import me.sirfaizdat.prison.core.cmds.CmdBlock;
 import me.sirfaizdat.prison.core.cmds.PrisonCommandManager;
 import me.sirfaizdat.prison.mines.Mines;
-//import me.sirfaizdat.prison.mines.PlayerGUI;
 import me.sirfaizdat.prison.mines.entities.Mine;
 import me.sirfaizdat.prison.ranks.Ranks;
 import net.milkbowl.vault.economy.Economy;
@@ -40,6 +39,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+
+//import me.sirfaizdat.prison.mines.PlayerGUI;
 
 /**
  * @author SirFaizdat
@@ -83,7 +84,8 @@ public class Prison extends JavaPlugin implements Listener {
 
         initMetrics();
 
-        l.info("&7Enabled &3Prison v" + getDescription().getVersion() + "&7. Made with <3 by &3SirFaizdat &7& &3Camouflage100&7.");
+        l.info("&7Enabled &3Prison v" + getDescription().getVersion()
+            + "&7. Made with <3 by &3SirFaizdat &7& &3Camouflage100&7.");
         long endTime = System.currentTimeMillis();
         l.info("&8Enabled in " + (endTime - startTime) + " milliseconds.");
 
@@ -116,21 +118,26 @@ public class Prison extends JavaPlugin implements Listener {
     }
 
     private void initCommands() {
-        if (config.enableAutosmelt) new CmdAutoSmelt();
-        if (config.enableAutoblock) new CmdBlock();
+        if (config.enableAutosmelt) {
+            new CmdAutoSmelt();
+        }
+        if (config.enableAutoblock) {
+            new CmdBlock();
+        }
         getCommand("prison").setExecutor(new PrisonCommandManager());
     }
 
     private void initMetrics() {
-        if (config.optOut) return;
+        if (config.optOut) {
+            return;
+        }
         try {
             Metrics metrics = new Metrics(this);
 
             if (getPermissions() != null) {
                 Metrics.Graph permissionsPluginGraph = metrics.createGraph("Permissions Plugins");
                 permissionsPluginGraph.addPlotter(new Metrics.Plotter(getPermissions().getName()) {
-                    @Override
-                    public int getValue() {
+                    @Override public int getValue() {
                         return 1;
                     }
                 });
@@ -139,8 +146,7 @@ public class Prison extends JavaPlugin implements Listener {
             if (getEconomy() != null) {
                 Metrics.Graph economyPluginGraph = metrics.createGraph("Economy Plugins");
                 economyPluginGraph.addPlotter(new Metrics.Plotter(getEconomy().getName()) {
-                    @Override
-                    public int getValue() {
+                    @Override public int getValue() {
                         return 1;
                     }
                 });
@@ -156,7 +162,8 @@ public class Prison extends JavaPlugin implements Listener {
         String version = System.getProperty("java.version");
 
         if (version.charAt(2) <= '7') {
-            l.warning("Prison-3 will only be compatible with Java 8. Please update your Java version, or find a better shared hosting company. ");
+            l.warning(
+                "Prison-3 will only be compatible with Java 8. Please update your Java version, or find a better shared hosting company. ");
         }
     }
 
@@ -178,8 +185,7 @@ public class Prison extends JavaPlugin implements Listener {
     private void populateItemManagerLater() {
         Bukkit.getScheduler().runTaskLater(Prison.i(), new Runnable() {
 
-            @Override
-            public void run() {
+            @Override public void run() {
                 try {
                     im.populateLists();
                 } catch (IOException e) {
@@ -215,7 +221,8 @@ public class Prison extends JavaPlugin implements Listener {
     }
 
     private void initEconomy() {
-        RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+        RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager()
+            .getRegistration(net.milkbowl.vault.economy.Economy.class);
         if (economyProvider != null) {
             economy = economyProvider.getProvider();
             return;
@@ -224,7 +231,8 @@ public class Prison extends JavaPlugin implements Listener {
     }
 
     private void initPermissions() {
-        RegisteredServiceProvider<Permission> permissionProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.permission.Permission.class);
+        RegisteredServiceProvider<Permission> permissionProvider = getServer().getServicesManager()
+            .getRegistration(net.milkbowl.vault.permission.Permission.class);
         if (permissionProvider != null) {
             permissions = permissionProvider.getProvider();
             return;
@@ -284,8 +292,7 @@ public class Prison extends JavaPlugin implements Listener {
     }
 
     // Listeners
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent e) {
+    @EventHandler public void onPlayerJoin(PlayerJoinEvent e) {
         if (updateAvailable) {
             Player p = e.getPlayer();
             if (p.isOp() || p.hasPermission("prison.manage")) {

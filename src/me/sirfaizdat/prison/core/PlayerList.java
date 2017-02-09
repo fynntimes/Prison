@@ -41,20 +41,17 @@ public class PlayerList implements Listener {
         }
     }
 
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent e) {
+    @EventHandler public void onPlayerJoin(PlayerJoinEvent e) {
         players.put(e.getPlayer().getName(), e.getPlayer());
     }
 
-    @EventHandler
-    public void onPlayerLeave(PlayerQuitEvent e) {
+    @EventHandler public void onPlayerLeave(PlayerQuitEvent e) {
         if (players.get(e.getPlayer().getName()) != null) {
             players.remove(e.getPlayer().getName());
         }
     }
 
-    @EventHandler
-    public void onPlayerKick(PlayerKickEvent e) {
+    @EventHandler public void onPlayerKick(PlayerKickEvent e) {
         if (players.get(e.getPlayer().getName()) != null) {
             players.remove(e.getPlayer().getName());
         }

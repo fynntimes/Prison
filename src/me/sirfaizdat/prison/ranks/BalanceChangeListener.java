@@ -47,11 +47,12 @@ public class BalanceChangeListener implements Listener {
         }
         Bukkit.getServer().getPluginManager().registerEvents(this, Prison.i());
         Bukkit.getScheduler().scheduleSyncRepeatingTask(Prison.i(), new Runnable() {
-            @Override
-            public void run() {
+            @Override public void run() {
                 for (Player p : Bukkit.getServer().getOnlinePlayers()) {
                     if (economy.getBalance(p) != balance.get(p.getName())) {
-                        Bukkit.getServer().getPluginManager().callEvent(new BalanceChangeEvent(p, balance.get(p.getName()), economy.getBalance(p)));
+                        Bukkit.getServer().getPluginManager().callEvent(
+                            new BalanceChangeEvent(p, balance.get(p.getName()),
+                                economy.getBalance(p)));
                         balance.remove(p.getName());
                         balance.put(p.getName(), economy.getBalance(p));
                     }
@@ -60,14 +61,14 @@ public class BalanceChangeListener implements Listener {
         }, 5 * 20L, 5 * 20L);
     }
 
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
+    @EventHandler public void onPlayerJoin(PlayerJoinEvent event) {
         balance.put(event.getPlayer().getName(), economy.getBalance(event.getPlayer()));
     }
 
-    @EventHandler
-    public void onPlayerLeave(PlayerQuitEvent event) {
-        if (balance.containsKey(event.getPlayer().getName())) balance.remove(event.getPlayer().getName());
+    @EventHandler public void onPlayerLeave(PlayerQuitEvent event) {
+        if (balance.containsKey(event.getPlayer().getName())) {
+            balance.remove(event.getPlayer().getName());
+        }
     }
 
 }

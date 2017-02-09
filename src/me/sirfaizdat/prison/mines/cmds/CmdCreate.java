@@ -38,9 +38,9 @@ public class CmdCreate extends Command {
         mustBePlayer(true);
     }
 
-    @Override
-    protected void execute() {
-        Selection s = Mines.i.getWE().getSelection(Prison.i().playerList.getPlayer(sender.getName()));
+    @Override protected void execute() {
+        Selection s =
+            Mines.i.getWE().getSelection(Prison.i().playerList.getPlayer(sender.getName()));
         if (s == null) {
             sender.sendMessage(MessageUtil.get("mines.makeWESel"));
             return;

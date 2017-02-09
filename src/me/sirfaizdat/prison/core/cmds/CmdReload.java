@@ -32,14 +32,12 @@ public class CmdReload extends Command {
         super("reload");
     }
 
-    @Override
-    protected void execute() {
+    @Override protected void execute() {
         Prison.i().reload();
         sender.sendMessage(MessageUtil.get("general.reloadSuccessful"));
     }
 
-    @Override
-    public String description() {
+    @Override public String description() {
         return "Reload Prison's configuration and all components.";
     }
 

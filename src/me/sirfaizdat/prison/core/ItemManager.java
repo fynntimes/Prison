@@ -67,7 +67,8 @@ public class ItemManager {
 
     public ItemSet getItem(String name) {
         if (isAnInt(name.replaceAll(":", ""))) {
-            return items.get(Material.matchMaterial(name.toLowerCase()).toString().toLowerCase().replaceAll("_", ""));
+            return items.get(Material.matchMaterial(name.toLowerCase()).toString().toLowerCase()
+                .replaceAll("_", ""));
         }
         return items.get(name);
     }
@@ -112,6 +113,7 @@ public class ItemManager {
         }
 
     }
+
 
     class Bundle {
         public ItemSet set;

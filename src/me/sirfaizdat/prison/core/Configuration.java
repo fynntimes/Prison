@@ -57,9 +57,8 @@ public abstract class Configuration {
         // Copy defaults
         InputStream defConfigStream = Prison.i().getResource(name);
         if (defConfigStream != null) {
-            @SuppressWarnings("deprecation")
-            YamlConfiguration defConfig = YamlConfiguration
-                    .loadConfiguration(defConfigStream);
+            @SuppressWarnings("deprecation") YamlConfiguration defConfig =
+                YamlConfiguration.loadConfiguration(defConfigStream);
             config.setDefaults(defConfig);
         }
     }

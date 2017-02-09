@@ -38,8 +38,9 @@ public class CmdDemote extends Command {
         boolean refund = false;
         if (args.length > 2) {
             String a2 = args[2].toLowerCase();
-            if (a2.equals("yes") || a2.equals("true") || a2.equals("1"))
+            if (a2.equals("yes") || a2.equals("true") || a2.equals("1")) {
                 refund = true;
+            }
         }
 
         Ranks.i.demote(sender, args[1], refund);

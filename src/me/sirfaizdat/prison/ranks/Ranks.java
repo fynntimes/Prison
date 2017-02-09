@@ -19,6 +19,8 @@
 
 package me.sirfaizdat.prison.ranks;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import me.sirfaizdat.prison.core.Component;
 import me.sirfaizdat.prison.core.FailedToStartException;
 import me.sirfaizdat.prison.core.MessageUtil;
@@ -34,14 +36,10 @@ import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.FireworkMeta;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.io.*;
 import java.math.BigDecimal;
@@ -59,8 +57,7 @@ public class Ranks implements Component {
 
     public static Ranks i;
     public Economy economy;
-    @Deprecated
-    public List<Rank> ranks = new ArrayList<>();
+    @Deprecated public List<Rank> ranks = new ArrayList<>();
     private File ranksFolder;
     private Permission permissions;
     private boolean enabled = true;
@@ -68,46 +65,42 @@ public class Ranks implements Component {
     // List of permission plugins that we aren't supporting!
     private List<String> denyPermission = Arrays.asList("superperms");
 
-    @Override
-    public String getName() {
+    @Override public String getName() {
         return "Ranks";
     }
 
-    @Override
-    public String getBaseCommand() {
+    @Override public String getBaseCommand() {
         return "prisonranks";
     }
 
-    @Override
-    public boolean isEnabled() {
+    @Override public boolean isEnabled() {
         return this.enabled;
     }
 
-    @Override
-    public void setEnabled(boolean enabled) {
+    @Override public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
-    @Override
-    public void reload() {
+    @Override public void reload() {
         this.getRanks().clear();
         load();
     }
 
-    @Override
-    public void enable() throws FailedToStartException {
+    @Override public void enable() throws FailedToStartException {
         i = this;
 
         permissions = Prison.i().getPermissions();
         if (permissions == null || denyPermission.contains(permissions.getName().toLowerCase())) {
-            Prison.l.severe("No permissions plugin found (such as PermissionsEx). You must have one in order to start ranks!");
+            Prison.l.severe(
+                "No permissions plugin found (such as PermissionsEx). You must have one in order to start ranks!");
             setEnabled(false);
             throw new FailedToStartException("No permission plugin found.");
         }
 
         economy = Prison.i().getEconomy();
         if (economy == null) {
-            Prison.l.severe("No economy plugin found (such as Essentials or iConomy). You must have one in order to start ranks.");
+            Prison.l.severe(
+                "No economy plugin found (such as Essentials or iConomy). You must have one in order to start ranks.");
             setEnabled(false);
             throw new FailedToStartException("No economy plugin found.");
         }
@@ -120,7 +113,9 @@ public class Ranks implements Component {
             }
         }
 
-        if(Prison.i().config.useJson){convertRanks();}
+        if (Prison.i().config.useJson) {
+            convertRanks();
+        }
 
         load();
         RanksCommandManager rcm = new RanksCommandManager();
@@ -129,24 +124,21 @@ public class Ranks implements Component {
         Prison.i().getCommand("rankup").setExecutor(rcm);
 
         Bukkit.getScheduler().runTaskLater(Prison.i(), new Runnable() {
-            @Override
-            public void run() {
+            @Override public void run() {
                 new BalanceChangeListener();
             }
         }, 0);
 
     }
 
-    @Override
-    public void disable() {
+    @Override public void disable() {
         getRanks().clear();
     }
 
     private boolean load() {
 
         File[] files = ranksFolder.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
+            @Override public boolean accept(File dir, String name) {
                 return name.endsWith(Prison.i().config.useJson ? ".json" : ".rank");
             }
         });
@@ -164,7 +156,8 @@ public class Ranks implements Component {
                     fr.close();
                 } catch (FileNotFoundException e) {
                     // Don't even know how this is even possible
-                    Prison.l.info("Couldn't load rank file " + file.getName() + " because it no longer exists");
+                    Prison.l.info("Couldn't load rank file " + file.getName()
+                        + " because it no longer exists");
                     continue;
                 } catch (IOException e) {
                     Prison.l.severe("Couldn't load rank file " + file.getName());
@@ -175,8 +168,7 @@ public class Ranks implements Component {
                 rank.setName(jr.name);
                 rank.setPrefix(jr.prefix);
                 rank.setPrice(jr.price);
-            }
-            else {
+            } else {
                 SerializableRank jr = new SerializableRank();
                 rank.setId(jr.id);
                 rank.setName(jr.name);
@@ -189,8 +181,7 @@ public class Ranks implements Component {
         return true;
     }
 
-    @SuppressWarnings("deprecation")
-    public List<Rank> getRanks() {
+    @SuppressWarnings("deprecation") public List<Rank> getRanks() {
         return this.ranks;
     }
 
@@ -204,7 +195,8 @@ public class Ranks implements Component {
     }
 
     public boolean saveRank(Rank rank) {
-        File rankFile = new File(ranksFolder, rank.getName() + (Prison.i().config.useJson ? ".json" : ".rank"));
+        File rankFile =
+            new File(ranksFolder, rank.getName() + (Prison.i().config.useJson ? ".json" : ".rank"));
         if (Prison.i().config.useJson) {
             JsonRank jr = new JsonRank();
 
@@ -215,7 +207,8 @@ public class Ranks implements Component {
 
             if (rankFile.exists()) {
                 if (!rankFile.delete()) {
-                    Prison.l.severe("Failed to save file " + rankFile.getName() + " - Could not delete existing copy.");
+                    Prison.l.severe("Failed to save file " + rankFile.getName()
+                        + " - Could not delete existing copy.");
                     return false;
                 }
             }
@@ -227,8 +220,8 @@ public class Ranks implements Component {
                 e.printStackTrace();
                 return false;
             }
-                Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                gson.toJson(jr, fw);
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            gson.toJson(jr, fw);
             try {
                 fw.flush();
                 fw.close();
@@ -237,9 +230,7 @@ public class Ranks implements Component {
                 e.printStackTrace();
                 return false;
             }
-        }
-        else
-        {
+        } else {
             SerializableRank jr = new SerializableRank();
             jr.id = rank.getId();
             jr.name = rank.getName();
@@ -264,8 +255,7 @@ public class Ranks implements Component {
     private void convertRanks() {
 
         File[] files = ranksFolder.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
+            @Override public boolean accept(File dir, String name) {
                 return name.endsWith(".rank");
             }
         });
@@ -281,7 +271,8 @@ public class Ranks implements Component {
                 in.close();
                 fileIn.close();
             } catch (ClassNotFoundException e) {
-                Prison.l.severe("An unexpected error occurred. Check to make sure your copy of the plugin is not corrupted.");
+                Prison.l.severe(
+                    "An unexpected error occurred. Check to make sure your copy of the plugin is not corrupted.");
                 return;
             } catch (IOException e) {
                 Prison.l.warning("There was an error in loading the file " + file.getName());
@@ -297,7 +288,7 @@ public class Ranks implements Component {
 
             file.delete();
             saveRank(rank);
-            Prison.l.info("Converted rank "+rank.getName() + " to JSON");
+            Prison.l.info("Converted rank " + rank.getName() + " to JSON");
         }
 
     }
@@ -328,7 +319,8 @@ public class Ranks implements Component {
 
     public void promote(String name, boolean pay) {
         if (this.getRanks().size() == 0) {
-            Prison.i().playerList.getPlayer(name).sendMessage(MessageUtil.get("ranks.noRanksLoaded"));
+            Prison.i().playerList.getPlayer(name)
+                .sendMessage(MessageUtil.get("ranks.noRanksLoaded"));
             return;
         }
         Rank currentRank;
@@ -343,7 +335,9 @@ public class Ranks implements Component {
                 nextRank = this.getRanks().get(0);
             }
             if (nextRank == null) {
-                info.getPlayer().sendMessage(pay ? MessageUtil.get("ranks.highestRank") : MessageUtil.get("ranks.highestRankOther"));
+                info.getPlayer().sendMessage(pay ?
+                    MessageUtil.get("ranks.highestRank") :
+                    MessageUtil.get("ranks.highestRankOther"));
                 return;
             }
             if (!isRank(nextRank.getName())) {
@@ -357,9 +351,12 @@ public class Ranks implements Component {
                         economy.withdrawPlayer(info.getPlayer(), nextRank.getPrice());
                     } else {
                         if (info.getPlayer() != null) {
-                            double amountNeededD = nextRank.getPrice() - economy.getBalance(info.getPlayer());
-                            String amountNeeded = new DecimalFormat("#,###.00").format(new BigDecimal(amountNeededD));
-                            info.getPlayer().sendMessage(MessageUtil.get("ranks.notEnoughMoney", amountNeeded, nextRank.getPrefix()));
+                            double amountNeededD =
+                                nextRank.getPrice() - economy.getBalance(info.getPlayer());
+                            String amountNeeded =
+                                new DecimalFormat("#,###.00").format(new BigDecimal(amountNeededD));
+                            info.getPlayer().sendMessage(MessageUtil
+                                .get("ranks.notEnoughMoney", amountNeeded, nextRank.getPrefix()));
                             paid = false;
                         }
                     }
@@ -367,19 +364,26 @@ public class Ranks implements Component {
             }
             if (paid) {
                 changeRank(info.getPlayer(), currentRank, nextRank);
-                info.getPlayer().sendMessage(MessageUtil.get("ranks.rankedUp", nextRank.getPrefix()));
-                Bukkit.broadcastMessage(MessageUtil.get("ranks.rankedUpBroadcast", info.getPlayer().getName(), nextRank.getPrefix()));
+                info.getPlayer()
+                    .sendMessage(MessageUtil.get("ranks.rankedUp", nextRank.getPrefix()));
+                Bukkit.broadcastMessage(MessageUtil
+                    .get("ranks.rankedUpBroadcast", info.getPlayer().getName(),
+                        nextRank.getPrefix()));
                 // Launch a firework! Yay!
-                if (Prison.i().config.fireworksOnRankup) launchFireworks(info.getPlayer());
+                if (Prison.i().config.fireworksOnRankup) {
+                    launchFireworks(info.getPlayer());
+                }
                 // End firework code
-                Bukkit.getServer().getPluginManager().callEvent(new RankupEvent(info.getPlayer(), pay));
+                Bukkit.getServer().getPluginManager()
+                    .callEvent(new RankupEvent(info.getPlayer(), pay));
             }
         }
     }
 
     public void demote(CommandSender sender, String target, boolean refund) {
         if (getRanks().size() == 0) {
-            Prison.i().playerList.getPlayer(target).sendMessage(MessageUtil.get("ranks.noRanksLoaded"));
+            Prison.i().playerList.getPlayer(target)
+                .sendMessage(MessageUtil.get("ranks.noRanksLoaded"));
             return;
         }
 
@@ -395,12 +399,15 @@ public class Ranks implements Component {
                 return;
             }
 
-            if (refund)
+            if (refund) {
                 economy.depositPlayer(sender.getName(), previousRank.getPrice());
+            }
 
             changeRank(info.getPlayer(), currentRank, previousRank);
-            info.getPlayer().sendMessage(MessageUtil.get("ranks.demoteSuccess", info.getPlayer().getName(), previousRank.getPrefix()));
-            sender.sendMessage(MessageUtil.get("ranks.demoteSuccess", info.getPlayer().getName(), previousRank.getPrefix()));
+            info.getPlayer().sendMessage(MessageUtil
+                .get("ranks.demoteSuccess", info.getPlayer().getName(), previousRank.getPrefix()));
+            sender.sendMessage(MessageUtil
+                .get("ranks.demoteSuccess", info.getPlayer().getName(), previousRank.getPrefix()));
             Bukkit.getServer().getPluginManager().callEvent(new DemoteEvent(info.getPlayer()));
         } else {
             sender.sendMessage(MessageUtil.get("ranks.notAPlayer"));
@@ -411,8 +418,11 @@ public class Ranks implements Component {
         String[] groups = permissions.getPlayerGroups(worldName, player);
 
         for (String group : groups) {
-            for (Rank rank : this.getRanks())
-                if (group.equals(rank.getName())) return group;
+            for (Rank rank : this.getRanks()) {
+                if (group.equals(rank.getName())) {
+                    return group;
+                }
+            }
         }
 
         return null;
@@ -434,7 +444,8 @@ public class Ranks implements Component {
                     permissions.playerRemoveGroup(world, player, currentRank.getName());
                 }
             } else {
-                Prison.l.warning("One of the worlds specified in the ranks multiworld configuration does not exist. It has been ignored.");
+                Prison.l.warning(
+                    "One of the worlds specified in the ranks multiworld configuration does not exist. It has been ignored.");
             }
         }
     }
@@ -474,12 +485,17 @@ public class Ranks implements Component {
 
     public boolean isLoadedRank(String rankName) {
         try {
-            if (this.getRanks().size() < 1) return false;
+            if (this.getRanks().size() < 1) {
+                return false;
+            }
 
             for (Rank rank : this.getRanks()) {
-                if (rank == null) return false;
-                if (rank.getName().equalsIgnoreCase(rankName))
+                if (rank == null) {
+                    return false;
+                }
+                if (rank.getName().equalsIgnoreCase(rankName)) {
                     return true;
+                }
             }
             return false;
         } catch (NullPointerException e) {
@@ -488,19 +504,29 @@ public class Ranks implements Component {
     }
 
     public boolean isRank(String rankName) {
-        for (String groupName : permissions.getGroups())
-            if (groupName.equalsIgnoreCase(rankName)) return true;
+        for (String groupName : permissions.getGroups()) {
+            if (groupName.equalsIgnoreCase(rankName)) {
+                return true;
+            }
+        }
         return false;
     }
 
     public Rank getRank(String rankName) {
-        for (Rank rank : this.getRanks())
-            if (rank.getName().equalsIgnoreCase(rankName)) return rank;
+        for (Rank rank : this.getRanks()) {
+            if (rank.getName().equalsIgnoreCase(rankName)) {
+                return rank;
+            }
+        }
         return null;
     }
 
     public Rank getRankById(int id) {
-        for (Rank rank : this.getRanks()) if (rank.getId() == id) return rank;
+        for (Rank rank : this.getRanks()) {
+            if (rank.getId() == id) {
+                return rank;
+            }
+        }
         return null;
     }
 
@@ -516,11 +542,21 @@ public class Ranks implements Component {
         //Get the type
         int rt = r.nextInt(5) + 1;
         FireworkEffect.Type type = FireworkEffect.Type.BALL;
-        if (rt == 1) type = FireworkEffect.Type.BALL;
-        if (rt == 2) type = FireworkEffect.Type.BALL_LARGE;
-        if (rt == 3) type = FireworkEffect.Type.BURST;
-        if (rt == 4) type = FireworkEffect.Type.CREEPER;
-        if (rt == 5) type = FireworkEffect.Type.STAR;
+        if (rt == 1) {
+            type = FireworkEffect.Type.BALL;
+        }
+        if (rt == 2) {
+            type = FireworkEffect.Type.BALL_LARGE;
+        }
+        if (rt == 3) {
+            type = FireworkEffect.Type.BURST;
+        }
+        if (rt == 4) {
+            type = FireworkEffect.Type.CREEPER;
+        }
+        if (rt == 5) {
+            type = FireworkEffect.Type.STAR;
+        }
 
         //Get our random colors
         int r1i = r.nextInt(17) + 1;
@@ -529,7 +565,9 @@ public class Ranks implements Component {
         Color c2 = getColor(r2i);
 
         //Create our effect with this
-        FireworkEffect effect = FireworkEffect.builder().flicker(r.nextBoolean()).withColor(c1).withFade(c2).with(type).trail(r.nextBoolean()).build();
+        FireworkEffect effect =
+            FireworkEffect.builder().flicker(r.nextBoolean()).withColor(c1).withFade(c2).with(type)
+                .trail(r.nextBoolean()).build();
 
         //Then apply the effect to the meta
         fwm.addEffect(effect);

@@ -60,35 +60,36 @@ public class CmdAutoSmelt implements CommandExecutor, Listener {
             }
             if (isEnabled(sender.getName())) {
                 for (int i = 0; i < enabledPlayers.size(); i++) {
-                    if (enabledPlayers.get(i)
-                            .equalsIgnoreCase(sender.getName())) {
+                    if (enabledPlayers.get(i).equalsIgnoreCase(sender.getName())) {
                         enabledPlayers.remove(i);
-                        sender.sendMessage(MessageUtil.get(
-                                "general.autoSmeltToggled", "&cdisabled"));
+                        sender
+                            .sendMessage(MessageUtil.get("general.autoSmeltToggled", "&cdisabled"));
                         break;
                     }
                 }
             } else {
                 enabledPlayers.add(sender.getName());
-                sender.sendMessage(MessageUtil.get("general.autoSmeltToggled",
-                        "&3enabled"));
+                sender.sendMessage(MessageUtil.get("general.autoSmeltToggled", "&3enabled"));
             }
         }
         return true;
     }
 
-    @EventHandler
-    public void onBreak(BlockBreakEvent e) {
-        if (e.getPlayer().getGameMode() == GameMode.CREATIVE) return;
+    @EventHandler public void onBreak(BlockBreakEvent e) {
+        if (e.getPlayer().getGameMode() == GameMode.CREATIVE) {
+            return;
+        }
         Material m = e.getBlock().getType();
-        if (isEnabled(e.getPlayer().getName()) || e.getPlayer().hasPermission("prison.autosmelt.auto")) {
+        if (isEnabled(e.getPlayer().getName()) || e.getPlayer()
+            .hasPermission("prison.autosmelt.auto")) {
             if (m == Material.IRON_ORE) {
                 Block smelted = e.getBlock();
                 Location loc = smelted.getLocation();
                 Location centerOfBlock = loc.add(0.5, 0.5, 0.5);
                 smelted.setType(Material.AIR);
-                if (Prison.i().config.flamesOnAutosmelt)
+                if (Prison.i().config.flamesOnAutosmelt) {
                     loc.getWorld().playEffect(loc, Effect.MOBSPAWNER_FLAMES, 0, 50);
+                }
                 ItemStack ironing = new ItemStack(Material.IRON_INGOT);
                 smelted.getWorld().dropItemNaturally(centerOfBlock, ironing);
 
@@ -97,8 +98,9 @@ public class CmdAutoSmelt implements CommandExecutor, Listener {
                 Location loc = smelted.getLocation();
                 Location centerOfBlock = loc.add(0.5, 0.5, 0.5);
                 smelted.setType(Material.AIR);
-                if (Prison.i().config.flamesOnAutosmelt)
+                if (Prison.i().config.flamesOnAutosmelt) {
                     loc.getWorld().playEffect(loc, Effect.MOBSPAWNER_FLAMES, 0, 50);
+                }
                 ItemStack golding = new ItemStack(Material.GOLD_INGOT);
                 smelted.getWorld().dropItemNaturally(centerOfBlock, golding);
             }

@@ -38,7 +38,8 @@ public class Mines implements Component {
     private Prison core = Prison.i();
 
     private MinesCommandManager mcm;
-    private WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
+    private WorldEditPlugin worldEdit =
+        (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
     private boolean enabled = true;
 
     public String getName() {
@@ -57,7 +58,9 @@ public class Mines implements Component {
         i = this;
 
         File oldUnecessaryFile = new File(Prison.i().getDataFolder(), "minesupdated.txt");
-        if (oldUnecessaryFile.exists()) oldUnecessaryFile.delete();
+        if (oldUnecessaryFile.exists()) {
+            oldUnecessaryFile.delete();
+        }
 
         mm = new MinesManager();
         mcm = new MinesCommandManager(this);
@@ -80,8 +83,7 @@ public class Mines implements Component {
         return worldEdit;
     }
 
-    @Override
-    public String getBaseCommand() {
+    @Override public String getBaseCommand() {
         return "mines";
     }
 

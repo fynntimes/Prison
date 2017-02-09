@@ -35,14 +35,14 @@ public class CmdRedefine extends Command {
         addRequiredArg("mine");
     }
 
-    @Override
-    protected void execute() {
+    @Override protected void execute() {
         Mine m = Mines.i.mm.getMine(args[1]);
         if (m == null) {
             sender.sendMessage(MessageUtil.get("mines.notFound"));
             return;
         }
-        Selection s = Mines.i.getWE().getSelection(Prison.i().playerList.getPlayer(sender.getName()));
+        Selection s =
+            Mines.i.getWE().getSelection(Prison.i().playerList.getPlayer(sender.getName()));
         if (s == null) {
             sender.sendMessage(MessageUtil.get("mines.makeWESel"));
             return;
@@ -59,8 +59,7 @@ public class CmdRedefine extends Command {
         sender.sendMessage(MessageUtil.get("mines.redefineSuccess", m.name));
     }
 
-    @Override
-    public String description() {
+    @Override public String description() {
         return "Redefine a mine's area.";
     }
 

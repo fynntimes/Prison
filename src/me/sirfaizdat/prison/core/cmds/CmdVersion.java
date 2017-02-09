@@ -31,13 +31,16 @@ public class CmdVersion extends Command {
         super("version");
     }
 
-    @Override
-    protected void execute() {
-        sender.sendMessage(Prison.color("&7============ &3Prison v" + Prison.i().getDescription().getVersion() + " &7============"));
-        if (Prison.i().getDescription().getVersion().contains("-SNAPSHOT"))
+    @Override protected void execute() {
+        sender.sendMessage(Prison.color(
+            "&7============ &3Prison v" + Prison.i().getDescription().getVersion()
+                + " &7============"));
+        if (Prison.i().getDescription().getVersion().contains("-SNAPSHOT")) {
             sender.sendMessage(Prison.color("&cThis is a development build and may be unstable."));
+        }
         sender.sendMessage(Prison.color("&7Author: &3SirFaizdat &7& &3Camouflage100"));
-        sender.sendMessage(Prison.color("&7Website: &3" + Prison.i().getDescription().getWebsite()));
+        sender
+            .sendMessage(Prison.color("&7Website: &3" + Prison.i().getDescription().getWebsite()));
         sender.sendMessage(Prison.color("&7Mines are " + getEnabledString(Prison.i().mines)));
         sender.sendMessage(Prison.color("&7Ranks are " + getEnabledString(Prison.i().ranks)));
         sender.sendMessage(Prison.color("&7======================================="));
@@ -47,8 +50,7 @@ public class CmdVersion extends Command {
         return c.isEnabled() ? "&2enabled" : "&cdisabled";
     }
 
-    @Override
-    public String description() {
+    @Override public String description() {
         return "View information about Prison.";
     }
 

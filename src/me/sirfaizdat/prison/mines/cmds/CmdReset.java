@@ -34,8 +34,7 @@ public class CmdReset extends Command {
 
     }
 
-    @Override
-    protected void execute() {
+    @Override protected void execute() {
         Mine m = Mines.i.mm.getMine(args[1]);
         if (m == null) {
             sender.sendMessage(MessageUtil.get("mines.notFound"));
@@ -48,8 +47,7 @@ public class CmdReset extends Command {
         }
     }
 
-    @Override
-    public String description() {
+    @Override public String description() {
         return "Reset a mine";
     }
 

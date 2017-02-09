@@ -1,6 +1,6 @@
 /*
  * Prison - A plugin for the Minecraft Bukkit mod
- * Copyright (C) 2016  SirFaizdat
+ * Copyright (C) 2017  SirFaizdat
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,33 +17,10 @@
  *
  */
 
-package me.sirfaizdat.prison.mines.events;
-
-import me.sirfaizdat.prison.mines.entities.Mine;
-import org.bukkit.event.Event;
-import org.bukkit.event.HandlerList;
+package me.sirfaizdat.prison.core;
 
 /**
- * @author Camouflage100
+ * <b>You're not meant to know what happens here yet...</b>
  */
-public class MineResetEvent extends Event {
-
-    private static final HandlerList handlers = new HandlerList();
-    private Mine mine;
-
-    public MineResetEvent(Mine mine) {
-        this.mine = mine;
-    }
-
-    public static HandlerList getHandlerList() {
-        return handlers;
-    }
-
-    public Mine getMine() {
-        return this.mine;
-    }
-
-    @Override public HandlerList getHandlers() {
-        return handlers;
-    }
+public class Surprise {
 }

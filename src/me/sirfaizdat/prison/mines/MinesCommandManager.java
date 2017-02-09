@@ -31,8 +31,7 @@ public class MinesCommandManager extends AbstractCommandManager {
         super(c, "mines");
     }
 
-    @Override
-    public void registerCommands() {
+    @Override public void registerCommands() {
         commands.put("create", new CmdCreate());
         commands.put("addblock", new CmdAddBlock());
         commands.put("reset", new CmdReset());

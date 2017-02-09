@@ -43,9 +43,8 @@ public class RanksConfig {
 
         InputStream defConfigStream = Prison.i().getResource("ranks.yml");
         if (defConfigStream != null) {
-            @SuppressWarnings("deprecation")
-            YamlConfiguration defConfig = YamlConfiguration
-                    .loadConfiguration(defConfigStream);
+            @SuppressWarnings("deprecation") YamlConfiguration defConfig =
+                YamlConfiguration.loadConfiguration(defConfigStream);
             config.setDefaults(defConfig);
         }
     }

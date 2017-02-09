@@ -41,34 +41,28 @@ public class PrisonLogger {
         ConsoleCommandSender sender = Bukkit.getConsoleSender();
         if (level.equals(Level.INFO)) {
             if (sender != null) {
-                String fullMsg = Prison
-                        .color(coloredLogPrefix + " " + message);
+                String fullMsg = Prison.color(coloredLogPrefix + " " + message);
                 sender.sendMessage(fullMsg);
             } else {
-                String fullMsg = Prison
-                        .color(coloredLogPrefix + " " + message);
+                String fullMsg = Prison.color(coloredLogPrefix + " " + message);
                 Bukkit.getLogger().info(ChatColor.stripColor(fullMsg));
             }
         } else if (level.equals(Level.WARN)) {
             message = ChatColor.stripColor(message);
             if (sender != null) {
-                String fullMsg = Prison.color(coloredLogPrefix + " &6"
-                        + message);
+                String fullMsg = Prison.color(coloredLogPrefix + " &6" + message);
                 sender.sendMessage(fullMsg);
             } else {
-                String fullMsg = Prison.color(coloredLogPrefix + " &6"
-                        + message);
+                String fullMsg = Prison.color(coloredLogPrefix + " &6" + message);
                 Bukkit.getLogger().info(ChatColor.stripColor(fullMsg));
             }
         } else if (level.equals(Level.SEVERE)) {
             message = ChatColor.stripColor(message);
             if (sender != null) {
-                String fullMsg = Prison.color(coloredLogPrefix + " &c"
-                        + message);
+                String fullMsg = Prison.color(coloredLogPrefix + " &c" + message);
                 sender.sendMessage(fullMsg);
             } else {
-                String fullMsg = Prison.color(coloredLogPrefix + " &c"
-                        + message);
+                String fullMsg = Prison.color(coloredLogPrefix + " &c" + message);
                 Bukkit.getLogger().info(ChatColor.stripColor(fullMsg));
             }
         }

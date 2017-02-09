@@ -36,7 +36,9 @@ import java.text.DecimalFormat;
  */
 public class RanksCommandManager extends AbstractCommandManager {
 
-    public static String Scales[] = {"Thousand", "Million", "Billion", "Trillion", "Quadrillion", "Quintillion", "Sextillion", "Septillion", "Octiliion", "Decillion"};
+    public static String Scales[] =
+        {"Thousand", "Million", "Billion", "Trillion", "Quadrillion", "Quintillion", "Sextillion",
+            "Septillion", "Octiliion", "Decillion"};
 
     public RanksCommandManager() {
         super(Ranks.i, "prisonranks");
@@ -57,11 +59,12 @@ public class RanksCommandManager extends AbstractCommandManager {
     }
 
     // Override the onCommand method to add /ranks and /rankup
-    @Override
-    public boolean onCommand(CommandSender sender, Command command,
-                             String label, String[] args) {
+    @Override public boolean onCommand(CommandSender sender, Command command, String label,
+        String[] args) {
         if (sender instanceof Player && Prison.i().config.enableMultiworld) {
-            if (!isInProperWorld(sender)) return true;
+            if (!isInProperWorld(sender)) {
+                return true;
+            }
         }
         if (label.equalsIgnoreCase("ranks")) {
             if (!sender.hasPermission("prison.ranks.list")) {
@@ -72,18 +75,18 @@ public class RanksCommandManager extends AbstractCommandManager {
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < Ranks.i.ranks.size(); i++) {
                 Rank rank = Ranks.i.getRankById(i);
-                if (rank == null) continue;
+                if (rank == null) {
+                    continue;
+                }
 
                 double amountNeededD = rank.getPrice();
                 String amountNeeded;
                 if (amountNeededD < 1) {
                     amountNeeded = "&7$0.00";
                 } else {
-                    amountNeeded = "&7$"
-                            + numberFormatter(amountNeededD);
+                    amountNeeded = "&7$" + numberFormatter(amountNeededD);
                 }
-                sb.append(Prison.color(rank.getPrefix() + " &8- "
-                        + amountNeeded) + "\n");
+                sb.append(Prison.color(rank.getPrefix() + " &8- " + amountNeeded) + "\n");
             }
             sender.sendMessage(sb.toString());
             sender.sendMessage(Prison.color("&7============================"));

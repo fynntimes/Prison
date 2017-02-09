@@ -34,8 +34,7 @@ public class CmdRemoveRank extends Command {
         addRequiredArg("rank");
     }
 
-    @Override
-    protected void execute() {
+    @Override protected void execute() {
         if (!Ranks.i.isLoadedRank(args[1])) {
             sender.sendMessage(MessageUtil.get("ranks.notARank"));
             return;
@@ -49,8 +48,7 @@ public class CmdRemoveRank extends Command {
         }
     }
 
-    @Override
-    public String description() {
+    @Override public String description() {
         return "Removes a rank from Ranks.";
     }
 

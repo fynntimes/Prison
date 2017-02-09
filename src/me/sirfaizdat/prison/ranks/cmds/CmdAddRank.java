@@ -39,11 +39,11 @@ public class CmdAddRank extends Command {
         addOptionalArg("colorfulName");
     }
 
-    @Override
-    protected void execute() {
+    @Override protected void execute() {
         String rankName = args[1];
         if (!Ranks.i.isRank(rankName)) {
-            sender.sendMessage(MessageUtil.get("ranks.notAGroup", Prison.i().getPermissions().getName()));
+            sender.sendMessage(
+                MessageUtil.get("ranks.notAGroup", Prison.i().getPermissions().getName()));
             return;
         }
         if (Ranks.i.isLoadedRank(rankName)) {
@@ -77,8 +77,7 @@ public class CmdAddRank extends Command {
         }
     }
 
-    @Override
-    public String description() {
+    @Override public String description() {
         return "Adds a rank to Ranks.";
     }
 

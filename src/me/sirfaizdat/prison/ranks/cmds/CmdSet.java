@@ -37,8 +37,7 @@ public class CmdSet extends Command {
         addRequiredArg("value");
     }
 
-    @Override
-    protected void execute() {
+    @Override protected void execute() {
         if (!Ranks.i.isLoadedRank(args[1])) {
             sender.sendMessage(MessageUtil.get("ranks.notARank"));
             return;
@@ -57,7 +56,8 @@ public class CmdSet extends Command {
                 }
 
                 if (id < 0 || id > Ranks.i.getRanks().size() - 1) {
-                    sender.sendMessage(MessageUtil.get("general.valueTooHigh", "value", "0", String.valueOf(Ranks.i.ranks.size() - 1)));
+                    sender.sendMessage(MessageUtil.get("general.valueTooHigh", "value", "0",
+                        String.valueOf(Ranks.i.ranks.size() - 1)));
                     return;
                 }
 
@@ -72,7 +72,8 @@ public class CmdSet extends Command {
             case "prefix":
                 rank.setPrefix(Prison.color(val));
                 Ranks.i.saveRank(rank);
-                sender.sendMessage(MessageUtil.get("ranks.valueSet", "prefix", val, rank.getName()));
+                sender
+                    .sendMessage(MessageUtil.get("ranks.valueSet", "prefix", val, rank.getName()));
                 break;
             case "price":
                 double price;
@@ -93,8 +94,7 @@ public class CmdSet extends Command {
         }
     }
 
-    @Override
-    public String description() {
+    @Override public String description() {
         return "Set the price or prefix of a rank.";
     }
 }

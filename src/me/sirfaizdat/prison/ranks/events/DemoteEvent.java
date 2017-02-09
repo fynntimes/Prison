@@ -43,8 +43,7 @@ public class DemoteEvent extends Event {
         return player;
     }
 
-    @Override
-    public HandlerList getHandlers() {
+    @Override public HandlerList getHandlers() {
         return handlers;
     }
 

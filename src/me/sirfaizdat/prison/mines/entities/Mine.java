@@ -19,27 +19,17 @@
 
 package me.sirfaizdat.prison.mines.entities;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import me.sirfaizdat.prison.core.Prison;
 import me.sirfaizdat.prison.json.JsonMine;
-
 import me.sirfaizdat.prison.mines.Block;
 import me.sirfaizdat.prison.mines.SerializableMine;
 import me.sirfaizdat.prison.mines.events.MineResetEvent;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -59,7 +49,8 @@ public class Mine {
     private String worldName;
     private volatile List<CompositionEntry> cachedCompositionMap;
 
-    public Mine(String name, String worldName, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, ArrayList<String> ranks) {
+    public Mine(String name, String worldName, int minX, int minY, int minZ, int maxX, int maxY,
+        int maxZ, ArrayList<String> ranks) {
         this.name = name;
         this.worldName = worldName;
         this.world = Prison.i().getServer().getWorld(worldName);
@@ -72,7 +63,8 @@ public class Mine {
         this.maxX = maxX;
         this.maxY = maxY;
         this.maxZ = maxZ;
-        mineFile = new File(Prison.i().getDataFolder(), "/mines/" + name + (Prison.i().config.useJson ? ".json" : ".mine"));
+        mineFile = new File(Prison.i().getDataFolder(),
+            "/mines/" + name + (Prison.i().config.useJson ? ".json" : ".mine"));
         this.ranks = ranks;
     }
 
@@ -99,37 +91,40 @@ public class Mine {
     }
 
     public void save() {
-    	if (!Prison.i().getConfig().getBoolean("enable.json")){
-    		Prison.l.warning(ChatColor.RED+"The old mine saving system is deprecated and will is likely to be removed in a future release. Please upgrade to JSON as soon as possible ("+ChatColor.YELLOW+"In the config set "+ChatColor.AQUA+"json "+ChatColor.YELLOW+"to "+ChatColor.AQUA+" true"+ChatColor.RED+")");
-        SerializableMine sm = new SerializableMine();
-        sm.name = name;
-        sm.world = worldName;
-        sm.minX = minX;
-        sm.minY = minY;
-        sm.minZ = minZ;
-        sm.maxX = maxX;
-        sm.maxY = maxY;
-        sm.maxZ = maxZ;
-        sm.blocks = blocks;
-        for (String s : ranks) {
-            sm.ranks.add(s);
-        }
-        if (mineFile.exists()) {
-            mineFile.delete();
-        }
-        try {
-            FileOutputStream out = new FileOutputStream(new File(Prison.i().getDataFolder(), "/mines/" + name + ".mine"));
-            ObjectOutputStream oOut = new ObjectOutputStream(out);
-            oOut.writeObject(sm);
-            oOut.close();
-            out.close();
-        } catch (IOException e) {
-            Prison.l.warning("Failed to save mine " + name + ".");
-            e.printStackTrace();
-        }}
-    	else
-    	{
-    		JsonMine jm = new JsonMine();
+        if (!Prison.i().getConfig().getBoolean("enable.json")) {
+            Prison.l.warning(ChatColor.RED
+                + "The old mine saving system is deprecated and will is likely to be removed in a future release. Please upgrade to JSON as soon as possible ("
+                + ChatColor.YELLOW + "In the config set " + ChatColor.AQUA + "json "
+                + ChatColor.YELLOW + "to " + ChatColor.AQUA + " true" + ChatColor.RED + ")");
+            SerializableMine sm = new SerializableMine();
+            sm.name = name;
+            sm.world = worldName;
+            sm.minX = minX;
+            sm.minY = minY;
+            sm.minZ = minZ;
+            sm.maxX = maxX;
+            sm.maxY = maxY;
+            sm.maxZ = maxZ;
+            sm.blocks = blocks;
+            for (String s : ranks) {
+                sm.ranks.add(s);
+            }
+            if (mineFile.exists()) {
+                mineFile.delete();
+            }
+            try {
+                FileOutputStream out = new FileOutputStream(
+                    new File(Prison.i().getDataFolder(), "/mines/" + name + ".mine"));
+                ObjectOutputStream oOut = new ObjectOutputStream(out);
+                oOut.writeObject(sm);
+                oOut.close();
+                out.close();
+            } catch (IOException e) {
+                Prison.l.warning("Failed to save mine " + name + ".");
+                e.printStackTrace();
+            }
+        } else {
+            JsonMine jm = new JsonMine();
             jm.name = name;
             jm.world = worldName;
             jm.minX = minX;
@@ -139,44 +134,51 @@ public class Mine {
             jm.maxY = maxY;
             jm.maxZ = maxZ;
             jm.blocks = new HashMap<>();
-            for (Map.Entry<String, Block> e : blocks.entrySet())
-            {
-            	jm.blocks.put(e.getKey(), e.getValue().getChance());
+            for (Map.Entry<String, Block> e : blocks.entrySet()) {
+                jm.blocks.put(e.getKey(), e.getValue().getChance());
             }
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             FileWriter f = null;
             try {
-				f = new FileWriter(new File(Prison.i().getDataFolder(), "/mines/" + name + ".json"));
-			} catch (IOException e1) {
-	            Prison.l.warning("Failed to save mine " + name + ".");
-	            e1.printStackTrace();
-			}
+                f = new FileWriter(
+                    new File(Prison.i().getDataFolder(), "/mines/" + name + ".json"));
+            } catch (IOException e1) {
+                Prison.l.warning("Failed to save mine " + name + ".");
+                e1.printStackTrace();
+            }
             try {
-				f.write(gson.toJson(jm));
-				f.flush();
-				f.close();
-			} catch (IOException e1) {
-	            Prison.l.warning("Failed to save mine " + name + ".");
-	            e1.printStackTrace();
-			}
-    	}
+                f.write(gson.toJson(jm));
+                f.flush();
+                f.close();
+            } catch (IOException e1) {
+                Prison.l.warning("Failed to save mine " + name + ".");
+                e1.printStackTrace();
+            }
+        }
     }
 
-    @SuppressWarnings("deprecation")
-    public boolean reset() {
+    @SuppressWarnings("deprecation") public boolean reset() {
         if (worldMissing) {
-            Prison.l.warning("Mine " + name + " was not reset because the world it was created in (" + worldName + ") can not be found.");
+            Prison.l.warning(
+                "Mine " + name + " was not reset because the world it was created in (" + worldName
+                    + ") can not be found.");
             return false;
         }
-        if (cachedCompositionMap == null) cachedCompositionMap = mapComposition(blocks);
+        if (cachedCompositionMap == null) {
+            cachedCompositionMap = mapComposition(blocks);
+        }
         if (cachedCompositionMap.size() == 0) {
-            Prison.l.warning("Mine " + name + " could not regenerate because it has no composition.");
+            Prison.l
+                .warning("Mine " + name + " could not regenerate because it has no composition.");
             return false;
         }
 
-        for (Player p : Bukkit.getServer().getOnlinePlayers())
-            if (withinMine(p.getLocation()))
-                p.teleport(p.getLocation().add(0, (Math.max(minY, maxY) - p.getLocation().getBlockY()) + 3, 0));
+        for (Player p : Bukkit.getServer().getOnlinePlayers()) {
+            if (withinMine(p.getLocation())) {
+                p.teleport(p.getLocation()
+                    .add(0, (Math.max(minY, maxY) - p.getLocation().getBlockY()) + 3, 0));
+            }
+        }
 
         Random r = new Random();
         for (int y = minY; y <= maxY; y++) {
@@ -187,7 +189,9 @@ public class Mine {
                             double chance = r.nextDouble();
                             for (CompositionEntry ce : cachedCompositionMap) {
                                 if (chance <= ce.getChance()) {
-                                    world.getBlockAt(x, y, z).setTypeIdAndData(ce.getBlock().getId(), (byte) ce.getBlock().getData(), false);
+                                    world.getBlockAt(x, y, z)
+                                        .setTypeIdAndData(ce.getBlock().getId(),
+                                            (byte) ce.getBlock().getData(), false);
                                     break;
                                 }
                             }
@@ -198,9 +202,13 @@ public class Mine {
                         for (CompositionEntry ce : cachedCompositionMap) {
                             if (chance <= ce.getChance()) {
                                 try {
-                                    world.getBlockAt(x, y, z).setTypeIdAndData(ce.getBlock().getId(), (byte) ce.getBlock().getData(), false);
+                                    world.getBlockAt(x, y, z)
+                                        .setTypeIdAndData(ce.getBlock().getId(),
+                                            (byte) ce.getBlock().getData(), false);
                                 } catch (NullPointerException e) {
-                                    Prison.l.severe("The world " + worldName + " could not be found! Mine " + name + " was not reset.");
+                                    Prison.l.severe(
+                                        "The world " + worldName + " could not be found! Mine "
+                                            + name + " was not reset.");
                                     return false;
                                 }
                                 break;
@@ -212,13 +220,13 @@ public class Mine {
         }
 
         // Get the next composition ready
-        if (Prison.i().config.asyncReset)
+        if (Prison.i().config.asyncReset) {
             Prison.i().getServer().getScheduler().runTaskAsynchronously(Prison.i(), new Runnable() {
-                @Override
-                public void run() {
+                @Override public void run() {
                     cachedCompositionMap = mapComposition(blocks);
                 }
             });
+        }
 
         MineResetEvent event = new MineResetEvent(this);
         Bukkit.getServer().getPluginManager().callEvent(event);
@@ -226,7 +234,11 @@ public class Mine {
     }
 
     private boolean shouldBeReplaced(Material material) {
-        for (Block block : blocks.values()) if (block.getId() == material.getId()) return false;
+        for (Block block : blocks.values()) {
+            if (block.getId() == material.getId()) {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -250,7 +262,9 @@ public class Mine {
 
         if ((px >= x1 && px <= x2) || (px <= x1 && px >= x2)) {
             if ((pz >= z1 && pz <= z2) || (pz <= z1 && pz >= z2)) {
-                if ((py >= y1 && py <= y2) || (py <= y1 && py >= y2)) return true;
+                if ((py >= y1 && py <= y2) || (py <= y1 && py >= y2)) {
+                    return true;
+                }
             }
         }
         return false;

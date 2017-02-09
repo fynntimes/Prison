@@ -22,8 +22,8 @@ import me.sirfaizdat.prison.core.Command;
 import me.sirfaizdat.prison.core.ItemManager;
 import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.core.Prison;
-import me.sirfaizdat.prison.mines.Mines;
 import me.sirfaizdat.prison.mines.Block;
+import me.sirfaizdat.prison.mines.Mines;
 import me.sirfaizdat.prison.mines.entities.Mine;
 import org.bukkit.Material;
 
@@ -41,9 +41,7 @@ public class CmdAddBlock extends Command {
         addRequiredArg("percentage");
     }
 
-    @SuppressWarnings("deprecation")
-    @Override
-    protected void execute() {
+    @SuppressWarnings("deprecation") @Override protected void execute() {
         if (!Prison.i().im.isLoaded()) {
             sender.sendMessage(MessageUtil.get("general.itemManagerNotLoaded"));
             return;
@@ -161,16 +159,15 @@ public class CmdAddBlock extends Command {
         m.addBlock(block, percentage);
         m.save();
         if (Prison.i().im.isLoaded()) {
-            sender.sendMessage(MessageUtil.get("mines.addSuccess", m.name,
-                    (percentage * 100) + "%", Prison.i().im.getName(set)));
+            sender.sendMessage(MessageUtil.get("mines.addSuccess", m.name, (percentage * 100) + "%",
+                Prison.i().im.getName(set)));
         } else {
-            sender.sendMessage(MessageUtil.get("mines.addSuccess", m.name,
-                    (percentage * 100) + "%", set.id + ":" + set.data));
+            sender.sendMessage(MessageUtil.get("mines.addSuccess", m.name, (percentage * 100) + "%",
+                set.id + ":" + set.data));
         }
     }
 
-    @Override
-    public String description() {
+    @Override public String description() {
         return "Adds a block to the mine.";
     }
 

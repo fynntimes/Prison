@@ -25,8 +25,7 @@ import java.util.HashMap;
 /**
  * @author SirFaizdat
  */
-@Deprecated
-public class SerializableMine implements Serializable {
+@Deprecated public class SerializableMine implements Serializable {
     private static final long serialVersionUID = 1L;
     public String name;
     public String world;

@@ -56,8 +56,9 @@ public abstract class Command {
     }
 
     public void setComponent(Component c) {
-        if (c == null)
+        if (c == null) {
             return;
+        }
         this.c = c;
         permission = "prison." + c.getName().toLowerCase() + "." + name;
     }
@@ -77,8 +78,7 @@ public abstract class Command {
         }
         int length = args.length - 1;
         if (length < requiredArgs.size()) {
-            sender.sendMessage(MessageUtil
-                    .get("general.notEnoughArgs", usage()));
+            sender.sendMessage(MessageUtil.get("general.notEnoughArgs", usage()));
             return;
         }
         amountOfOptionalArgs = length - requiredArgs.size();

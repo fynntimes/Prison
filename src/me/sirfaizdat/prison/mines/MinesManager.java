@@ -60,8 +60,7 @@ public class MinesManager {
         resetTimeCounter = resetTime;
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         ResetClock rs = new ResetClock();
-        autoResetID = scheduler.scheduleSyncRepeatingTask(Prison.i(), rs,
-                1200L, 1200L);
+        autoResetID = scheduler.scheduleSyncRepeatingTask(Prison.i(), rs, 1200L, 1200L);
     }
 
     private void broadcastToWorld(String s, World w) {
@@ -71,13 +70,15 @@ public class MinesManager {
             }
         }
     }
-    public SerializableMine twoToOld(SerializableMine2 sm){
+
+    public SerializableMine twoToOld(SerializableMine2 sm) {
         SerializableMine out = new SerializableMine();
         out.blocks = new HashMap<String, Block>();
-        for (Map.Entry<String,me.sirfaizdat.prison.mines.entities.Block> b : sm.blocks.entrySet()){
-            Block block = new Block(b.getValue().getId(),b.getValue().getData());
+        for (Map.Entry<String, me.sirfaizdat.prison.mines.entities.Block> b : sm.blocks
+            .entrySet()) {
+            Block block = new Block(b.getValue().getId(), b.getValue().getData());
             block.setChance(b.getValue().getChance());
-            out.blocks.put(b.getKey(),block);
+            out.blocks.put(b.getKey(), block);
         }
         out.minX = sm.minX;
         out.minY = sm.minY;
@@ -88,37 +89,42 @@ public class MinesManager {
         out.ranks = sm.ranks;
         return out;
     }
+
     public void load() {
-    	boolean convert = Prison.i().config.useJson;
-    	if (!convert){
-    		Prison.l.warning(ChatColor.RED+"The old mine saving system is deprecated and will is likely to be removed in a future release. Please upgrade to JSON as soon as possible ("+ChatColor.YELLOW+"In the config set "+ChatColor.AQUA+"json "+ChatColor.YELLOW+"to "+ChatColor.AQUA+" true"+ChatColor.RED+")");}
-    	for (File mine : getAllNewMineFiles())
-        {
-        	FileReader fr;
-			try {
-				fr = new FileReader(mine);
-			} catch (FileNotFoundException e) {
+        boolean convert = Prison.i().config.useJson;
+        if (!convert) {
+            Prison.l.warning(ChatColor.RED
+                + "The old mine saving system is deprecated and will is likely to be removed in a future release. Please upgrade to JSON as soon as possible ("
+                + ChatColor.YELLOW + "In the config set " + ChatColor.AQUA + "json "
+                + ChatColor.YELLOW + "to " + ChatColor.AQUA + " true" + ChatColor.RED + ")");
+        }
+        for (File mine : getAllNewMineFiles()) {
+            FileReader fr;
+            try {
+                fr = new FileReader(mine);
+            } catch (FileNotFoundException e) {
                 Prison.l.warning("There was an error in loading file " + mine.getName() + ".");
                 e.printStackTrace();
                 continue; // Skip this one
-			}
-        	JsonMine jm = new Gson().fromJson(fr, JsonMine.class);
-        	HashMap<String, Block> blocks = new HashMap<>();
-        	for (Map.Entry<String, Double> entry : jm.blocks.entrySet())
-        	{
-        		Block b = new Block(Integer.parseInt(entry.getKey().split(":")[0]),Short.parseShort(entry.getKey().split(":")[1]));
-        		b.setChance(entry.getValue());
-        		blocks.put(entry.getKey(), b);
-        	}
-        	Mine m = new Mine(jm.name, jm.world, jm.minX, jm.minY, jm.minZ,
-                    jm.maxX, jm.maxY, jm.maxZ, jm.ranks == null ? new ArrayList<String>() : jm.ranks);
-        	if (blocks != null && blocks.size() != 0) {
+            }
+            JsonMine jm = new Gson().fromJson(fr, JsonMine.class);
+            HashMap<String, Block> blocks = new HashMap<>();
+            for (Map.Entry<String, Double> entry : jm.blocks.entrySet()) {
+                Block b = new Block(Integer.parseInt(entry.getKey().split(":")[0]),
+                    Short.parseShort(entry.getKey().split(":")[1]));
+                b.setChance(entry.getValue());
+                blocks.put(entry.getKey(), b);
+            }
+            Mine m =
+                new Mine(jm.name, jm.world, jm.minX, jm.minY, jm.minZ, jm.maxX, jm.maxY, jm.maxZ,
+                    jm.ranks == null ? new ArrayList<String>() : jm.ranks);
+            if (blocks != null && blocks.size() != 0) {
                 transferComposition(m, blocks);
             }
-        	mines.put(jm.name, m);
+            mines.put(jm.name, m);
         }
-    	for (File file : getAllMineFiles()) { // Backwards compatability
-          SerializableMine sm;
+        for (File file : getAllMineFiles()) { // Backwards compatability
+            SerializableMine sm;
             try {
                 Object tmp;
                 FileInputStream fileIn = new FileInputStream(file);
@@ -126,18 +132,13 @@ public class MinesManager {
                 tmp = in.readObject();
                 in.close();
                 fileIn.close();
-                if (((SerializableMine)tmp).blocks == null){
-                    if (((SerializableMine2)tmp).blocks != null){
-                        sm = twoToOld((SerializableMine2)tmp);
-                    }
-                    else { // It's clearly meant to be null
-                        sm = (SerializableMine)tmp;
-                    }
+                if (tmp instanceof SerializableMine) {
+                    sm = (SerializableMine) tmp;
                 } else {
-                    sm = (SerializableMine)tmp;
                 }
             } catch (ClassNotFoundException e) {
-                Prison.l.severe("An unexpected error occured. Check to make sure your copy of the plugin is not corrupted.");
+                Prison.l.severe(
+                    "An unexpected error occured. Check to make sure your copy of the plugin is not corrupted.");
                 e.printStackTrace();
                 continue; // Skip this one
             } catch (IOException e) {
@@ -147,24 +148,26 @@ public class MinesManager {
             }
             Mine m = null;
             if (convert) {
-            	Prison.l.info("Converting " + sm.name + " to JSON...");
-                m = new Mine(sm.name, sm.world, sm.minX, sm.minY, sm.minZ,
-                        sm.maxX, sm.maxY, sm.maxZ, sm.ranks == null ? new ArrayList<String>() : sm.ranks);
+                Prison.l.info("Converting " + sm.name + " to JSON...");
+                m = new Mine(sm.name, sm.world, sm.minX, sm.minY, sm.minZ, sm.maxX, sm.maxY,
+                    sm.maxZ, sm.ranks == null ? new ArrayList<String>() : sm.ranks);
                 m.save(); // Run the 2.3 save function
-            	file.renameTo(new File(Prison.i().getDataFolder(),"/mines/"+file.getName().replace(".mine", ".oldmine")));
-            }else{
-            m = new Mine(sm.name, sm.world, sm.minX, sm.minY, sm.minZ,
-                    sm.maxX, sm.maxY, sm.maxZ, sm.ranks == null ? new ArrayList<String>() : sm.ranks);
-            if (sm.blocks != null && sm.blocks.size() != 0) {
-                transferComposition(m, sm.blocks);
-            }}
+                file.renameTo(new File(Prison.i().getDataFolder(),
+                    "/mines/" + file.getName().replace(".mine", ".oldmine")));
+            } else {
+                m = new Mine(sm.name, sm.world, sm.minX, sm.minY, sm.minZ, sm.maxX, sm.maxY,
+                    sm.maxZ, sm.ranks == null ? new ArrayList<String>() : sm.ranks);
+                if (sm.blocks != null && sm.blocks.size() != 0) {
+                    transferComposition(m, sm.blocks);
+                }
+            }
 
             mines.put(sm.name, m);
         }
-        
+
 
         Prison.l.info("&2Loaded " + mines.size() + " mines.");
-        
+
     }
 
     private void transferComposition(Mine m, HashMap<String, Block> compo) {
@@ -199,35 +202,45 @@ public class MinesManager {
     private File[] getAllMineFiles() {
         File folder = new File(Prison.i().getDataFolder(), "/mines/");
         return folder.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
+            @Override public boolean accept(File dir, String name) {
                 return name.endsWith(".mine");
             }
         });
     }
+
     private File[] getAllNewMineFiles() {
         File folder = new File(Prison.i().getDataFolder(), "/mines/");
         return folder.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
+            @Override public boolean accept(File dir, String name) {
                 return name.endsWith(".json");
             }
         });
     }
+
     private class ResetClock implements Runnable {
         public void run() {
-            if (mines.size() == 0) return;
-            if (resetTime == 0) return;
-            if (resetTimeCounter > 0) resetTimeCounter--;
+            if (mines.size() == 0) {
+                return;
+            }
+            if (resetTime == 0) {
+                return;
+            }
+            if (resetTimeCounter > 0) {
+                resetTimeCounter--;
+            }
 
             for (int warning : Prison.i().config.resetWarnings) {
                 if (warning == resetTimeCounter) {
                     String warnMsg = Prison.i().config.resetWarningMessage;
                     warnMsg = warnMsg.replaceAll("<mins>", warning + "");
 
-                    if (!Prison.i().config.enableMultiworld)
+                    if (!Prison.i().config.enableMultiworld) {
                         Bukkit.getServer().broadcastMessage(Prison.color(warnMsg));
-                    else for (String s : Prison.i().config.worlds) broadcastToWorld(warnMsg, Bukkit.getWorld(s));
+                    } else {
+                        for (String s : Prison.i().config.worlds) {
+                            broadcastToWorld(warnMsg, Bukkit.getWorld(s));
+                        }
+                    }
                 }
             }
             if (resetTimeCounter == 0) {
@@ -235,14 +248,19 @@ public class MinesManager {
                     if (!mine.worldMissing) {
                         mine.reset();
                     } else {
-                        Prison.l.warning("Did not reset mine "
-                                + mine.name + " because the world it is in could not be found.");
+                        Prison.l.warning("Did not reset mine " + mine.name
+                            + " because the world it is in could not be found.");
                     }
                 }
-                if (!Prison.i().config.enableMultiworld)
-                    Bukkit.getServer().broadcastMessage(Prison.color(Prison.i().config.resetBroadcastMessage));
-                else for (String s : Prison.i().config.worlds)
-                    broadcastToWorld(Prison.i().config.resetBroadcastMessage, Bukkit.getWorld(s));
+                if (!Prison.i().config.enableMultiworld) {
+                    Bukkit.getServer()
+                        .broadcastMessage(Prison.color(Prison.i().config.resetBroadcastMessage));
+                } else {
+                    for (String s : Prison.i().config.worlds) {
+                        broadcastToWorld(Prison.i().config.resetBroadcastMessage,
+                            Bukkit.getWorld(s));
+                    }
+                }
                 resetTimeCounter = resetTime;
             }
         }

@@ -34,19 +34,21 @@ public class CmdUpdate extends Command {
         super("update");
     }
 
-    @Override
-    protected void execute() {
+    @Override protected void execute() {
         if (Prison.i().config.checkUpdates) {
             if (Prison.i().getDescription().getVersion().contains("SNAPSHOT")) {
                 sender.sendMessage(MessageUtil.get("general.devBuild"));
                 return;
             }
 
-            Updater updater = new Updater(Prison.i(), 76155, Prison.i().getFile(), UpdateType.NO_VERSION_CHECK, true);
+            Updater updater =
+                new Updater(Prison.i(), 76155, Prison.i().getFile(), UpdateType.NO_VERSION_CHECK,
+                    true);
             if (updater.getResult() == UpdateResult.NO_UPDATE) {
                 sender.sendMessage(MessageUtil.get("general.noUpdate"));
             } else if (updater.getResult() == UpdateResult.SUCCESS) {
-                sender.sendMessage(MessageUtil.get("general.updated", Prison.i().updater.getLatestName()));
+                sender.sendMessage(
+                    MessageUtil.get("general.updated", Prison.i().updater.getLatestName()));
             } else {
                 sender.sendMessage(MessageUtil.get("general.updateFailed"));
             }
@@ -55,8 +57,7 @@ public class CmdUpdate extends Command {
         }
     }
 
-    @Override
-    public String description() {
+    @Override public String description() {
         return "Downloads the latest version of Prison.";
     }
 

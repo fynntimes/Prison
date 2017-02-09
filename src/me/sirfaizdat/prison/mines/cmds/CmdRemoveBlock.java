@@ -22,8 +22,8 @@ import me.sirfaizdat.prison.core.Command;
 import me.sirfaizdat.prison.core.ItemManager.ItemSet;
 import me.sirfaizdat.prison.core.MessageUtil;
 import me.sirfaizdat.prison.core.Prison;
-import me.sirfaizdat.prison.mines.Mines;
 import me.sirfaizdat.prison.mines.Block;
+import me.sirfaizdat.prison.mines.Mines;
 import me.sirfaizdat.prison.mines.entities.Mine;
 import org.bukkit.Material;
 
@@ -38,8 +38,7 @@ public class CmdRemoveBlock extends Command {
         addRequiredArg("block");
     }
 
-    @SuppressWarnings("deprecation")
-    public void execute() {
+    @SuppressWarnings("deprecation") public void execute() {
         if (!Prison.i().im.isLoaded()) {
             sender.sendMessage(MessageUtil.get("general.itemManagerNotLoaded"));
             return;
@@ -90,8 +89,7 @@ public class CmdRemoveBlock extends Command {
             block = new Block(mat.getId(), b);
             try {
                 if (m.blocks.get(block.toString()) == null) {
-                    sender.sendMessage(MessageUtil
-                            .get("mines.mineDoesntHaveThisBlock"));
+                    sender.sendMessage(MessageUtil.get("mines.mineDoesntHaveThisBlock"));
                     return;
                 }
             } catch (NullPointerException ignored) {
@@ -118,8 +116,7 @@ public class CmdRemoveBlock extends Command {
             block = new Block(mat.getId(), data);
             try {
                 if (m.blocks.get(block.toString()) == null) {
-                    sender.sendMessage(MessageUtil
-                            .get("mines.mineDoesntHaveThisBlock"));
+                    sender.sendMessage(MessageUtil.get("mines.mineDoesntHaveThisBlock"));
                     return;
                 }
             } catch (NullPointerException ignored) {
@@ -132,11 +129,11 @@ public class CmdRemoveBlock extends Command {
         m.blocks.remove(block.toString());
         m.save();
         if (Prison.i().im.isLoaded()) {
-            sender.sendMessage(MessageUtil.get("mines.removedBlock",
-                    Prison.i().im.getName(set), m.name));
+            sender.sendMessage(
+                MessageUtil.get("mines.removedBlock", Prison.i().im.getName(set), m.name));
         } else {
-            sender.sendMessage(MessageUtil.get("mines.removedBlock", set.id
-                    + ":" + set.data, m.name));
+            sender.sendMessage(
+                MessageUtil.get("mines.removedBlock", set.id + ":" + set.data, m.name));
         }
     }
 

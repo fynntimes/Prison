@@ -55,8 +55,7 @@ public class BalanceChangeEvent extends Event {
         return newBalance;
     }
 
-    @Override
-    public HandlerList getHandlers() {
+    @Override public HandlerList getHandlers() {
         return handlers;
     }
 
