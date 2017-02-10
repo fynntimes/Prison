@@ -20,8 +20,10 @@ package me.sirfaizdat.prison.mines;
 
 import com.google.gson.Gson;
 import me.sirfaizdat.prison.core.Prison;
+import me.sirfaizdat.prison.json.Converter;
 import me.sirfaizdat.prison.json.JsonMine;
 import me.sirfaizdat.prison.mines.entities.Mine;
+import me.sirfaizdat.prison.mines.entities.SerializableMine;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -71,8 +73,9 @@ public class MinesManager {
         }
     }
 
-    public SerializableMine twoToOld(SerializableMine2 sm) {
-        SerializableMine out = new SerializableMine();
+    public me.sirfaizdat.prison.mines.SerializableMine twoToOld(SerializableMine sm) {
+        me.sirfaizdat.prison.mines.SerializableMine
+            out = new me.sirfaizdat.prison.mines.SerializableMine();
         out.blocks = new HashMap<String, Block>();
         for (Map.Entry<String, me.sirfaizdat.prison.mines.entities.Block> b : sm.blocks
             .entrySet()) {
@@ -124,7 +127,7 @@ public class MinesManager {
             mines.put(jm.name, m);
         }
         for (File file : getAllMineFiles()) { // Backwards compatability
-            SerializableMine sm;
+            me.sirfaizdat.prison.mines.SerializableMine sm;
             try {
                 Object tmp;
                 FileInputStream fileIn = new FileInputStream(file);
@@ -132,10 +135,7 @@ public class MinesManager {
                 tmp = in.readObject();
                 in.close();
                 fileIn.close();
-                if (tmp instanceof SerializableMine) {
-                    sm = (SerializableMine) tmp;
-                } else {
-                }
+                sm = Converter.tryLoadMine(tmp);
             } catch (ClassNotFoundException e) {
                 Prison.l.severe(
                     "An unexpected error occured. Check to make sure your copy of the plugin is not corrupted.");

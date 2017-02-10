@@ -77,4 +77,32 @@ public class Converter {
         rank.price = sr.price;
         return rank;
     }
+
+    public static SerializableMine tryLoadMine(Object mine) {
+        SerializableMine result = new SerializableMine();
+        if (mine.getClass().getName().equals("me.sirfaizdat.prison.mines.SerializableMine")) {
+            result = (SerializableMine) mine;
+        } else if (mine.getClass().getName()
+            .equals("me.sirfaizdat.prison.mines.entities.SerializableMine")) {
+            me.sirfaizdat.prison.mines.entities.SerializableMine mine2 =
+                (me.sirfaizdat.prison.mines.entities.SerializableMine) mine;
+            HashMap<String, me.sirfaizdat.prison.mines.entities.Block> map = mine2.blocks;
+            HashMap<String, Double> blocks = new HashMap<>();
+            for (Map.Entry<String, me.sirfaizdat.prison.mines.entities.Block> b : map.entrySet()) {
+                result.blocks.put(b.getKey(),
+                    new Block(b.getValue().getId(), b.getValue().getData())
+                        .setChance(b.getValue().getChance()));
+            }
+            result.minX = mine2.minX;
+            result.minY = mine2.minY;
+            result.minZ = mine2.minZ;
+            result.maxX = mine2.maxX;
+            result.maxY = mine2.maxY;
+            result.maxZ = mine2.maxZ;
+            result.ranks = mine2.ranks;
+        } else {
+            result = null;
+        }
+        return result;
+    }
 }

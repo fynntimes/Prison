@@ -17,6 +17,7 @@ public class Updater {
     private Thread thread; // Updater thread
     private int pluginid = 76155;
     private Update newVersion;
+    private Update[] versions;
 
     public class Update {
         public Update(){}
@@ -34,10 +35,15 @@ public class Updater {
     }
 
     public boolean checkForUpdates(){
+        versions = null;
         return false;
     }
 
     public Update getUpdate(){
         return null;
+    }
+
+    public Update[] getVersions(){
+        return versions;
     }
 }
