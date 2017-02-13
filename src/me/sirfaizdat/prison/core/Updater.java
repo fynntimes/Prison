@@ -1,6 +1,16 @@
 package me.sirfaizdat.prison.core;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+
+import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
+import java.util.logging.Level;
+import java.util.zip.ZipFile;
 
 /**
  * A modified version of the DMP9 Labs bukkit update script.
@@ -10,17 +20,56 @@ import java.net.URL;
  * @since Prison v2.4
  */
 public class Updater {
+
+    /*
+     * Declarations
+     */
+
     private static final String QUERY = "https://api.curseforge.com/servermods/files?projectIds=";
-    private static final String USER_AGENT = "DMP9Labs/PluginUpdater";
     private static final int BYTE_SIZE = 1024;
     private URL rssConn;
     private Thread thread; // Updater thread
     private int pluginid = 76155;
     private Update newVersion;
     private Update[] versions;
+    private boolean update = false;
+    private boolean threaded = false;
+
+    private URL followRedirects(String location) throws IOException {
+        URL resourceUrl, base, next;
+        HttpURLConnection conn;
+        String redLoc;
+        while (true) {
+            resourceUrl = new URL(location);
+            conn = (HttpURLConnection) resourceUrl.openConnection();
+
+            conn.setConnectTimeout(15000);
+            conn.setReadTimeout(15000);
+            conn.setInstanceFollowRedirects(false);
+            conn.setRequestProperty("User-Agent", "Mozilla/5.0...");
+
+            switch (conn.getResponseCode()) {
+                case HttpURLConnection.HTTP_MOVED_PERM:
+                case HttpURLConnection.HTTP_MOVED_TEMP:
+                    redLoc = conn.getHeaderField("Location");
+                    base = new URL(location);
+                    next = new URL(base, redLoc);  // Deal with relative URLs
+                    location = next.toExternalForm();
+                    continue;
+            }
+            break;
+        }
+        return conn.getURL();
+    }
+
+    /*
+     * Utils
+     */
 
     public class Update {
-        public Update(){}
+        public Update() {
+        }
+
         public String downloadUrl;
         public String fileName;
         public String fileUrl;
@@ -29,21 +78,101 @@ public class Updater {
         public String name;
         public String projectId;
         public String releaseType;
-        public boolean install(){
+
+        public boolean install() {
+            try {
+                URL website = followRedirects(downloadUrl);
+                ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+                FileOutputStream fos =
+                    new FileOutputStream(new File(Prison.i().getDataFolder(), "/updates/"+fileName));
+                fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+                if (fileName.endsWith(".zip")){
+                    ZipFile zipFile = new ZipFile(new File(Prison.i().getDataFolder(), "/updates/"+fileName));
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+                return false;
+            }
             return true;
+        }
+
+        public boolean isNew(String currentVersion) {
+            String v = getVersion();
+            if (v == null || v.isEmpty()){
+                return false;
+            }
+            String[] split = v.split(".");
+            String[] split2 = currentVersion.split(".");
+            if (split[0].equalsIgnoreCase(split2[0])){
+                if (split[1].equalsIgnoreCase(split2[1])) {
+                    if (split[2].equalsIgnoreCase(split2[2])) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        public String getVersion(){
+            for (String s : name.split(" ")) {
+                if (s.contains("v") && s.length() == 6){
+                    return s.split("v")[1];
+                }
+            }
+            throw new IllegalArgumentException("Version hasn't followed Semantic versioning. All version names should follow: ProjectName vX.X.X");
         }
     }
 
-    public boolean checkForUpdates(){
-        versions = null;
-        return false;
+    public Updater checkForUpdates(){
+        threaded = true;
+        thread = new Thread(new Runnable() {
+            @Override public void run() {
+
+            }
+        });
+        return this;
+    }
+    public boolean isUpdate(){
+        return update;
+    }
+    public boolean check() {
+        try {
+            final URLConnection conn = rssConn.openConnection();
+            conn.setConnectTimeout(5000);
+            conn.addRequestProperty("User-Agent", "DMP9Labs/DboUpdate");
+
+            conn.setDoOutput(true);
+
+            final BufferedReader reader =
+                new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            final String response = reader.readLine();
+            Update[] array;
+            try {
+                array = new Gson().fromJson(response, Update[].class);
+            }catch(JsonSyntaxException e){
+                Prison.i().getLogger().severe("The remote server sent an invalid response!");
+                return false;
+            }
+            if (array.length == 0) {
+                Prison.i().getLogger()
+                    .warning("The updater could not find any files for " + pluginid);
+                return false;
+            }
+            newVersion = array[array.length - 1];
+            return true;
+        } catch (final IOException e) {
+            Prison.i().getLogger()
+                .severe("The updater could not contact the remote server (is it down?)");
+            Prison.i().getLogger().log(Level.SEVERE, null, e);
+            return false;
+        }
     }
 
-    public Update getUpdate(){
-        return null;
+    public Update getUpdate() {
+        return newVersion;
     }
 
-    public Update[] getVersions(){
+    public Update[] getVersions() {
         return versions;
     }
 }

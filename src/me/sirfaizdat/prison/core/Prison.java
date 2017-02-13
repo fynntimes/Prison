@@ -84,7 +84,7 @@ public class Prison extends JavaPlugin implements Listener {
         initMetrics();
 
         l.info("&7Enabled &3Prison v" + getDescription().getVersion()
-            + "&7. Made with <3 by &3SirFaizdat &7& &3Camouflage100&7.");
+            + "&7. Made with <3 by &3The Prison Team&7.");
         long endTime = System.currentTimeMillis();
         l.info("&8Enabled in " + (endTime - startTime) + " milliseconds.");
 
@@ -144,12 +144,12 @@ public class Prison extends JavaPlugin implements Listener {
 
     private void updateCheck() {
         if (config.checkUpdates && !getDescription().getVersion().contains("-SNAPSHOT")) {
-            if (updater.checkForUpdates()) {
+            if (updater.checkForUpdates().isUpdate()) {
                 updateLatestName = updater.getUpdate().name;
                 l.info(MessageUtil.get("general.updateAvailable", updateLatestName));
                 this.updateAvailable = true;
                 String msg = MessageUtil.get("general.updateAvailable", updateLatestName);
-                if (updateLatestName.contains("Prison 3")) {
+                if (updateLatestName.equalsIgnoreCase("Prison 3 v1.0.0")) {
                     msg =
                         "&3Prison &7> &fPrison 3 is out! To upgrade, simply type &b/prison update. All your files will be converted!";
                 }
