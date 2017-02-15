@@ -141,6 +141,7 @@ public class Updater {
             if (v == null || v.isEmpty()) {
                 return false;
             }
+            Prison.i().getLogger().info(v + " and " + currentVersion);
             String[] split = v.split(".");
             String[] split2 = currentVersion.split(".");
             if (split[0].equalsIgnoreCase(split2[0])) {
