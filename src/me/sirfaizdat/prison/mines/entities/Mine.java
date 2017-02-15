@@ -53,9 +53,11 @@ public class Mine {
         int maxZ, ArrayList<String> ranks) {
         this.name = name;
         this.worldName = worldName;
-        this.world = Prison.i().getServer().getWorld(worldName);
-        if (world == null) {
-            worldMissing = true;
+        if (worldName != null && !worldName.isEmpty()) {
+            this.world = Prison.i().getServer().getWorld(worldName);
+            if (world == null) {
+                worldMissing = true;
+            }
         }
         this.minX = minX;
         this.minY = minY;

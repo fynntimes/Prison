@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b4d7934-576d-4d2a-b246-dbeb163ecebd" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Metrics.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Metrics.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/entities/Mine.java" afterPath="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/entities/Mine.java" />
     </list>
     <ignored path="Prison.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,6 +51,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Mine.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/entities/Mine.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="168">
+              <caret line="60" column="9" lean-forward="false" selection-start-line="60" selection-start-column="9" selection-end-line="60" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Prison.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Prison.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -88,11 +97,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Metrics.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Metrics.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Metrics.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="321">
-              <caret line="738" column="73" lean-forward="false" selection-start-line="738" selection-start-column="73" selection-end-line="738" selection-end-column="73" />
+            <state relative-caret-position="610">
+              <caret line="755" column="28" lean-forward="true" selection-start-line="755" selection-start-column="28" selection-end-line="755" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -184,7 +193,6 @@
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/BalanceChangeListener.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/Ranks.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdBlock.java" />
-        <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/entities/Mine.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/events/MineResetEvent.java" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/ranks/cmds/RanksCommandManager.java" />
         <option value="$PROJECT_DIR$/src/plugin.yml" />
@@ -205,6 +213,7 @@
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/cmds/CmdUpdate.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Metrics.java" />
+        <option value="$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/entities/Mine.java" />
       </list>
     </option>
   </component>
@@ -1000,7 +1009,7 @@
       <workItem from="1483234759355" duration="6920000" />
       <workItem from="1484160135896" duration="2821000" />
       <workItem from="1486149068396" duration="679000" />
-      <workItem from="1486665174652" duration="27784000" />
+      <workItem from="1486665174652" duration="28022000" />
     </task>
     <task id="LOCAL-00001" summary="This is v2.1.5">
       <created>1447562574532</created>
@@ -1230,7 +1239,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85272000" />
+    <option name="totallyTimeSpent" value="85510000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1658,14 +1667,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/entities/Mine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
-          <caret line="123" column="36" lean-forward="false" selection-start-line="123" selection-start-column="36" selection-end-line="123" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/cmds/CmdRedefine.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -1749,8 +1750,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Metrics.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="738" column="73" lean-forward="false" selection-start-line="738" selection-start-column="73" selection-end-line="738" selection-end-column="73" />
+        <state relative-caret-position="610">
+          <caret line="755" column="28" lean-forward="true" selection-start-line="755" selection-start-column="28" selection-end-line="755" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/mines/entities/Mine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="60" column="9" lean-forward="false" selection-start-line="60" selection-start-column="9" selection-end-line="60" selection-end-column="9" />
           <folding />
         </state>
       </provider>
