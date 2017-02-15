@@ -44,32 +44,6 @@ public class Updater {
             e.printStackTrace();
         }
     }
-    private URL followRedirects(String location) throws IOException {
-        URL resourceUrl, base, next;
-        HttpURLConnection conn;
-        String redLoc;
-        while (true) {
-            resourceUrl = new URL(location);
-            conn = (HttpURLConnection) resourceUrl.openConnection();
-
-            conn.setConnectTimeout(15000);
-            conn.setReadTimeout(15000);
-            conn.setInstanceFollowRedirects(false);
-            conn.setRequestProperty("User-Agent", "Mozilla/5.0...");
-
-            switch (conn.getResponseCode()) {
-                case HttpURLConnection.HTTP_MOVED_PERM:
-                case HttpURLConnection.HTTP_MOVED_TEMP:
-                    redLoc = conn.getHeaderField("Location");
-                    base = new URL(location);
-                    next = new URL(base, redLoc);  // Deal with relative URLs
-                    location = next.toExternalForm();
-                    continue;
-            }
-            break;
-        }
-        return conn.getURL();
-    }
 
     /*
      * Utils
@@ -88,6 +62,33 @@ public class Updater {
         public String name;
         public String projectId;
         public String releaseType;
+
+        private URL followRedirects(String location) throws IOException {
+            URL resourceUrl, base, next;
+            HttpURLConnection conn;
+            String redLoc;
+            while (true) {
+                resourceUrl = new URL(location);
+                conn = (HttpURLConnection) resourceUrl.openConnection();
+
+                conn.setConnectTimeout(15000);
+                conn.setReadTimeout(15000);
+                conn.setInstanceFollowRedirects(false);
+                conn.setRequestProperty("User-Agent", "Mozilla/5.0...");
+
+                switch (conn.getResponseCode()) {
+                    case HttpURLConnection.HTTP_MOVED_PERM:
+                    case HttpURLConnection.HTTP_MOVED_TEMP:
+                        redLoc = conn.getHeaderField("Location");
+                        base = new URL(location);
+                        next = new URL(base, redLoc);  // Deal with relative URLs
+                        location = next.toExternalForm();
+                        continue;
+                }
+                break;
+            }
+            return conn.getURL();
+        }
 
         public boolean install() {
             try {
