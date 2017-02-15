@@ -6,6 +6,7 @@ import com.google.gson.JsonSyntaxException;
 
 import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.channels.Channels;
@@ -36,6 +37,13 @@ public class Updater {
     private Update[] versions;
     private boolean threaded = false;
 
+    public Updater() {
+        try {
+            rssConn = new URL(QUERY + pluginid);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
     private URL followRedirects(String location) throws IOException {
         URL resourceUrl, base, next;
         HttpURLConnection conn;
