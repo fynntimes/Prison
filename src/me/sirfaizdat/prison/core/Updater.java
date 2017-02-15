@@ -100,6 +100,7 @@ public class Updater {
                 ReadableByteChannel rbc = Channels.newChannel(website.openStream());
                 FileOutputStream fos = new FileOutputStream(file);
                 fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+                fos.close();
                 if (fileName.endsWith(".zip")) {
                     ZipInputStream zipIn = new ZipInputStream(new FileInputStream(file));
                     ZipEntry entry = zipIn.getNextEntry();
