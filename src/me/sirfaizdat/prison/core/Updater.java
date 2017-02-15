@@ -184,9 +184,11 @@ public class Updater {
                 }
             }
         });
+        thread.start();
         return this;
     }
 
+    @Deprecated
     public Updater _SYNC_checkForUpdates(boolean install) {
         if (getUpdateList()) {
             if (getUpdate().isNew(Prison.i().getDescription().getVersion())) {
