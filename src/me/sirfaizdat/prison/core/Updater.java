@@ -126,8 +126,8 @@ public class Updater {
                     zipIn.close();
                     file.delete();
                 } else if (fileName.endsWith(".jar")) {
-                    Files.move(file, new File(
-                        getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath()));
+                    File path = new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
+                    Files.move(file, new File(path.getParentFile(), "/update/"+path.getName()));
                 } else {
                     Files.move(file, new File(Prison.i().getDataFolder().getParentFile(),
                         "/update/" + fileName));
