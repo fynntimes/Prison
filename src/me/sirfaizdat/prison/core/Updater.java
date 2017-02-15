@@ -92,8 +92,10 @@ public class Updater {
 
         public boolean install() {
             try {
+                if (!new File(Prison.i().getDataFolder(), "/updates/").exists()){
+                    new File(Prison.i().getDataFolder(), "/updates/").mkdir();
+                }
                 File file = new File(Prison.i().getDataFolder(), "/updates/" + fileName);
-                file.mkdirs();
                 URL website = followRedirects(downloadUrl);
                 ReadableByteChannel rbc = Channels.newChannel(website.openStream());
                 FileOutputStream fos = new FileOutputStream(file);
