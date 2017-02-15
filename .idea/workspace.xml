@@ -76,12 +76,12 @@
       <file leaf-file-name="Updater.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Updater.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
-              <caret line="95" column="78" lean-forward="false" selection-start-line="95" selection-start-column="78" selection-end-line="95" selection-end-column="78" />
+            <state relative-caret-position="321">
+              <caret line="118" column="32" lean-forward="true" selection-start-line="118" selection-start-column="32" selection-end-line="118" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#6308#6672#0" expanded="true" />
-                <element signature="e#6671#6672#0" expanded="true" />
+                <element signature="e#6315#6679#0" expanded="true" />
+                <element signature="e#6678#6679#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1009,7 +1009,7 @@
       <workItem from="1483234759355" duration="6920000" />
       <workItem from="1484160135896" duration="2821000" />
       <workItem from="1486149068396" duration="679000" />
-      <workItem from="1486665174652" duration="29827000" />
+      <workItem from="1486665174652" duration="29975000" />
     </task>
     <task id="LOCAL-00001" summary="This is v2.1.5">
       <created>1447562574532</created>
@@ -1239,7 +1239,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="87315000" />
+    <option name="totallyTimeSpent" value="87463000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1754,12 +1754,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/me/sirfaizdat/prison/core/Updater.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="95" column="78" lean-forward="false" selection-start-line="95" selection-start-column="78" selection-end-line="95" selection-end-column="78" />
+        <state relative-caret-position="321">
+          <caret line="118" column="32" lean-forward="true" selection-start-line="118" selection-start-column="32" selection-end-line="118" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6308#6672#0" expanded="true" />
-            <element signature="e#6671#6672#0" expanded="true" />
+            <element signature="e#6315#6679#0" expanded="true" />
+            <element signature="e#6678#6679#0" expanded="true" />
           </folding>
         </state>
       </provider>
