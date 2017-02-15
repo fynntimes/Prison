@@ -145,7 +145,7 @@ public class Updater {
                 currentVersion += ".0";
             }
             String[] split = v.split("\\.");
-            String[] split2 = currentVersion.split(".");
+            String[] split2 = currentVersion.split("\\.");
             if (split[0].equalsIgnoreCase(split2[0])) {
                 if (split[1].equalsIgnoreCase(split2[1])) {
                     if (split[2].equalsIgnoreCase(split2[2])) {
