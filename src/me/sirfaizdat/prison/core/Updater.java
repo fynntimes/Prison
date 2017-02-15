@@ -204,10 +204,24 @@ public class Updater {
     }
 
     public Update getUpdate() {
+        if ((this.thread != null) && this.thread.isAlive()) {
+            try {
+                this.thread.join();
+            } catch (final InterruptedException e) {
+                Prison.i().getLogger().log(Level.SEVERE, null, e);
+            }
+        }
         return newVersion;
     }
 
     public Update[] getVersions() {
+        if ((this.thread != null) && this.thread.isAlive()) {
+            try {
+                this.thread.join();
+            } catch (final InterruptedException e) {
+                Prison.i().getLogger().log(Level.SEVERE, null, e);
+            }
+        }
         return versions;
     }
 }
