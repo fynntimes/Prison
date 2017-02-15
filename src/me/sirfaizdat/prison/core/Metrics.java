@@ -720,11 +720,11 @@ public class Metrics {
             "AN", "Netherlands Antilles"), ANGOLA("AO", "Angola"), ANTARCTICA("AQ",
             "Antarctica"), ARGENTINA("AR", "Argentina"), AMERICAN_SAMOA("AS",
             "American Samoa"), AUSTRIA("AT", "Austria"), AUSTRALIA("AU", "Australia"), ARUBA("AW",
-            "Aruba"), ÅLAND_ISLANDS("AX", "Åland Islands"), AZERBAIJAN("AZ",
+            "Aruba"), ALAND_ISLANDS("AX", "Aland Islands"), AZERBAIJAN("AZ",
             "Azerbaijan"), BOSNIA_AND_HERZEGOVINA("BA", "Bosnia and Herzegovina"), BARBADOS("BB",
             "Barbados"), BANGLADESH("BD", "Bangladesh"), BELGIUM("BE", "Belgium"), BURKINA_FASO(
             "BF", "Burkina Faso"), BULGARIA("BG", "Bulgaria"), BAHRAIN("BH", "Bahrain"), BURUNDI(
-            "BI", "Burundi"), BENIN("BJ", "Benin"), SAINT_BARTHÉLEMY("BL",
+            "BI", "Burundi"), BENIN("BJ", "Benin"), SAINT_BARTHELEMY("BL",
             "Saint Barthélemy"), BERMUDA("BM", "Bermuda"), BRUNEI("BN", "Brunei"), BOLIVIA("BO",
             "Bolivia"), BONAIRE_SINT_EUSTATIUS_AND_SABA("BQ",
             "Bonaire, Sint Eustatius and Saba"), BRAZIL("BR", "Brazil"), BAHAMAS("BS",
@@ -733,10 +733,10 @@ public class Metrics {
             "Canada"), COCOS_ISLANDS("CC", "Cocos Islands"), THE_DEMOCRATIC_REPUBLIC_OF_CONGO("CD",
             "The Democratic Republic Of Congo"), CENTRAL_AFRICAN_REPUBLIC("CF",
             "Central African Republic"), CONGO("CG", "Congo"), SWITZERLAND("CH",
-            "Switzerland"), CÔTE_D_IVOIRE("CI", "Côte d'Ivoire"), COOK_ISLANDS("CK",
+            "Switzerland"), COTE_D_IVOIRE("CI", "Côte d'Ivoire"), COOK_ISLANDS("CK",
             "Cook Islands"), CHILE("CL", "Chile"), CAMEROON("CM", "Cameroon"), CHINA("CN",
             "China"), COLOMBIA("CO", "Colombia"), COSTA_RICA("CR", "Costa Rica"), CUBA("CU",
-            "Cuba"), CAPE_VERDE("CV", "Cape Verde"), CURAÇAO("CW", "Curaçao"), CHRISTMAS_ISLAND(
+            "Cuba"), CAPE_VERDE("CV", "Cape Verde"), CURACAO("CW", "Curacao"), CHRISTMAS_ISLAND(
             "CX", "Christmas Island"), CYPRUS("CY", "Cyprus"), CZECH_REPUBLIC("CZ",
             "Czech Republic"), GERMANY("DE", "Germany"), DJIBOUTI("DJ", "Djibouti"), DENMARK("DK",
             "Denmark"), DOMINICA("DM", "Dominica"), DOMINICAN_REPUBLIC("DO",
