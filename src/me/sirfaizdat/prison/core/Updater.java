@@ -1,5 +1,6 @@
 package me.sirfaizdat.prison.core;
 
+import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
@@ -10,7 +11,8 @@ import java.net.URLConnection;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.logging.Level;
-import java.util.zip.ZipFile;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 /**
  * A modified version of the DMP9 Labs bukkit update script.
@@ -32,7 +34,6 @@ public class Updater {
     private int pluginid = 76155;
     private Update newVersion;
     private Update[] versions;
-    private boolean update = false;
     private boolean threaded = false;
 
     private URL followRedirects(String location) throws IOException {
@@ -66,6 +67,7 @@ public class Updater {
      * Utils
      */
 
+
     public class Update {
         public Update() {
         }
@@ -81,15 +83,45 @@ public class Updater {
 
         public boolean install() {
             try {
+                File file = new File(Prison.i().getDataFolder(), "/updates/" + fileName);
+                file.mkdirs();
                 URL website = followRedirects(downloadUrl);
                 ReadableByteChannel rbc = Channels.newChannel(website.openStream());
-                FileOutputStream fos =
-                    new FileOutputStream(new File(Prison.i().getDataFolder(), "/updates/"+fileName));
+                FileOutputStream fos = new FileOutputStream(file);
                 fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-                if (fileName.endsWith(".zip")){
-                    ZipFile zipFile = new ZipFile(new File(Prison.i().getDataFolder(), "/updates/"+fileName));
+                if (fileName.endsWith(".zip")) {
+                    ZipInputStream zipIn = new ZipInputStream(new FileInputStream(file));
+                    ZipEntry entry = zipIn.getNextEntry();
+                    while (entry != null) {
+                        String filePath =
+                            new File(Prison.i().getDataFolder().getParentFile(), "/update/")
+                                .getPath() + File.separator + entry.getName();
+                        if (!entry.isDirectory()) {
+                            BufferedOutputStream bos =
+                                new BufferedOutputStream(new FileOutputStream(filePath));
+                            byte[] bytesIn = new byte[4096];
+                            int read = 0;
+                            while ((read = zipIn.read(bytesIn)) != -1) {
+                                bos.write(bytesIn, 0, read);
+                            }
+                            bos.close();
+                        } else {
+                            File dir = new File(filePath);
+                            dir.mkdir();
+                        }
+                        zipIn.closeEntry();
+                        entry = zipIn.getNextEntry();
+                    }
+                    zipIn.close();
+                    file.delete();
+                } else if (fileName.endsWith(".jar")) {
+                    Files.move(file, new File(
+                        getClass().getProtectionDomain().getCodeSource().getLocation().toString()));
+                } else {
+                    Files.move(file, new File(Prison.i().getDataFolder().getParentFile(),
+                        "/update/" + fileName));
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 return false;
             }
@@ -98,12 +130,12 @@ public class Updater {
 
         public boolean isNew(String currentVersion) {
             String v = getVersion();
-            if (v == null || v.isEmpty()){
+            if (v == null || v.isEmpty()) {
                 return false;
             }
             String[] split = v.split(".");
             String[] split2 = currentVersion.split(".");
-            if (split[0].equalsIgnoreCase(split2[0])){
+            if (split[0].equalsIgnoreCase(split2[0])) {
                 if (split[1].equalsIgnoreCase(split2[1])) {
                     if (split[2].equalsIgnoreCase(split2[2])) {
                         return false;
@@ -113,29 +145,32 @@ public class Updater {
             return true;
         }
 
-        public String getVersion(){
+        public String getVersion() {
             for (String s : name.split(" ")) {
-                if (s.contains("v") && s.length() == 6){
+                if (s.contains("v") && s.length() == 6) {
                     return s.split("v")[1];
                 }
             }
-            throw new IllegalArgumentException("Version hasn't followed Semantic versioning. All version names should follow: ProjectName vX.X.X");
+            throw new IllegalArgumentException(
+                "Version hasn't followed Semantic versioning. All version names should follow: ProjectName vX.X.X");
         }
     }
 
-    public Updater checkForUpdates(){
+    public Updater checkForUpdates() {
         threaded = true;
         thread = new Thread(new Runnable() {
             @Override public void run() {
-
+                if (getUpdateList()) {
+                    if (getUpdate().isNew(Prison.i().getDescription().getVersion())) {
+                        getUpdate().install();
+                    }
+                }
             }
         });
         return this;
     }
-    public boolean isUpdate(){
-        return update;
-    }
-    public boolean check() {
+
+    public boolean getUpdateList() {
         try {
             final URLConnection conn = rssConn.openConnection();
             conn.setConnectTimeout(5000);
@@ -149,7 +184,7 @@ public class Updater {
             Update[] array;
             try {
                 array = new Gson().fromJson(response, Update[].class);
-            }catch(JsonSyntaxException e){
+            } catch (JsonSyntaxException e) {
                 Prison.i().getLogger().severe("The remote server sent an invalid response!");
                 return false;
             }

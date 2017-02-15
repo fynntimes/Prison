@@ -144,7 +144,7 @@ public class Prison extends JavaPlugin implements Listener {
 
     private void updateCheck() {
         if (config.checkUpdates && !getDescription().getVersion().contains("-SNAPSHOT")) {
-            if (updater.checkForUpdates().isUpdate()) {
+            if (updater.checkForUpdates().getUpdate().isNew(getDescription().getVersion())) {
                 updateLatestName = updater.getUpdate().name;
                 l.info(MessageUtil.get("general.updateAvailable", updateLatestName));
                 this.updateAvailable = true;

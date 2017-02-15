@@ -40,7 +40,7 @@ public class CmdUpdate extends Command {
             }
 
             Updater updater = new Updater();
-            if (updater.getUpdate() == null) {
+            if (!updater.getUpdate().isNew(Prison.i().getDescription().getVersion())) {
                 sender.sendMessage(MessageUtil.get("general.noUpdate"));
             } else if (updater.getUpdate().install()) {
                 sender.sendMessage(
