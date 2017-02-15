@@ -156,17 +156,30 @@ public class Updater {
         }
     }
 
-    public Updater checkForUpdates() {
+    public Updater checkForUpdates(final boolean install) {
         threaded = true;
         thread = new Thread(new Runnable() {
             @Override public void run() {
                 if (getUpdateList()) {
                     if (getUpdate().isNew(Prison.i().getDescription().getVersion())) {
-                        getUpdate().install();
+                        if (install) {
+                            getUpdate().install();
+                        }
                     }
                 }
             }
         });
+        return this;
+    }
+
+    public Updater _SYNC_checkForUpdates(boolean install) {
+        if (getUpdateList()) {
+            if (getUpdate().isNew(Prison.i().getDescription().getVersion())) {
+                if (install) {
+                    getUpdate().install();
+                }
+            }
+        }
         return this;
     }
 
