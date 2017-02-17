@@ -60,7 +60,8 @@ public class Block implements Serializable {
     }
 
     public Block setChance(double chance) {
-        this.chance = chance; return this;
+        this.chance = chance;
+        return this;
     }
 
     public String toString() {

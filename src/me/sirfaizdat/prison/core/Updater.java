@@ -92,7 +92,7 @@ public class Updater {
 
         public boolean install() {
             try {
-                if (!new File(Prison.i().getDataFolder(), "/updates/").exists()){
+                if (!new File(Prison.i().getDataFolder(), "/updates/").exists()) {
                     new File(Prison.i().getDataFolder(), "/updates/").mkdir();
                 }
                 File file = new File(Prison.i().getDataFolder(), "/updates/" + fileName);
@@ -127,8 +127,10 @@ public class Updater {
                     zipIn.close();
                     file.delete();
                 } else if (fileName.endsWith(".jar")) {
-                    File path = new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
-                    Files.move(file, new File(path.getParentFile(), "/update/"+path.getName()));
+                    File path = new File(
+                        getClass().getProtectionDomain().getCodeSource().getLocation().toURI()
+                            .getPath());
+                    Files.move(file, new File(path.getParentFile(), "/update/" + path.getName()));
                 } else {
                     Files.move(file, new File(Prison.i().getDataFolder().getParentFile(),
                         "/update/" + fileName));
@@ -145,7 +147,7 @@ public class Updater {
             if (v == null || v.isEmpty()) {
                 return false;
             }
-            if (currentVersion.length() == 3){
+            if (currentVersion.length() == 3) {
                 currentVersion += ".0";
             }
             String[] split = v.split("\\.");
@@ -188,8 +190,7 @@ public class Updater {
         return this;
     }
 
-    @Deprecated
-    public Updater _SYNC_checkForUpdates(boolean install) {
+    @Deprecated public Updater _SYNC_checkForUpdates(boolean install) {
         if (getUpdateList()) {
             if (getUpdate().isNew(Prison.i().getDescription().getVersion())) {
                 if (install) {
@@ -247,6 +248,7 @@ public class Updater {
         }
         return this;
     }
+
     public Update[] getVersions() {
         return versions;
     }

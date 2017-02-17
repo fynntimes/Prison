@@ -74,8 +74,8 @@ public class MinesManager {
     }
 
     public me.sirfaizdat.prison.mines.SerializableMine twoToOld(SerializableMine sm) {
-        me.sirfaizdat.prison.mines.SerializableMine
-            out = new me.sirfaizdat.prison.mines.SerializableMine();
+        me.sirfaizdat.prison.mines.SerializableMine out =
+            new me.sirfaizdat.prison.mines.SerializableMine();
         out.blocks = new HashMap<String, Block>();
         for (Map.Entry<String, me.sirfaizdat.prison.mines.entities.Block> b : sm.blocks
             .entrySet()) {
