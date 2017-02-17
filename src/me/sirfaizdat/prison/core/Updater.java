@@ -234,17 +234,10 @@ public class Updater {
     }
 
     public Update getUpdate() {
-        if ((this.thread != null) && this.thread.isAlive()) {
-            try {
-                this.thread.join();
-            } catch (final InterruptedException e) {
-                Prison.i().getLogger().log(Level.SEVERE, null, e);
-            }
-        }
         return newVersion;
     }
 
-    public Update[] getVersions() {
+    public Updater waitForCheck() {
         if ((this.thread != null) && this.thread.isAlive()) {
             try {
                 this.thread.join();
@@ -252,6 +245,9 @@ public class Updater {
                 Prison.i().getLogger().log(Level.SEVERE, null, e);
             }
         }
+        return this;
+    }
+    public Update[] getVersions() {
         return versions;
     }
 }
