@@ -175,13 +175,11 @@ public class Updater {
 
     public Updater checkForUpdates(final boolean install) {
         threaded = true;
-        thread = new Thread(new Runnable() {
-            @Override public void run() {
-                if (getUpdateList()) {
-                    if (getUpdate().isNew(Prison.i().getDescription().getVersion())) {
-                        if (install) {
-                            getUpdate().install();
-                        }
+        thread = new Thread(() -> {
+            if (getUpdateList()) {
+                if (getUpdate().isNew(Prison.i().getDescription().getVersion())) {
+                    if (install) {
+                        getUpdate().install();
                     }
                 }
             }

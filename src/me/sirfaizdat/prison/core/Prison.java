@@ -150,9 +150,9 @@ public class Prison extends JavaPlugin implements Listener {
                 l.info(MessageUtil.get("general.updateAvailable", updateLatestName));
                 this.updateAvailable = true;
                 String msg = MessageUtil.get("general.updateAvailable", updateLatestName);
-                if (updateLatestName.equalsIgnoreCase("Prison 3 v1.0.0")) {
+                if (updateLatestName.toLowerCase().contains("prison 3 v")) {
                     msg =
-                        "&3Prison &7> &fPrison 3 is out! To upgrade, simply type &b/prison update. All your files will be converted!";
+                        "&3Prison &7> &fPrison 3 is out! To upgrade, simply type &b/prison update. All your files will be converted upon first launch!";
                 }
                 for (Player p : getServer().getOnlinePlayers()) {
                     if (p.isOp() || p.hasPermission("prison.manage")) {
