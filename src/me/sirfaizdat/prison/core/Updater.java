@@ -109,6 +109,18 @@ public class Updater {
                             new File(Prison.i().getDataFolder().getParentFile(), "/update/")
                                 .getPath() + File.separator + entry.getName();
                         if (!entry.isDirectory()) {
+                            if (entry.getName().equalsIgnoreCase("Prison.jar") || entry.getName().equalsIgnoreCase("Prison-Spigot.jar") || entry.getName().equalsIgnoreCase("PrisonSpigot.jar")){
+                                // If the user has renamed Prison.jar, make sure it's updated.
+                                // Also as a just-in-case measure, if, for some reason, we
+                                // rename Prison-Spigot (currently it is going to be called
+                                // Prison.jar), there will always be a couple names that
+                                // will work with this updater.
+                                filePath =
+                                    new File(Prison.i().getDataFolder().getParentFile(), "/update/")
+                                        .getPath() + File.separator + new File(
+                                        getClass().getProtectionDomain().getCodeSource().getLocation().toURI()
+                                            .getPath()).getName();
+                            }
                             BufferedOutputStream bos =
                                 new BufferedOutputStream(new FileOutputStream(filePath));
                             byte[] bytesIn = new byte[4096];

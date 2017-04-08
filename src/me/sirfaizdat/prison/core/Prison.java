@@ -152,7 +152,7 @@ public class Prison extends JavaPlugin implements Listener {
                 String msg = MessageUtil.get("general.updateAvailable", updateLatestName);
                 if (updateLatestName.toLowerCase().contains("prison 3 v")) {
                     msg =
-                        "&3Prison &7> &fPrison 3 is out! To upgrade, simply type &b/prison update. All your files will be converted upon first launch!";
+                        Prison.color(Prison.i().config.serverPrefix + "&5Prison 3 is out! To upgrade, simply type &b/prison update. &5All your files will be converted upon first launch!");
                 }
                 for (Player p : getServer().getOnlinePlayers()) {
                     if (p.isOp() || p.hasPermission("prison.manage")) {
