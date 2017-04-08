@@ -95,6 +95,9 @@ public class Updater {
                 if (!new File(Prison.i().getDataFolder(), "/updates/").exists()) {
                     new File(Prison.i().getDataFolder(), "/updates/").mkdir();
                 }
+                if (!new File(Prison.i().getDataFolder().getParentFile(), "/update/").exists()) {
+                    new File(Prison.i().getDataFolder().getParentFile(), "/update/").mkdir();
+                }
                 File file = new File(Prison.i().getDataFolder(), "/updates/" + fileName);
                 URL website = followRedirects(downloadUrl);
                 ReadableByteChannel rbc = Channels.newChannel(website.openStream());
