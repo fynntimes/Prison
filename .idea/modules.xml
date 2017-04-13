@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Prison.iml" filepath="$PROJECT_DIR$/Prison.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Prison.iml" filepath="$PROJECT_DIR$/.idea/modules/Prison.iml" />
+      <module fileurl="file://C:\Users\Administrator\Documents\BT\Prison\.idea\modules\Prison.iml" filepath="C:\Users\Administrator\Documents\BT\Prison\.idea\modules\Prison.iml" />
     </modules>
   </component>
 </project>

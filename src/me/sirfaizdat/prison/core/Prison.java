@@ -164,9 +164,10 @@ public class Prison extends JavaPlugin implements Listener {
     }
 
     private void populateItemManagerLater() {
-        Bukkit.getScheduler().runTaskLater(Prison.i(), new Runnable() {
+        Bukkit.getServer().getScheduler().runTaskLater(Prison.i(), new Runnable() {
 
             @Override public void run() {
+                getLogger().info("Task called");
                 try {
                     im.populateLists();
                 } catch (IOException e) {

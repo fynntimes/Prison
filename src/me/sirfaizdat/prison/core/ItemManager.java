@@ -47,6 +47,7 @@ public class ItemManager {
     }
 
     public void populateLists() throws IOException {
+        Prison.i().getLogger().info("Populate started");
         BufferedReader in = new BufferedReader(new FileReader(backup));
         String inputLine;
 
@@ -61,6 +62,7 @@ public class ItemManager {
             }
         }
         in.close();
+        Prison.i().getLogger().info("Populate finished");
 
         setLoaded(true);
     }

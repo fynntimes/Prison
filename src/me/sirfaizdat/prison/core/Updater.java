@@ -179,6 +179,9 @@ public class Updater {
                 if (s.contains("v") && s.length() == 6) {
                     return s.split("v")[1];
                 }
+                else if (s.contains("v") && s.length() == 4) {
+                    return s.split("v")[1] + ".0";
+                }
             }
             throw new IllegalArgumentException(
                 "Version hasn't followed Semantic versioning. All version names should follow: ProjectName vX.X.X");
