@@ -24,6 +24,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * A custom configuration class that allows the creation of custom configuration
@@ -55,9 +56,9 @@ public abstract class Configuration {
         config = YamlConfiguration.loadConfiguration(configFile);
 
         // Copy defaults
-        InputStream defConfigStream = Prison.i().getResource(name);
+        InputStreamReader defConfigStream = new InputStreamReader(Prison.i().getResource(name));
         if (defConfigStream != null) {
-            @SuppressWarnings("deprecation") YamlConfiguration defConfig =
+            YamlConfiguration defConfig =
                 YamlConfiguration.loadConfiguration(defConfigStream);
             config.setDefaults(defConfig);
         }
