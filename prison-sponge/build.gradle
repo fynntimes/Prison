@@ -1,0 +1,16 @@
+plugins {
+    id 'org.spongepowered.plugin' version '0.8.1'
+}
+
+dependencies {
+    compile project(':prison-common')
+    compile 'org.spongepowered:spongeapi:6.0.0'
+}
+
+sponge.plugin.id = pluginId
+
+shadowJar {
+    dependencies {
+        include(dependency(':prison-common'))
+    }
+}

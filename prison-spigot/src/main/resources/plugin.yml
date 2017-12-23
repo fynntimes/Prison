@@ -1,0 +1,6 @@
+name: Prison
+version: @version@
+main: me.faizaand.prison.PrisonSpigot
+authors: [faizaand]
+description: The ultimate, efficient package of all of the components necessary for a prison server.
+website: https://faizaand.me/prison
