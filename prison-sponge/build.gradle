@@ -3,6 +3,7 @@ plugins {
 }
 
 dependencies {
+    compile project(':prison-api')
     compile project(':prison-common')
     compile 'org.spongepowered:spongeapi:6.0.0'
 }
@@ -11,6 +12,7 @@ sponge.plugin.id = pluginId
 
 shadowJar {
     dependencies {
+        include(dependency(':prison-api'))
         include(dependency(':prison-common'))
     }
 }

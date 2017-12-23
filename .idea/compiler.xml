@@ -2,6 +2,10 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
+      <module name="api_main" target="1.8" />
+      <module name="api_test" target="1.8" />
+      <module name="prison-api_main" target="1.8" />
+      <module name="prison-api_test" target="1.8" />
       <module name="prison-common_main" target="1.8" />
       <module name="prison-common_test" target="1.8" />
       <module name="prison-spigot_main" target="1.8" />

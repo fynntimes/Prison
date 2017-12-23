@@ -17,6 +17,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="prison-api_main" />
     <orderEntry type="module" module-name="prison-common_main" />
     <orderEntry type="library" name="Gradle: org.spongepowered:spongeapi:6.0.0" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.22" level="project" />

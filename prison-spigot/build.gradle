@@ -10,6 +10,7 @@ repositories {
 }
 
 dependencies {
+    compile project(':prison-api')
     compile project(':prison-common')
     compile 'org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT'
 }
@@ -22,6 +23,7 @@ processResources {
 
 shadowJar {
     dependencies {
+        include(dependency(':prison-api'))
         include(dependency(':prison-common'))
     }
 }

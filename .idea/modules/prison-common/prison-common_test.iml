@@ -10,6 +10,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="prison-common_main" />
+    <orderEntry type="module" module-name="prison-api_main" />
   </component>
   <component name="TestModuleProperties" production-module="prison-common_main" />
 </module>
