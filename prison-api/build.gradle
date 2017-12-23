@@ -1,0 +1,5 @@
+// Discouraged from using dependencies here.
+// if it's depended on in the API, just do it from root.
+dependencies {
+
+}

@@ -22,4 +22,10 @@ subprojects {
     repositories {
         mavenCentral()
     }
+
+    dependencies {
+        compile 'org.apache.commons:commons-lang3:3.7'
+        compileOnly 'org.projectlombok:lombok:1.16.18'
+    }
+
 }
